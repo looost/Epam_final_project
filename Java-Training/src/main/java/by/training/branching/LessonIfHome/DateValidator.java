@@ -9,7 +9,7 @@ public class DateValidator {
             return false;
         }
 
-        if (date.getYear() < 0) {
+        if (date.getYear() <= 0) {
             return false;
         }
         if (date.getDay() <= 0 || date.getDay() > 32) {
