@@ -16,7 +16,7 @@ public class Task1 {
         double b = sc.nextDouble();
         System.out.print("Введите c: ");
         double c = sc.nextDouble();
-        System.out.println("Результат - " + ((a - 3) * b / 2) + c);
+        System.out.println("Результат - " + (((a - 3) * b / 2) + c));
         sc.close();
     }
 }
