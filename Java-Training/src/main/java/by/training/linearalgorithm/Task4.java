@@ -52,7 +52,8 @@ public class Task4 {
             System.out.println("false");
         }
 
-        System.out.print("Точка с координатами (х, у) принадлежит части плоскости, лежащей между прямыми х= т, х= п (т<п). Введите значение x: ");
+        System.out.print("Точка с координатами (х, у) принадлежит части плоскости," +
+                " лежащей между прямыми х= т, х= п (т<п). Введите значение x: ");
         int x = sc.nextInt();
         if (x < 0) {
             throw new IllegalArgumentException("Значение меньше 0");
@@ -118,6 +119,33 @@ public class Task4 {
             System.out.println("false");
         }
 
+        System.out.print("Заданное число N является степенью числа а" +
+                " (показатель степени может находиться в диапазоне от 0 до 4). Введите число N: ");
+        int n = sc.nextInt();
+        System.out.print("Введите a: ");
+        a = sc.nextInt();
+        if (n == 1 || n == a || n == a*a || n == a*a*a || n == a*a*a*a) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
 
+        System.out.println("График функции у = ах2 + bх+ с проходит через заданную точку с координатами (m, п).");
+        System.out.print("Введите a: ");
+        a = sc.nextInt();
+        System.out.print("Введите b: ");
+        b = sc.nextInt();
+        System.out.print("Введите c: ");
+        c = sc.nextInt();
+        System.out.print("Введите координаты m: ");
+        int m = sc.nextInt();
+        System.out.print("Введите координаты n: ");
+        n = sc.nextInt();
+        if (n == a*m*m + b*m + c) {
+            System.out.println("График функции " + a + "x2+" + b + "x+" + c + " проходит через точку с координатами (" + m + "," + n +")");
+        } else {
+            System.out.println("График функции " + a + "x^2+" + b + "x+" + c + " не проходит через точку с координатами (" + m + "," + n +")");
+        }
+        sc.close();
     }
 }

@@ -18,5 +18,6 @@ public class Task1 {
         } else {
             System.out.println("Числа " + a + " и " + b + " не равны");
         }
+        sc.close();
     }
 }

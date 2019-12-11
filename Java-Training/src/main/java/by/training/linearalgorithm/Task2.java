@@ -16,5 +16,6 @@ public class Task2 {
         double r = sc.nextDouble();
         System.out.println("Длинна окружности радиуса " + r + " равна - " + 2 * PI * r);
         System.out.println("Площадь круга радиуса " + r + " равна - " + PI * r * r);
+        sc.close();
     }
 }

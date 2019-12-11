@@ -33,5 +33,6 @@ public class Task2 {
         } else {
             System.out.println("Треугольник существует, но он не прямоугольный");
         }
+        sc.close();
     }
 }
