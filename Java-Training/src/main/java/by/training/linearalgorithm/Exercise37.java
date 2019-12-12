@@ -14,15 +14,16 @@ false — в противном случае:
 • График функции у = ах2 + bх+ с проходит через заданную точку с координатами (m, п).
  */
 
+import by.training.linearalgorithm.validator.Validator;
+
 import java.util.Scanner;
 
-public class Task4 {
+public class Exercise37 {
     public static void main(String[] args) {
         System.out.println("Проверка на верность высказываний");
 
         System.out.print("Целое число N является четным двузначным числом. Введите N: ");
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
+        int a = Validator.enterInt();
         if (a >= 10 && a <= 99 && a % 2 == 0) {
             System.out.println("true");
         } else {
@@ -31,7 +32,7 @@ public class Task4 {
 
         System.out.print("Сумма двух первых цифр заданного четырехзначного" +
                 " числа равна сумме двух его последних цифр. Введите число: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         if (a < 1000 || a > 9999) {
             throw new IllegalArgumentException("Число в неверном диапозоене");
         }
@@ -42,7 +43,7 @@ public class Task4 {
         }
 
         System.out.print("Сумма цифр данного трехзначного числа N является четным числом. Введите число: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         if (a < 100 || a > 999) {
             throw new IllegalArgumentException("Число в неверном диапозоене");
         }
@@ -54,14 +55,14 @@ public class Task4 {
 
         System.out.print("Точка с координатами (х, у) принадлежит части плоскости," +
                 " лежащей между прямыми х= т, х= п (т<п). Введите значение x: ");
-        int x = sc.nextInt();
+        int x = Validator.enterInt();
         if (x < 0) {
             throw new IllegalArgumentException("Значение меньше 0");
         }
         System.out.print("Введите значение т: ");
-        int t = sc.nextInt();
+        int t = Validator.enterInt();
         System.out.print("Введите значение п (п>т): ");
-        int p = sc.nextInt();
+        int p = Validator.enterInt();
         if (p <= t) {
             throw new IllegalArgumentException("Значение п меньше либо равно т");
         }
@@ -72,7 +73,7 @@ public class Task4 {
         }
 
         System.out.print("Квадрат заданного трехзначного числа равен кубу суммы цифр этого числа. Введите число: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         if (a < 100 || a > 999) {
             throw new IllegalArgumentException("Число в неверном диапозоене");
         }
@@ -83,17 +84,17 @@ public class Task4 {
         }
 
         System.out.print("Треугольник со сторонами а,b,с является равнобедренным. Введите a: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         if (a <= 0) {
             throw new IllegalArgumentException("Значение стороны не может быть меньше или равно 0");
         }
         System.out.print("Введите b: ");
-        int b = sc.nextInt();
+        int b = Validator.enterInt();
         if (b <= 0) {
             throw new IllegalArgumentException("Значение стороны не может быть меньше или равно 0");
         }
         System.out.print("Введите c: ");
-        int c = sc.nextInt();
+        int c = Validator.enterInt();
         if (c <= 0) {
             throw new IllegalArgumentException("Значение стороны не может быть меньше или равно 0");
         }
@@ -105,7 +106,7 @@ public class Task4 {
 
         System.out.print("Сумма каких-либо двух цифр заданного" +
                 " трехзначного натурального числа N равна третьей цифре. Введите число: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         if (a < 100 || a > 999) {
             throw new IllegalArgumentException("Число в неверном диапозоене");
         }
@@ -121,9 +122,9 @@ public class Task4 {
 
         System.out.print("Заданное число N является степенью числа а" +
                 " (показатель степени может находиться в диапазоне от 0 до 4). Введите число N: ");
-        int n = sc.nextInt();
+        int n = Validator.enterInt();
         System.out.print("Введите a: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         if (n == 1 || n == a || n == a*a || n == a*a*a || n == a*a*a*a) {
             System.out.println("true");
         } else {
@@ -132,20 +133,19 @@ public class Task4 {
 
         System.out.println("График функции у = ах2 + bх+ с проходит через заданную точку с координатами (m, п).");
         System.out.print("Введите a: ");
-        a = sc.nextInt();
+        a = Validator.enterInt();
         System.out.print("Введите b: ");
-        b = sc.nextInt();
+        b = Validator.enterInt();
         System.out.print("Введите c: ");
-        c = sc.nextInt();
+        c = Validator.enterInt();
         System.out.print("Введите координаты m: ");
-        int m = sc.nextInt();
+        int m = Validator.enterInt();
         System.out.print("Введите координаты n: ");
-        n = sc.nextInt();
+        n = Validator.enterInt();
         if (n == a*m*m + b*m + c) {
             System.out.println("График функции " + a + "x2+" + b + "x+" + c + " проходит через точку с координатами (" + m + "," + n +")");
         } else {
             System.out.println("График функции " + a + "x^2+" + b + "x+" + c + " не проходит через точку с координатами (" + m + "," + n +")");
         }
-        sc.close();
     }
 }

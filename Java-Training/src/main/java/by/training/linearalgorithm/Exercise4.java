@@ -1,23 +1,23 @@
 package by.training.linearalgorithm;
 
+import by.training.linearalgorithm.validator.Validator;
+
 import java.util.Scanner;
 
 /*
 Найдите значение функции: z = ( (a – 3 ) * b / 2) + c.
  */
 
-public class Task1 {
+public class Exercise4 {
     public static void main(String[] args) {
         System.out.println("Решение уравнения вида - ((a-3)*b/2) + c");
-        Scanner sc = new Scanner(System.in);
         System.out.print("Введите a: ");
-        double a = sc.nextDouble();
+        double a = Validator.enterDouble();
         System.out.print("Введите b: ");
-        double b = sc.nextDouble();
+        double b = Validator.enterDouble();
         System.out.print("Введите c: ");
-        double c = sc.nextDouble();
+        double c = Validator.enterDouble();
         System.out.println("Результат - " + (((a - 3) * b / 2) + c));
-        sc.close();
     }
 }
 

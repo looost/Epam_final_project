@@ -4,11 +4,9 @@ public class NextDateCommand {
     public static Date NextDate(Date date) {
         if (DateValidator.isValid(date)) {
             int[] dayPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
             if (date.isLeap()) {
                 dayPerMonth[1] = 29;
             }
-
             if (date.getDay() == dayPerMonth[date.getMonth() - 1]) {
                 date.setDay(1);
                 if (date.getMonth() == 12) {
@@ -22,6 +20,6 @@ public class NextDateCommand {
             }
             return date;
         }
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("incorrect date");
     }
 }

@@ -5,24 +5,25 @@ package by.training.branching;
 прямоугольным.
  */
 
+import by.training.linearalgorithm.validator.Validator;
+
 import java.util.Scanner;
 
-public class Task2 {
+public class Exercise14 {
     public static void main(String[] args) {
         System.out.println("Проверка: существует ли такой треуголник по трем углам. Если да, то является ли он прямоугольным");
         System.out.print("Введите значение первого угла: ");
-        Scanner sc = new Scanner(System.in);
-        double a = sc.nextDouble();
+        double a = Validator.enterDouble();
         if (a <= 0) {
             throw new IllegalArgumentException("Значение угла не может быть меньше либо равно 0");
         }
         System.out.print("Введите значение второго угла: ");
-        double b = sc.nextDouble();
+        double b = Validator.enterDouble();
         if (b <= 0) {
             throw new IllegalArgumentException("Значение угла не может быть меньше либо равно 0");
         }
         System.out.print("Введите значение третьего угла: ");
-        double c = sc.nextDouble();
+        double c = Validator.enterDouble();
         if (c <= 0) {
             throw new IllegalArgumentException("Значение угла не может быть меньше либо равно 0");
         }
@@ -33,6 +34,5 @@ public class Task2 {
         } else {
             System.out.println("Треугольник существует, но он не прямоугольный");
         }
-        sc.close();
     }
 }

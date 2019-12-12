@@ -8,7 +8,6 @@ public class DateValidator {
         if (!date.isLeap() && date.getMonth() == 2 && date.getDay() == 29) {
             return false;
         }
-
         if (date.getYear() <= 0) {
             return false;
         }
