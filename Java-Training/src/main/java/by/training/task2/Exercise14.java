@@ -20,12 +20,8 @@ public class Exercise14 {
         if (b <= 0) {
             throw new IllegalArgumentException("Значение угла не может быть меньше либо равно 0");
         }
-        System.out.print("Введите значение третьего угла: ");
-        double c = Validator.enterDouble();
-        if (c <= 0) {
-            throw new IllegalArgumentException("Значение угла не может быть меньше либо равно 0");
-        }
-        if (a + b + c != 180) {
+        double c = 180 - (a + b);
+        if (a + b >= 180) {
             System.out.println("Такого треугольника не существует");
         } else if (a == 90 || b == 90 || c == 90) {
             System.out.println("Треугольник прямоугольный");

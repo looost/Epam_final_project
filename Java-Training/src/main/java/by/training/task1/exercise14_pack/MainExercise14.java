@@ -1,8 +1,0 @@
-package by.training.task1.exercise14_pack;
-
-public class MainExercise14 {
-    public static void main(String[] args) {
-        ControllerExercise14 controllerExercise14 = new ControllerExercise14();
-        controllerExercise14.execute();
-    }
-}
