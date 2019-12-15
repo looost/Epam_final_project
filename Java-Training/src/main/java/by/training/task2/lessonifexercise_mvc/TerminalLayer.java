@@ -43,10 +43,7 @@ public class TerminalLayer implements ModelLayer {
         if (date.getMonth() <= 0 || date.getMonth() > 12) {
             return false;
         }
-        if (daysInMonth[date.getMonth() - 1] < date.getDay()) {
-            return false;
-        }
-        return true;
+        return daysInMonth[date.getMonth() - 1] >= date.getDay();
     }
 
     @Override
