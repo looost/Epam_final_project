@@ -7,7 +7,7 @@ public class Exercise3 {
     public static void main(String[] args) {
         System.out.print("Enter number: ");
         int number = Validator.enterInt();
-        if (number > 10_000) {
+        if (number > 10_000 || number <= 0) {
             throw new IllegalArgumentException();
         }
 
@@ -127,11 +127,14 @@ public class Exercise3 {
                 System.out.print("восемьдесят ");
                 break;
             case 9:
-                System.out.print("девятьдесят ");
+                System.out.print("девяносто ");
                 break;
         }
         if ((number / 10) % 10 != 1) {
             switch (number % 10) {
+                case 1:
+                    System.out.print("один ");
+                    break;
                 case 2:
                     System.out.print("два ");
                     break;
