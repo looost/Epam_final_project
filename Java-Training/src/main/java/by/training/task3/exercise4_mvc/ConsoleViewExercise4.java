@@ -13,7 +13,7 @@ public class ConsoleViewExercise4 implements ViewEercise4 {
     public void showResult(ArrayList<Integer> arr) {
         for (Integer value : arr
         ) {
-            System.out.println(value);
+            System.out.print(value + " ");
         }
     }
 }

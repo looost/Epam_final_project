@@ -29,7 +29,7 @@ public class TerminalLayerExercise14 implements ModelLayerExercise14 {
         } else if (a == 90 || b == 90 || c == 90) {
             return "Треугольник прямоугольный";
         } else {
-            return "Треугоьник сужествует, но он не прямоугольный";
+            return "Треугоьник существует, но он не прямоугольный";
         }
     }
 }

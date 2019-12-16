@@ -86,9 +86,9 @@ public class TerminalLayerExercise37 implements ModelLayerExercise37 {
         }
         int first_number = (n / 100) % 10;
         int second_number = (n / 10) % 10;
-        int thrid_number = n % 10;
-        return first_number + second_number == thrid_number || first_number + thrid_number == second_number
-                || second_number + thrid_number == first_number;
+        int third_number = n % 10;
+        return first_number + second_number == third_number || first_number + third_number == second_number
+                || second_number + third_number == first_number;
     }
 
     @Override
