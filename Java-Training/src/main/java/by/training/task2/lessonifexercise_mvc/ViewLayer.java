@@ -1,7 +1,7 @@
 package by.training.task2.lessonifexercise_mvc;
 
 public interface ViewLayer {
-    void getEnteredDay(Date date);
+    void showEnteredDay(Date date);
 
-    void getNextDay(Date date);
+    void showNextDay(Date date);
 }

@@ -5,7 +5,7 @@ public class Controller {
         ViewLayer view = new ViewTerminal();
         ModelLayer model = new TerminalLayer();
         Date date = model.getTerminalDate();
-        view.getEnteredDay(date);
-        view.getNextDay(model.getResult(date));
+        view.showEnteredDay(date);
+        view.showNextDay(model.getResult(date));
     }
 }

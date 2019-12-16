@@ -3,7 +3,7 @@ package by.training.task2.lessonifexercise_mvc;
 import java.util.Scanner;
 
 public class TerminalLayer implements ModelLayer {
-    private int[] daysInMonth = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private int[] maxDaysInMonth = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     @Override
     public Date getTerminalDate() {
@@ -43,7 +43,7 @@ public class TerminalLayer implements ModelLayer {
         if (date.getMonth() <= 0 || date.getMonth() > 12) {
             return false;
         }
-        return daysInMonth[date.getMonth() - 1] >= date.getDay();
+        return maxDaysInMonth[date.getMonth() - 1] >= date.getDay();
     }
 
     @Override
@@ -51,9 +51,9 @@ public class TerminalLayer implements ModelLayer {
         TerminalLayer terminalLayer = new TerminalLayer();
         if (terminalLayer.isValid(date)) {
             if (!date.isLeap()) {
-                daysInMonth[1] = 28;
+                maxDaysInMonth[1] = 28;
             }
-            if (date.getDay() == daysInMonth[date.getMonth() - 1]) {
+            if (date.getDay() == maxDaysInMonth[date.getMonth() - 1]) {
                 date.setDay(1);
                 if (date.getMonth() == 12) {
                     date.setMonth(1);
