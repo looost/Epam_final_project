@@ -59,12 +59,13 @@ public class TerminalServiceExercise19 {
 
 
     public static void main(String[] args) {
-        TerminalServiceExercise19 first_number = new TerminalServiceExercise19(1323);
-        TerminalServiceExercise19 second_number = new TerminalServiceExercise19(7595);
+        TerminalServiceExercise19 first_number = new TerminalServiceExercise19(264);
+        TerminalServiceExercise19 second_number = new TerminalServiceExercise19(313);
         System.out.println(first_number.tolkoNechetnie());
         System.out.println(second_number.tolkoNechetnie());
         TerminalServiceExercise19 summa = new TerminalServiceExercise19(first_number.getNumber() + second_number.getNumber());
         System.out.println(summa.getNumber());
         System.out.println(summa.howManyChetni());
+        System.out.println(summa.tolkoNechetnie());
     }
 }
