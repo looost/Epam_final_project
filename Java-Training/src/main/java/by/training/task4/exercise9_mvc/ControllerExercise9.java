@@ -9,5 +9,6 @@ public class ControllerExercise9 {
         int b = exercise9.getTerminalDate("b");
         int c = exercise9.getTerminalDate("c");
         viewExercise9.showResult(exercise9.getResult(a, b, c));
+        //viewExercise9.showResult(exercise9.getNOD(a,b));
     }
 }

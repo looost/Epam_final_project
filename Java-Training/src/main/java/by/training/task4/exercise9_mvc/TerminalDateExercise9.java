@@ -16,12 +16,18 @@ public class TerminalDateExercise9 implements ModelLayerExercise9 {
 
     @Override
     public boolean getResult(int a, int b, int c) {
-        int max = Math.max(Math.max(a, b), c);
-        for (int i = 2; i < max; i++) {
-            if (a % i == 0 || b % i == 0 || c % i == 0 && (i != a && i != b && i != c)) {
-                return true;
-            }
+        return (isPrime(a, b) && isPrime(a, c) && isPrime(b, c));
+    }
+
+    @Override
+    public boolean isPrime(int a, int b) {
+        int min = Math.min(a, b);
+        int max = Math.max(a, b);
+        while (min != 0) {
+            int emp = max % min;
+            max = min;
+            min = emp;
         }
-        return false;
+        return max == 1;
     }
 }
