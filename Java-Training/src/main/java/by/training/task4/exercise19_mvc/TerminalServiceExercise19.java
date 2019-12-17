@@ -3,20 +3,21 @@ package by.training.task4.exercise19_mvc;
 import java.util.ArrayList;
 
 public class TerminalServiceExercise19 {
+    private int number;
+    private int n;
+    private ArrayList<Integer> arr;
 
     TerminalServiceExercise19(int number) {
         this.number = number;
+        this.n = howManyNumber(this.number);
+        this.arr = numberArray();
     }
 
-    private int number;
-    // private int n = howManyNumber();
-
-    public int getNumber() {
+    private int getNumber() {
         return number;
     }
 
-    ArrayList<Integer> numberArray() {
-        int n = howManyNumber(number);
+    private ArrayList<Integer> numberArray() {
         ArrayList<Integer> arr = new ArrayList<>();
         for (int i = n; n != 0; n--) {
             arr.add((number / (int) Math.pow(10, n - 1)) % 10);
@@ -24,8 +25,7 @@ public class TerminalServiceExercise19 {
         return arr;
     }
 
-    boolean tolkoNechetnie() {
-        ArrayList<Integer> arr = numberArray();
+    private boolean tolkoNechetnie() {
         System.out.println(arr);
         for (Integer num : arr
         ) {
@@ -36,7 +36,7 @@ public class TerminalServiceExercise19 {
         return true;
     }
 
-    public int howManyNumber(int number) {
+    private int howManyNumber(int number) {
         int count = 0;
         while (number % 10 != 0) {
             number /= 10;
@@ -45,8 +45,8 @@ public class TerminalServiceExercise19 {
         return count;
     }
 
-    public int howManyChetni() {
-        ArrayList<Integer> arr = numberArray();
+    private int howManyChetni() {
+        System.out.println(arr);
         int count = 0;
         for (Integer num : arr
         ) {
@@ -60,7 +60,7 @@ public class TerminalServiceExercise19 {
 
     public static void main(String[] args) {
         TerminalServiceExercise19 first_number = new TerminalServiceExercise19(264);
-        TerminalServiceExercise19 second_number = new TerminalServiceExercise19(313);
+        TerminalServiceExercise19 second_number = new TerminalServiceExercise19(323);
         System.out.println(first_number.tolkoNechetnie());
         System.out.println(second_number.tolkoNechetnie());
         TerminalServiceExercise19 summa = new TerminalServiceExercise19(first_number.getNumber() + second_number.getNumber());
