@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ConsoleViewExercise9 implements ViewExercise9 {
     @Override
     public void showOriginArray(int[] arr) {
-        System.out.print("Изначальный массив - [");
+        System.out.print("Original array - [");
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
@@ -14,12 +14,12 @@ public class ConsoleViewExercise9 implements ViewExercise9 {
 
     @Override
     public void showTask() {
-        System.out.println("Задание");
+        System.out.println("Task");
     }
 
     @Override
     public void showResult(int[] arr) {
-        System.out.print("Измененный массив - [");
+        System.out.print("Modified array - [");
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
