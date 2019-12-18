@@ -3,7 +3,8 @@ package by.training.task5.exercise14_mvc;
 public class ConsoleViewExercise14 implements ViewExercise14 {
     @Override
     public void showTask() {
-
+        System.out.println("Дан одномерный массив A[N]. Найти:\n" +
+                "max(a2, a4, a6, a2n) + min( a1, a3, a5, an+1) ");
     }
 
     @Override

@@ -2,7 +2,7 @@ package by.training.task5.exercise19_mvc;
 
 public class TerminalServiceExercise19 {
     public static void main(String[] args) {
-        int[] arr = {3, 6, 1, 6, 3, 7, 6, 3, 6};
+        int[] arr = {3, 6, 1, 6, 3, 7, 6, 3, 3, 6};
         System.out.println(getResult(arr));
     }
 

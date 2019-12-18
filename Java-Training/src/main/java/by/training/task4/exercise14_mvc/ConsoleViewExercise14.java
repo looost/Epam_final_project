@@ -3,7 +3,7 @@ package by.training.task4.exercise14_mvc;
 public class ConsoleViewExercise14 implements ViewExercise14 {
     @Override
     public void showTask() {
-        System.out.println("");
+        System.out.println("Написать метод(методы), определяющий, в каком из данных двух чисел больше цифр");
     }
 
     @Override

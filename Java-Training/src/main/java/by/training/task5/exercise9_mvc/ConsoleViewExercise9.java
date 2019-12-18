@@ -14,7 +14,7 @@ public class ConsoleViewExercise9 implements ViewExercise9 {
 
     @Override
     public void showTask() {
-        System.out.println("Task");
+        System.out.println("Даны действительные числа а1 ,а2 ,..., аn . Поменять местами наибольший и наименьший элементы.");
     }
 
     @Override

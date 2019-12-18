@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class ConsoleViewExercise19 implements ViewExercise19 {
     @Override
     public void showTask() {
-
+        System.out.println(" Написать программу, определяющую сумму n - значных чисел, содержащих только нечетные цифры. Определить\n" +
+                "также, сколько четных цифр в найденной сумме. Для решения задачи использовать декомпозицию.");
     }
 
     @Override
