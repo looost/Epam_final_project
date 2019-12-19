@@ -8,11 +8,16 @@ public class SelectionSortBothSides {
         SelectionSortBothSides runner = new SelectionSortBothSides();
         int[] arr = runner.getRandomArray();
         int[] arr1 = {2, 5, 3, 1, 5, 2, 12};
+//        System.out.println("Origin array: ");
+//        runner.viewArray(arr);
+//        System.out.println();
+//        System.out.println("Sort array: ");
+//        runner.viewArray(runner.sort(arr));
         System.out.println("Origin array: ");
         runner.viewArray(arr);
         System.out.println();
         System.out.println("Sort array: ");
-        runner.viewArray(runner.sort(arr));
+        runner.viewArray(runner.sorttest(arr));
     }
 
     public int[] sort(int[] arr) {
@@ -39,7 +44,7 @@ public class SelectionSortBothSides {
 
     int[] getRandomArray() {
         Random random = new Random();
-        int[] arr = new int[9];
+        int[] arr = new int[5];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = random.nextInt(100);
         }
@@ -50,5 +55,32 @@ public class SelectionSortBothSides {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i] + " ");
         }
+    }
+
+
+    public int[] sorttest(int[] arr) {
+
+        for (int i = 0; i < arr.length / 2; i++) {
+            int indexMin = i;
+            int indexMax = i;
+            for (int j = i; j < arr.length - i; j++) {
+                if (arr[j] > arr[indexMax]) {
+                    indexMax = j;
+                }
+
+                if (arr[j] < arr[indexMin]) {
+                    indexMin = j;
+                }
+                if (j == arr.length - i - 1) {
+                    int emp = arr[indexMax];
+                    arr[indexMax] = arr[arr.length - i - 1];
+                    arr[arr.length - i - 1] = emp;
+                    emp = arr[indexMin];
+                    arr[indexMin] = arr[i];
+                    arr[i] = emp;
+                }
+            }
+        }
+        return arr;
     }
 }
