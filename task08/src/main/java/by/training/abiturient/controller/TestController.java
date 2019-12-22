@@ -97,7 +97,7 @@ public class TestController {
                     .getBaseOfAbiturient()
                     .get(i));
         }
-      //  view.showTerminal(BaseOfAbiturient.getInstance().getBaseOfAbiturient().stream());
+        System.out.println();
     }
 
     private void ZeroCheck(Integer input) throws IOException {

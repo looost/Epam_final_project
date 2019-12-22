@@ -100,6 +100,10 @@ public class AbiturientBean {
         return (double) (getFirst_grade()+getSecond_grade()+getThird_grade())/3;
     }
 
+    public int getSumGrade() {
+        return getFirst_grade() + getSecond_grade() + getThird_grade();
+    }
+
     @Override
     public int hashCode() {
         return super.hashCode();

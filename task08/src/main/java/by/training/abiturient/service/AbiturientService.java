@@ -40,7 +40,6 @@ public class AbiturientService {
     public void sortBySumGrade() {
         BaseOfAbiturient.getInstance()
                 .getBaseOfAbiturient()
-                .sort(Comparator.comparing(x -> (x.getFirst_grade() + x.getSecond_grade() + x.getThird_grade())));
+                .sort(Comparator.comparing(AbiturientBean::getSumGrade).reversed());
     }
-
 }
