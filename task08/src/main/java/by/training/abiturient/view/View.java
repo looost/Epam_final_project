@@ -13,7 +13,8 @@ public class View {
     public void showTerminal(Stream <AbiturientBean> stream) {
         stream.forEach(System.out::println);
     }
-    public void writeFile(Stream <AbiturientBean> stream) throws FileNotFoundException {
+
+    public void writeInFile(Stream<AbiturientBean> stream) throws FileNotFoundException {
         File file = new File("src\\main\\resources\\result.txt");
         PrintWriter printWriter = new PrintWriter(file);
         List<AbiturientBean> arr = stream.collect(Collectors.toList());
@@ -21,5 +22,9 @@ public class View {
             printWriter.println(abiturientBean);
         }
         printWriter.close();
+    }
+
+    public void showMessage(String message) {
+        System.out.println(message);
     }
 }

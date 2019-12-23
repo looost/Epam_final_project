@@ -119,6 +119,6 @@ public class AbiturientBean {
         return getId() + " - " + getFirst_name() + " " + getLast_name() + " " + getMiddle_name() +
                 ", Адрес: " + getAddress() + ", Телефон: " + getMobile_number() +
                 ", Первая оценка: " + getFirst_grade() + ", Вторая оценка: " + getSecond_grade() +
-                ", Третья оценка: " + getThird_grade() + ", Средний балл: " + getAverage() ;
+                ", Третья оценка: " + getThird_grade() + ", Сумма баллов: " + getSumGrade();
     }
 }

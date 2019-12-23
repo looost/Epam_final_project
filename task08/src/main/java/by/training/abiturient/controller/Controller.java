@@ -18,15 +18,8 @@ public class Controller {
         Stream<String> streamFromFiles = Files.lines(Paths.get("src\\main\\resources\\AbiturientList.txt"));
         creator.fillFromStream(BaseOfAbiturient.getInstance(), streamFromFiles);
 
-        int choice = abiturientService.whatShow();
-        if (choice == 1) {
-            view.showTerminal(abiturientService.abiturientsWithUnsatisfactoryGrades());
-            view.writeFile(abiturientService.abiturientsWithUnsatisfactoryGrades());
-        } else if (choice == 2) {
-            view.showTerminal(abiturientService.abiturientsWithHigherGrade(20));
-            view.writeFile(abiturientService.abiturientsWithHigherGrade(20));
-        } else {
-            System.out.println("Неверное значение");
-        }
+        view.showTerminal(abiturientService.abiturientsWithHigherGrade(20));
+        view.writeInFile(abiturientService.abiturientsWithHigherGrade(20));
+
     }
 }

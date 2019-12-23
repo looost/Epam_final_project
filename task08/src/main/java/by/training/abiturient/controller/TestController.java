@@ -14,9 +14,9 @@ import java.util.stream.Stream;
 
 public class TestController {
     private static Scanner scan = new Scanner(System.in);
-    private static Integer input;
-    View view = new View();
-    AbiturientService abiturientService = new AbiturientService();
+    private static int input;
+    private View view = new View();
+    private AbiturientService abiturientService = new AbiturientService();
 
     TestController() throws IOException {
         AbiturientCreator creator = new AbiturientCreator();
@@ -25,73 +25,83 @@ public class TestController {
     }
 
     public void execute() throws IOException {
-        Menu();
+        menu();
         input = checkInput(scan);
-        if(input < 4 && input > 0)
-            SubMenu(input);
-        else if (input == 0){
-            System.out.println("До свидания!");
+        if (input < 5 && input > 0)
+            subMenu(input);
+        else if (input == 0) {
+            view.showMessage("До свидания!");
+            scan.close();
             System.exit(0);
-        } else{
-            System.out.println("Не верное значение!");
+        } else {
+            view.showMessage("Не верное значение!");
             execute();
         }
     }
 
-    private void Menu() {
-        System.out.println("----------------------------Меню-------------------------------");
-        System.out.println("1 - Список абитуриентов, имеющих неудовлетворительные оценки");
-        System.out.println("2 - Список абитуриентов, у которых сумма баллов выше заданной");
-        System.out.println("3 - Выбрать заданное число n абитуриентов, имеющих самую высокую\n" +
+    private void menu() {
+        view.showMessage("----------------------------Меню-------------------------------");
+        view.showMessage("1 - Список абитуриентов, имеющих неудовлетворительные оценки");
+        view.showMessage("2 - Список абитуриентов, у которых сумма баллов выше заданной");
+        view.showMessage("3 - Выбрать заданное число n абитуриентов, имеющих самую высокую\n" +
                 "сумму баллов");
-        System.out.println("0 - Выход");
+        view.showMessage("4 - Выбрать заданное число n абитуриентов, имеющих самую низкую\n" +
+                "сумму баллов");
+        view.showMessage("0 - Выход");
 
     }
 
-    private void SubMenu(Integer subMenu) throws IOException {
-        switch (subMenu) {
+    private void subMenu(Integer choice) throws IOException {
+        String message = "Для возврата нажмите 0";
+        switch (choice) {
             case 1:
-                BadMarks();
-                System.out.println("Для возврата нажмите 0");
+                badGrades();
+                view.showMessage(message);
                 input = checkInput(scan);
-                ZeroCheck(input);
+                zeroCheck(input);
                 break;
             case 2:
-                markSum();
-                System.out.println("Для возврата нажмите 0");
+                sumGrade();
+                view.showMessage(message);
                 input = checkInput(scan);
-                ZeroCheck(input);
+                zeroCheck(input);
                 break;
             case 3:
-                sortTest();
-                System.out.println("Для возврата нажмите 0");
+                sortWorst();
+                view.showMessage(message);
                 input = checkInput(scan);
-                ZeroCheck(input);
+                zeroCheck(input);
+                break;
+            case 4:
+                sortBest();
+                view.showMessage(message);
+                input = checkInput(scan);
+                zeroCheck(input);
                 break;
             default:
                 System.out.println("Неправильный выбор!");
-                Menu();
+                menu();
         }
     }
 
-    private void markSum() throws FileNotFoundException {
-        System.out.println("Введите кол-во баллов - ");
-        Integer input = checkInput(scan);
+    private void sumGrade() throws FileNotFoundException {
+        view.showMessage("Введите кол-во баллов - ");
+        input = checkInput(scan);
         view.showTerminal(abiturientService.abiturientsWithHigherGrade(input));
-        view.writeFile(abiturientService.abiturientsWithHigherGrade(input));
+        view.writeInFile(abiturientService.abiturientsWithHigherGrade(input));
         System.out.println();
     }
 
-    private void BadMarks() throws FileNotFoundException {
+    private void badGrades() throws FileNotFoundException {
         view.showTerminal(abiturientService.abiturientsWithUnsatisfactoryGrades());
-        view.writeFile(abiturientService.abiturientsWithUnsatisfactoryGrades());
+        view.writeInFile(abiturientService.abiturientsWithUnsatisfactoryGrades());
         System.out.println();
     }
 
-    private void sortTest() {
-        abiturientService.sortBySumGrade();
-        System.out.println("Введите число студентов - ");
-        Integer input = checkInput(scan);
+    private void sortWorst() {
+        abiturientService.sortBySumGradeWorst();
+        view.showMessage("Введите число студентов - ");
+        input = checkInput(scan);
         for (int i = 0; i < input; i++) {
             System.out.println(BaseOfAbiturient.getInstance()
                     .getBaseOfAbiturient()
@@ -100,7 +110,19 @@ public class TestController {
         System.out.println();
     }
 
-    private void ZeroCheck(Integer input) throws IOException {
+    private void sortBest() {
+        abiturientService.sortBySumGradeBest();
+        view.showMessage("Введите число студентов - ");
+        input = checkInput(scan);
+        for (int i = 0; i < input; i++) {
+            System.out.println(BaseOfAbiturient.getInstance()
+                    .getBaseOfAbiturient()
+                    .get(i));
+        }
+        System.out.println();
+    }
+
+    private void zeroCheck(Integer input) throws IOException {
         if (input == 0) {
             execute();
         }
@@ -108,7 +130,7 @@ public class TestController {
 
     private Integer checkInput(Scanner s) {
         while (!s.hasNextInt()) {
-            System.out.print("Введите числовое значение - ");
+            view.showMessage("Введите числовое значение - ");
             s.next();
         }
         return s.nextInt();

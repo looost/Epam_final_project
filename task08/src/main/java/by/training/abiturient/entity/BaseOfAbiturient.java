@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseOfAbiturient {
+
     private static BaseOfAbiturient instance;
     private List <AbiturientBean> baseOfAbiturient = new ArrayList<>();
 
@@ -22,7 +23,4 @@ public class BaseOfAbiturient {
         return baseOfAbiturient;
     }
 
-    public void setBaseOfAbiturient(List<AbiturientBean> baseOfAbiturient) {
-        this.baseOfAbiturient = baseOfAbiturient;
-    }
 }
