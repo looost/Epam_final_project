@@ -34,7 +34,7 @@ public class TestController {
             scan.close();
             System.exit(0);
         } else {
-            view.showMessage("Не верное значение!");
+            view.showMessage("Неверное значение!");
             execute();
         }
     }
