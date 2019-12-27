@@ -30,7 +30,6 @@ public class Controller {
         if (input == 0) {
             view.showMessage("До свидания!");
             scan.close();
-            System.exit(0);
         } else {
             subMenu(input);
         }
@@ -71,13 +70,13 @@ public class Controller {
                 zeroCheck(input);
                 break;
             case 4:
-                sortWorst();
+                sortBest();
                 view.showMessage(message);
                 input = checkInput(scan);
                 zeroCheck(input);
                 break;
             case 5:
-                sortBest();
+                sortWorst();
                 view.showMessage(message);
                 input = checkInput(scan);
                 zeroCheck(input);
@@ -108,34 +107,26 @@ public class Controller {
     }
 
     private void sortWorst() {
-        abiturientService.sortBySumGradeWorst();
         view.showMessage("Введите число студентов - ");
         input = checkInput(scan);
         if (input > BaseOfAbiturient.getInstance().getBaseOfAbiturient().size()) {
             input = BaseOfAbiturient.getInstance().getBaseOfAbiturient().size();
         }
-        for (int i = 0; i < input; i++) {
-            System.out.println(BaseOfAbiturient.getInstance()
-                    .getBaseOfAbiturient()
-                    .get(i));
-        }
+        view.showTerminal(abiturientService.sortBySumGradeWorst(input));
         System.out.println();
     }
 
+
     private void sortBest() {
-        abiturientService.sortBySumGradeBest();
         view.showMessage("Введите число студентов - ");
         input = checkInput(scan);
         if (input > BaseOfAbiturient.getInstance().getBaseOfAbiturient().size()) {
             input = BaseOfAbiturient.getInstance().getBaseOfAbiturient().size();
         }
-        for (int i = 0; i < input; i++) {
-            System.out.println(BaseOfAbiturient.getInstance()
-                    .getBaseOfAbiturient()
-                    .get(i));
-        }
+        view.showTerminal(abiturientService.sortBySumGradeBest(input));
         System.out.println();
     }
+
 
     private void zeroCheck(Integer input) throws IOException {
         if (input == 0) {

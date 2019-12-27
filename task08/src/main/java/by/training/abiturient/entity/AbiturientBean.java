@@ -122,6 +122,7 @@ public class AbiturientBean {
         return grades;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,8 +138,7 @@ public class AbiturientBean {
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (middleName != null ? !middleName.equals(that.middleName) : that.middleName != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (mobileNumber != null ? !mobileNumber.equals(that.mobileNumber) : that.mobileNumber != null)
-            return false;
+        if (mobileNumber != null ? !mobileNumber.equals(that.mobileNumber) : that.mobileNumber != null) return false;
         return grades != null ? grades.equals(that.grades) : that.grades == null;
     }
 

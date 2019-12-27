@@ -23,19 +23,23 @@ public class AbiturientService {
                 .filter(x -> (x.getFirstGrade() + x.getSecondGrade() + x.getThirdGrade()) > sumGrade);
     }
 
-    public void sortBySumGradeWorst() {
-        BaseOfAbiturient.getInstance()
+    public Stream<AbiturientBean> sortBySumGradeWorst(int limit) {
+        return BaseOfAbiturient.getInstance()
                 .getBaseOfAbiturient()
-                //       .sort(Comparator.comparing(abiturientBean -> TestService.sumGrade(abiturientBean)));
-                .sort(Comparator.comparing(AbiturientBean::getSumGrade).reversed());
+                .stream()
+                .sorted(Comparator.comparing(AbiturientBean::getSumGrade))
+                .limit(limit);
     }
 
-    public void sortBySumGradeBest() {
-        BaseOfAbiturient.getInstance()
+
+    public Stream<AbiturientBean> sortBySumGradeBest(int limit) {
+        return BaseOfAbiturient.getInstance()
                 .getBaseOfAbiturient()
-                //         .sort((abiturientBean, t1) -> TestService.sumGrade(abiturientBean));
-                .sort(Comparator.comparing(AbiturientBean::getSumGrade));
+                .stream()
+                .sorted(Comparator.comparing(AbiturientBean::getSumGrade).reversed())
+                .limit(limit);
     }
+
 
     public Stream<AbiturientBean> sortByLastName() {
         return BaseOfAbiturient.getInstance()
