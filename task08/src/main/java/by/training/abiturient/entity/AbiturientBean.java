@@ -50,7 +50,7 @@ public class AbiturientBean {
 //        this.grades = grades;
 //    }
 
-    public AbiturientBean(int id, String first_name, String last_name, String middle_name,
+    public AbiturientBean(int id, String last_name, String first_name, String middle_name,
                           String address, int mobile_number, int first_grade, int second_grade, int third_grade) {
         this.id = id;
         this.first_name = first_name;
@@ -159,7 +159,7 @@ public class AbiturientBean {
 
     @Override
     public String toString() {
-        return getId() + " - " + getFirst_name() + " " + getLast_name() + " " + getMiddle_name() +
+        return getId() + " - " + getLast_name() + " " + getFirst_name() + " " + getMiddle_name() +
                 ", Адрес: " + getAddress() + ", Телефон: " + getMobile_number() +
                 ", Первая оценка: " + getFirst_grade() + ", Вторая оценка: " + getSecond_grade() +
                 ", Третья оценка: " + getThird_grade() + ", Сумма баллов: " + getSumGrade();

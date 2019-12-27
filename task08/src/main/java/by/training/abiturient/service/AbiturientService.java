@@ -36,4 +36,11 @@ public class AbiturientService {
                 //         .sort((abiturientBean, t1) -> TestService.sumGrade(abiturientBean));
                 .sort(Comparator.comparing(AbiturientBean::getSumGrade));
     }
+
+    public Stream<AbiturientBean> sortByLastName() {
+        return BaseOfAbiturient.getInstance()
+                .getBaseOfAbiturient()
+                .stream()
+                .sorted(Comparator.comparing(AbiturientBean::getLast_name));
+    }
 }

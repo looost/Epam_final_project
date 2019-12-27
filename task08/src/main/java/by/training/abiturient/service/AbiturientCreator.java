@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AbiturientCreator {
-    public void fillFromStream(BaseOfAbiturient baseOfAbiturient, Stream<String> streamFromFiles) {
-        for (String str: streamFromFiles.collect(Collectors.toList())
+    public void fillFromStream(BaseOfAbiturient baseOfAbiturient, ArrayList<String> arr) {
+        for (String str : arr
         ) {
             String [] lines = str.split("; ");
             baseOfAbiturient.getBaseOfAbiturient().add(new AbiturientBean(Integer.parseInt(lines[0]), lines[1],
