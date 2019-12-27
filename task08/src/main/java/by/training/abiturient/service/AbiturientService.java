@@ -13,14 +13,14 @@ public class AbiturientService {
        return BaseOfAbiturient.getInstance()
                 .getBaseOfAbiturient()
                 .stream()
-               .filter(a -> a.getFirst_grade() < 4 || a.getSecond_grade() < 4 || a.getThird_grade() < 4);
+               .filter(a -> a.getFirstGrade() < 4 || a.getSecondGrade() < 4 || a.getThirdGrade() < 4);
     }
     public Stream <AbiturientBean> abiturientsWithHigherGrade (int sumGrade) {
         return BaseOfAbiturient.getInstance()
                 .getBaseOfAbiturient()
                 .stream()
                 //       .filter(x -> TestService.sumGrade(x) > sumGrade);
-                .filter(x -> (x.getFirst_grade() + x.getSecond_grade() + x.getThird_grade()) > sumGrade);
+                .filter(x -> (x.getFirstGrade() + x.getSecondGrade() + x.getThirdGrade()) > sumGrade);
     }
 
     public void sortBySumGradeWorst() {
@@ -41,6 +41,6 @@ public class AbiturientService {
         return BaseOfAbiturient.getInstance()
                 .getBaseOfAbiturient()
                 .stream()
-                .sorted(Comparator.comparing(AbiturientBean::getLast_name));
+                .sorted(Comparator.comparing(AbiturientBean::getLastName));
     }
 }

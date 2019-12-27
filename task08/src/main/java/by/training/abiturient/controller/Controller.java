@@ -18,24 +18,21 @@ public class Controller {
     private WriteFile writeFile = new WriteFile();
     private AbiturientService abiturientService = new AbiturientService();
 
-    Controller() throws IOException {
+    Controller() throws IOException {                //!!!!!!!!!!!!!!!!!!!!
         ReadFile readFile = new ReadFile();
         AbiturientCreator creator = new AbiturientCreator();
-        creator.fillFromStream(BaseOfAbiturient.getInstance(), readFile.readFile("src\\main\\resources\\AbiturientList.txt"));
+        creator.fillFromStream(BaseOfAbiturient.getInstance(), readFile.readFromFile("src\\main\\resources\\AbiturientList.txt"));
     }
 
     public void execute() throws IOException {
         menu();
         input = checkInput(scan);
-        if (input < 6 && input > 0)
-            subMenu(input);
-        else if (input == 0) {
+        if (input == 0) {
             view.showMessage("До свидания!");
             scan.close();
             System.exit(0);
         } else {
-            view.showMessage("Неверное значение!");
-            execute();
+            subMenu(input);
         }
     }
 
@@ -87,7 +84,7 @@ public class Controller {
                 break;
             default:
                 System.out.println("Неправильный выбор!");
-                menu();
+                execute();
         }
     }
 
