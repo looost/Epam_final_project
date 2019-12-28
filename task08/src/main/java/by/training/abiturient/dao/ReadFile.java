@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ReadFile {
+
     public List<String> readFromFile(String path) throws IOException {
         Stream<String> streamFromFiles = Files.lines(Paths.get(path));
         return streamFromFiles.collect(Collectors.toList());

@@ -4,7 +4,6 @@ import by.training.abiturient.dao.ReadFile;
 import by.training.abiturient.dao.WriteFile;
 import by.training.abiturient.entity.BaseOfAbiturient;
 import by.training.abiturient.service.AbiturientCreator;
-import by.training.abiturient.service.AbiturientService;
 import by.training.abiturient.view.View;
 
 import java.io.FileNotFoundException;
@@ -16,12 +15,12 @@ public class Controller {
     private int input;
     private View view = new View();
     private WriteFile writeFile = new WriteFile();
-    private AbiturientService abiturientService = new AbiturientService();
+    private BaseOfAbiturient baseOfAbiturient = BaseOfAbiturient.getInstance();
 
     Controller() throws IOException {                //!!!!!!!!!!!!!!!!!!!!
         ReadFile readFile = new ReadFile();
         AbiturientCreator creator = new AbiturientCreator();
-        creator.fillFromStream(BaseOfAbiturient.getInstance(), readFile.readFromFile("src\\main\\resources\\AbiturientList.txt"));
+        creator.fillFromStream(baseOfAbiturient, readFile.readFromFile("src\\main\\resources\\AbiturientList.txt"));
     }
 
     public void execute() throws IOException {
@@ -48,7 +47,7 @@ public class Controller {
 
     }
 
-    private void subMenu(Integer choice) throws IOException {
+    private void subMenu(int choice) throws IOException {
         String message = "Для возврата нажмите 0";
         switch (choice) {
             case 1:
@@ -88,31 +87,31 @@ public class Controller {
     }
 
     private void listOfAbiturient() {
-        view.showTerminal(abiturientService.sortByLastName());
+        view.showTerminal(baseOfAbiturient.getListOfAbiturient().sortByLastName());
         System.out.println();
     }
 
     private void sumGrade() throws FileNotFoundException {
         view.showMessage("Введите кол-во баллов - ");
         input = checkInput(scan);
-        view.showTerminal(abiturientService.abiturientsWithHigherGrade(input));
-        writeFile.writeToFile("src\\main\\resources\\result.txt", abiturientService.abiturientsWithHigherGrade(input));
+        view.showTerminal(baseOfAbiturient.getListOfAbiturient().abiturientsWithHigherGrade(input));
+        writeFile.writeToFile("src\\main\\resources\\result.txt", baseOfAbiturient.getListOfAbiturient().abiturientsWithHigherGrade(input));
         System.out.println();
     }
 
     private void badGrades() throws FileNotFoundException {
-        view.showTerminal(abiturientService.abiturientsWithUnsatisfactoryGrades());
-        writeFile.writeToFile("src\\main\\resources\\result.txt", abiturientService.abiturientsWithUnsatisfactoryGrades());
+        view.showTerminal(baseOfAbiturient.getListOfAbiturient().abiturientsWithUnsatisfactoryGrades());
+        writeFile.writeToFile("src\\main\\resources\\result.txt", baseOfAbiturient.getListOfAbiturient().abiturientsWithUnsatisfactoryGrades());
         System.out.println();
     }
 
     private void sortWorst() {
         view.showMessage("Введите число студентов - ");
         input = checkInput(scan);
-        if (input > BaseOfAbiturient.getInstance().getBaseOfAbiturient().size()) {
-            input = BaseOfAbiturient.getInstance().getBaseOfAbiturient().size();
+        if (input > baseOfAbiturient.getListOfAbiturient().getAbiturientList().size()) {
+            input = baseOfAbiturient.getListOfAbiturient().getAbiturientList().size();
         }
-        view.showTerminal(abiturientService.sortBySumGradeWorst(input));
+        view.showTerminal(baseOfAbiturient.getListOfAbiturient().sortBySumGradeWorst(input));
         System.out.println();
     }
 
@@ -120,10 +119,10 @@ public class Controller {
     private void sortBest() {
         view.showMessage("Введите число студентов - ");
         input = checkInput(scan);
-        if (input > BaseOfAbiturient.getInstance().getBaseOfAbiturient().size()) {
-            input = BaseOfAbiturient.getInstance().getBaseOfAbiturient().size();
+        if (input > baseOfAbiturient.getListOfAbiturient().getAbiturientList().size()) {
+            input = baseOfAbiturient.getListOfAbiturient().getAbiturientList().size();
         }
-        view.showTerminal(abiturientService.sortBySumGradeBest(input));
+        view.showTerminal(baseOfAbiturient.getListOfAbiturient().sortBySumGradeBest(input));
         System.out.println();
     }
 

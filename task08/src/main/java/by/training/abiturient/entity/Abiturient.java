@@ -2,7 +2,7 @@ package by.training.abiturient.entity;
 
 import java.util.ArrayList;
 
-public class AbiturientBean {
+public class Abiturient {
     private int id;
     private String firstName;
     private String lastName;
@@ -25,8 +25,8 @@ public class AbiturientBean {
 //        this.grades = grades;
 //    }
 
-    public AbiturientBean(int id, String lastName, String firstName, String middleName,
-                          String address, String mobileNumber, int firstGrade, int secondGrade, int thirdGrade) {
+    public Abiturient(int id, String lastName, String firstName, String middleName,
+                      String address, String mobileNumber, int firstGrade, int secondGrade, int thirdGrade) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -128,7 +128,7 @@ public class AbiturientBean {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AbiturientBean that = (AbiturientBean) o;
+        Abiturient that = (Abiturient) o;
 
         if (id != that.id) return false;
         if (firstGrade != that.firstGrade) return false;

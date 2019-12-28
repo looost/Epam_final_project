@@ -1,15 +1,13 @@
 package by.training.abiturient.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import by.training.abiturient.service.ListAbiturient;
 
 public class BaseOfAbiturient {
 
     private static BaseOfAbiturient instance;
-    private List <AbiturientBean> baseOfAbiturient = new ArrayList<>();
+    private ListAbiturient listOfAbiturient = new ListAbiturient();
 
     private BaseOfAbiturient() {
-
     }
 
     public static BaseOfAbiturient getInstance() {
@@ -19,8 +17,11 @@ public class BaseOfAbiturient {
         return instance;
     }
 
-    public List<AbiturientBean> getBaseOfAbiturient() {
-        return baseOfAbiturient;
+    public ListAbiturient getListOfAbiturient() {
+        return listOfAbiturient;
     }
 
+    public void setListOfAbiturient(ListAbiturient listOfAbiturient) {
+        this.listOfAbiturient = listOfAbiturient;
+    }
 }
