@@ -47,7 +47,7 @@ public class FileAbiturientDAO implements AbiturientDAO {
     public Stream<Abiturient> abiturientsWithHigherGrade(int grade) {
         return listAbiturient
                 .stream()
-                .filter(x -> (x.getFirstGrade() + x.getSecondGrade() + x.getThirdGrade()) > grade);
+                .filter(a -> (a.getFirstGrade() + a.getSecondGrade() + a.getThirdGrade()) > grade);
     }
 
     @Override
