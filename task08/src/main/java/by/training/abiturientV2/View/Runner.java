@@ -33,7 +33,9 @@ public class Runner {
         view.showMenu();
         input = checkInput(scanner);
         if (input == 0) {
+            view.showMessage("До свидания!");
             scanner.close();
+            System.exit(0);
         } else if (input == 3) {
             view.showMessage("Введите сумму баллов - ");
         } else if (input == 4 || input == 5) {

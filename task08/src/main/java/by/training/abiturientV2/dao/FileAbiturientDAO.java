@@ -1,5 +1,7 @@
 package by.training.abiturientV2.dao;
 
+
+
 import by.training.abiturientV2.entity.Abiturient;
 
 import java.io.IOException;
@@ -13,8 +15,8 @@ import java.util.stream.Stream;
 
 public class FileAbiturientDAO implements AbiturientDAO {
     private static final String PATH = "src\\main\\resources\\AbiturientList.txt";
-    Stream<String> streamFromFiles;
-    List<Abiturient> listAbiturient = new ArrayList<>();
+    private Stream<String> streamFromFiles;
+    private List<Abiturient> listAbiturient = new ArrayList<>();
 
     {
         try {
@@ -28,8 +30,8 @@ public class FileAbiturientDAO implements AbiturientDAO {
         for (String str : streamFromFiles.collect(Collectors.toList())
         ) {
             String[] lines = str.split("; ");
-            listAbiturient.add(new Abiturient(Integer.parseInt(lines[0]), lines[1],
-                    lines[2], lines[3], lines[4],
+            listAbiturient.add(new Abiturient(Integer.parseInt(lines[0]), lines[2],
+                    lines[1], lines[3], lines[4],
                     lines[5], Integer.parseInt(lines[6]), Integer.parseInt(lines[7]), Integer.parseInt(lines[8])));
         }
     }
