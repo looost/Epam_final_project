@@ -8,7 +8,7 @@ public class CombSort implements Sort{
         int gap = arr.length;
         boolean flag = true;
         while (gap > 1 || flag) {
-            gap = Math.max(1, (int) (gap/1.25));
+            gap = (int) (gap/1.25);
             flag = false;
             for (int i = 0; i < arr.length-gap; i++) {
                 if (arr[i] > arr[i+gap]) {
@@ -27,6 +27,5 @@ public class CombSort implements Sort{
         System.out.println(Arrays.toString(arr));
         System.out.println("Bubble arr: ");
         System.out.println(Arrays.toString(combSort.sort(arr)));
-       // System.out.println((int)(8/1.25));
     }
 }
