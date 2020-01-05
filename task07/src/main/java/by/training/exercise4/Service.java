@@ -11,6 +11,7 @@ public class Service {
     private static View view = new View();
 
     public static void firstAndLastLines(int [][] arr) {
+        int [][] newArr = new int [2][arr[0].length];
         for (int i = 0; i < arr.length; i+=arr.length-1) {
             for (int j = 0; j < arr[i].length; j++) {
                 System.out.printf("arr[%d][%d] = %-6d", i,j,arr[i][j]);

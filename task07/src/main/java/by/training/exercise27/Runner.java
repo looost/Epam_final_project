@@ -27,16 +27,19 @@ public class Runner {
     public static void main(String[] args) {
         Contorller contorller = new Contorller();
         int n;
+        int m;
         int column1;
         int column2;
-        view.showMessage("Введите размерность матрицы - ");
+        view.showMessage("Введите кол-во строк - ");
         n = checkValue();
+        view.showMessage("Введите кол-во столбцов - ");
+        m = checkValue();
         view.showMessage("Введите первый столбец для обмена - ");
         column1 = checkValue();
         view.showMessage("Введите второй столбец для обмена - ");
         column2 = checkValue();
         view.showMessage("Оригинальная матрица - ");
-        int [][] arr = RandomMatrixCreator.randomMatrix(n,n);
+        int [][] arr = RandomMatrixCreator.randomMatrix(n,m);
         view.showMatrix(arr);
         view.showMessage("Матрица, где столбцы " + column1 + " и " + column2 + " поменяли местами - ");
         view.showMatrix(contorller.execute(arr,column1,column2));

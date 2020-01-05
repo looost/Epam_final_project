@@ -5,10 +5,14 @@ import by.training.View;
 
 import java.util.Scanner;
 
+
+/*
+         Переставить строки матрицы случайным образом.
+ */
+
 public class Runner {
     private static View view = new View();
     private static Scanner scanner = new Scanner(System.in);
-
     private static int checkValue() {
         while (!scanner.hasNextInt()) {
             view.showMessage("Введите целое число - ");
