@@ -1,6 +1,6 @@
 package by.training.main;
 
-import by.training.View;
+import by.training.view.View;
 import by.training.entity.Area;
 import by.training.entity.Region;
 import by.training.entity.State;

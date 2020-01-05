@@ -1,4 +1,4 @@
-package by.training;
+package by.training.view;
 
 import by.training.entity.Region;
 import by.training.entity.State;
