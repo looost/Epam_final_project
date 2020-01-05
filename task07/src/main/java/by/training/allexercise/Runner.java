@@ -40,16 +40,13 @@ public class Runner {
                 view.showMessage("Введите кол-во столбцов - ");
                 m = validate();
                 arr = MatrixService.randomMatrix(n,m);
-                view.showMessage("Оригинальная матрица: ");
-                view.showMatrix(arr);
-                view.showMessage("Первая и последня строка матрицы");
                 controller.executeExercise4(arr);
                 break;
             case 2:
                 view.showTaskExercise14();
                 view.showMessage("Введите размерность матрицы: ");
                 n = validate();
-                view.showMatrix(controller.executeExercise14(n));
+                controller.executeExercise14(n);
                 break;
             case 3:
                 view.showTaskExercise27();
@@ -62,10 +59,7 @@ public class Runner {
                 view.showMessage("Введите номер втрого столбца для обмена - ");
                 int column2 = validate();
                 arr = MatrixService.randomMatrix(n,m);
-                view.showMessage("Оригинальная матрица ");
-                view.showMatrix(arr);
-                view.showMessage("Матрица, где столбцы " + column1 + " и " + column2 + " поменяли местами - ");
-                view.showMatrix(controller.executeExercise27(arr,column1,column2));
+                controller.executeExercise27(arr,column1,column2);
                 break;
             case 4:
                 view.showTaskExercise37();
@@ -74,10 +68,7 @@ public class Runner {
                 view.showMessage("Введите кол-во столбцов - ");
                 m = validate();
                 arr = MatrixService.randomMatrix(n,m);
-                view.showMessage("Оригинальная матрица ");
-                view.showMatrix(arr);
-                view.showMessage("Матрица, где строки случайным образом поменяли местами");
-                view.showMatrix(controller.executeExercise37(arr));
+                controller.executeExercise37(arr);
                 break;
             case 0:
                 scanner.close();
