@@ -1,11 +1,9 @@
 package by.training.exerciseaccount.service;
 
 import by.training.exerciseaccount.entity.Account;
-import by.training.exerciseaccount.entity.Client;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class AccountService {
 
@@ -13,26 +11,26 @@ public class AccountService {
         return account.isBlocked();
     }
 
-    public List <Account> sortByBalance(Client client) {
+    public List <Account> sortByBalance(List <Account> accountList) {
         Account accountTmp;
         boolean flag = true;
         while (flag) {
             flag = false;
-            for (int i = 0; i < client.getAccountList().size() - 1; i++) {
-                if (client.getAccountList().get(i).getBalance() > client.getAccountList().get(i + 1).getBalance()) {
-                    accountTmp = client.getAccountList().get(i);
-                    client.getAccountList().set(i, client.getAccountList().get(i + 1));
-                    client.getAccountList().set(i + 1, accountTmp);
+            for (int i = 0; i < accountList.size() - 1; i++) {
+                if (accountList.get(i).getBalance() > accountList.get(i + 1).getBalance()) {
+                    accountTmp = accountList.get(i);
+                    accountList.set(i, accountList.get(i + 1));
+                    accountList.set(i + 1, accountTmp);
                     flag = true;
                 }
             }
         }
-        return client.getAccountList();
+        return accountList;
     }
 
-    public List <Account> findByMinBalance(Client client, double minBalance) {
+    public List <Account> findByMinBalance(List <Account> accountList, double minBalance) {
         List <Account> result = new ArrayList<>();
-        for (Account account:client.getAccountList()
+        for (Account account:accountList
              ) {
             if (minBalance < account.getBalance()) {
                 result.add(account);

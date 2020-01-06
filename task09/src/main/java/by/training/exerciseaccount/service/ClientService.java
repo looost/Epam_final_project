@@ -4,7 +4,6 @@ import by.training.exerciseaccount.entity.Account;
 import by.training.exerciseaccount.entity.Client;
 
 public class ClientService {
-    private AccountService accountService = new AccountService();
 
     public double totalAmount(Client client) {
         double sum = 0;
@@ -19,7 +18,7 @@ public class ClientService {
         double sum = 0;
         for (Account acc:client.getAccountList()
         ) {
-            if (!accountService.isBlocked(acc)) {
+            if (acc.getBalance() >= 0) {
                 sum += acc.getBalance();
             }
         }
@@ -30,7 +29,7 @@ public class ClientService {
         double sum = 0;
         for (Account acc:client.getAccountList()
         ) {
-            if (accountService.isBlocked(acc)) {
+            if (acc.getBalance() < 0) {
                 sum += acc.getBalance();
             }
         }

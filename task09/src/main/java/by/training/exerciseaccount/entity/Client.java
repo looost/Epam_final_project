@@ -35,9 +35,7 @@ public class Client {
     }
 
     public void setAccount(Account account) {
-        if (account.getAccountId() == this.idClient) {
             this.account.add(account);
-        }
     }
 
     @Override

@@ -8,6 +8,7 @@ public class Account {
     public Account(int accountId, double balance) {
         this.accountId = accountId;
         this.balance = balance;
+        this.isBlocked = isBlocked();
     }
 
     public int getAccountId() {
