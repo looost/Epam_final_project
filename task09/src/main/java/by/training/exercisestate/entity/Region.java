@@ -1,4 +1,4 @@
-package by.training.entity;
+package by.training.exercisestate.entity;
 
 import java.util.List;
 

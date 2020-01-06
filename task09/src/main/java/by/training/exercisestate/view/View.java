@@ -1,7 +1,7 @@
-package by.training.view;
+package by.training.exercisestate.view;
 
-import by.training.entity.Region;
-import by.training.entity.State;
+import by.training.exercisestate.entity.Region;
+import by.training.exercisestate.entity.State;
 
 public class View {
 

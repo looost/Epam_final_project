@@ -1,9 +1,9 @@
-package by.training.main;
+package by.training.exercisestate.main;
 
-import by.training.view.View;
-import by.training.entity.Area;
-import by.training.entity.Region;
-import by.training.entity.State;
+import by.training.exercisestate.view.View;
+import by.training.exercisestate.entity.Area;
+import by.training.exercisestate.entity.Region;
+import by.training.exercisestate.entity.State;
 
 import java.util.ArrayList;
 
