@@ -6,7 +6,7 @@ public class MatrixService {
 
     public static int [][] randomMatrix(int x, int y) {
         if (x<= 0 || y<=0) {
-            throw new IllegalArgumentException("Неверные значения!");
+            throw new IllegalArgumentException("Кол-во строк или столбцов не может быть меньше либо равно нулю!");
         }
         Random random = new Random();
         int [][] arr = new int[x][y];
@@ -28,6 +28,9 @@ public class MatrixService {
     }
 
     public int [][] createMatrixOrderN(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Размерность матрицы не может быть меньше либо равна нулю!");
+        }
         int [][] arr = new int[n][n];
         int count = 1;
         for (int i = 0; i < n; i++) {
@@ -50,7 +53,7 @@ public class MatrixService {
             column2 = tpm;
         }
         if (column1 > arr[0].length || column2> arr[0].length) {
-            throw new IllegalArgumentException("Неверное значение столбца");
+            throw new IllegalArgumentException("Неверное значение столбца для обмена");
         }
         int jPosition = 0;
         for (int i = 0; i < arr.length; i++) {

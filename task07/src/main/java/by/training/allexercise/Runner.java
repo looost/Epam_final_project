@@ -39,8 +39,12 @@ public class Runner {
                 n = validate();
                 view.showMessage("Введите кол-во столбцов - ");
                 m = validate();
-                arr = MatrixService.randomMatrix(n,m);
-                controller.executeExercise4(arr);
+                try {
+                    arr = MatrixService.randomMatrix(n,m);
+                    controller.executeExercise4(arr);
+                } catch (IllegalArgumentException e) {
+                    view.showMessage(e.getMessage());
+                }
                 break;
             case 2:
                 view.showTaskExercise14();
@@ -58,8 +62,12 @@ public class Runner {
                 int column1 = validate();
                 view.showMessage("Введите номер втрого столбца для обмена - ");
                 int column2 = validate();
-                arr = MatrixService.randomMatrix(n,m);
-                controller.executeExercise27(arr,column1,column2);
+                try {
+                    arr = MatrixService.randomMatrix(n,m);
+                    controller.executeExercise27(arr,column1,column2);
+                } catch (IllegalArgumentException e) {
+                    view.showMessage(e.getMessage());
+                }
                 break;
             case 4:
                 view.showTaskExercise37();
@@ -67,8 +75,12 @@ public class Runner {
                 n = validate();
                 view.showMessage("Введите кол-во столбцов - ");
                 m = validate();
-                arr = MatrixService.randomMatrix(n,m);
-                controller.executeExercise37(arr);
+                try {
+                    arr = MatrixService.randomMatrix(n,m);
+                    controller.executeExercise37(arr);
+                } catch (IllegalArgumentException e) {
+                    view.showMessage(e.getMessage());
+                }
                 break;
             case 0:
                 scanner.close();

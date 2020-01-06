@@ -14,14 +14,22 @@ public class Controller {
     }
 
     public void executeExercise14(int n) {
-        view.showMatrix(matrixService.createMatrixOrderN(n));
+        try {
+            view.showMatrix(matrixService.createMatrixOrderN(n));
+        } catch (IllegalArgumentException e) {
+            view.showMessage(e.getMessage());
+        }
     }
 
     public void executeExercise27(int [][] arr, int column1, int column2) {
-        view.showMessage("Оригинальная матрица ");
-        view.showMatrix(arr);
-        view.showMessage("Матрица, где столбцы " + column1 + " и " + column2 + " поменяли местами - ");
-        view.showMatrix(matrixService.swapMatrixColumn(arr,column1,column2));
+        try {
+            view.showMessage("Оригинальная матрица ");
+            view.showMatrix(arr);
+            view.showMessage("Матрица, где столбцы " + column1 + " и " + column2 + " поменяли местами - ");
+            view.showMatrix(matrixService.swapMatrixColumn(arr,column1,column2));
+        } catch (IllegalArgumentException e) {
+            view.showMessage(e.getMessage());
+        }
     }
 
     public void executeExercise37(int [][] arr) {

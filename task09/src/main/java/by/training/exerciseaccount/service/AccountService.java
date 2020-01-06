@@ -31,7 +31,7 @@ public class AccountService {
     public List <Account> findByMinBalance(List <Account> accountList, double minBalance) {
         List <Account> result = new ArrayList<>();
         for (Account account:accountList
-             ) {
+        ) {
             if (minBalance < account.getBalance()) {
                 result.add(account);
             }
