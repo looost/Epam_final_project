@@ -16,6 +16,10 @@ public class Runner {
     private static int input;
 
     public static void main(String[] args) {
+        run();
+    }
+
+    private static void run() {
         view.showMenu();
         input = validation();
         switch (input) {
@@ -38,7 +42,7 @@ public class Runner {
                     case 1:
                         view.showMessage("Введите минимальное значение счета - ");
                         input = validation();
-                        controller.executeFindByMinAmount(client,input);
+                        controller.executeFindByMinAmount(client, input);
                         break;
                     default:
                         view.showMessage("Не верное значение!");
@@ -53,14 +57,14 @@ public class Runner {
                 System.exit(0);
                 break;
             default:
-                view.showMessage("Не верное значение!");
-                main(new String[0]);
+                view.showMessage("Неверное значение!");
+                run();
         }
         view.showMessage("Для возврата нажмите 0");
         zeroCheck();
     }
 
-    public static int validation() {
+    private static int validation() {
         while (!scanner.hasNextInt()) {
             view.showMessage("Введите целое чисто - ");
             scanner.next();
@@ -68,12 +72,12 @@ public class Runner {
         return scanner.nextInt();
     }
 
-    public static void zeroCheck() {
+    private static void zeroCheck() {
         input = validation();
         if (input != 0) {
             view.showMessage("Для возврата введите 0");
             zeroCheck();
         }
-        main(new String[0]);
+        run();
     }
 }

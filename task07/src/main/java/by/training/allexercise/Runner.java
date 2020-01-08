@@ -9,7 +9,7 @@ public class Runner {
     private static Scanner scanner = new Scanner(System.in);
     private static Controller controller = new Controller();
 
-    static int validate() {
+    private static int validate() {
         while (!scanner.hasNextInt()) {
             System.out.println("Введите целое число - ");
             scanner.next();
@@ -17,16 +17,16 @@ public class Runner {
         return scanner.nextInt();
     }
 
-    static void zeroCheck() {
+    private static void zeroCheck() {
         int value = validate();
         if (value != 0) {
             view.showMessage("Введите 0 для возврата");
             zeroCheck();
         }
-        main(new String[0]);
+        run();
     }
 
-    public static void main(String[] args) {
+    private static void run() {
         int n;
         int m;
         int [][] arr;
@@ -83,13 +83,19 @@ public class Runner {
                 }
                 break;
             case 0:
-                scanner.close();
+                System.exit(0);
                 break;
             default:
                 view.showMessage("Неверное значение!");
-                main(new String[0]);
+                run();
         }
         view.showMessage("Для возврата нажмите 0");
         zeroCheck();
+    }
+
+
+    public static void main(String[] args) {
+        Runner runner = new Runner();
+        runner.run();
     }
 }
