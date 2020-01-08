@@ -83,6 +83,7 @@ public class Runner {
                 }
                 break;
             case 0:
+                view.showMessage("До свидания!");
                 System.exit(0);
                 break;
             default:

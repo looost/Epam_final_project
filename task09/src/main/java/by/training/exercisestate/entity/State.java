@@ -4,13 +4,13 @@ import java.util.List;
 
 public class State {
     private String name;
-    private String nameOfCapital;
+    private City capital;
     private int area;
     private List <Region> regions;
 
-    public State(String name, String nameOfCapital, int area, List<Region> regions) {
+    public State(String name, City capital, int area, List<Region> regions) {
         this.name = name;
-        this.nameOfCapital = nameOfCapital;
+        this.capital = capital;
         this.area = area;
         this.regions = regions;
     }
@@ -31,12 +31,12 @@ public class State {
         this.area = area;
     }
 
-    public String getNameOfCapital() {
-        return nameOfCapital;
+    public City getCapital() {
+        return capital;
     }
 
-    public void setNameOfCapital(String nameOfCapital) {
-        this.nameOfCapital = nameOfCapital;
+    public void setCapital(City capital) {
+        this.capital = capital;
     }
 
     public List<Region> getRegions() {
@@ -63,7 +63,7 @@ public class State {
         State state = (State) o;
 
         if (name != null ? !name.equals(state.name) : state.name != null) return false;
-        if (nameOfCapital != null ? !nameOfCapital.equals(state.nameOfCapital) : state.nameOfCapital != null)
+        if (capital != null ? !capital.equals(state.capital) : state.capital != null)
             return false;
         return regions != null ? regions.equals(state.regions) : state.regions == null;
     }
@@ -71,7 +71,7 @@ public class State {
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (nameOfCapital != null ? nameOfCapital.hashCode() : 0);
+        result = 31 * result + (capital != null ? capital.hashCode() : 0);
         result = 31 * result + (regions != null ? regions.hashCode() : 0);
         return result;
     }
@@ -80,7 +80,7 @@ public class State {
     public String toString() {
         return "State{" +
                 "name='" + name + '\'' +
-                ", nameOfCapital='" + nameOfCapital + '\'' +
+                ", nameOfCapital='" + capital + '\'' +
                 ", regions=" + regions +
                 '}';
     }

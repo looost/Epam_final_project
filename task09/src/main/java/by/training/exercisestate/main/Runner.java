@@ -1,5 +1,6 @@
 package by.training.exercisestate.main;
 
+import by.training.exercisestate.entity.City;
 import by.training.exercisestate.view.View;
 import by.training.exercisestate.entity.Area;
 import by.training.exercisestate.entity.Region;
@@ -24,7 +25,7 @@ public class Runner {
         arrayList.add(grodnoRegion);
         arrayList.add(mogilevRegion);
 
-        State state = new State("Belarus", "Minsk", 207_595, arrayList);
+        State state = new State("Belarus", new City("Minsk"), 207_595, arrayList);
 
         View view = new View();
 

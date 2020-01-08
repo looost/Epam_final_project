@@ -9,8 +9,12 @@ public class City {
     public City() {
     }
 
-    public City(String name, int population, int area) {
+    public City(String name) {
         this.name = name;
+    }
+
+    public City(String name, int population, int area) {
+        this(name);
         this.population = population;
         this.area = area;
     }

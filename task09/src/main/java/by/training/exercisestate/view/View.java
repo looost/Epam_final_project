@@ -6,7 +6,7 @@ import by.training.exercisestate.entity.State;
 public class View {
 
     public void showCapital(State state) {
-        System.out.println("Capital of " + state.getName() + " - " + state.getNameOfCapital());
+        System.out.println("Capital of " + state.getName() + " - " + state.getCapital().getName());
     }
 
     public void showNumberOfArea(State state) {

@@ -45,7 +45,7 @@ public class Runner {
                         controller.executeFindByMinAmount(client, input);
                         break;
                     default:
-                        view.showMessage("Не верное значение!");
+                        view.showMessage("Неверное значение!");
                         main(new String[0]);
                 }
                 break;

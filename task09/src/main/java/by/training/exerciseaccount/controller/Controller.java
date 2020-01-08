@@ -15,15 +15,15 @@ public class Controller {
     }
 
     public void executeBalanceAmount(Client client) {
-        view.showTotalSum(clientService.totalAmount(client));
+        view.showMessage("Общая сумма по счетам равна " + clientService.totalAmount(client));
     }
 
     public void executeTotalAmountWithPositiveBalance(Client client) {
-        view.showTotalSumWithPositiveBalance(clientService.totalAmountWithPositiveBalance(client));
+        view.showMessage("Сумма по всем счетам, имеющим положительный баланс равна " + clientService.totalAmountWithPositiveBalance(client));
     }
 
     public void executeTotalAmountWithNegativeBalance(Client client) {
-        view.showTotalSumWithNegativeBalance(clientService.totalAmountWithNegativeBalance(client));
+        view.showMessage("Сумма по всем счетам, имеющим отрицательный баланс равна " + clientService.totalAmountWithNegativeBalance(client));
     }
 
     public void executeFindByMinAmount(Client client, double minAmount) {

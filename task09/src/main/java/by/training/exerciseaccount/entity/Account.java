@@ -3,12 +3,12 @@ package by.training.exerciseaccount.entity;
 public class Account {
     private int accountId;
     private double balance;
-    private boolean isBlocked;
+    private boolean blocked;
 
     public Account(int accountId, double balance) {
         this.accountId = accountId;
         this.balance = balance;
-        this.isBlocked = isBlocked();
+        this.blocked = isBlocked();
     }
 
     public int getAccountId() {
@@ -40,7 +40,7 @@ public class Account {
 
         if (accountId != account.accountId) return false;
         if (Double.compare(account.balance, balance) != 0) return false;
-        return isBlocked == account.isBlocked;
+        return blocked == account.blocked;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Account {
         result = accountId;
         temp = Double.doubleToLongBits(balance);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (isBlocked ? 1 : 0);
+        result = 31 * result + (blocked ? 1 : 0);
         return result;
     }
 
@@ -59,7 +59,7 @@ public class Account {
         return "Account{" +
                 "accountId=" + accountId +
                 ", balance=" + balance +
-                ", isBlocked=" + isBlocked +
+                ", isBlocked=" + blocked +
                 '}';
     }
 }
