@@ -1,0 +1,11 @@
+package by.training.exerciseaccount.command;
+
+public enum CommandName {
+    INFO_BALANCE_ALL_ACCOUNT,
+    BALANCE_AMOUNT,
+    TOTAL_AMOUNT_WITH_POSITIVE_BALANCE,
+    TOTAL_AMOUNT_WITH_NEGATIVE_BALANCE,
+    FIND_BY_MIN_BALANCE,
+    SORT_BY_BALANCE,
+    WRONG_REQUEST
+}

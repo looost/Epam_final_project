@@ -12,6 +12,10 @@ public class ClientCreator {
         Account account5 = new Account(5, -1281.12);
         Account account6 = new Account(6, 121.76);
         Account account7 = new Account(7, -223.62);
+        Account account8 = new Account(8, 246.75);
+        Account account9 = new Account(9, 346.33);
+        Account account10 = new Account(10, -575.96);
+
 
         Client client = new Client(1,"Billy");
         client.setAccount(account1);
@@ -21,6 +25,9 @@ public class ClientCreator {
         client.setAccount(account5);
         client.setAccount(account6);
         client.setAccount(account7);
+        client.setAccount(account8);
+        client.setAccount(account9);
+        client.setAccount(account10);
 
         return client;
     }

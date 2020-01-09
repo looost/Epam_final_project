@@ -42,6 +42,7 @@ public class UserUI {
                 command = scanner.nextLine();
                 controller.doAction("exercise37 " + command);
             }
+            view.showMessage("Для возврата введите 0");
             zeroCheck();
         } else {
             view.showMessage("Неверная команда");
@@ -52,9 +53,8 @@ public class UserUI {
 
 
     private static void zeroCheck() {
-        view.showMessage("Для возврата введите 0");
-        String zero = scanner.nextLine();
-        if (!zero.equals("0")) {
+        if (!scanner.nextLine().equals("0")) {
+            view.showMessage("Для возврата введите 0");
             zeroCheck();
         }
         run();
