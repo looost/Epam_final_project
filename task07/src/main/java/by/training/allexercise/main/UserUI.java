@@ -1,8 +1,6 @@
 package by.training.allexercise.main;
 
-import by.training.allexercise.controller.NewController;
-import by.training.allexercise.entity.Matrix;
-import by.training.allexercise.exeption.MatrixException;
+import by.training.allexercise.controller.Controller;
 import by.training.view.View;
 
 
@@ -11,36 +9,55 @@ import java.util.Scanner;
 public class UserUI {
     private static Scanner scanner = new Scanner(System.in);
     private static View view = new View();
+    private static Controller controller = new Controller();
+
+
+    public static void main(String[] args) {
+        run();
+    }
 
     private static void run() {
-
-        NewController controller = new NewController();
-
-
         view.task();
         String command = scanner.nextLine();
-        if (controller.getProvider().hasCommand(command.split(" ")[0])) {
-            controller.doAction(scanner.nextLine());
+        String exercise = command.split(" ")[0];
+        if (controller.getProvider().hasCommand(exercise)) {
+            if (exercise.equals("exercise4")) {
+                view.showTaskExercise4();
+                view.showMessage("Введите число строк и столбцов через пробел: ");
+                command = scanner.nextLine();
+                controller.doAction("exercise4 " + command);
+            } else if (exercise.equals("exercise14")) {
+                view.showTaskExercise14();
+                view.showMessage("Введите размерность матрицы:");
+                command = scanner.nextLine();
+                controller.doAction("exercise14 " + command);
+            } else if (exercise.equals("exercise27")) {
+                view.showTaskExercise27();
+                view.showMessage("Введите через пробел число строк, столбцов, номер первого столбца для обмена и номер второго столбца для обмена");
+                command = scanner.nextLine();
+                controller.doAction("exercise27 " + command);
+            } else if (exercise.equals("exercise37")) {
+                view.showTaskExercise37();
+                view.showMessage("Введите число строк и столбцов через пробел: ");
+                command = scanner.nextLine();
+                controller.doAction("exercise37 " + command);
+            }
+            zeroCheck();
         } else {
             view.showMessage("Неверная команда");
-            zeroCheck();
+            run();
         }
 
     }
 
 
     private static void zeroCheck() {
-        view.showMessage("Для вовзрата введите 0");
+        view.showMessage("Для возврата введите 0");
         String zero = scanner.nextLine();
-        if (zero.equals("0")) {
-            scanner.next();
+        if (!zero.equals("0")) {
             zeroCheck();
         }
         run();
     }
 
-
-    public static void main(String[] args) {
-        run();
-    }
 }

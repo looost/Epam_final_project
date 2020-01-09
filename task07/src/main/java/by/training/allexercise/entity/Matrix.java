@@ -8,7 +8,7 @@ public class Matrix {
 
     public Matrix(int n, int m) throws MatrixException {
         if ((n < 1) || (m < 1)) {
-            throw new MatrixException();
+            throw new MatrixException("Значение строки или столбца не может быть меньше 1!");
         }
         a = new int[n][m];
     }
@@ -25,7 +25,7 @@ public class Matrix {
         if (checkRange(i, j)) { // проверка i и j
             return a[i][j];
         } else {
-            throw new MatrixException();
+            throw new MatrixException("Такого элемента не существует!");
         }
     }
 
@@ -33,7 +33,7 @@ public class Matrix {
         if (checkRange(i, j)) { // проверка i и j
             a[i][j] = value;
         } else {
-            throw new MatrixException();
+            throw new MatrixException("Такого элемента не существует!");
         }
     }
 

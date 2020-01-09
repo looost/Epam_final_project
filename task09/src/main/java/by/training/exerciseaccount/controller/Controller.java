@@ -11,7 +11,7 @@ public class Controller {
     private AccountService accountService = new AccountService();
 
     public void executeInfoBalanceAllAccount(Client client) {
-        view.showBalanceAccount(client.getAccountList());
+        view.showAccountBalance(client.getAccountList());
     }
 
     public void executeBalanceAmount(Client client) {
@@ -26,11 +26,11 @@ public class Controller {
         view.showMessage("Сумма по всем счетам, имеющим отрицательный баланс равна " + clientService.totalAmountWithNegativeBalance(client));
     }
 
-    public void executeFindByMinAmount(Client client, double minAmount) {
-        view.showBalanceAccount(accountService.findByMinBalance(client.getAccountList(), minAmount));
+    public void executeFindByMinBalance(Client client, double minAmount) {
+        view.showAccountBalance(accountService.findByMinBalance(client.getAccountList(), minAmount));
     }
 
     public void executeSortByBalance(Client client) {
-        view.showBalanceAccount(accountService.sortByBalance(client.getAccountList()));
+        view.showAccountBalance(accountService.sortByBalance(client.getAccountList()));
     }
 }

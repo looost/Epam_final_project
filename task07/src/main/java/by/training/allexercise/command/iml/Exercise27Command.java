@@ -13,8 +13,8 @@ import java.util.Map;
 public class Exercise27Command implements Command {
     @Override
     public void execute(String request) {
+        View view = new View();
         try {
-            View view = new View();
             String[] params = request.split(" ");
             Matrix matrix = new Matrix(Integer.parseInt(params[1]), Integer.parseInt(params[2]));
             RandomMatrixCreator.fillRandomValue(matrix);
@@ -24,6 +24,9 @@ public class Exercise27Command implements Command {
             view.showMessage("Матрица, где столбцы " + params[3] + " и " + params[4] + " поменяли местами: ");
             view.showMatrix(matrixService.swapMatrixColumn(matrix, Integer.parseInt(params[3]), Integer.parseInt(params[4])));
         } catch (MatrixException e) {
+            view.showMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            view.showMessage("Значения введены неверно!");
         }
     }
 }

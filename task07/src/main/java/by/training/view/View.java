@@ -17,14 +17,6 @@ public class View {
         System.out.println(message);
     }
 
-    public void showMenu() {
-        System.out.println("---------------------Меню---------------------");
-        System.out.println("1 - Задача номер 4");
-        System.out.println("2 - Задача номер 14");
-        System.out.println("3 - Задача номер 27");
-        System.out.println("4 - Задача номер 37");
-        System.out.println("0 - Выход");
-    }
 
     public void task() {
         System.out.println("Доступные задания:");

@@ -14,8 +14,8 @@ public class Exercise37Command implements Command {
 
     @Override
     public void execute(String request) {
+        View view = new View();
         try {
-            View view = new View();
             String[] params = request.split(" ");
             MatrixService matrixService = new MatrixService();
             Matrix matrix = new Matrix(Integer.parseInt(params[1]), Integer.parseInt(params[2]));
@@ -26,6 +26,9 @@ public class Exercise37Command implements Command {
             view.showMessage("Матрица, где строки поменяли случайным образом местами: ");
             view.showMatrix(matrixService.swapRandomMatrixStrings(matrix));
         } catch (MatrixException e) {
+            view.showMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            view.showMessage("Значения введены неверно!");
         }
     }
 }

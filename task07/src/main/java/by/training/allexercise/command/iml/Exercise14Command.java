@@ -14,14 +14,17 @@ public class Exercise14Command implements Command {
 
     @Override
     public void execute(String request) {
+        View view = new View();
         try {
             Map<String, Matrix> map = new HashMap<>();
             String[] params = request.split(" ");
             MatrixService matrixService = new MatrixService();
-            View view = new View();
             view.showMessage("Матрица: ");
             view.showMatrix(matrixService.createMatrixOrderN(Integer.parseInt(params[1])));
         } catch (MatrixException e) {
+            view.showMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            view.showMessage("Значения введены неверно!");
         }
     }
 }

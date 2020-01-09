@@ -15,17 +15,20 @@ public class Exercise4Command implements Command {
     // request = exercise4 5 2
     @Override
     public void execute(String request) {
+        View view = new View();
         try {
             String[] params = request.split(" ");
             Matrix matrix = new Matrix(Integer.parseInt(params[1]), Integer.parseInt(params[2]));
             RandomMatrixCreator.fillRandomValue(matrix);
             MatrixService matrixService = new MatrixService();
-            View view = new View();
             view.showMessage("Оригинальная матрица: ");
             view.showMatrix(matrix);
             view.showMessage("Первая и последняя строки матрицы: ");
             view.showMatrix(matrixService.firstAndLastLines(matrix));
         } catch (MatrixException e) {
+            view.showMessage(e.getMessage());
+        } catch (NumberFormatException e) {
+            view.showMessage("Значения введены неверно!");
         }
     }
 }

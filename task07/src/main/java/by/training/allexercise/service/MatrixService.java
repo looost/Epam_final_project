@@ -12,11 +12,7 @@ public class MatrixService {
         int count = 0;
         for (int i = 0; i < matrix.getVerticalSize(); i += matrix.getVerticalSize() - 1) {
             for (int j = 0; j < matrix.getHorizontalSize(); j++) {
-                try {
                     newMatrix.setElement(count, j, matrix.getElement(i, j));
-                } catch (MatrixException e) {
-
-                }
             }
             count = 1;
         }
@@ -55,20 +51,16 @@ public class MatrixService {
                     jPosition = j;
                 }
                 if (j == column2 - 1) {
-                    try {
                         tpm = matrix.getElement(i, j);
                         matrix.setElement(i, j, matrix.getElement(i, jPosition));
                         matrix.setElement(i, jPosition, tpm);
-                    } catch (MatrixException e) {
-                        return null;
-                    }
                 }
             }
         }
         return matrix;
     }
 
-    public Matrix swapRandomMatrixStrings(Matrix matrix) {
+    public Matrix swapRandomMatrixStrings(Matrix matrix) throws MatrixException {
         Random random = new Random();
         int tpm = 0;
         int rand = 0;
@@ -76,16 +68,11 @@ public class MatrixService {
         for (int i = 0; i < matrix.getVerticalSize(); i++) {
             rand = random.nextInt(matrix.getVerticalSize());
             for (int j = 0; j < matrix.getHorizontalSize(); j++) {
-                try {
                     tpm = matrix.getElement(i, j);
                     matrix.setElement(i, j, matrix.getElement(rand, j));
                     matrix.setElement(rand, j, tpm);
-                } catch (MatrixException e) {
-                    return null;
-                }
             }
         }
         return matrix;
     }
-
 }

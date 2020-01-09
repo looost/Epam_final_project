@@ -25,7 +25,7 @@ public class View {
         System.out.println(message);
     }
 
-    public void showBalanceAccount(List <Account> account){
+    public void showAccountBalance(List <Account> account){
         for (Account acc:account
              ) {
             System.out.println("Аккаунт номер " + acc.getAccountId() + " имеет баланс - " + acc.getBalance());
