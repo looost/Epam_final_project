@@ -1,14 +1,18 @@
-package by.training;
+package by.training.view;
+
+import by.training.allexercise.entity.Matrix;
+import by.training.allexercise.exeption.MatrixException;
 
 public class View {
-    public void showMatrix(int [][] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = 0; j < arr[i].length; j++) {
-                System.out.printf("arr[%d][%d] = %-6d", i,j,arr[i][j]);
+    public void showMatrix(Matrix matrix) throws MatrixException {
+        for (int i = 0; i < matrix.getVerticalSize(); i++) {
+            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
+                System.out.printf("arr[%d][%d] = %-6d", i, j, matrix.getElement(i, j));
             }
             System.out.println();
         }
     }
+
     public void showMessage(String message) {
         System.out.println(message);
     }
@@ -20,6 +24,12 @@ public class View {
         System.out.println("3 - Задача номер 27");
         System.out.println("4 - Задача номер 37");
         System.out.println("0 - Выход");
+    }
+
+    public void task() {
+        System.out.println("Доступные задания:");
+        System.out.println("exercise4     exercise14     exercise27     exercise37");
+        System.out.println("---> Для выбора задания введите его название в консоль");
     }
 
 

@@ -1,6 +1,10 @@
 package by.training.allexercise;
 
-import by.training.View;
+import by.training.view.View;
+import by.training.allexercise.controller.Controller;
+import by.training.allexercise.creator.RandomMatrixCreator;
+import by.training.allexercise.entity.Matrix;
+import by.training.allexercise.exeption.MatrixException;
 
 import java.util.Scanner;
 
@@ -8,6 +12,7 @@ public class Runner {
     private static View view = new View();
     private static Scanner scanner = new Scanner(System.in);
     private static Controller controller = new Controller();
+    private static Matrix matrix;
 
     private static int validate() {
         while (!scanner.hasNextInt()) {
@@ -40,10 +45,11 @@ public class Runner {
                 view.showMessage("Введите кол-во столбцов - ");
                 m = validate();
                 try {
-                    arr = MatrixService.randomMatrix(n,m);
-                    controller.executeExercise4(arr);
-                } catch (IllegalArgumentException e) {
-                    view.showMessage(e.getMessage());
+                    matrix = new Matrix(n, m);
+                    RandomMatrixCreator.fillRandomValue(matrix);
+                    controller.executeExercise4(matrix);
+                } catch (MatrixException e) {
+                    view.showMessage("Неверные значения!");
                 }
                 break;
             case 2:
@@ -63,11 +69,13 @@ public class Runner {
                 view.showMessage("Введите номер втрого столбца для обмена - ");
                 int column2 = validate();
                 try {
-                    arr = MatrixService.randomMatrix(n,m);
-                    controller.executeExercise27(arr,column1,column2);
-                } catch (IllegalArgumentException e) {
-                    view.showMessage(e.getMessage());
+                    matrix = new Matrix(n, m);
+                    RandomMatrixCreator.fillRandomValue(matrix);
+                    controller.executeExercise27(matrix, column1, column2);
+                } catch (MatrixException e) {
+                    view.showMessage("Неверные значения!");
                 }
+
                 break;
             case 4:
                 view.showTaskExercise37();
@@ -76,10 +84,11 @@ public class Runner {
                 view.showMessage("Введите кол-во столбцов - ");
                 m = validate();
                 try {
-                    arr = MatrixService.randomMatrix(n,m);
-                    controller.executeExercise37(arr);
-                } catch (IllegalArgumentException e) {
-                    view.showMessage(e.getMessage());
+                    matrix = new Matrix(n, m);
+                    RandomMatrixCreator.fillRandomValue(matrix);
+                    controller.executeExercise37(matrix);
+                } catch (MatrixException e) {
+                    view.showMessage("Неверные значения!");
                 }
                 break;
             case 0:

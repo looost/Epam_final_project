@@ -4,6 +4,7 @@ import by.training.exerciseaccount.entity.Account;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AccountService {
 
@@ -29,13 +30,16 @@ public class AccountService {
     }
 
     public List <Account> findByMinBalance(List <Account> accountList, double minBalance) {
-        List <Account> result = new ArrayList<>();
-        for (Account account:accountList
-        ) {
-            if (minBalance < account.getBalance()) {
-                result.add(account);
-            }
-        }
-        return result;
+//        List <Account> result = new ArrayList<>();
+//        for (Account account:accountList
+//        ) {
+//            if (minBalance < account.getBalance()) {
+//                result.add(account);
+//            }
+//        }
+//        return result;
+          return accountList.stream().filter(account -> account.getBalance()>minBalance).collect(Collectors.toList());
     }
+
+
 }
