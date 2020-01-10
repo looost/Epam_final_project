@@ -1,4 +1,4 @@
-package by.training.view;
+package by.training.allexercise.view;
 
 import by.training.allexercise.entity.Matrix;
 import by.training.allexercise.exeption.MatrixException;
@@ -20,8 +20,10 @@ public class View {
 
     public void task() {
         System.out.println("Доступные задания:");
-        System.out.println("exercise4     exercise14     exercise27     exercise37");
-        System.out.println("---> Для выбора задания введите его название в консоль");
+        System.out.println("----------------------------------------------------------");
+        System.out.println("| exercise4  |  exercise14  |  exercise27  |  exercise37 |");
+        System.out.println("----------------------------------------------------------");
+        System.out.println("> Для выбора задания введите его название в консоль");
     }
 
 

@@ -1,7 +1,8 @@
 package by.training.allexercise.main;
 
+import by.training.allexercise.command.CommandName;
 import by.training.allexercise.controller.Controller;
-import by.training.view.View;
+import by.training.allexercise.view.View;
 
 
 import java.util.Scanner;
@@ -20,6 +21,7 @@ public class UserUI {
         view.task();
         String command = scanner.nextLine();
         String exercise = command.split(" ")[0];
+
         if (controller.getProvider().hasCommand(exercise)) {
             if (exercise.equals("exercise4")) {
                 view.showTaskExercise4();

@@ -5,10 +5,7 @@ import by.training.allexercise.creator.RandomMatrixCreator;
 import by.training.allexercise.entity.Matrix;
 import by.training.allexercise.exeption.MatrixException;
 import by.training.allexercise.service.MatrixService;
-import by.training.view.View;
-
-import java.util.HashMap;
-import java.util.Map;
+import by.training.allexercise.view.View;
 
 public class Exercise37Command implements Command {
 
