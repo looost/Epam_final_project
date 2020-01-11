@@ -1,43 +1,31 @@
 package by.training.textfile.main;
 
 
-import by.training.textfile.FileException;
+import by.training.textfile.creator.Creator;
 import by.training.textfile.entity.Directory;
-import by.training.textfile.entity.File;
 import by.training.textfile.entity.TextFile;
+import by.training.textfile.exception.FileException;
 import by.training.textfile.service.TextFileService;
-import by.training.textfile.view.ViewConsoleDirectory;
-import by.training.textfile.view.ViewConsoleTextFile;
+import by.training.textfile.view.ViewDirectory;
+import by.training.textfile.view.ViewFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, FileException {
+        ViewFile viewFile = new ViewFile();
+        ViewDirectory viewDirectory = new ViewDirectory();
+        TextFileService textFileService = new TextFileService();
+        Creator creator = new Creator();
 
+        Directory directory = creator.createDirectory();
 
-        TextFileService fileService = new TextFileService();
-        ViewConsoleTextFile viewFile = new ViewConsoleTextFile();
-        ViewConsoleDirectory viewDirectory = new ViewConsoleDirectory();
+        TextFile textFile1 = new TextFile(directory, "renameFile.txt");
+        //textFile1.createNewFile();
+        //Creator.writeFile(textFile1);
 
-        try {
-            Directory mainDirectory = new Directory("C:\\TestProject");
-            List<File> list1 = new ArrayList<>();
-            list1.add(fileService.createByDefault(mainDirectory));
-            list1.add(new TextFile("file1", "pdf", mainDirectory));
-            list1.add(new TextFile("file2", "fb2", mainDirectory));
-            list1.add(new TextFile("file3", "doc", mainDirectory));
-            Directory subDirectory = new Directory("C:\\TestProject");
-            System.out.println("---------");
+        //viewFile.viewData(textFileService.getData(textFile1));
 
-
-            //Directory subDirectory1 = new Directory();
-
-
-        } catch (FileException e) {
-            System.out.println(e.getMessage());
-        }
-
-
+        System.out.println(textFile1.delete());
     }
 }

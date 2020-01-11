@@ -1,4 +1,4 @@
-package by.training.textfile;
+package by.training.textfile.exception;
 
 public class FileException extends Exception {
     public FileException() {

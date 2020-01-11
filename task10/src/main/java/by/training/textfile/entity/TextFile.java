@@ -1,27 +1,24 @@
 package by.training.textfile.entity;
 
-import by.training.textfile.FileException;
-
-import java.util.ArrayList;
-import java.util.List;
+import by.training.textfile.exception.FileException;
 
 public class TextFile extends File {
 
-    private List<String> data;
     private Expansion expansion;
+    private Directory directory;
 
-    public TextFile(String name, String expansion, Directory directory) throws FileException {
-        super(name, directory);
-        data = new ArrayList<>();
-        if (contains(expansion.toUpperCase())) {
-            this.expansion = Expansion.valueOf(expansion.toUpperCase());
+    public TextFile(Directory directory, String name) throws FileException {
+        super(directory, name);
+        this.directory = directory;
+        if (contains(getName().substring(getName().lastIndexOf(".") + 1))) {
+            this.expansion = Expansion.valueOf(getName().substring(getName().lastIndexOf(".") + 1).toUpperCase());
         } else {
-            throw new FileException("Некорректное расширение файла");
+            throw new FileException("Файл не является текстовым");
         }
     }
 
-    public List<String> getData() {
-        return data;
+    public String getDirectory() {
+        return directory.getPath();
     }
 
     public String getExpansion() {
@@ -29,21 +26,20 @@ public class TextFile extends File {
     }
 
     private enum Expansion {
-        DOC,
-        PDF,
         TXT,
+        PDF,
+        DOC,
         FB2;
     }
 
     private boolean contains(String name) {
         for (Expansion e : Expansion.values()
         ) {
-            if (e.name().equals(name.toUpperCase())) {
+            if (e.name().equalsIgnoreCase(name)) {
                 return true;
             }
         }
         return false;
     }
+
 }
-
-
