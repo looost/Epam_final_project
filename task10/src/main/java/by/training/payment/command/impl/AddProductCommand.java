@@ -7,6 +7,10 @@ import by.training.payment.exception.PaymentException;
 public class AddProductCommand implements Command {
     @Override
     public boolean execute(Payment payment, String command) {
+        if (command.split(" ").length < 2) {
+            System.err.println("Не выбран товар для добавления!");
+            return false;
+        }
         try {
             payment.addProduct(command.split(" ")[1]);
             return true;

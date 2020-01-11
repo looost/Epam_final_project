@@ -3,7 +3,6 @@ package by.training.payment.entity;
 import by.training.payment.entity.productenum.ProductEnum;
 import by.training.payment.exception.PaymentException;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,28 @@ public class Payment {
             this.productName = productName;
         }
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
 
+            Product product = (Product) o;
+
+            return productName == product.productName;
+        }
+
+        @Override
+        public int hashCode() {
+            return productName != null ? productName.hashCode() : 0;
+        }
+
+        @Override
+        public String
+        toString() {
+            return "Product{" +
+                    "productName=" + productName +
+                    '}';
+        }
     }
 
     @Override

@@ -16,9 +16,7 @@ public class UserUI {
     private static PaymentService service = new PaymentService();
 
     public static void main(String[] args) {
-
         run();
-
     }
 
     private static void run() {
