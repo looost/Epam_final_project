@@ -10,7 +10,7 @@ public class File {
     public File(Directory directory, String name) {
         this.directory = directory;
         this.directory.addFile(this);
-        this.file = new java.io.File(directory.getPath() + name);
+        this.file = new java.io.File(directory.getPath() + "\\" + name);
     }
 
     public java.io.File getFile() {

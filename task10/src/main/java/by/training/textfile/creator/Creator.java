@@ -15,9 +15,9 @@ public class Creator {
 
 
     public static Directory createDirectory() throws IOException {
-        Directory directory = new Directory("D:\\test\\");
-        Directory subDirectory1 = new Directory("D:\\test\\sub1\\");
-        Directory subDirectory2 = new Directory("D:\\test\\sub2\\");
+        Directory directory = new Directory("src\\main\\resources\\file");
+        Directory subDirectory1 = new Directory("src\\main\\resources\\file\\sub1");
+        Directory subDirectory2 = new Directory("src\\main\\resources\\file\\sub2");
 
         directory.addSubDirectory(subDirectory1);
         directory.addSubDirectory(subDirectory2);

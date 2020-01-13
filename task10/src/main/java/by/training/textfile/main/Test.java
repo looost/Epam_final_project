@@ -16,16 +16,15 @@ public class Test {
         ViewFile viewFile = new ViewFile();
         ViewDirectory viewDirectory = new ViewDirectory();
         TextFileService textFileService = new TextFileService();
-        Creator creator = new Creator();
 
-        Directory directory = creator.createDirectory();
+        Directory directory = Creator.createDirectory();
 
-        TextFile textFile1 = new TextFile(directory, "renameFile.txt");
+        //TextFile textFile1 = new TextFile(directory, "renameFile.txt");
         //textFile1.createNewFile();
         //Creator.writeFile(textFile1);
-
+        viewDirectory.viewCatalog(directory);
         //viewFile.viewData(textFileService.getData(textFile1));
 
-        System.out.println(textFile1.delete());
+        //System.out.println(textFile1.delete());
     }
 }

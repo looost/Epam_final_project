@@ -1,7 +1,6 @@
 package by.training.dragon.entity;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Treasure implements Serializable {
 
