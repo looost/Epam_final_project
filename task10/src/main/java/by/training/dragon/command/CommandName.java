@@ -8,7 +8,7 @@ public enum CommandName {
 
     private String description;
 
-    private CommandName(String description) {
+    CommandName(String description) {
         this.description = description;
     }
 

@@ -16,14 +16,14 @@ public class UserUI {
         run();
     }
 
-    public static void run() {
+    private static void run() {
         view.showCommand();
         request = scanner.nextLine();
         view.showTreasure(provider.getCommand(request).execute(request));
         continueOrExit();
     }
 
-    public static void continueOrExit() {
+    private static void continueOrExit() {
         System.out.println();
         view.showMessage("Что бы вернуться, введите что угодно, exit - для выхода");
         request = scanner.nextLine();

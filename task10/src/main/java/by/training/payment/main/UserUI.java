@@ -25,17 +25,16 @@ public class UserUI {
         command = scanner.nextLine();
         controller.getCommand(command).execute(payment, command);
         viewPayment.showBasket(payment, service.totalPrice(payment));
-        check();
+        continueOrExit();
     }
 
-    private static void check() {
-        viewPayment.showMessage("Продолжить покупки или выйти? [Y/N]");
+    private static void continueOrExit() {
+        System.out.println();
+        viewPayment.showMessage("Что бы вернуться, введите что угодно, exit - для выхода");
         command = scanner.nextLine();
-        if (command.equalsIgnoreCase("Y")) {
-            run();
-        } else if (command.equalsIgnoreCase("N")) {
+        if (command.equalsIgnoreCase("exit")) {
             System.exit(0);
         }
-        check();
+        run();
     }
 }
