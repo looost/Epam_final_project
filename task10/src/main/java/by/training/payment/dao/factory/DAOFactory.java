@@ -1,7 +1,7 @@
-package by.training.dragon.dao.factory;
+package by.training.payment.dao.factory;
 
-import by.training.dragon.dao.Dao;
-import by.training.dragon.dao.impl.FileDao;
+import by.training.payment.dao.Dao;
+import by.training.payment.dao.impl.FileDao;
 
 public class DAOFactory {
     private static final DAOFactory instance = new DAOFactory();

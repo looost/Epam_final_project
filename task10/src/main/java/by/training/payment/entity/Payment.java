@@ -1,7 +1,5 @@
 package by.training.payment.entity;
 
-import by.training.payment.entity.productenum.ProductEnum;
-import by.training.payment.exception.PaymentException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +12,14 @@ public class Payment {
         return products;
     }
 
-    public void addProduct(String productName) throws PaymentException {
-        try {
-            this.products.add(new Product(ProductEnum.valueOf(productName.toUpperCase())));
-        } catch (IllegalArgumentException e) {
-            throw new PaymentException("Такого товара в магазине нет", e);
-        }
-
+    public void addProduct(String productName, double price) {
+        this.products.add(new Product(productName, price));
     }
 
     public boolean removeProduct(String productName) {
         for (Product e : products
         ) {
-            if (e.productName.name().equalsIgnoreCase(productName)) {
+            if (e.productName.equalsIgnoreCase(productName)) {
                 this.products.remove(e);
                 return true;
             }
@@ -35,22 +28,28 @@ public class Payment {
     }
 
     public class Product {
-        private ProductEnum productName;
+        private String productName;
+        private double price;
 
-        public Product(ProductEnum productName) {
+        private Product(String productName, double price) {
             this.productName = productName;
-        }
-
-        public ProductEnum getProduct() {
-            return productName;
+            this.price = price;
         }
 
         public String getProductName() {
-            return productName.name().toLowerCase();
+            return productName;
         }
 
-        public void setProductName(ProductEnum productName) {
+        public void setProductName(String productName) {
             this.productName = productName;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
         }
 
         @Override
@@ -60,19 +59,25 @@ public class Payment {
 
             Product product = (Product) o;
 
-            return productName == product.productName;
+            if (Double.compare(product.price, price) != 0) return false;
+            return productName != null ? productName.equals(product.productName) : product.productName == null;
         }
 
         @Override
         public int hashCode() {
-            return productName != null ? productName.hashCode() : 0;
+            int result;
+            long temp;
+            result = productName != null ? productName.hashCode() : 0;
+            temp = Double.doubleToLongBits(price);
+            result = 31 * result + (int) (temp ^ (temp >>> 32));
+            return result;
         }
 
         @Override
-        public String
-        toString() {
+        public String toString() {
             return "Product{" +
-                    "productName=" + productName +
+                    "productName='" + productName + '\'' +
+                    ", price=" + price +
                     '}';
         }
     }
@@ -95,7 +100,7 @@ public class Payment {
     @Override
     public String toString() {
         return "Payment{" +
-                "goods=" + products +
+                "products=" + products +
                 '}';
     }
 }

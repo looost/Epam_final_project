@@ -1,7 +1,7 @@
 package by.training.dragon.controller;
 
-import by.training.dragon.command.Command;
-import by.training.dragon.command.CommandProvider;
+import by.training.dragon.controller.command.Command;
+import by.training.dragon.controller.command.CommandProvider;
 
 public class Controller {
     private final CommandProvider provider = new CommandProvider();

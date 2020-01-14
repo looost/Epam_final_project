@@ -1,6 +1,6 @@
 package by.training.dragon.view;
 
-import by.training.dragon.command.CommandName;
+import by.training.dragon.controller.command.CommandName;
 import by.training.dragon.entity.Treasure;
 
 import java.util.Arrays;
@@ -20,8 +20,6 @@ public class ViewConsole {
     }
 
     public void showTreasure(List<Treasure> treasures) {
-        if (treasures != null) {
             treasures.forEach(treasure -> System.out.println(treasure.getName() + " стоимостью - " + treasure.getPrice()));
-        }
     }
 }

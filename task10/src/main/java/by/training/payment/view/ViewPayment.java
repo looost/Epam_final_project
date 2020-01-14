@@ -1,18 +1,17 @@
 package by.training.payment.view;
 
 import by.training.payment.entity.Payment;
-import by.training.payment.entity.productenum.ProductEnum;
 
 import java.util.List;
 
 public class ViewPayment {
 
-    public void availableProduct() {
+    public void availableProduct(Payment payment) {
         System.out.println("Товары в наличие: ");
         System.out.println("-----------------------");
-        for (ProductEnum e : ProductEnum.values()
+        for (Payment.Product p : payment.getProducts()
         ) {
-            System.out.println(e.name() + " Стоимость: " + e.getPrice());
+            System.out.println(p.getProductName() + " Стоимость: " + p.getPrice());
         }
         System.out.println("-----------------------");
     }
