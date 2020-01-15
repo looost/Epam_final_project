@@ -12,8 +12,8 @@ public class Payment {
         return products;
     }
 
-    public void addProduct(String productName, double price) {
-        this.products.add(new Product(productName, price));
+    public boolean addProduct(String productName, double price) {
+        return this.products.add(new Product(productName, price));
     }
 
     public boolean removeProduct(String productName) {

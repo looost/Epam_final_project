@@ -2,7 +2,6 @@ package by.training.payment.view;
 
 import by.training.payment.entity.Payment;
 
-import java.util.List;
 
 public class ViewPayment {
 
@@ -26,10 +25,5 @@ public class ViewPayment {
                 .forEach(product -> System.out.print(product.getProductName() + ", "));
         System.out.println();
         System.out.println("Общая цена покупки равна " + price);
-    }
-
-    public void showProductList(List<String> productList) {
-        System.out.println("Список всех покупок: ");
-        productList.forEach(System.out::println);
     }
 }

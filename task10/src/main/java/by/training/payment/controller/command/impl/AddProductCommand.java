@@ -28,8 +28,20 @@ public class AddProductCommand implements Command {
                     .filter(product -> product.getProductName().equalsIgnoreCase(command.split(" ")[1]))
                     .collect(Collectors.toList())
                     .get(0).getPrice();
-            payment.addProduct(command.split(" ")[1], price);
-            return true;
+
+            try {
+                int count = Integer.parseInt(command.split(" ")[2]);
+                for (int i = 0; i < count; i++) {
+                    payment.addProduct(command.split(" ")[1], price);
+                }
+                return true;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return payment.addProduct(command.split(" ")[1], price);
+            } catch (NumberFormatException e) {
+                System.err.println("Неверно задано количество товара для добавления!");
+                return false;
+            }
+
         } catch (ServiceException e) {
             return false;
         }

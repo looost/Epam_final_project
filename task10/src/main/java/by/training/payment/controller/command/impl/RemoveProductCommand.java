@@ -10,6 +10,19 @@ public class RemoveProductCommand implements Command {
             System.err.println("Не выбран товар для удаления!");
             return false;
         }
-        return payment.removeProduct(command.split(" ")[1]);
+
+        try {
+            int count = Integer.parseInt(command.split(" ")[2]);
+            for (int i = 0; i < count; i++) {
+                payment.removeProduct(command.split(" ")[1]);
+            }
+            return true;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return payment.removeProduct(command.split(" ")[1]);
+        } catch (NumberFormatException e) {
+            System.err.println("Неверно задано количество товара для удаления!");
+            return false;
+        }
+
     }
 }
