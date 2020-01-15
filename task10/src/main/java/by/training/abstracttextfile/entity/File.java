@@ -8,6 +8,7 @@ public class File {
 
     public File(Directory directory, String name) {
         this.directory = directory;
+        directory.addFile(this);
         this.name = name;
         this.expansion = name.substring(name.lastIndexOf(".") + 1);
     }

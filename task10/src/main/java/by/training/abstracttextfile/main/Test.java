@@ -3,17 +3,30 @@ package by.training.abstracttextfile.main;
 import by.training.abstracttextfile.entity.Directory;
 import by.training.abstracttextfile.entity.File;
 import by.training.abstracttextfile.entity.TextFile;
+import by.training.abstracttextfile.view.ConsoleView;
 
 public class Test {
     public static void main(String[] args) {
-        Directory directory = new Directory("C:\\main");
+        ConsoleView view = new ConsoleView();
+
+        Directory directory = new Directory("main");
+        Directory subDirectory1 = new Directory("sub1");
+        directory.addSubDirectory(subDirectory1);
+        Directory subDirectory2 = new Directory("sub2");
+        directory.addSubDirectory(subDirectory2);
+        Directory subDirectory3 = new Directory("sub3");
+        subDirectory2.addSubDirectory(subDirectory3);
+        Directory subDirectory4 = new Directory("sub4");
+        directory.addSubDirectory(subDirectory4);
+
         File file = new TextFile(directory, "FILE.txt");
         File file1 = new File(directory, "asdasd.TEST");
-        System.out.println(file.getName());
-        file.rename("newName");
-        System.out.println(file.getNameWithDirectory());
-        System.out.println(file1.getName());
-        file1.rename("Opaaa");
-        System.out.println(file1.getNameWithDirectory());
+
+        File file2 = new TextFile(subDirectory1, "FILE.txt");
+        File file3 = new File(subDirectory2, "asdasd.TEST");
+
+        TextFile file4 = new TextFile(subDirectory3, "newFile.doc");
+
+        view.viewCatalog(directory);
     }
 }

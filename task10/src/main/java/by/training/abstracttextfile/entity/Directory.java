@@ -7,13 +7,16 @@ public class Directory {
 
     private List<File> fileList = new ArrayList<>();
     private List<Directory> subDirectory = new ArrayList<>();
-    private String path;
+    private String path = "C:\\";
+    private String name;
 
-    public Directory(String path) {
-        this.path = path;
+    public Directory(String name) {
+        this.name = name;
+        this.path += name + "\\";
     }
 
-    public List<File> getFileList() {
+
+    public List<File> getFiles() {
         return fileList;
     }
 
@@ -26,6 +29,7 @@ public class Directory {
     }
 
     public void addSubDirectory(Directory subDirectory) {
+        subDirectory.setPath(this.path + subDirectory.getName() + "\\");
         this.subDirectory.add(subDirectory);
     }
 
@@ -35,5 +39,13 @@ public class Directory {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
