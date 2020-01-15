@@ -1,6 +1,5 @@
 package by.training.dragon.service;
 
-import by.training.dragon.entity.Cave;
 import by.training.dragon.entity.Treasure;
 import by.training.dragon.service.exception.ServiceException;
 
@@ -12,4 +11,6 @@ public interface CaveService {
     Treasure getMostValuableTreasure() throws ServiceException;
 
     List<Treasure> getTreasureGivenAmount(int amount) throws ServiceException;
+
+    double totalAmount(List<Treasure> treasures);
 }
