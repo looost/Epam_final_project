@@ -5,7 +5,7 @@ import by.training.payment.entity.Payment;
 
 public class WrongRequestCommand implements Command {
     @Override
-    public boolean execute(Payment payment, String command) {
-        return false;
+    public String execute(Payment payment, String command) {
+        return "Не верная команда!";
     }
 }

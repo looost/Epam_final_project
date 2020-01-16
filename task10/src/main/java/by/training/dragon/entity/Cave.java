@@ -20,8 +20,8 @@ public class Cave implements Serializable {
         return treasureList;
     }
 
-    public void addTreasure(Treasure treasure) {
-        this.treasureList.add(treasure);
+    public boolean addTreasure(Treasure treasure) {
+        return this.treasureList.add(treasure);
     }
 
     public void removeTreasure(Treasure treasure) {

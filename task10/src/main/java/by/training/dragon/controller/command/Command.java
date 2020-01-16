@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface Command {
     List<Treasure> execute(String request);
+
+    String getResponse();
 }

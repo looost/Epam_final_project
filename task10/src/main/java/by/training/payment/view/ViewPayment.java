@@ -21,6 +21,10 @@ class ViewPayment {
         System.out.println(str);
     }
 
+    void showError(String str) {
+        System.err.println(str);
+    }
+
     void showBasket(Payment payment) {
         System.out.print("Товары в вашей корзине - ");
         payment.getPurchases()

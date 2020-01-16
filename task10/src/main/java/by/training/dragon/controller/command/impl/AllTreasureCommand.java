@@ -9,13 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllTreasureCommand implements Command {
+    private String response;
     @Override
     public List<Treasure> execute(String request) {
         try {
+            this.response = "OK";
             return ServiceFactory.getInstance().getCaveService().getAllTreasure();
         } catch (ServiceException e) {
-            System.err.println(e.getMessage());
+            response = "Файл не найден";
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public String getResponse() {
+        return this.response;
     }
 }

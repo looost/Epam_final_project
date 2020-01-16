@@ -9,21 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TreasureForAGivenAmount implements Command {
+    private String response;
     @Override
     public List<Treasure> execute(String request) {
         if (request.split(" ").length < 2) {
-            System.err.println("Не введено значение!");
+            response = "Не введено значение!";
             return new ArrayList<>();
         }
         try {
+            response = "OK";
             return ServiceFactory.getInstance()
                     .getCaveService().getTreasureGivenAmount(Integer.parseInt(request.split(" ")[1]));
         } catch (ServiceException e) {
-            System.err.println(e.getMessage());
+            response = "Файл не найден";
             return new ArrayList<>();
         } catch (NumberFormatException e) {
-            System.err.println("Введите целочисленное значение!");
+            response = "Введено не целочисленное значение";
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public String getResponse() {
+        return response;
     }
 }

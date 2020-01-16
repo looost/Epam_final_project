@@ -25,7 +25,6 @@ public class CommandProvider {
         try {
             return repository.get(CommandName.valueOf(request.split(" ")[0].toUpperCase()));
         } catch (IllegalArgumentException e) {
-            System.err.println("Неверная команда");
             return repository.get(WRONG_REQUEST);
         }
     }

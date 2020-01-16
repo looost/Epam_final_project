@@ -11,10 +11,9 @@ import java.util.stream.Collectors;
 public class AddProductCommand implements Command {
 
     @Override
-    public boolean execute(Payment payment, String command) {
+    public String execute(Payment payment, String command) {
         if (command.split(" ").length < 2) {
-            System.err.println("Не выбран товар для добавления!");
-            return false;
+            return "Не выбран товар для добавления!";
         }
         try {
             String productName = command.split(" ")[1];
@@ -24,8 +23,7 @@ public class AddProductCommand implements Command {
                     .getProductList()
                     .stream().noneMatch(product -> product.getProductName()
                             .equalsIgnoreCase(productName))) {
-                System.err.println("Такого товара нету!");
-                return false;
+                return "Такого товара нету!";
             }
             double price = ServiceFactory.getInstance()
                     .getMarketService()
@@ -39,15 +37,17 @@ public class AddProductCommand implements Command {
 
             int length = command.split(" ").length;
             if (length == 2) {
-                return payment.addProduct(new Product(productName, price), 1);
-            } else if (length == 3) {
+                payment.addProduct(new Product(productName, price), 1);
+                return "OK";
+            } else {
                 int count = Integer.parseInt(command.split(" ")[2]);
                 payment.addProduct(new Product(productName, price), count);
-                return true;
+                return "OK";
             }
-            return false;
         } catch (ServiceException e) {
-            return false;
+            return e.getMessage();
+        } catch (NumberFormatException e) {
+            return "Введено не числовое значение для количества продуктов!";
         }
     }
 }

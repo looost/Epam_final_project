@@ -17,7 +17,7 @@ public class Payment {
         for (Purchase p : purchases
         ) {
             if (p.getProduct().getProductName().equalsIgnoreCase(product.getProductName())) {
-                p.setCountOfProduct(countOfProduct);
+                p.addCountOfProduct(countOfProduct);
                 return true;
             }
         }
@@ -28,7 +28,7 @@ public class Payment {
         for (Purchase e : this.purchases
         ) {
             if (e.product.getProductName().equalsIgnoreCase(productName)) {
-                e.countOfProduct -= countOfProduct;
+                e.removeCountOfProduct(countOfProduct);
                 return true;
             }
         }
@@ -65,8 +65,12 @@ public class Payment {
             return countOfProduct;
         }
 
-        void setCountOfProduct(int countOfProduct) {
+        void addCountOfProduct(int countOfProduct) {
             this.countOfProduct += countOfProduct;
+        }
+
+        void removeCountOfProduct(int countOfProduct) {
+            this.countOfProduct -= countOfProduct;
         }
 
         @Override
