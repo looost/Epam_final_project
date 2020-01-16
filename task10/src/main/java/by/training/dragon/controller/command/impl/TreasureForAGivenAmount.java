@@ -21,10 +21,10 @@ public class TreasureForAGivenAmount implements Command {
             return ServiceFactory.getInstance()
                     .getCaveService().getTreasureGivenAmount(Integer.parseInt(request.split(" ")[1]));
         } catch (ServiceException e) {
-            response = "Файл не найден";
+            response = e.getMessage();
             return new ArrayList<>();
         } catch (NumberFormatException e) {
-            response = "Введено не целочисленное значение";
+            response = "Введено не корректное значение!";
             return new ArrayList<>();
         }
     }

@@ -49,6 +49,9 @@ public class CaveServiceImpl implements CaveService {
 
     @Override
     public List<Treasure> getTreasureGivenAmount(int amount) throws ServiceException {
+        if (amount <= 0) {
+            throw new ServiceException("Значение сокровища меньше либо равно нулю!");
+        }
 
         List<Treasure> list = new ArrayList<>();
         List<Treasure> treasureList = getAllTreasure();
@@ -75,8 +78,8 @@ public class CaveServiceImpl implements CaveService {
     }
 
     @Override
-    public double totalAmount(List<Treasure> list) {
-        double totalAmount = 0;
+    public int totalAmount(List<Treasure> list) {
+        int totalAmount = 0;
         for (Treasure t : list
         ) {
             totalAmount += t.getPrice();

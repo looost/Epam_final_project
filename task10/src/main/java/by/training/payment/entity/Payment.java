@@ -29,6 +29,9 @@ public class Payment {
         ) {
             if (e.product.getProductName().equalsIgnoreCase(productName)) {
                 e.removeCountOfProduct(countOfProduct);
+                if (e.countOfProduct <= 0) {
+                    this.purchases.remove(e);
+                }
                 return true;
             }
         }

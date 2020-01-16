@@ -3,8 +3,8 @@ package by.training.payment.controller.command.impl;
 import by.training.payment.controller.command.Command;
 import by.training.payment.entity.Payment;
 import by.training.payment.entity.Product;
-import by.training.payment.servise.exeception.ServiceException;
-import by.training.payment.servise.factory.ServiceFactory;
+import by.training.payment.service.exeception.ServiceException;
+import by.training.payment.service.factory.ServiceFactory;
 
 import java.util.stream.Collectors;
 

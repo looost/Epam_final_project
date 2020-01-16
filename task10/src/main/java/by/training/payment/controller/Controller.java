@@ -3,8 +3,8 @@ package by.training.payment.controller;
 import by.training.payment.controller.command.Command;
 import by.training.payment.controller.command.CommandProvider;
 import by.training.payment.entity.Market;
-import by.training.payment.servise.exeception.ServiceException;
-import by.training.payment.servise.factory.ServiceFactory;
+import by.training.payment.service.exeception.ServiceException;
+import by.training.payment.service.factory.ServiceFactory;
 
 public class Controller {
     private final CommandProvider provider = new CommandProvider();

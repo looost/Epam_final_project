@@ -1,10 +1,10 @@
-package by.training.payment.servise.factory;
+package by.training.payment.service.factory;
 
-import by.training.payment.servise.MarketService;
+import by.training.payment.service.impl.MarketServiceImpl;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
-    private final MarketService marketService = new MarketService();
+    private final MarketServiceImpl marketService = new MarketServiceImpl();
 
     private ServiceFactory() {
     }
@@ -13,7 +13,7 @@ public class ServiceFactory {
         return instance;
     }
 
-    public MarketService getMarketService() {
+    public MarketServiceImpl getMarketService() {
         return marketService;
     }
 }

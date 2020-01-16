@@ -10,10 +10,9 @@ public class UserUI {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Controller controller = new Controller();
+        ViewPayment viewPayment = new ViewPayment();
         String command;
         String response;
-        ViewPayment viewPayment = new ViewPayment();
-
         Payment basket = new Payment();
         boolean flag = true;
 

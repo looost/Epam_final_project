@@ -24,8 +24,8 @@ public class Cave implements Serializable {
         return this.treasureList.add(treasure);
     }
 
-    public void removeTreasure(Treasure treasure) {
-        this.treasureList.remove(treasure);
+    public boolean removeTreasure(Treasure treasure) {
+        return this.treasureList.remove(treasure);
     }
 
     @Override

@@ -16,7 +16,7 @@ public class AllTreasureCommand implements Command {
             this.response = "OK";
             return ServiceFactory.getInstance().getCaveService().getAllTreasure();
         } catch (ServiceException e) {
-            response = "Файл не найден";
+            response = e.getMessage();
             return new ArrayList<>();
         }
     }

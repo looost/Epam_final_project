@@ -1,4 +1,4 @@
-package by.training.payment.servise.exeception;
+package by.training.payment.service.exeception;
 
 public class ServiceException extends Exception {
     public ServiceException() {

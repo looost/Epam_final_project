@@ -16,8 +16,7 @@ public class MostValuableCommand implements Command {
             response = "OK";
             return ServiceFactory.getInstance().getCaveService().getMostValuableTreasure();
         } catch (ServiceException e) {
-            response = "Файл не найден";
-            System.out.println(e.getMessage());
+            response = e.getMessage();
             return new ArrayList<>();
         }
     }

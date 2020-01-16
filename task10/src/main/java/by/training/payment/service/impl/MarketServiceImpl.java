@@ -1,15 +1,18 @@
-package by.training.payment.servise;
+package by.training.payment.service.impl;
 
+import by.training.payment.service.Creator;
+import by.training.payment.service.MarketService;
+import by.training.payment.service.Parser;
 import by.training.payment.dao.exception.DAOException;
 import by.training.payment.dao.factory.DAOFactory;
 import by.training.payment.entity.Market;
-import by.training.payment.servise.exeception.ServiceException;
+import by.training.payment.service.exeception.ServiceException;
 
-public class MarketService {
+public class MarketServiceImpl implements MarketService {
     private final Creator creator = new Creator();
     private final Parser parser = new Parser();
 
-
+    @Override
     public Market getMarket() throws ServiceException {
         Market market = new Market();
         try {

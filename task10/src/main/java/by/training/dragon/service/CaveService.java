@@ -12,5 +12,5 @@ public interface CaveService {
 
     List<Treasure> getTreasureGivenAmount(int amount) throws ServiceException;
 
-    double totalAmount(List<Treasure> treasures);
+    int totalAmount(List<Treasure> treasures);
 }
