@@ -12,9 +12,7 @@ public class MostValuableCommand implements Command {
     @Override
     public List<Treasure> execute(String request) {
         try {
-            List<Treasure> list = new ArrayList<>();
-            list.add(ServiceFactory.getInstance().getCaveService().getMostValuableTreasure());
-            return list;
+            return ServiceFactory.getInstance().getCaveService().getMostValuableTreasure();
         } catch (ServiceException e) {
             System.out.println(e.getMessage());
             return new ArrayList<>();

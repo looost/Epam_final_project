@@ -2,14 +2,13 @@ package by.training.payment.controller.command.impl;
 
 import by.training.payment.controller.command.Command;
 import by.training.payment.entity.Payment;
-import by.training.payment.servise.Parser;
+import by.training.payment.entity.Product;
 import by.training.payment.servise.exeception.ServiceException;
+import by.training.payment.servise.factory.ServiceFactory;
 
 import java.util.stream.Collectors;
 
 public class AddProductCommand implements Command {
-
-    private final Parser parser = new Parser();
 
     @Override
     public boolean execute(Payment payment, String command) {
@@ -18,30 +17,35 @@ public class AddProductCommand implements Command {
             return false;
         }
         try {
-            if (parser.parseFromFile().getProducts().stream().noneMatch(product -> product.getProductName().equalsIgnoreCase(command.split(" ")[1]))) {
+            String productName = command.split(" ")[1];
+            if (ServiceFactory.getInstance()
+                    .getMarketService()
+                    .getMarket()
+                    .getProductList()
+                    .stream().noneMatch(product -> product.getProductName()
+                            .equalsIgnoreCase(productName))) {
                 System.err.println("Такого товара нету!");
                 return false;
             }
-            double price = parser.parseFromFile()
-                    .getProducts()
+            double price = ServiceFactory.getInstance()
+                    .getMarketService()
+                    .getMarket()
+                    .getProductList()
                     .stream()
-                    .filter(product -> product.getProductName().equalsIgnoreCase(command.split(" ")[1]))
+                    .filter(product -> product.getProductName().equalsIgnoreCase(productName))
                     .collect(Collectors.toList())
-                    .get(0).getPrice();
+                    .get(0)
+                    .getPrice();
 
-            try {
+            int length = command.split(" ").length;
+            if (length == 2) {
+                return payment.addProduct(new Product(productName, price), 1);
+            } else if (length == 3) {
                 int count = Integer.parseInt(command.split(" ")[2]);
-                for (int i = 0; i < count; i++) {
-                    payment.addProduct(command.split(" ")[1], price);
-                }
+                payment.addProduct(new Product(productName, price), count);
                 return true;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return payment.addProduct(command.split(" ")[1], price);
-            } catch (NumberFormatException e) {
-                System.err.println("Неверно задано количество товара для добавления!");
-                return false;
             }
-
+            return false;
         } catch (ServiceException e) {
             return false;
         }

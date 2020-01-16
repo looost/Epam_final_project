@@ -6,8 +6,8 @@ import by.training.dragon.entity.Treasure;
 import java.util.Arrays;
 import java.util.List;
 
-public class ViewConsole {
-    public void showCommand() {
+class ViewConsole {
+    void showCommand() {
         System.out.println("----------------Доступные команды---------------");
         Arrays.stream(CommandName.values())
                 .filter(commandName -> !commandName.name().equals("WRONG_REQUEST"))
@@ -15,11 +15,11 @@ public class ViewConsole {
         System.out.println("------------------------------------------------");
     }
 
-    public void showMessage(String message) {
+    void showMessage(String message) {
         System.out.println(message);
     }
 
-    public void showTreasure(List<Treasure> treasures) {
+    void showTreasure(List<Treasure> treasures) {
             treasures.forEach(treasure -> System.out.println(treasure.getName() + " стоимостью - " + treasure.getPrice()));
     }
 }

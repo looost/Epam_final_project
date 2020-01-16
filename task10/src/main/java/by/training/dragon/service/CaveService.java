@@ -8,7 +8,7 @@ import java.util.List;
 public interface CaveService {
     List<Treasure> getAllTreasure() throws ServiceException;
 
-    Treasure getMostValuableTreasure() throws ServiceException;
+    List<Treasure> getMostValuableTreasure() throws ServiceException;
 
     List<Treasure> getTreasureGivenAmount(int amount) throws ServiceException;
 

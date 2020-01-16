@@ -6,50 +6,67 @@ import java.util.List;
 
 public class Payment {
 
-    private List<Product> products = new ArrayList<>();
+    private List<Purchase> purchases = new ArrayList<>();
+    private double totalPrice = 0;
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public boolean addProduct(String productName, double price) {
-        return this.products.add(new Product(productName, price));
-    }
-
-    public boolean removeProduct(String productName) {
-        for (Product e : products
+    public boolean addProduct(Product product, int countOfProduct) {
+        for (Purchase p : purchases
         ) {
-            if (e.productName.equalsIgnoreCase(productName)) {
-                this.products.remove(e);
+            if (p.getProduct().getProductName().equalsIgnoreCase(product.getProductName())) {
+                p.setCountOfProduct(countOfProduct);
+                return true;
+            }
+        }
+        return this.purchases.add(new Purchase(product, countOfProduct));
+    }
+
+    public boolean removeProduct(String productName, int countOfProduct) {
+        for (Purchase e : this.purchases
+        ) {
+            if (e.product.getProductName().equalsIgnoreCase(productName)) {
+                e.countOfProduct -= countOfProduct;
                 return true;
             }
         }
         return false;
     }
 
-    public class Product {
-        private String productName;
-        private double price;
+    public double getTotalPrice() {
+        this.totalPrice = 0;
+        for (Purchase p : purchases
+        ) {
+            this.totalPrice += (p.getProduct().getPrice() * p.countOfProduct);
+        }
+        return this.totalPrice;
+    }
 
-        private Product(String productName, double price) {
-            this.productName = productName;
-            this.price = price;
+    public class Purchase {
+        private Product product;
+        private int countOfProduct;
+
+        Purchase(Product product, int countOfProduct) {
+            this.product = product;
+            this.countOfProduct = countOfProduct;
         }
 
-        public String getProductName() {
-            return productName;
+        public Product getProduct() {
+            return product;
         }
 
-        public void setProductName(String productName) {
-            this.productName = productName;
+        public void setProduct(Product product) {
+            this.product = product;
         }
 
-        public double getPrice() {
-            return price;
+        public int getCountOfProduct() {
+            return countOfProduct;
         }
 
-        public void setPrice(int price) {
-            this.price = price;
+        void setCountOfProduct(int countOfProduct) {
+            this.countOfProduct += countOfProduct;
         }
 
         @Override
@@ -57,27 +74,24 @@ public class Payment {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            Product product = (Product) o;
+            Purchase purchase = (Purchase) o;
 
-            if (Double.compare(product.price, price) != 0) return false;
-            return productName != null ? productName.equals(product.productName) : product.productName == null;
+            if (countOfProduct != purchase.countOfProduct) return false;
+            return product != null ? product.equals(purchase.product) : purchase.product == null;
         }
 
         @Override
         public int hashCode() {
-            int result;
-            long temp;
-            result = productName != null ? productName.hashCode() : 0;
-            temp = Double.doubleToLongBits(price);
-            result = 31 * result + (int) (temp ^ (temp >>> 32));
+            int result = product != null ? product.hashCode() : 0;
+            result = 31 * result + countOfProduct;
             return result;
         }
 
         @Override
         public String toString() {
-            return "Product{" +
-                    "productName='" + productName + '\'' +
-                    ", price=" + price +
+            return "Purchase{" +
+                    "product=" + product +
+                    ", countOfProduct=" + countOfProduct +
                     '}';
         }
     }
@@ -89,18 +103,18 @@ public class Payment {
 
         Payment payment = (Payment) o;
 
-        return products != null ? products.equals(payment.products) : payment.products == null;
+        return purchases != null ? purchases.equals(payment.purchases) : payment.purchases == null;
     }
 
     @Override
     public int hashCode() {
-        return products != null ? products.hashCode() : 0;
+        return purchases != null ? purchases.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "Payment{" +
-                "products=" + products +
+                "products=" + purchases +
                 '}';
     }
 }

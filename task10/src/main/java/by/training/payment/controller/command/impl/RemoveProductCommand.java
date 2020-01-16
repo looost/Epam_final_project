@@ -11,18 +11,14 @@ public class RemoveProductCommand implements Command {
             return false;
         }
 
-        try {
+        int length = command.split(" ").length;
+        if (length == 2) {
+            return payment.removeProduct(command.split(" ")[1], 1);
+        } else if (length == 3) {
             int count = Integer.parseInt(command.split(" ")[2]);
-            for (int i = 0; i < count; i++) {
-                payment.removeProduct(command.split(" ")[1]);
-            }
+            payment.removeProduct(command.split(" ")[1], count);
             return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return payment.removeProduct(command.split(" ")[1]);
-        } catch (NumberFormatException e) {
-            System.err.println("Неверно задано количество товара для удаления!");
-            return false;
         }
-
+        return false;
     }
 }

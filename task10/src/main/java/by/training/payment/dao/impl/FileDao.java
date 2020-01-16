@@ -12,7 +12,11 @@ import java.util.stream.Stream;
 
 public class FileDao implements Dao {
 
-    private static final String TREASURE_PATH = "src\\main\\resources\\Product.txt";
+    private final String TREASURE_PATH;
+
+    public FileDao(String path) {
+        this.TREASURE_PATH = path;
+    }
 
     @Override
     public List<String> readData() throws DAOException {

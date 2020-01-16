@@ -14,7 +14,7 @@ public class AllTreasureCommand implements Command {
         try {
             return ServiceFactory.getInstance().getCaveService().getAllTreasure();
         } catch (ServiceException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return new ArrayList<>();
         }
     }

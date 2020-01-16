@@ -16,7 +16,8 @@ public class TreasureForAGivenAmount implements Command {
             return new ArrayList<>();
         }
         try {
-            return ServiceFactory.getInstance().getCaveService().getTreasureGivenAmount(Integer.parseInt(request.split(" ")[1]));
+            return ServiceFactory.getInstance()
+                    .getCaveService().getTreasureGivenAmount(Integer.parseInt(request.split(" ")[1]));
         } catch (ServiceException e) {
             System.err.println(e.getMessage());
             return new ArrayList<>();

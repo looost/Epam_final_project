@@ -2,7 +2,6 @@ package by.training.dragon.view;
 
 import by.training.dragon.controller.command.CommandProvider;
 import by.training.dragon.entity.Treasure;
-import by.training.dragon.service.exception.ServiceException;
 import by.training.dragon.service.factory.ServiceFactory;
 
 import java.util.List;
