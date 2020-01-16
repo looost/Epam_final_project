@@ -27,7 +27,7 @@ public class UserUI {
 
             if (response.equalsIgnoreCase("OK")) {
                 view.showTreasure(treasureList);
-                view.showMessage("Общая ценность сокровищ равна " + ServiceFactory.
+                view.showMessage("\nОбщая ценность сокровищ равна " + ServiceFactory.
                         getInstance().getCaveService().totalAmount(treasureList));
             } else {
                 System.err.println(response);

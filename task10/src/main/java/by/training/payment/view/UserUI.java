@@ -1,6 +1,7 @@
 package by.training.payment.view;
 
 import by.training.payment.controller.Controller;
+import by.training.payment.entity.Market;
 import by.training.payment.entity.Payment;
 
 import java.util.Scanner;
@@ -13,14 +14,15 @@ public class UserUI {
         ViewPayment viewPayment = new ViewPayment();
         String command;
         String response;
+        Market market = controller.getMarket();
         Payment basket = new Payment();
         boolean flag = true;
 
             while (flag) {
-                viewPayment.showMarket(controller.getMarket());
+                viewPayment.showMarket(market);
                 System.out.println("Введите (add/remove) пробел название товара пробел количество товара");
                 command = scanner.nextLine();
-                response = controller.getCommand(command).execute(basket, command);
+                response = controller.getCommand(command).execute(market, basket, command);
                 if (response.equalsIgnoreCase("OK")) {
                     viewPayment.showBasket(basket);
                 } else {

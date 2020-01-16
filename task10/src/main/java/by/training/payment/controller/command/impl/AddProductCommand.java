@@ -1,52 +1,43 @@
 package by.training.payment.controller.command.impl;
 
 import by.training.payment.controller.command.Command;
+import by.training.payment.entity.Market;
 import by.training.payment.entity.Payment;
 import by.training.payment.entity.Product;
+import by.training.payment.service.MarketService;
 import by.training.payment.service.exeception.ServiceException;
 import by.training.payment.service.factory.ServiceFactory;
-
-import java.util.stream.Collectors;
 
 public class AddProductCommand implements Command {
 
     @Override
-    public String execute(Payment payment, String command) {
+    public String execute(Market market, Payment payment, String command) {
         if (command.split(" ").length < 2) {
             return "Не выбран товар для добавления!";
         }
+        MarketService service = ServiceFactory.getInstance().getMarketService();
         try {
             String productName = command.split(" ")[1];
-            if (ServiceFactory.getInstance()
-                    .getMarketService()
-                    .getMarket()
-                    .getProductList()
-                    .stream().noneMatch(product -> product.getProductName()
-                            .equalsIgnoreCase(productName))) {
-                return "Такого товара нету!";
-            }
-            double price = ServiceFactory.getInstance()
-                    .getMarketService()
-                    .getMarket()
-                    .getProductList()
-                    .stream()
-                    .filter(product -> product.getProductName().equalsIgnoreCase(productName))
-                    .collect(Collectors.toList())
-                    .get(0)
-                    .getPrice();
 
             int length = command.split(" ").length;
+
             if (length == 2) {
-                payment.addProduct(new Product(productName, price), 1);
+                ServiceFactory.getInstance().
+                        getPaymentService().
+                        addProduct(payment, new Product(productName, service.getProductPrice(productName)), 1);
                 return "OK";
             } else {
                 int count = Integer.parseInt(command.split(" ")[2]);
-                payment.addProduct(new Product(productName, price), count);
+                ServiceFactory.getInstance()
+                        .getPaymentService()
+                        .addProduct(payment, new Product(productName, service.getProductPrice(productName)), count);
                 return "OK";
             }
         } catch (ServiceException e) {
+            // logger
             return e.getMessage();
         } catch (NumberFormatException e) {
+            // logger
             return "Введено не числовое значение для количества продуктов!";
         }
     }

@@ -1,5 +1,6 @@
 package by.training.payment.service.impl;
 
+import by.training.payment.entity.Product;
 import by.training.payment.service.Creator;
 import by.training.payment.service.MarketService;
 import by.training.payment.service.Parser;
@@ -25,5 +26,21 @@ public class MarketServiceImpl implements MarketService {
         } catch (DAOException e) {
             throw new ServiceException("Файл не найден!", e);
         }
+    }
+
+    @Override
+    public Product getProduct(String productName) throws ServiceException {
+        for (Product p : getMarket().getProductList()
+        ) {
+            if (p.getProductName().equalsIgnoreCase(productName)) {
+                return p;
+            }
+        }
+        throw new ServiceException("Такого товара нет в магазине!");
+    }
+
+    @Override
+    public double getProductPrice(String productName) throws ServiceException {
+        return getProduct(productName).getPrice();
     }
 }
