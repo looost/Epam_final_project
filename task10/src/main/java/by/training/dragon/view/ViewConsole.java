@@ -19,6 +19,10 @@ class ViewConsole {
         System.out.println(message);
     }
 
+    void showError(String message) {
+        System.err.println(message);
+    }
+
     void showTreasure(List<Treasure> treasures) {
             treasures.forEach(treasure -> System.out.println(treasure.getName() + " стоимостью - " + treasure.getPrice()));
     }

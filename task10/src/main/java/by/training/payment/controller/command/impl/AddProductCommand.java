@@ -15,7 +15,7 @@ public class AddProductCommand implements Command {
         if (command.split(" ").length < 2) {
             return "Не выбран товар для добавления!";
         }
-        MarketService service = ServiceFactory.getInstance().getMarketService();
+        MarketService marketService = ServiceFactory.getInstance().getMarketService();
         try {
             String productName = command.split(" ")[1];
 
@@ -24,13 +24,13 @@ public class AddProductCommand implements Command {
             if (length == 2) {
                 ServiceFactory.getInstance().
                         getPaymentService().
-                        addProduct(payment, new Product(productName, service.getProductPrice(productName)), 1);
+                        addProduct(market, payment, new Product(productName, marketService.getProductPrice(productName)), 1);
                 return "OK";
             } else {
                 int count = Integer.parseInt(command.split(" ")[2]);
                 ServiceFactory.getInstance()
                         .getPaymentService()
-                        .addProduct(payment, new Product(productName, service.getProductPrice(productName)), count);
+                        .addProduct(market, payment, new Product(productName, marketService.getProductPrice(productName)), count);
                 return "OK";
             }
         } catch (ServiceException e) {

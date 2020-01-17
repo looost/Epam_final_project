@@ -1,9 +1,6 @@
 package by.training.abstracttextfile.controller;
 
-import by.training.abstracttextfile.controller.impl.CreateDirectoryCommand;
-import by.training.abstracttextfile.controller.impl.CreateFileCommand;
-import by.training.abstracttextfile.controller.impl.CreateTextFileCommand;
-import by.training.abstracttextfile.controller.impl.WrongRequestCommand;
+import by.training.abstracttextfile.controller.impl.*;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -18,6 +15,7 @@ public class CommandProvider {
         repository.put(DIR, new CreateDirectoryCommand());
         repository.put(FILE, new CreateFileCommand());
         repository.put(TEXT_FILE, new CreateTextFileCommand());
+        repository.put(RENAME_DIR, new RenameDirectoryImpl());
         repository.put(WRONG_REQUEST, new WrongRequestCommand());
     }
 
@@ -25,7 +23,7 @@ public class CommandProvider {
         return instance;
     }
 
-    public Command getCommand(String command) {
+    Command getCommand(String command) {
         try {
             return repository.get(CommandName.valueOf(command.toUpperCase()));
         } catch (IllegalArgumentException e) {

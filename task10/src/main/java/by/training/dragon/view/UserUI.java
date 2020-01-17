@@ -30,7 +30,7 @@ public class UserUI {
                 view.showMessage("\nОбщая ценность сокровищ равна " + ServiceFactory.
                         getInstance().getCaveService().totalAmount(treasureList));
             } else {
-                System.err.println(response);
+                view.showError(response);
             }
 
             view.showMessage("\n--> Что бы вернуться, введите что угодно, exit - для выхода");

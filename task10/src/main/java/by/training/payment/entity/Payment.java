@@ -103,6 +103,7 @@ public class Payment {
         }
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,18 +111,25 @@ public class Payment {
 
         Payment payment = (Payment) o;
 
+        if (Double.compare(payment.totalPrice, totalPrice) != 0) return false;
         return purchases != null ? purchases.equals(payment.purchases) : payment.purchases == null;
     }
 
     @Override
     public int hashCode() {
-        return purchases != null ? purchases.hashCode() : 0;
+        int result;
+        long temp;
+        result = purchases != null ? purchases.hashCode() : 0;
+        temp = Double.doubleToLongBits(totalPrice);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     @Override
     public String toString() {
         return "Payment{" +
-                "products=" + purchases +
+                "purchases=" + purchases +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }

@@ -33,26 +33,27 @@ public class UserUI {
                 flag = false;
             }
         }
+    /*
+        Directory directory = new Directory("main");
+        Directory subDirectory1 = new Directory("sub1");
+        directory.addSubDirectory(subDirectory1);
+        Directory subDirectory2 = new Directory("sub2");
+        directory.addSubDirectory(subDirectory2);
+        Directory subDirectory3 = new Directory("sub3");
+        subDirectory2.addSubDirectory(subDirectory3);
+        Directory subDirectory4 = new Directory("sub4");
+        directory.addSubDirectory(subDirectory4);
 
-//        Directory directory = new Directory("main");
-//        Directory subDirectory1 = new Directory("sub1");
-//        directory.addSubDirectory(subDirectory1);
-//        Directory subDirectory2 = new Directory("sub2");
-//        directory.addSubDirectory(subDirectory2);
-//        Directory subDirectory3 = new Directory("sub3");
-//        subDirectory2.addSubDirectory(subDirectory3);
-//        Directory subDirectory4 = new Directory("sub4");
-//        directory.addSubDirectory(subDirectory4);
-//
-//        File file = new TextFile(directory, "FILE.txt");
-//        File file1 = new File(directory, "asdasd.TEST");
-//        file.rename("ff");
-//        System.out.println(file.getNameWithDirectory());
-//        File file2 = new TextFile(subDirectory1, "FILE.txt");
-//        File file3 = new File(subDirectory2, "asdasd.TEST");
-//
-//        TextFile file4 = new TextFile(subDirectory3, "newFile.doc");
+        File file = new TextFile(directory, "FILE.txt");
+        File file1 = new File(directory, "asdasd.TEST");
+        file.rename("ff");
+        System.out.println(file.getNameWithDirectory());
+        File file2 = new TextFile(subDirectory1, "FILE.txt");
+        File file3 = new File(subDirectory2, "asdasd.TEST");
 
-//        view.viewCatalog(directory);
+        TextFile file4 = new TextFile(subDirectory3, "newFile.doc");
+
+        view.viewCatalog(directory);
+    */
     }
 }

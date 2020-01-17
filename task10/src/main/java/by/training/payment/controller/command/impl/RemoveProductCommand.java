@@ -14,19 +14,19 @@ public class RemoveProductCommand implements Command {
             if (command.split(" ").length < 2) {
                 return "Не выбран товар для удаления!";
             }
-            MarketService service = ServiceFactory.getInstance().getMarketService();
+            MarketService marketService = ServiceFactory.getInstance().getMarketService();
             String productName = command.split(" ")[1];
             int length = command.split(" ").length;
             if (length == 2) {
                 ServiceFactory.getInstance()
                         .getPaymentService()
-                        .removeProduct(payment, service.getProduct(productName).getProductName(), 1);
+                        .removeProduct(payment, marketService.getProduct(productName).getProductName(), 1);
                 return "OK";
             } else {
                 int count = Integer.parseInt(command.split(" ")[2]);
                 ServiceFactory.getInstance()
                         .getPaymentService()
-                        .removeProduct(payment, service.getProduct(productName).getProductName(), count);
+                        .removeProduct(payment, marketService.getProduct(productName).getProductName(), count);
                 return "OK";
             }
         } catch (ServiceException e) {
