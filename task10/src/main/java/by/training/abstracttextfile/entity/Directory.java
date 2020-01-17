@@ -28,6 +28,16 @@ public class Directory {
         return subDirectory;
     }
 
+    public Directory getDirectory(String name) {
+        for (Directory d : subDirectory
+        ) {
+            if (d.name.equalsIgnoreCase(name)) {
+                return d;
+            }
+        }
+        return this;
+    }
+
     public void addSubDirectory(Directory subDirectory) {
         subDirectory.setPath(this.path + subDirectory.getName() + "\\");
         this.subDirectory.add(subDirectory);

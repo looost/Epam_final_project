@@ -25,4 +25,26 @@ public class Market {
     public boolean removeProduct(Product product) {
         return this.productList.remove(product);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Market market = (Market) o;
+
+        return productList != null ? productList.equals(market.productList) : market.productList == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return productList != null ? productList.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Market{" +
+                "productList=" + productList +
+                '}';
+    }
 }
