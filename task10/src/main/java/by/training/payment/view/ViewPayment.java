@@ -4,7 +4,6 @@ import by.training.payment.entity.Market;
 import by.training.payment.entity.Payment;
 import by.training.payment.entity.Product;
 
-
 class ViewPayment {
 
     void showMarket(Market market) {

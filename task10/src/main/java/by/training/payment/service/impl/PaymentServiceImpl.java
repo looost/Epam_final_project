@@ -6,7 +6,6 @@ import by.training.payment.entity.Product;
 import by.training.payment.service.PaymentService;
 import by.training.payment.service.Validation;
 import by.training.payment.service.exeception.ServiceException;
-import by.training.payment.service.factory.ServiceFactory;
 
 public class PaymentServiceImpl implements PaymentService {
     private static final Validation validation = new Validation();
