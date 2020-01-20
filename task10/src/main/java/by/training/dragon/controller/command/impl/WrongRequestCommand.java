@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WrongRequestCommand implements Command {
-    private static final String response = "Не верная команда!";
+    private static final String response = "Неверная команда!";
     @Override
     public List<Treasure> execute(String request) {
         return new ArrayList<>();

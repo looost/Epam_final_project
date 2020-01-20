@@ -7,6 +7,6 @@ import by.training.payment.entity.Payment;
 public class WrongRequestCommand implements Command {
     @Override
     public String execute(Market market, Payment payment, String command) {
-        return "Не верная команда!";
+        return "Неверная команда!";
     }
 }

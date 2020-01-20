@@ -12,7 +12,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public boolean addProduct(Market market, Payment payment, Product product, int countOfProduct) throws ServiceException {
-        if (validation.productInMarket(market, product.getProductName())) {
+        if (!validation.productInMarket(market, product.getProductName())) {
             throw new ServiceException("В магазине такого товара нет!");
         }
         return payment.addProduct(product, countOfProduct);
@@ -20,7 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public boolean removeProduct(Payment payment, String productName, int countOfProduct) throws ServiceException {
-        if (validation.productInPayment(payment, productName)) {
+        if (!validation.productInPayment(payment, productName)) {
             throw new ServiceException("В корзине такого товара нет!");
         }
         return payment.removeProduct(productName, countOfProduct);

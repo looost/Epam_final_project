@@ -7,12 +7,12 @@ public class Validation {
     public boolean productInMarket(Market market, String productName) {
         return market.getProductList()
                 .stream()
-                .noneMatch(product -> product.getProductName().equalsIgnoreCase(productName));
+                .anyMatch(product -> product.getProductName().equalsIgnoreCase(productName));
     }
 
     public boolean productInPayment(Payment payment, String productName) {
         return payment.getPurchases()
                 .stream()
-                .noneMatch(purchase -> purchase.getProduct().getProductName().equalsIgnoreCase(productName));
+                .anyMatch(purchase -> purchase.getProduct().getProductName().equalsIgnoreCase(productName));
     }
 }

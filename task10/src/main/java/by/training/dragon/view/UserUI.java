@@ -2,7 +2,6 @@ package by.training.dragon.view;
 
 import by.training.dragon.controller.Controller;
 import by.training.dragon.entity.Treasure;
-import by.training.dragon.service.factory.ServiceFactory;
 
 import java.util.List;
 import java.util.Scanner;
@@ -27,8 +26,7 @@ public class UserUI {
 
             if (response.equalsIgnoreCase("OK")) {
                 view.showTreasure(treasureList);
-                view.showMessage("\nОбщая ценность сокровищ равна " + ServiceFactory.
-                        getInstance().getCaveService().totalAmount(treasureList));
+                view.showMessage("\nОбщая ценность сокровищ равна " + controller.totalAmount(treasureList));
             } else {
                 view.showError(response);
             }

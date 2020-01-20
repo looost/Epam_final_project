@@ -23,12 +23,12 @@ public class CaveServiceImpl implements CaveService {
         try {
             Cave cave = new Cave();
             String[] lines;
-            if (DAOFactory.getInstance().getDao().readData().isEmpty()) {
+            List<String> list = DAOFactory.getInstance().getDao().readData();
+            if (list.isEmpty()) {
                 throw new ServiceException("Список сокровищ пустой :(");
             }
-            int size = DAOFactory.getInstance().getDao().readData().size();
-            for (int i = 0; i < size; i++) {
-                lines = parser.parsFile(i);
+            for (int i = 0; i < list.size(); i++) {
+                lines = parser.parsFile(list, i);
                 creator.createCave(cave, lines[0], Integer.parseInt(lines[1]));
             }
             return cave.getTreasureList();
