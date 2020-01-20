@@ -1,41 +1,11 @@
 package by.training.dragon.view;
 
-import by.training.dragon.controller.Controller;
-import by.training.dragon.entity.Treasure;
-
-import java.util.List;
 import java.util.Scanner;
 
 public class UserUI {
+    private final Scanner scanner = new Scanner(System.in);
 
-
-    public static void main(String[] args) {
-        Controller controller = new Controller();
-        ViewConsole view = new ViewConsole();
-        Scanner scanner = new Scanner(System.in);
-        String request;
-        String response;
-        List<Treasure> treasureList;
-        boolean flag = true;
-
-        while (flag) {
-            view.showCommand();
-            request = scanner.nextLine();
-            treasureList = controller.getCommand(request).execute(request);
-            response = controller.getCommand(request).getResponse();
-
-            if (response.equalsIgnoreCase("OK")) {
-                view.showTreasure(treasureList);
-                view.showMessage("\nОбщая ценность сокровищ равна " + controller.totalAmount(treasureList));
-            } else {
-                view.showError(response);
-            }
-
-            view.showMessage("\n--> Что бы вернуться, введите что угодно, exit - для выхода");
-            request = scanner.nextLine();
-            if (request.equalsIgnoreCase("exit")) {
-                flag = false;
-            }
-        }
+    public String enterString() {
+        return scanner.nextLine();
     }
 }

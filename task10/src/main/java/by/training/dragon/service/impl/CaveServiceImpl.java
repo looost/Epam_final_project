@@ -27,8 +27,9 @@ public class CaveServiceImpl implements CaveService {
             if (list.isEmpty()) {
                 throw new ServiceException("Список сокровищ пустой :(");
             }
-            for (int i = 0; i < list.size(); i++) {
-                lines = parser.parsFile(list, i);
+            for (String str : list
+            ) {
+                lines = parser.parsFile(str, "; ");
                 creator.createCave(cave, lines[0], Integer.parseInt(lines[1]));
             }
             return cave.getTreasureList();

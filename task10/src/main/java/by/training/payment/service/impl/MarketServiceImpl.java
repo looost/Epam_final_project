@@ -20,9 +20,11 @@ public class MarketServiceImpl implements MarketService {
         Market market = new Market();
         try {
             List<String> list = DAOFactory.getInstance().getDao().readData();
-            for (int i = 0; i < list.size(); i++) {
-                creator.createMarket(market, parser.parsFile(list, i)[0],
-                        Double.parseDouble(parser.parsFile(list, i)[1]));
+            String[] parseString;
+            for (String str : list
+            ) {
+                parseString = parser.parsFile(str, "; ");
+                creator.createMarket(market, parseString[0], Double.parseDouble(parseString[1]));
             }
             return market;
         } catch (DAOException e) {

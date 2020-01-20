@@ -1,20 +1,13 @@
 package by.training.dragon.controller.command.impl;
 
 import by.training.dragon.controller.command.Command;
-import by.training.dragon.entity.Treasure;
+import by.training.dragon.controller.command.CommandResponse;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WrongRequestCommand implements Command {
-    private static final String response = "Неверная команда!";
     @Override
-    public List<Treasure> execute(String request) {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public String getResponse() {
-        return response;
+    public CommandResponse execute(String request) {
+        return new CommandResponse(new ArrayList<>(), "Неверная команда!");
     }
 }
