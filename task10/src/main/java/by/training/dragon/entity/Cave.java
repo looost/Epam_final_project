@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cave implements Serializable {
-
+    private static final long serialVersionUID = 14L;
     private List<Treasure> treasureList;
 
     public Cave() {

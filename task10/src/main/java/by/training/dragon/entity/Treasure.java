@@ -3,7 +3,7 @@ package by.training.dragon.entity;
 import java.io.Serializable;
 
 public class Treasure implements Serializable {
-
+    private static final long serialVersionUID = 12L;
     private String name;
     private int price;
 
