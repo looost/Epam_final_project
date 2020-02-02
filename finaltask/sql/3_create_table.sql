@@ -44,20 +44,21 @@ create table series
     `release_date`     DATE,
     `description`      VARCHAR(255),
     CONSTRAINT pk_series PRIMARY KEY (`show_id`, `season_id`, `number_of_series`),
-    CONSTRAINT fk_test FOREIGN KEY (`show_id`, `season_id`)
+
+#     CONSTRAINT fk_test FOREIGN KEY (`show_id`, `season_id`)
+#         REFERENCES season (`show_id`, `number_of_season`)
+#         ON DELETE CASCADE
+#         ON UPDATE CASCADE
+
+
+    CONSTRAINT fk_series_show FOREIGN KEY (`show_id`)
+        REFERENCES shows (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_series_season FOREIGN KEY (`show_id`, `season_id`)
         REFERENCES season (`show_id`, `number_of_season`)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-
-
-#     CONSTRAINT fk_series_show FOREIGN KEY (`show_id`)
-#         REFERENCES shows (`id`)
-#         ON DELETE CASCADE
-#         ON UPDATE CASCADE,
-#     CONSTRAINT fk_series_season FOREIGN KEY (`season_id`)
-#         REFERENCES season (`number_of_season`)
-#         ON DELETE CASCADE
-#         ON UPDATE CASCADE
 );
 
 create table viewer
