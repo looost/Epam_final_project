@@ -35,7 +35,7 @@ values ('Westworld', 8.7),
        ('Yellowstone', 8.4),
        ('Dark', 8.7);
 
-insert into season (`number_of_season`, `shows_id`, `number_of_episodes`, `release_date`)
+insert into season (`number_of_season`, `show_id`, `amount_of_episodes`, `release_date`)
 values (1, 1, 10, '02.10.16'),
        (2, 1, 10, '22.04.18'),
        (1, 2, 15, '02.05.17'),

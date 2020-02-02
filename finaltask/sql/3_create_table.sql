@@ -2,7 +2,7 @@ use `serials_db`;
 
 create table users
 (
-    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
+    `id`       INTEGER AUTO_INCREMENT,
     `login`    VARCHAR(255) NOT NULL UNIQUE,
     `password` CHAR(32)     NOT NULL,
     /*
@@ -11,51 +11,60 @@ create table users
      * 2 - пользователь (Role.USER)
      */
     `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1, 2)),
-    PRIMARY KEY (`id`)
+    CONSTRAINT pk_users PRIMARY KEY (`id`)
 );
 
 create table shows
 (
-    `id`     INTEGER      NOT NULL AUTO_INCREMENT,
+    `id`     INTEGER AUTO_INCREMENT,
     `name`   VARCHAR(255) NOT NULL,
-    `rating` double,
-    primary key (`id`)
+    `rating` DOUBLE CHECK ( rating BETWEEN 0 AND 10),
+    CONSTRAINT pk_shows PRIMARY KEY (`id`)
 );
 
 create table season
 (
-    `id`                 INTEGER NOT NULL AUTO_INCREMENT,
-    `shows_id`           integer not null,
-    `number_of_season`   INTEGER NOT NULL,
-    `number_of_episodes` integer,
-    `release_date`       date,
-    primary key (`id`),
-    foreign key (`shows_id`)
-        references shows (`id`)
+    `show_id`            INTEGER,
+    `number_of_season`   INTEGER CHECK ( number_of_season > 0 ),
+    `amount_of_episodes` INTEGER CHECK ( amount_of_episodes > 0 ),
+    `release_date`       DATE,
+    CONSTRAINT pk_season PRIMARY KEY (`show_id`, `number_of_season`),
+    CONSTRAINT fk_season_shows FOREIGN KEY (`show_id`)
+        REFERENCES shows (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 create table series
 (
-    `id`               INTEGER NOT NULL AUTO_INCREMENT,
     `show_id`          INTEGER NOT NULL,
     `season_id`        INTEGER NOT NULL,
-    `number_of_series` INTEGER NOT NULL,
-    `rating`           double,
-    `release_date`     date,
+    `number_of_series` INTEGER CHECK ( number_of_series > 0 ),
+    `rating`           DOUBLE CHECK ( rating BETWEEN 0 AND 10),
+    `release_date`     DATE,
     `description`      VARCHAR(255),
-    `viewed`           boolean,
-    primary key (`id`),
-    foreign key (`show_id`)
-        references shows (`id`),
-    foreign key (`season_id`)
-        references season (`id`)
+    CONSTRAINT pk_series PRIMARY KEY (`show_id`, `season_id`, `number_of_series`),
+    CONSTRAINT fk_test FOREIGN KEY (`show_id`, `season_id`)
+        REFERENCES season (`show_id`, `number_of_season`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+
+
+#     CONSTRAINT fk_series_show FOREIGN KEY (`show_id`)
+#         REFERENCES shows (`id`)
+#         ON DELETE CASCADE
+#         ON UPDATE CASCADE,
+#     CONSTRAINT fk_series_season FOREIGN KEY (`season_id`)
+#         REFERENCES season (`number_of_season`)
+#         ON DELETE CASCADE
+#         ON UPDATE CASCADE
 );
 
 create table viewer
 (
-    `id`    INTEGER      NOT NULL AUTO_INCREMENT,
+    `id`    INTEGER AUTO_INCREMENT,
     `login` VARCHAR(255) NOT NULL UNIQUE,
-    primary key (`id`)
+    CONSTRAINT pk_viewer PRIMARY KEY (`id`)
 );
 
 create table wathcing
