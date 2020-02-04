@@ -5,7 +5,7 @@ import by.training.dao.impl.FileDao;
 
 public class DAOFactory {
     private final static DAOFactory instance = new DAOFactory();
-    private final static Dao dao = new FileDao("src//main//resources//text.txt");
+    private final static Dao dao = new FileDao("src//main//resources//test.txt");
 
 
     private DAOFactory() {

@@ -6,6 +6,12 @@ import by.training.entity.composite.Component;
 import java.awt.*;
 import java.util.List;
 
-public interface Handler {
-    void parse(Component component, String text);
+public abstract class Handler {
+    protected Handler next;
+
+    public abstract void parse(Component component, String text);
+
+    public void setNext(Handler next) {
+        this.next = next;
+    }
 }

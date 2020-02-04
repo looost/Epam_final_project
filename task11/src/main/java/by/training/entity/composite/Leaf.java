@@ -27,7 +27,7 @@ public class Leaf implements Component {
     }
 
     @Override
-    public Object getChild(int index) {
+    public Component getChild(int index) {
         throw new UnsupportedOperationException();
     }
 

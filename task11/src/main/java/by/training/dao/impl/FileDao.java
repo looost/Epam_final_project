@@ -23,10 +23,12 @@ public class FileDao implements Dao {
     @Override
     public String readData() throws DAOException {
 //        try {
-//            return Files.lines(Paths.get(TREASURE_PATH)).reduce("", (s, s2) -> s + "  " + s2);
+//            return Files.lines(Paths.get(TREASURE_PATH)).reduce("", (s, s2) -> s + "    " + s2);
 //        } catch (IOException e) {
 //            throw new DAOException("Файл не найдет!", e);
 //        }
+
+
         try {
             FileInputStream fileInputStream = new FileInputStream(new File(TREASURE_PATH));
             byte[] text = new byte[fileInputStream.available()];

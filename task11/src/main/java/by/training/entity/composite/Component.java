@@ -9,7 +9,7 @@ public interface Component {
 
     void remove(Component c);
 
-    Object getChild(int index);
+    Component getChild(int index);
 
     Type getType();
 }

@@ -17,18 +17,13 @@ public class Composite implements Component {
         StringBuilder stringBuilder = new StringBuilder();
         for (Component c : components
         ) {
-
             if (c.getType().equals(Type.PARAGRAPH)) {
                 stringBuilder.append("\t");
             }
 
             stringBuilder.append(c.operation());
-
-            if (c.getType().equals(Type.WORD)) {
+            if (c.getType().equals(Type.LEXEME)) {
                 stringBuilder.append(" ");
-            }
-            if (c.getType().equals(Type.SENTENCE)) {
-                stringBuilder.append(". ");
             }
             if (c.getType().equals(Type.PARAGRAPH)) {
                 stringBuilder.append("\n");
@@ -48,12 +43,20 @@ public class Composite implements Component {
     }
 
     @Override
-    public Object getChild(int index) {
+    public Component getChild(int index) {
         return components.get(index);
     }
 
     @Override
     public Type getType() {
         return type;
+    }
+
+    public int getSize() {
+        return components.size();
+    }
+
+    public ArrayList<Component> getComponents() {
+        return components;
     }
 }
