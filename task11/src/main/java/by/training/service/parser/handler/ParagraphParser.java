@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class ParagraphParser extends Handler {
 
-    private static final String REGEX_PARAGRAPH = "(?m)^[^\\S\\r\\n]{2,}\\S.*(?:\\r?\\n|$)(?:^\\S.*(?:\\r?\\n|$))*";
+    private static final String REGEX_PARAGRAPH = "(?m)^[^\\r\\n]{2,}\\S.*(?:\\r?\\n|$)(?:^\\S.*(?:\\r?\\n|$))*";
 
     @Override
     public void parse(Component fullTextComponent, String fullText) {

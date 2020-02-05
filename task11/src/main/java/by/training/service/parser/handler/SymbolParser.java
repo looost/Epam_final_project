@@ -1,6 +1,5 @@
 package by.training.service.parser.handler;
 
-import by.training.entity.Type;
 import by.training.entity.composite.Component;
 import by.training.entity.composite.Leaf;
 

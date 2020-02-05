@@ -6,11 +6,6 @@ import by.training.dao.exception.DAOException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FileDao implements Dao {
 
@@ -29,8 +24,7 @@ public class FileDao implements Dao {
 //        }
 
 
-        try {
-            FileInputStream fileInputStream = new FileInputStream(new File(TREASURE_PATH));
+        try (FileInputStream fileInputStream = new FileInputStream(new File(TREASURE_PATH))) {
             byte[] text = new byte[fileInputStream.available()];
             fileInputStream.read(text);
             return new String(text);

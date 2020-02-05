@@ -7,7 +7,8 @@ public class ViewConsole {
         System.out.println("----------------Доступные команды---------------");
         System.out.println("1 - Отсортировать абзацы по количеству предложений.");
         System.out.println("2 - Отсортировать слова в предложении по длине.");
-        System.out.println("0 - Выход");
+        System.out.println("3 - Отсортировать предложения по количеству лексем.");
+        System.out.println("4 - Вывести оригинальный текст.");
     }
 
     public void showComponent(Component component) {
@@ -16,5 +17,9 @@ public class ViewConsole {
 
     public void showMessage(String str) {
         System.out.println(str);
+    }
+
+    public void showError(String str) {
+        System.err.println(str);
     }
 }

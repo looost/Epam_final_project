@@ -1,12 +1,11 @@
 package by.training.controller;
 
+import by.training.controller.command.Command;
 import by.training.controller.command.CommandProvider;
-import by.training.entity.composite.Component;
 
-public class Controller {
-    public Component execute(Component component, String request) {
+class Controller {
+    Command getCommand(String request) {
         CommandProvider provider = new CommandProvider();
-
-        return provider.getCommand(request).execute(component, request);
+        return provider.getCommand(request);
     }
 }

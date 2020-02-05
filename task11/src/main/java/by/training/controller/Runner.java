@@ -1,5 +1,6 @@
 package by.training.controller;
 
+import by.training.controller.command.CommandResponse;
 import by.training.dao.exception.DAOException;
 import by.training.dao.factory.DAOFactory;
 import by.training.entity.*;
@@ -17,10 +18,11 @@ public class Runner {
         UserUI userUI = new UserUI();
         Controller controller = new Controller();
 
+
         String test = DAOFactory.getInstance().getDao().readData();
 
 
-        Component component;
+
 
         Handler textParser = HandlerFactory.getInstance().getTextHandler();
         Handler paragraphParser = HandlerFactory.getInstance().getParagraphHandler();
@@ -30,21 +32,31 @@ public class Runner {
         Handler symbolParser = HandlerFactory.getInstance().getSymbolParser();
 
         wordParser.setNext(symbolParser);
-        lexemeParser.setNext(wordParser);
+        lexemeParser.setNext(symbolParser);
         sentenceParser.setNext(lexemeParser);
         paragraphParser.setNext(sentenceParser);
         textParser.setNext(paragraphParser);
 
 
+        Component component;
         boolean flag = true;
         String request;
+        CommandResponse commandResponse;
+
         while (flag) {
             component = new Composite(Type.TEXT);
             textParser.parse(component, test);
 
             viewConsole.showMenu();
             request = userUI.enterString();
-            viewConsole.showComponent(controller.execute(component, request));
+            commandResponse = controller.getCommand(request).execute(component);
+
+            if (commandResponse.getMessage().equalsIgnoreCase("ok")) {
+                viewConsole.showComponent(commandResponse.getComponent());
+            } else {
+                viewConsole.showError(commandResponse.getMessage());
+            }
+
             viewConsole.showMessage("Введите что угодно что бы продолжить, 0 - для выхода");
             request = userUI.enterString();
             if (request.equals("0")) {

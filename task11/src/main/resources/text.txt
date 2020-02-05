@@ -1,4 +1,4 @@
-    Hello!
+    Test sentence. Hello!
     Cinema is an integral part of the social life of people. The movie combines
 not only stunts, special effects and scenery, but also the genuine art. Many
 people go to the cinemas in their free time. The movie hasn’t become less
@@ -15,3 +15,4 @@ Even if I had my own cinema, I would still never reject the proposal. First of a
 the fact that any visit to the movies is a great chance to talk with friends and have fun.
     The most attractive genres for me are comedy, horror movies and fiction.
 I like foreign movies with fast-moving plot. I'm not thrilled with soap operas and TV series.
+    Bye.
