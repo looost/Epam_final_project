@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 
 public class WordParser extends Handler {
 
-    //private static final String REGEX_WORD = "([a-zA-Z]+-[a-zA-Z]+-[a-zA-Z]+)|([a-zA-Z]+-[a-zA-Z]+)|([^(),:'\\.!?*\\/\\-\\d\\s]+)|(([^\\s]*\\d+[+\\-*\\/]+[^\\s]*))";
     private static final String REGEX_WORD = "\\b[^\\s]+\\b";
+
     @Override
     public void parse(Component sentence, String text) {
         if (next != null) {

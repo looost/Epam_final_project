@@ -4,16 +4,16 @@ import by.training.entity.Type;
 
 public class Leaf implements Component {
 
-    private String symbol;
+    private char symbol;
     private static final Type type = Type.SYMBOL;
 
-    public Leaf(String symbol) {
+    public Leaf(char symbol) {
         this.symbol = symbol;
     }
 
     @Override
     public String operation() {
-        return symbol;
+        return String.valueOf(symbol);
     }
 
     @Override

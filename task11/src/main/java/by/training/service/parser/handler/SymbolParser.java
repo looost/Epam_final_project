@@ -21,7 +21,7 @@ public class SymbolParser extends Handler {
         for (int i = 0; i < word.length(); i++) {
             if (matcherSymbol.find()) {
                 leafString = matcherSymbol.group();
-                symbol = new Leaf(leafString);
+                symbol = new Leaf(leafString.charAt(0));
                 wordComponent.add(symbol);
             }
         }

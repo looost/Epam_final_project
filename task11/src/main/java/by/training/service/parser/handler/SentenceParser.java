@@ -9,8 +9,7 @@ import java.util.regex.Pattern;
 
 public class SentenceParser extends Handler {
 
-    private static final String REGEX_SENTENCE = "([A-Z\\d]{1}[^.!?]*\\.{3})|([A-Z\\d]{1}[^.!?]*[.!?.]{1})";
-
+    private static final String REGEX_SENTENCE = "([A-Z\\d]{1}[^!.?]*[.!?.]{1})";
 
     @Override
     public void parse(Component paragraphComponent, String paragraph) {
@@ -20,13 +19,11 @@ public class SentenceParser extends Handler {
             Pattern patternSentence = Pattern.compile(REGEX_SENTENCE);
             Matcher matcherSentence = patternSentence.matcher(paragraph);
             while (matcherSentence.find()) {
-
                 sentenceString = matcherSentence.group();
                 sentence = new Composite(Type.SENTENCE);
                 next.parse(sentence, sentenceString);
                 paragraphComponent.add(sentence);
             }
         }
-
     }
 }
