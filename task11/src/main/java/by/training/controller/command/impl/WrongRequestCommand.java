@@ -8,7 +8,7 @@ import by.training.entity.composite.Composite;
 
 public class WrongRequestCommand implements Command {
     @Override
-    public CommandResponse execute(Component component) {
+    public CommandResponse execute(Component component, String request) {
         return new CommandResponse(new Composite(Type.TEXT), "Неверная команда!");
     }
 }

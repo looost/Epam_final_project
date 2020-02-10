@@ -4,6 +4,8 @@ import by.training.entity.Type;
 import by.training.entity.composite.Component;
 import by.training.entity.composite.Composite;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class Service {
@@ -36,11 +38,27 @@ public class Service {
         for (int i = 0; i < ((Composite) text).getSize(); i++) {
             component.add(text.getChild(i));
         }
-        for (Component sentence : component.getComponents()  // Предложение
+        for (Component paragraph : component.getComponents()  // Предложение
         ) {
-            for (Component lexeme : ((Composite) sentence).getComponents()  // Лексема
+            for (Component sentences : ((Composite) paragraph).getComponents()  // Лексема
             ) {
-                ((Composite) lexeme).getComponents().sort(Comparator.comparing(component1 -> component1.operation().length()));  //Слово
+                ((Composite) sentences).getComponents().sort(Comparator.comparing(component1 -> component1.operation().length()));  //Слово
+            }
+        }
+        return component;
+    }
+
+    public Component sortLexemeInSentenceByChar(Component text, char symbol) {
+        component = new Composite(Type.TEXT);
+        for (int i = 0; i < ((Composite) text).getSize(); i++) {
+            component.add(text.getChild(i));
+        }
+        for (Component paragraph : component.getComponents()  // Абзац
+        ) {
+            for (Component sentences : ((Composite) paragraph).getComponents()  // Предложение
+            ) {
+                ((Composite) sentences).getComponents()
+                        .sort(Comparator.comparing(o -> ((Component) o).operation().chars().filter(ch -> ch == symbol).count()).reversed());  // Лексема
             }
         }
         return component;
@@ -55,4 +73,5 @@ public class Service {
         }
         return count;
     }
+
 }

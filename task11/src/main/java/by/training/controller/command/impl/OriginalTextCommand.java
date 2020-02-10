@@ -6,7 +6,7 @@ import by.training.entity.composite.Component;
 
 public class OriginalTextCommand implements Command {
     @Override
-    public CommandResponse execute(Component component) {
+    public CommandResponse execute(Component component, String request) {
         return new CommandResponse(component, "OK");
     }
 }

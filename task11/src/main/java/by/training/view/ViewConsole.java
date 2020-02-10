@@ -8,7 +8,8 @@ public class ViewConsole {
         System.out.println("1 - Отсортировать абзацы по количеству предложений.");
         System.out.println("2 - Отсортировать слова в предложении по длине.");
         System.out.println("3 - Отсортировать предложения по количеству лексем.");
-        System.out.println("4 - Вывести оригинальный текст.");
+        System.out.println("4 <char> - Отсортировать лексемы в тексте по убыванию количества вхождений заданного символа.");
+        System.out.println("5 - Вывести оригинальный текст.");
     }
 
     public void showComponent(Component component) {

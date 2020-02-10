@@ -20,8 +20,10 @@ public class Composite implements Component {
             if (c.getType().equals(Type.PARAGRAPH)) {
                 stringBuilder.append("\t");
             }
-
             stringBuilder.append(c.operation());
+            if (c.getType().equals(Type.SENTENCE)) {
+                stringBuilder.append("\n");
+            }
             if (c.getType().equals(Type.LEXEME)) {
                 stringBuilder.append(" ");
             }

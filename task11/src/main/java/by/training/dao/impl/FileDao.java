@@ -2,6 +2,8 @@ package by.training.dao.impl;
 
 import by.training.dao.Dao;
 import by.training.dao.exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -9,6 +11,7 @@ import java.nio.file.Paths;
 
 public class FileDao implements Dao {
 
+    private final Logger logger = LogManager.getLogger(FileDao.class);
     private final String FILE_PATH;
 
     public FileDao(String path) {
@@ -17,6 +20,7 @@ public class FileDao implements Dao {
 
     @Override
     public String readData() throws DAOException {
+
 
 //        try {
 //            return Files.lines(Paths.get(TREASURE_PATH)).reduce("", String::concat);
@@ -27,6 +31,7 @@ public class FileDao implements Dao {
         try {
             return new String(Files.readAllBytes(Paths.get(FILE_PATH)));
         } catch (IOException e) {
+            logger.fatal("Файл не найден!", e);
             throw new DAOException("Файл не найдет!", e);
         }
 

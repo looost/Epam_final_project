@@ -49,7 +49,7 @@ public class Runner {
 
             viewConsole.showMenu();
             request = userUI.enterString();
-            commandResponse = controller.getCommand(request).execute(component);
+            commandResponse = controller.getCommand(request).execute(component, request);
 
             if (commandResponse.getMessage().equalsIgnoreCase("ok")) {
                 viewConsole.showComponent(commandResponse.getComponent());
