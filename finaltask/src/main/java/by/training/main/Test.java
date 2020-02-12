@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class Test {
     public static void main(String[] args) throws SQLException, DaoException {
         ShowDao showDao = new ShowDaoImpl();
-        Show entity = new Show(10, "Test_name2", 1.9);
-        showDao.update(entity);
+        Show entity = showDao.findById("1");
+        System.out.println(entity);
     }
 }

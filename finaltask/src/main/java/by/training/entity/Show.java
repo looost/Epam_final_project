@@ -1,6 +1,7 @@
 package by.training.entity;
 
 import java.util.List;
+import java.util.Set;
 
 public class Show extends Entity {
 
@@ -9,15 +10,16 @@ public class Show extends Entity {
     private String logo;
     private String full_logo;
     private double rating;
-    private List<Genre> genreList;
+    private Set<Genre> genreList;
 
     public Show() {
     }
 
-    public Show(int id, String name, double rating) {
+    public Show(int id, String name, double rating, Set<Genre> genreList) {
         super(id);
         this.name = name;
         this.rating = rating;
+        this.genreList = genreList;
     }
 
     public Show(String name, double rating) {
@@ -65,11 +67,11 @@ public class Show extends Entity {
         this.rating = rating;
     }
 
-    public List<Genre> getGenreList() {
+    public Set<Genre> getGenreList() {
         return genreList;
     }
 
-    public void setGenreList(List<Genre> genreList) {
+    public void setGenreList(Set<Genre> genreList) {
         this.genreList = genreList;
     }
 
@@ -103,10 +105,12 @@ public class Show extends Entity {
         return result;
     }
 
+
     @Override
     public String toString() {
         return "Show{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", logo='" + logo + '\'' +
                 ", full_logo='" + full_logo + '\'' +

@@ -31,7 +31,6 @@ public class ParserTest {
         paragraphParser.setNext(sentenceParser);
         textParser.setNext(paragraphParser);
 
-
     }
 
     @DataProvider(name = "positiveText")
