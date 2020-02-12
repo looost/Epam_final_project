@@ -11,6 +11,10 @@ public class Genre extends Entity {
     public Genre() {
     }
 
+    public Genre(int id) {
+        super(id);
+    }
+
     public Genre(int id, String name) {
         super(id);
         this.name = name;
@@ -50,5 +54,13 @@ public class Genre extends Entity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (showList != null ? showList.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

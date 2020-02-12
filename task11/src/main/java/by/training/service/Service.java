@@ -58,7 +58,8 @@ public class Service {
             for (Component sentences : ((Composite) paragraph).getComponents()  // Предложение
             ) {
                 ((Composite) sentences).getComponents()
-                        .sort(Comparator.comparing(o -> ((Component) o).operation().chars().filter(ch -> ch == symbol).count()).reversed());  // Лексема
+                        .sort(Comparator.comparing(o -> ((Component) o).operation().chars().filter(ch -> ch == symbol).count()).reversed()
+                                .thenComparing(o -> ((Component) o).operation()));  // Лексема
             }
         }
         return component;

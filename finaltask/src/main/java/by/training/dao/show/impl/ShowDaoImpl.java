@@ -3,6 +3,7 @@ package by.training.dao.show.impl;
 import by.training.dao.ConnectionFactory;
 import by.training.dao.exception.DaoException;
 import by.training.dao.show.ShowDao;
+import by.training.entity.Genre;
 import by.training.entity.Show;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ShowDaoImpl implements ShowDao {
 
@@ -19,13 +23,15 @@ public class ShowDaoImpl implements ShowDao {
 
 
     //language=SQL
-    private static final String SQL_FIND_SHOW_BY_NAME = "SELECT * FROM shows WHERE name = ?";
+    private static final String SQL_FIND_SHOW_BY_NAME = "SELECT s.*, sg.genre_id FROM shows s JOIN show_genre sg ON s.id = sg.show_id WHERE name = ?";
     //language=SQL
-    private static final String SQL_FIND_SHOW_BY_ID = "SELECT * FROM shows WHERE id = ?";
+    private static final String SQL_FIND_SHOW_BY_ID = "SELECT s.*, sg.genre_id FROM shows s JOIN show_genre sg ON s.id = sg.show_id WHERE id = ?";
+    //language=SQL
+    private static final String SQL_FIND_ALL_SHOW = "SELECT s.*, sg.genre_id FROM shows s JOIN show_genre sg ON s.id = sg.show_id";
     //language=SQL
     private static final String SQL_DELETE_SHOW_BY_ID = "DELETE FROM shows WHERE id = ?";
     //language=SQL
-    private static final String SQL_CREATE_SHOW = "INSERT INTO shows VALUES (DEFAULT, ?, ?)";
+    private static final String SQL_CREATE_SHOW = "INSERT INTO shows VALUES (DEFAULT, ?, ?)"; // TODO Как посутпать с жанрами?
     //language=SQL
     private static final String SQL_UPDATE_SHOW = "UPDATE shows SET name = ?, rating = ? WHERE id = ?";
 
@@ -40,10 +46,16 @@ public class ShowDaoImpl implements ShowDao {
             statement = connection.prepareStatement(SQL_FIND_SHOW_BY_NAME);
             statement.setString(1, name);
             resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return new Show(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getDouble("rating"));
+            Set<Genre> genreSet = new HashSet<>();
+            Show show = new Show();
+            while (resultSet.next()) {
+                if (show.getName() == null) {
+                    genreSet.add(new Genre(resultSet.getInt("genre_id")));
+                    show = new Show(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getDouble("rating"), genreSet);
+                }
+                genreSet.add(new Genre(resultSet.getInt("genre_id")));
             }
-            return new Show();
+            return show;
         } catch (SQLException e) {
             logger.error("SQLException", e);
             throw new DaoException(e);
@@ -55,7 +67,7 @@ public class ShowDaoImpl implements ShowDao {
     }
 
     @Override
-    public List<Show> findAll() { //TODO Коллекция?
+    public List<Show> findAll() throws DaoException { //TODO Коллекция?
         return null;
     }
 
@@ -69,10 +81,16 @@ public class ShowDaoImpl implements ShowDao {
             statement = connection.prepareStatement(SQL_FIND_SHOW_BY_ID);
             statement.setString(1, id);
             resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return new Show(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getDouble("rating"));
+            Set<Genre> genreSet = new HashSet<>();
+            Show show = new Show();
+            while (resultSet.next()) {
+                if (show.getName() == null) {
+                    genreSet.add(new Genre(resultSet.getInt("genre_id")));
+                    show = new Show(resultSet.getInt("id"), resultSet.getString("name"), resultSet.getDouble("rating"), genreSet);
+                }
+                genreSet.add(new Genre(resultSet.getInt("genre_id")));
             }
-            return new Show();
+            return show;
         } catch (SQLException e) {
             logger.error("SQLException", e);
             throw new DaoException(e);
