@@ -1,9 +1,10 @@
 package by.training.entity;
 
+
 import java.util.List;
 
-public class Show extends Entity {
 
+public class Show extends Entity {
     private String name;
     private String description;
     private String logo;

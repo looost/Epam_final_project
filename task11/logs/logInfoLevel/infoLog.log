@@ -100,3 +100,36 @@ java.lang.NumberFormatException: For input string: "asdf"
 	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
 	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
 	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+10::02::2020 17:04:10 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+10::02::2020 17:04:22 [main] INFO  by.training.controller.command.CommandProvider  getCommand 1
+10::02::2020 17:04:31 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+10::02::2020 17:04:42 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 17:04:44 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 17:04:50 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+10::02::2020 20:20:39 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:21:06 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:34:36 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:35:05 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:35:34 [main] INFO  by.training.controller.command.CommandProvider  getCommand 6
+10::02::2020 20:35:36 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:44:12 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:44:16 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:44:57 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:44:58 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+10::02::2020 20:44:59 [main] INFO  by.training.controller.command.CommandProvider  getCommand 11
+10::02::2020 20:44:59 [main] ERROR by.training.controller.command.CommandProvider  getCommand Введена неверная команда
+java.lang.ArrayIndexOutOfBoundsException: Index 10 out of bounds for length 6
+	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
+	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
+	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+10::02::2020 20:45:02 [main] INFO  by.training.controller.command.CommandProvider  getCommand 0
+10::02::2020 20:45:02 [main] ERROR by.training.controller.command.CommandProvider  getCommand Введена неверная команда
+java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 6
+	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
+	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
+	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+10::02::2020 20:45:53 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:46:16 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+10::02::2020 20:46:20 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+10::02::2020 20:46:46 [main] INFO  by.training.controller.command.CommandProvider  getCommand 6
+10::02::2020 20:46:47 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5

@@ -2,7 +2,7 @@ use `serials_db`;
 
 create table users
 (
-    `id`       INTEGER AUTO_INCREMENT,
+    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
     `login`    VARCHAR(255) NOT NULL UNIQUE,
     `password` CHAR(32)     NOT NULL,
     /*
@@ -14,18 +14,21 @@ create table users
     CONSTRAINT pk_users PRIMARY KEY (`id`)
 );
 
-create table shows
+create table shows -- TODO название в единственном числе
 (
-    `id`     INTEGER AUTO_INCREMENT,
-    `name`   VARCHAR(255) NOT NULL,
-    `rating` DOUBLE CHECK ( rating BETWEEN 0 AND 10),
+    `id`          INTEGER      NOT NULL AUTO_INCREMENT,
+    `name`        VARCHAR(255) NOT NULL,
+    `description` VARCHAR(255) NOT NULL,
+    `logo`        VARCHAR(255) NOT NULL,
+    `full_logo`   VARCHAR(255) NOT NULL,
+    `rating`      DOUBLE CHECK ( rating BETWEEN 0 AND 10),
     CONSTRAINT pk_shows PRIMARY KEY (`id`)
 );
 
 create table season
 (
-    `show_id`            INTEGER,
-    `number_of_season`   INTEGER CHECK ( number_of_season > 0 ),
+    `show_id`            INTEGER NOT NULL,
+    `number_of_season`   INTEGER NOT NULL CHECK ( number_of_season > 0 ),
     `amount_of_episodes` INTEGER CHECK ( amount_of_episodes > 0 ),
     `release_date`       DATE,
     CONSTRAINT pk_season PRIMARY KEY (`show_id`, `number_of_season`),
@@ -39,7 +42,7 @@ create table series
 (
     `show_id`          INTEGER NOT NULL,
     `season_id`        INTEGER NOT NULL,
-    `number_of_series` INTEGER CHECK ( number_of_series > 0 ),
+    `number_of_series` INTEGER NOT NULL CHECK ( number_of_series > 0 ),
     `rating`           DOUBLE CHECK ( rating BETWEEN 0 AND 10),
     `release_date`     DATE,
     `description`      VARCHAR(255),
@@ -61,9 +64,9 @@ create table series
         ON UPDATE CASCADE
 );
 
-create table viewer
+create table viewer -- TODO а нужно, когда есть user?
 (
-    `id`    INTEGER AUTO_INCREMENT,
+    `id`    INTEGER      NOT NULL AUTO_INCREMENT,
     `login` VARCHAR(255) NOT NULL UNIQUE,
     CONSTRAINT pk_viewer PRIMARY KEY (`id`)
 );

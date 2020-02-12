@@ -1,5 +1,6 @@
 package by.training.entity;
 
+
 public abstract class Entity {
     private int id;
 

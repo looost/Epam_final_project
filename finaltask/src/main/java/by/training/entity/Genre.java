@@ -1,8 +1,12 @@
 package by.training.entity;
 
+
+import java.util.List;
+
 public class Genre extends Entity {
 
     private String name;
+    private List<Show> showList;
 
     public Genre() {
     }
@@ -20,6 +24,14 @@ public class Genre extends Entity {
         this.name = name;
     }
 
+    public List<Show> getShowList() {
+        return showList;
+    }
+
+    public void setShowList(List<Show> showList) {
+        this.showList = showList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -28,13 +40,15 @@ public class Genre extends Entity {
 
         Genre genre = (Genre) o;
 
-        return name != null ? name.equals(genre.name) : genre.name == null;
+        if (name != null ? !name.equals(genre.name) : genre.name != null) return false;
+        return showList != null ? showList.equals(genre.showList) : genre.showList == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (showList != null ? showList.hashCode() : 0);
         return result;
     }
 }

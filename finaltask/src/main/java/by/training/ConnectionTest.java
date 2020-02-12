@@ -11,7 +11,7 @@ public class ConnectionTest {
                 System.out.println("Сериал - " + result.getString("name") + " рейтинг - " + result.getDouble("rating"));
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 }
