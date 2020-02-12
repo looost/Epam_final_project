@@ -10,13 +10,13 @@
                      ignoreExceptions="false">
             <PatternLayout pattern="%d{dd::MM::yyyy HH:mm:ss} [%t] %-5level %C{5} %M %msg%n"/>
             <SizeBasedTriggeringPolicy size="2MB"/>
-            <TimeBasedTriggeringPolicy />
+            <TimeBasedTriggeringPolicy/>
         </RollingFile>
         <RollingFile name="infoLogFile" fileName="logs/logInfoLevel/infoLog.log"
                      filePattern="logs/logInfoLevel/infoLog-%d{yyyy-MM-dd}.log">
             <PatternLayout pattern="%d{dd::MM::yyyy HH:mm:ss} [%t] %-5level %C{5}  %M %msg%n"/>
             <SizeBasedTriggeringPolicy size="2MB"/>
-            <TimeBasedTriggeringPolicy />
+            <TimeBasedTriggeringPolicy/>
         </RollingFile>
     </Appenders>
 
@@ -33,7 +33,7 @@
         </Logger>
 
         <Root level="All">
-<!--            <AppenderRef ref="console"/>-->
+            <!--            <AppenderRef ref="console"/>-->
         </Root>
     </Loggers>
 

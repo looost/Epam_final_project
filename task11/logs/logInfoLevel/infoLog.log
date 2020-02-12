@@ -100,3 +100,18 @@ java.lang.NumberFormatException: For input string: "asdf"
 	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
 	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
 	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+12::02::2020 09:15:28 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+12::02::2020 09:16:14 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+12::02::2020 09:16:30 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+12::02::2020 09:20:36 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
+12::02::2020 09:22:21 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
+12::02::2020 09:25:51 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+12::02::2020 09:26:01 [main] INFO  by.training.controller.command.CommandProvider  getCommand 1
+12::02::2020 09:26:16 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+12::02::2020 09:26:26 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+12::02::2020 09:26:45 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 o
+12::02::2020 09:27:37 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+12::02::2020 11:10:18 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+12::02::2020 11:28:56 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+12::02::2020 11:55:30 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+12::02::2020 11:55:37 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
