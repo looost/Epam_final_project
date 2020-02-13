@@ -15,6 +15,6 @@ public class ConnectionFactory { // TODO Как правильно сделат�
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC", "serials_user", "admin");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC", "application", "admin");
     }
 }

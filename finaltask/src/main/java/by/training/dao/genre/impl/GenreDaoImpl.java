@@ -2,10 +2,10 @@ package by.training.dao.genre.impl;
 
 import by.training.dao.ConnectionFactory;
 import by.training.dao.exception.DaoException;
-import by.training.dao.genre.GenreDao;
-import by.training.entity.Genre;
+import by.training.model.Genre;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import by.training.dao.genre.GenreDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class GenreDaoImpl implements GenreDao {
 
-    private static final Logger logger = LogManager.getLogger("exception");
+    private static final Logger logger = LogManager.getLogger("exception"); //TODO логи в гит записываются?
 
     //language=SQL
     private static final String SQL_FIND_GENRE_BY_NAME = "SELECT * FROM genre WHERE name = ?";

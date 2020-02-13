@@ -1,7 +1,7 @@
-package by.training.dao;
+package by.training.service;
 
-import by.training.dao.exception.DaoException;
 import by.training.model.Entity;
+import by.training.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,21 +11,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-public interface AbstractDao<KEY, ENTITY extends Entity> {
-
+public interface AbstractService<KEY, ENTITY extends Entity> {
     Logger logger = LogManager.getLogger("exception");
 
-    List<ENTITY> findAll() throws DaoException; // TODO для жанров нужен не List а Set - жанры уникальны
+    List<ENTITY> findAll() throws ServiceException;
 
-    ENTITY findById(KEY id) throws DaoException;
+    ENTITY findById(KEY id) throws ServiceException;
 
-    boolean delete(KEY id) throws DaoException;
+    boolean delete(KEY id) throws ServiceException;
 
-    boolean delete(ENTITY entity) throws DaoException;
+    boolean delete(ENTITY entity) throws ServiceException;
 
-    boolean create(ENTITY entity) throws DaoException;
+    boolean create(ENTITY entity) throws ServiceException;
 
-    boolean update(ENTITY entity) throws DaoException;
+    boolean update(ENTITY entity) throws ServiceException;
 
 
     default void close(ResultSet resultSet) {

@@ -1,94 +1,5 @@
 use `serials_db`;
 
-create table users
-(
-    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
-    `login`    VARCHAR(255) NOT NULL UNIQUE,
-    `password` CHAR(32)     NOT NULL,
-    /*
-     * 0 - администратор (Role.ADMINISTRATOR)
-     * 1 - модератор (Role.MODERATOR)
-     * 2 - пользователь (Role.USER)
-     */
-    `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1, 2)),
-    CONSTRAINT pk_users PRIMARY KEY (`id`)
-);
-
-create table shows -- TODO название в единственном числе
-(
-    `id`          INTEGER      NOT NULL AUTO_INCREMENT,
-    `name`        VARCHAR(255) NOT NULL,
-    `description` VARCHAR(255) NOT NULL,
-    `logo`        VARCHAR(255) NOT NULL,
-    `full_logo`   VARCHAR(255) NOT NULL,
-    `rating`      DOUBLE CHECK ( rating BETWEEN 0 AND 10),
-    CONSTRAINT pk_shows PRIMARY KEY (`id`)
-);
-
-create table season
-(
-    `show_id`            INTEGER NOT NULL,
-    `number_of_season`   INTEGER NOT NULL CHECK ( number_of_season > 0 ),
-    `amount_of_episodes` INTEGER CHECK ( amount_of_episodes > 0 ),
-    `release_date`       DATE,
-    CONSTRAINT pk_season PRIMARY KEY (`show_id`, `number_of_season`),
-    CONSTRAINT fk_season_shows FOREIGN KEY (`show_id`)
-        REFERENCES shows (`id`)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-
-create table series
-(
-    `show_id`          INTEGER NOT NULL,
-    `season_id`        INTEGER NOT NULL,
-    `number_of_series` INTEGER NOT NULL CHECK ( number_of_series > 0 ),
-    `rating`           DOUBLE CHECK ( rating BETWEEN 0 AND 10),
-    `release_date`     DATE,
-    `description`      VARCHAR(255),
-    CONSTRAINT pk_series PRIMARY KEY (`show_id`, `season_id`, `number_of_series`),
-
-#     CONSTRAINT fk_test FOREIGN KEY (`show_id`, `season_id`)
-#         REFERENCES season (`show_id`, `number_of_season`)
-#         ON DELETE CASCADE
-#         ON UPDATE CASCADE
-
-
-    CONSTRAINT fk_series_show FOREIGN KEY (`show_id`)
-        REFERENCES shows (`id`)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE,
-    CONSTRAINT fk_series_season FOREIGN KEY (`show_id`, `season_id`)
-        REFERENCES season (`show_id`, `number_of_season`)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
-);
-
-create table viewer -- TODO а нужно, когда есть user?
-(
-    `id`    INTEGER      NOT NULL AUTO_INCREMENT,
-    `login` VARCHAR(255) NOT NULL UNIQUE,
-    CONSTRAINT pk_viewer PRIMARY KEY (`id`)
-);
-
-create table wathcing
-(
-    `viewer_id` INTEGER NOT NULL,
-    `show_id`   INTEGER NOT NULL
-);
-
-create table show_country
-(
-    `show_id`    INTEGER NOT NULL,
-    `country_id` INTEGER NOT NULL
-);
-
-create table show_genre
-(
-    `show_id`  INTEGER NOT NULL,
-    `genre_id` INTEGER NOT NULL
-);
-
 /*
  Таблицы справочники
 */
@@ -106,3 +17,88 @@ create table genre
     `name` VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY (`id`)
 );
+
+create table user
+(
+    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
+    `login`    VARCHAR(255) NOT NULL UNIQUE,
+    `password` CHAR(32)     NOT NULL,
+    /*
+     * 0 - администратор (Role.ADMINISTRATOR)
+     * 1 - модератор (Role.MODERATOR)
+     * 2 - пользователь (Role.USER)
+     */
+    `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1, 2)),
+    CONSTRAINT pk_users PRIMARY KEY (`id`)
+);
+
+create table serial
+(
+    `id`          INTEGER      NOT NULL AUTO_INCREMENT,
+    `name`        VARCHAR(255) NOT NULL,
+    `description` VARCHAR(512) NOT NULL,
+    `logo`        VARCHAR(255),
+    `full_logo`   VARCHAR(255),
+    CONSTRAINT pk_shows PRIMARY KEY (`id`)
+);
+
+create table comment
+(
+    `id`         INTEGER      NOT NULL AUTO_INCREMENT,
+    `user_id`    INTEGER      NOT NULL,
+    `serial_id`  INTEGER      NOT NULL,
+    `commentary` VARCHAR(512) NOT NULL,
+    CONSTRAINT pk_comment PRIMARY KEY (`id`),
+    CONSTRAINT fk_comment_user FOREIGN KEY (`user_id`)
+        REFERENCES user (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_comment_serial FOREIGN KEY (`serial_id`)
+        REFERENCES serial (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+create table viewed
+(
+    `user_id`   INTEGER NOT NULL,
+    `serial_id` INTEGER NOT NULL,
+    CONSTRAINT fk_viewed_user FOREIGN KEY (`user_id`)
+        REFERENCES user (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_viewed_serial FOREIGN KEY (`serial_id`)
+        REFERENCES serial (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+
+);
+
+create table serial_country
+(
+    `serial_id`  INTEGER NOT NULL,
+    `country_id` INTEGER NOT NULL,
+    CONSTRAINT fk_serial_country_serial FOREIGN KEY (`serial_id`)
+        REFERENCES serial (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_serial_country_serial_country FOREIGN KEY (`country_id`)
+        REFERENCES country (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+create table serial_genre
+(
+    `serial_id` INTEGER NOT NULL,
+    `genre_id`  INTEGER NOT NULL,
+    CONSTRAINT fk_serial_genre_serial FOREIGN KEY (`serial_id`)
+        REFERENCES serial (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_serial_genre_genre FOREIGN KEY (`genre_id`)
+        REFERENCES genre (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+

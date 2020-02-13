@@ -3,7 +3,7 @@ package by.training.dao.user.impl;
 import by.training.dao.ConnectionFactory;
 import by.training.dao.exception.DaoException;
 import by.training.dao.user.UserDao;
-import by.training.entity.User;
+import by.training.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,17 +19,17 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = LogManager.getLogger("exception");
 
     //language=SQL
-    private static final String SQL_FIND_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
+    private static final String SQL_FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?";
     //language=SQL
-    private static final String SQL_FIND_ALL_USER = "SELECT * FROM users";
+    private static final String SQL_FIND_ALL_USER = "SELECT * FROM user";
     //language=SQL
-    private static final String SQL_FIND_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
+    private static final String SQL_FIND_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
     //language=SQL
-    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
+    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE id = ?";
     //language=SQL
-    private static final String SQL_CREATE_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, 2)";
+    private static final String SQL_CREATE_USER = "INSERT INTO user VALUES (DEFAULT, ?, ?, 2)";
     //language=SQL
-    private static final String SQL_UPDATE_USER = "UPDATE users SET login = ?, password = ? WHERE id = ?";
+    private static final String SQL_UPDATE_USER = "UPDATE user SET login = ?, password = ? WHERE id = ?";
 
 
     @Override

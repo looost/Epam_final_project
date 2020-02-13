@@ -1,7 +1,7 @@
 CREATE DATABASE `serials_db`;
 
-CREATE USER 'serials_user'@'localhost' IDENTIFIED BY 'admin';
+CREATE USER 'application'@'localhost' IDENTIFIED BY 'admin';
 
 GRANT SELECT, INSERT, UPDATE, DELETE
     ON `serials_db`.*
-    TO 'serials_user'@'localhost' -- TODO изделать имя application
+    TO 'application'@'localhost'
