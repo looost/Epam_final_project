@@ -115,3 +115,11 @@ java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 6
 	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
 	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
 	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+16::02::2020 18:11:03 [main] ERROR by.training.controller.command.CommandProvider getCommand Введена неверная команда
+java.lang.NumberFormatException: For input string: "asd"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:652) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
+	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
+	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]

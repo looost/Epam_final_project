@@ -133,3 +133,26 @@ java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 6
 10::02::2020 20:46:20 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
 10::02::2020 20:46:46 [main] INFO  by.training.controller.command.CommandProvider  getCommand 6
 10::02::2020 20:46:47 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+16::02::2020 17:57:59 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+16::02::2020 18:02:13 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+16::02::2020 18:02:20 [main] INFO  by.training.controller.command.CommandProvider  getCommand 1
+16::02::2020 18:02:23 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+16::02::2020 18:02:30 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
+16::02::2020 18:02:45 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+16::02::2020 18:10:41 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+16::02::2020 18:10:45 [main] INFO  by.training.controller.command.CommandProvider  getCommand 1
+16::02::2020 18:11:03 [main] INFO  by.training.controller.command.CommandProvider  getCommand asd
+16::02::2020 18:11:03 [main] ERROR by.training.controller.command.CommandProvider  getCommand Введена неверная команда
+java.lang.NumberFormatException: For input string: "asd"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:652) ~[?:?]
+	at java.lang.Integer.parseInt(Integer.java:770) ~[?:?]
+	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
+	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
+	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+16::02::2020 18:11:06 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+16::02::2020 18:11:09 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+16::02::2020 18:11:16 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
+16::02::2020 18:11:28 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 p
+16::02::2020 18:11:35 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+16::02::2020 18:12:42 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 p

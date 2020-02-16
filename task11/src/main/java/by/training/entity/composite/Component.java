@@ -2,14 +2,19 @@ package by.training.entity.composite;
 
 import by.training.entity.Type;
 
-public interface Component {
-    String operation();
+import java.util.List;
 
-    void add(Component c);
+public abstract class Component {
 
-    void remove(Component c);
+    public abstract String operation();
 
-    Component getChild(int index);
+    public abstract void add(Component c);
 
-    Type getType();
+    public abstract void remove(Component c);
+
+    public abstract Component getChild(int index);
+
+    public abstract List<Component> getComponents();
+
+    public abstract Type getType();
 }

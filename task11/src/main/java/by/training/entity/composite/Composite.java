@@ -4,7 +4,7 @@ import by.training.entity.Type;
 
 import java.util.ArrayList;
 
-public class Composite implements Component {
+public class Composite extends Component {
     private Type type;
     private ArrayList<Component> components = new ArrayList<>();
 
@@ -51,13 +51,10 @@ public class Composite implements Component {
 
     @Override
     public Type getType() {
-        return type;
+        return this.type;
     }
 
-    public int getSize() {
-        return components.size();
-    }
-
+    @Override
     public ArrayList<Component> getComponents() {
         return components;
     }

@@ -2,7 +2,9 @@ package by.training.entity.composite;
 
 import by.training.entity.Type;
 
-public class Leaf implements Component {
+import java.util.ArrayList;
+
+public class Leaf extends Component {
 
     private char symbol;
     private static final Type type = Type.SYMBOL;
@@ -34,5 +36,10 @@ public class Leaf implements Component {
     @Override
     public Type getType() {
         return type;
+    }
+
+    @Override
+    public ArrayList<Component> getComponents() {
+        throw new UnsupportedOperationException("Not have component");
     }
 }
