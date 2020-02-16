@@ -1,35 +1,20 @@
 package by.training.dao.genre.impl;
 
-import by.training.dao.ConnectionFactory;
+import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.model.Genre;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import by.training.dao.genre.GenreDao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class GenreDaoImpl implements GenreDao {
 
-    private static final Logger logger = LogManager.getLogger("exception"); //TODO логи в гит записываются?
-
-    //language=SQL
-    private static final String SQL_FIND_GENRE_BY_NAME = "SELECT * FROM genre WHERE name = ?";
-    //language=SQL
-    private static final String SQL_FIND_ALL_GENRE = "SELECT * FROM genre";
-    //language=SQL
-    private static final String SQL_FIND_GENRE_BY_ID = "SELECT * FROM genre WHERE id = ?";
-    //language=SQL
-    private static final String SQL_DELETE_GENRE_BY_ID = "DELETE FROM genre WHERE id = ?";
-    //language=SQL
-    private static final String SQL_CREATE_GENRE = "INSERT INTO genre VALUES (DEFAULT, ?)";
-    //language=SQL
-    private static final String SQL_UPDATE_GENRE = "UPDATE genre SET name = ? WHERE id = ?";
+    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlGenre.properties";
 
     @Override
     public Genre findByName(String name) throws DaoException {
@@ -37,17 +22,17 @@ public class GenreDaoImpl implements GenreDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            statement = connection.prepareStatement(SQL_FIND_GENRE_BY_NAME);
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(getProperties().getProperty("findGenreByName"));
             statement.setString(1, name);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Genre(resultSet.getInt("id"), resultSet.getString("name"));
+                return new Genre(resultSet.getInt(getProperties().getProperty("id")),
+                        resultSet.getString(getProperties().getProperty("genreName")));
             }
             return new Genre();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(resultSet);
             close(statement);
@@ -61,17 +46,17 @@ public class GenreDaoImpl implements GenreDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            statement = connection.prepareStatement(SQL_FIND_ALL_GENRE);
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(getProperties().getProperty("findAllGenre"));
             resultSet = statement.executeQuery();
             List<Genre> genreList = new ArrayList<>();
             while (resultSet.next()) {
-                genreList.add(new Genre(resultSet.getInt("id"), resultSet.getString("name")));
+                genreList.add(new Genre(resultSet.getInt(getProperties().getProperty("id")),
+                        resultSet.getString(getProperties().getProperty("genreName"))));
             }
             return genreList;
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(resultSet);
             close(statement);
@@ -85,18 +70,17 @@ public class GenreDaoImpl implements GenreDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            statement = connection.prepareStatement(SQL_FIND_GENRE_BY_ID);
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(getProperties().getProperty("findGenreById"));
             statement.setString(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return new Genre(resultSet.getInt("id"), resultSet.getString("name"));
+                return new Genre(resultSet.getInt(getProperties().getProperty("id")),
+                        resultSet.getString(getProperties().getProperty("genreName")));
             }
-            logger.error("User not found");
-            throw new DaoException("User not found");
+            return null;
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(resultSet);
             close(statement);
@@ -109,13 +93,12 @@ public class GenreDaoImpl implements GenreDao {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            statement = connection.prepareStatement(SQL_DELETE_GENRE_BY_ID);
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(getProperties().getProperty("deleteGenreById"));
             statement.setString(1, id);
             return statement.execute();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(statement);
             close(connection);
@@ -123,22 +106,16 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public boolean delete(Genre entity) throws DaoException {
-        return delete(String.valueOf(entity.getId()));
-    }
-
-    @Override
     public boolean create(Genre entity) throws DaoException {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            statement = connection.prepareStatement(SQL_CREATE_GENRE);
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(getProperties().getProperty("createGenreById"));
             statement.setString(1, entity.getName());
             return statement.execute();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(statement);
             close(connection);
@@ -150,17 +127,56 @@ public class GenreDaoImpl implements GenreDao {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
-            statement = connection.prepareStatement(SQL_UPDATE_GENRE);
+            connection = ConnectionPool.getInstance().getConnection();
+            statement = connection.prepareStatement(getProperties().getProperty("updateGenreById"));
             statement.setString(1, entity.getName());
             statement.setString(2, String.valueOf(entity.getId()));
             return statement.execute();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(statement);
             close(connection);
+        }
+    }
+
+    private void close(ResultSet resultSet) throws DaoException {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close resultSet", e);
+        }
+    }
+
+    private void close(Statement statement) throws DaoException {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close statement", e);
+        }
+    }
+
+    private void close(Connection connection) throws DaoException {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close connection", e);
+        }
+    }
+
+    private Properties getProperties() throws DaoException {
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(PATH_TO_PROPERTIES));
+            return properties;
+        } catch (IOException e) {
+            throw new DaoException("Not found properties file", e);
         }
     }
 }

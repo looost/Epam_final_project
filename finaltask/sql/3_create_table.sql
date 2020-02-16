@@ -20,22 +20,22 @@ create table genre
 
 create table user
 (
-    `id`       INTEGER      NOT NULL AUTO_INCREMENT,
-    `login`    VARCHAR(255) NOT NULL UNIQUE,
-    `password` CHAR(32)     NOT NULL,
+    `id`       INTEGER     NOT NULL AUTO_INCREMENT,
+    `login`    VARCHAR(12) NOT NULL UNIQUE,
+    `password` CHAR(32)    NOT NULL,
     /*
      * 0 - администратор (Role.ADMINISTRATOR)
      * 1 - модератор (Role.MODERATOR)
      * 2 - пользователь (Role.USER)
      */
-    `role`     TINYINT      NOT NULL CHECK (`role` IN (0, 1, 2)),
+    `role`     TINYINT     NOT NULL CHECK (`role` IN (0, 1, 2)),
     CONSTRAINT pk_users PRIMARY KEY (`id`)
 );
 
 create table serial
 (
     `id`          INTEGER      NOT NULL AUTO_INCREMENT,
-    `name`        VARCHAR(255) NOT NULL,
+    `name`        VARCHAR(45)  NOT NULL UNIQUE,
     `description` VARCHAR(512) NOT NULL,
     `logo`        VARCHAR(255),
     `full_logo`   VARCHAR(255),

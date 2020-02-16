@@ -8,5 +8,5 @@ import by.training.model.Serial;
 public interface SerialDao extends AbstractDao<String, Serial> {
 
     Serial findSerialByName(String name) throws DaoException;
-    // TODO добавить метод на проверку существует ли?
+    //TODO добавить метод на проверку существует ли?
 }

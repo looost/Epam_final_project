@@ -1,10 +1,14 @@
 package by.training.model;
 
 
+import java.io.Serializable;
 import java.util.Set;
 
 
-public class Serial extends Entity {
+public class Serial extends Entity implements Serializable {
+
+    private static final long serialVersionUID = -8730462953097921508L;
+
     private String name;
     private String description;
     private String logo;

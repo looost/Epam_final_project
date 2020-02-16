@@ -1,6 +1,11 @@
 package by.training.model;
 
-public class User extends Entity {
+import java.io.Serializable;
+
+public class User extends Entity implements Serializable {
+
+    private static final long serialVersionUID = -3150289886212330216L;
+
     private String login;
     private String password;
     private int role;

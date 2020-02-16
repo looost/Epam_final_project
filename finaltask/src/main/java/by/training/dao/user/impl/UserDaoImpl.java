@@ -1,22 +1,15 @@
 package by.training.dao.user.impl;
 
-import by.training.dao.ConnectionFactory;
+import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.user.UserDao;
 import by.training.model.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-
-    private static final Logger logger = LogManager.getLogger("exception");
 
     //language=SQL
     private static final String SQL_FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE login = ?";
@@ -38,7 +31,7 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(SQL_FIND_USER_BY_LOGIN);
             statement.setString(1, login);
             resultSet = statement.executeQuery();
@@ -47,8 +40,7 @@ public class UserDaoImpl implements UserDao {
             }
             return new User();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(resultSet);
             close(statement);
@@ -62,7 +54,7 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(SQL_FIND_ALL_USER);
             resultSet = statement.executeQuery();
             List<User> userList = new ArrayList<>();
@@ -71,8 +63,7 @@ public class UserDaoImpl implements UserDao {
             }
             return userList;
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(resultSet);
             close(statement);
@@ -86,18 +77,16 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(SQL_FIND_USER_BY_ID);
             statement.setString(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return new User(resultSet.getInt("id"), resultSet.getString("login"), resultSet.getString("password"), resultSet.getInt("role"));
             }
-            logger.error("User not found");
-            throw new DaoException("User not found"); // TODO Ошибка или пустой юзер?
+            return null;
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(resultSet);
             close(statement);
@@ -110,13 +99,12 @@ public class UserDaoImpl implements UserDao {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
             statement.setString(1, id);
             return statement.execute();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(statement);
             close(connection);
@@ -124,23 +112,17 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean delete(User entity) throws DaoException {
-        return delete(String.valueOf(entity.getId()));
-    }
-
-    @Override
     public boolean create(User entity) throws DaoException {  // TODO Нужна ли проверка есть ли пользователь с таким логином?
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(SQL_CREATE_USER);
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
             return statement.execute();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(statement);
             close(connection);
@@ -152,18 +134,47 @@ public class UserDaoImpl implements UserDao {
         Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionFactory.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(SQL_UPDATE_USER);
             statement.setString(1, entity.getLogin());
             statement.setString(2, entity.getPassword());
             statement.setString(3, String.valueOf(entity.getId()));
             return statement.execute();
         } catch (SQLException e) {
-            logger.error("SQLException", e);
-            throw new DaoException(e);
+            throw new DaoException("SQLException", e);
         } finally {
             close(statement);
             close(connection);
+        }
+    }
+
+    private void close(ResultSet resultSet) throws DaoException {
+        try {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close resultSet", e);
+        }
+    }
+
+    private void close(Statement statement) throws DaoException {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close statement", e);
+        }
+    }
+
+    private void close(Connection connection) throws DaoException {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close connection", e);
         }
     }
 }
