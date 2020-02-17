@@ -1,0 +1,4 @@
+13::02::2020 19:20:28 [Thread-0] INFO  exercise1.HelloWorldThread  run Test Thread
+13::02::2020 19:20:39 [Thread-0] INFO  exercise1.HelloWorldThread  run Test Thread
+13::02::2020 19:21:23 [Thread-0] INFO  exercise1.HelloWorldThread  run Test Thread
+13::02::2020 19:21:23 [Thread-0] ERROR exercise1.HelloWorldThread  run Test error Thread
