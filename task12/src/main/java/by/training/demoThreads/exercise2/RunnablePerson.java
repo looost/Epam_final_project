@@ -1,6 +1,5 @@
 package by.training.demoThreads.exercise2;
 
-import com.mysql.jdbc.TimeUtil;
 
 import java.util.concurrent.TimeUnit;
 

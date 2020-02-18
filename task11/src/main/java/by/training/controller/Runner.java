@@ -43,9 +43,11 @@ public class Runner {
         String request;
         CommandResponse commandResponse;
 
+        component = new Composite(Type.TEXT);
+        textParser.parse(component, test);
+
         while (flag) {
-            component = new Composite(Type.TEXT);
-            textParser.parse(component, test);
+
 
             viewConsole.showMenu();
             request = userUI.enterString();
