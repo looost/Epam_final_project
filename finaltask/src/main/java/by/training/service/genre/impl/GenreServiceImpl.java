@@ -1,19 +1,22 @@
 package by.training.service.genre.impl;
 
+import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.Entity;
+import by.training.model.AbstractEntity;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.genre.GenreService;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class GenreServiceImpl implements GenreService {
     @Override
     public Genre findByName(String name) throws ServiceException {
         try {
-            return DaoFactory.getInstance().getGenreDao().findByName(name);
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getGenreDao(connection).findByName(name);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -25,7 +28,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Entity findById(Object id) throws ServiceException {
+    public AbstractEntity findById(Object id) throws ServiceException {
         return null;
     }
 
@@ -35,17 +38,12 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public boolean delete(Entity entity) throws ServiceException {
+    public boolean create(AbstractEntity abstractEntity) throws ServiceException {
         return false;
     }
 
     @Override
-    public boolean create(Entity entity) throws ServiceException {
-        return false;
-    }
-
-    @Override
-    public boolean update(Entity entity) throws ServiceException {
+    public boolean update(AbstractEntity abstractEntity) throws ServiceException {
         return false;
     }
 }

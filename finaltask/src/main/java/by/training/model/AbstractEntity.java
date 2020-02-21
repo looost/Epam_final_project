@@ -1,13 +1,17 @@
 package by.training.model;
 
 
-public abstract class Entity {
+import java.io.Serializable;
+
+public abstract class AbstractEntity implements Serializable {
+
+    private static final long serialVersionUID = -7967871648368085337L;
     protected int id;
 
-    public Entity() {
+    public AbstractEntity() {
     }
 
-    public Entity(int id) {
+    public AbstractEntity(int id) {
         this.id = id;
     }
 
@@ -24,9 +28,9 @@ public abstract class Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Entity entity = (Entity) o;
+        AbstractEntity abstractEntity = (AbstractEntity) o;
 
-        return id == entity.id;
+        return id == abstractEntity.id;
     }
 
     @Override

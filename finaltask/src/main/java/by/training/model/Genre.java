@@ -4,7 +4,7 @@ package by.training.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Genre extends Entity implements Serializable {
+public class Genre extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 3379973670323251459L;
 

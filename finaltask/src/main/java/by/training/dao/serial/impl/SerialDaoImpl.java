@@ -1,10 +1,8 @@
 package by.training.dao.serial.impl;
 
-import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.serial.SerialDao;
-import by.training.model.Genre;
-import by.training.model.Serial;
+import by.training.model.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,25 +16,35 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlSerial.properties";
 
+    private Connection connection;
+
+    public SerialDaoImpl(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public Serial findSerialByName(String name) throws DaoException {
-        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(getProperties().getProperty("findSerialByName"));
             statement.setString(1, name);
             resultSet = statement.executeQuery();
             Set<Genre> genreSet = new HashSet<>();
-            Serial serial = new Serial();
+            Set<Comment> commentSet = new HashSet<>();
+            Serial serial = null;
             if (resultSet.next()) {
                 genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
+                commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
                         resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
-                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")), genreSet);
+                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
+                        resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
+                        new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
+                        genreSet, commentSet);
                 while (resultSet.next()) {
                     genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
+                    commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 }
             }
             return serial;
@@ -45,7 +53,6 @@ public class SerialDaoImpl implements SerialDao {
         } finally {
             close(resultSet);
             close(statement);
-            close(connection);
         }
     }
 
@@ -56,23 +63,27 @@ public class SerialDaoImpl implements SerialDao {
 
     @Override
     public Serial findById(String id) throws DaoException {
-        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(getProperties().getProperty("findSerialById"));
             statement.setString(1, id);
             resultSet = statement.executeQuery();
             Set<Genre> genreSet = new HashSet<>();
-            Serial serial = new Serial();
+            Set<Comment> commentSet = new HashSet<>();
+            Serial serial = null;
             if (resultSet.next()) {
                 genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
+                commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
                         resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
-                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")), genreSet);
+                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
+                        resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
+                        new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
+                        genreSet, commentSet);
                 while (resultSet.next()) {
                     genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
+                    commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 }
             }
             return serial;
@@ -81,16 +92,13 @@ public class SerialDaoImpl implements SerialDao {
         } finally {
             close(resultSet);
             close(statement);
-            close(connection);
         }
     }
 
     @Override
     public boolean delete(String id) throws DaoException {
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
             statement = connection.prepareStatement(getProperties().getProperty("deleteSerialById"));
             statement.setString(1, id);
             return statement.execute();
@@ -98,17 +106,14 @@ public class SerialDaoImpl implements SerialDao {
             throw new DaoException("SQLException", e);
         } finally {
             close(statement);
-            close(connection);
         }
     }
 
     @Override
     public boolean create(Serial entity) throws DaoException {
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
-            statement = connection.prepareStatement(getProperties().getProperty("createSerialById"));
+            statement = connection.prepareStatement(getProperties().getProperty("createSerial"));
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getDescription());
             statement.setString(3, entity.getLogo());
@@ -118,17 +123,14 @@ public class SerialDaoImpl implements SerialDao {
             throw new DaoException("SQLException", e);
         } finally {
             close(statement);
-            close(connection);
         }
     }
 
     @Override
     public boolean update(Serial entity) throws DaoException {
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
-            statement = connection.prepareStatement(getProperties().getProperty("updateSerialById"));
+            statement = connection.prepareStatement(getProperties().getProperty("updateSerial"));
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getDescription());
             statement.setString(3, entity.getLogo());
@@ -138,7 +140,6 @@ public class SerialDaoImpl implements SerialDao {
             throw new DaoException("SQLException", e);
         } finally {
             close(statement);
-            close(connection);
         }
     }
 
@@ -160,16 +161,6 @@ public class SerialDaoImpl implements SerialDao {
             }
         } catch (SQLException e) {
             throw new DaoException("Cannot close statement", e);
-        }
-    }
-
-    private void close(Connection connection) throws DaoException {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Cannot close connection", e);
         }
     }
 

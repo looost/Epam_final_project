@@ -1,8 +1,8 @@
-package by.training.dao.genre.impl;
+package by.training.dao.country;
 
+import by.training.dao.AbstractDao;
 import by.training.dao.exception.DaoException;
-import by.training.dao.genre.GenreDao;
-import by.training.model.Genre;
+import by.training.model.Country;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,50 +11,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class GenreDaoImpl implements GenreDao {
+public class CountryDaoImpl implements AbstractDao<String, Country> {
 
-    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlGenre.properties";
+    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlCountry.properties";
 
     private Connection connection;
 
-    public GenreDaoImpl(Connection connection) {
+    public CountryDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public Genre findByName(String name) throws DaoException {
+    public List<Country> findAll() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(getProperties().getProperty("findGenreByName"));
-            statement.setString(1, name);
+            statement = connection.prepareStatement(getProperties().getProperty("findAllCountry"));
             resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return new Genre(resultSet.getInt(getProperties().getProperty("id")),
-                        resultSet.getString(getProperties().getProperty("genreName")));
-            }
-            return new Genre();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(resultSet);
-            close(statement);
-        }
-    }
-
-    @Override
-    public List<Genre> findAll() throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("findAllGenre"));
-            resultSet = statement.executeQuery();
-            List<Genre> genreList = new ArrayList<>();
+            List<Country> countryList = new ArrayList<>();
             while (resultSet.next()) {
-                genreList.add(new Genre(resultSet.getInt(getProperties().getProperty("id")),
-                        resultSet.getString(getProperties().getProperty("genreName"))));
+                countryList.add(new Country(resultSet.getInt(getProperties().getProperty("countryId")), resultSet.getString(getProperties().getProperty("countryName"))));
             }
-            return genreList;
+            return countryList;
         } catch (SQLException e) {
             throw new DaoException("SQLException", e);
         } finally {
@@ -64,18 +42,18 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public Genre findById(String id) throws DaoException {
+    public Country findById(String id) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(getProperties().getProperty("findGenreById"));
+            statement = connection.prepareStatement(getProperties().getProperty("findCountryById"));
             statement.setString(1, id);
             resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                return new Genre(resultSet.getInt(getProperties().getProperty("id")),
-                        resultSet.getString(getProperties().getProperty("genreName")));
+            Country country = null;
+            while (resultSet.next()) {
+                country = new Country(resultSet.getInt(getProperties().getProperty("countryId")), resultSet.getString(getProperties().getProperty("countryName")));
             }
-            return null;
+            return country;
         } catch (SQLException e) {
             throw new DaoException("SQLException", e);
         } finally {
@@ -88,7 +66,7 @@ public class GenreDaoImpl implements GenreDao {
     public boolean delete(String id) throws DaoException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(getProperties().getProperty("deleteGenreById"));
+            statement = connection.prepareStatement(getProperties().getProperty("deleteCountryById"));
             statement.setString(1, id);
             return statement.execute();
         } catch (SQLException e) {
@@ -99,10 +77,10 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public boolean create(Genre entity) throws DaoException {
+    public boolean create(Country entity) throws DaoException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(getProperties().getProperty("createGenreById"));
+            statement = connection.prepareStatement(getProperties().getProperty("createCountry"));
             statement.setString(1, entity.getName());
             return statement.execute();
         } catch (SQLException e) {
@@ -113,12 +91,11 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
-    public boolean update(Genre entity) throws DaoException {
+    public boolean update(Country entity) throws DaoException {
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(getProperties().getProperty("updateGenreById"));
+            statement = connection.prepareStatement(getProperties().getProperty("updateCountry"));
             statement.setString(1, entity.getName());
-            statement.setString(2, String.valueOf(entity.getId()));
             return statement.execute();
         } catch (SQLException e) {
             throw new DaoException("SQLException", e);

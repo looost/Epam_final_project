@@ -2,7 +2,7 @@ package by.training.model;
 
 import java.io.Serializable;
 
-public class User extends Entity implements Serializable {
+public class User extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = -3150289886212330216L;
 
@@ -11,6 +11,10 @@ public class User extends Entity implements Serializable {
     private int role;
 
     public User() {
+    }
+
+    public User(int id) {
+        super(id);
     }
 
     public User(int id, String login, String password, int role) {
@@ -64,5 +68,13 @@ public class User extends Entity implements Serializable {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + role;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                '}';
     }
 }

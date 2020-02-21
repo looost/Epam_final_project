@@ -1,4 +1,4 @@
-package by.training.service.show;
+package by.training.service.serial;
 
 import by.training.model.Serial;
 import by.training.service.AbstractService;
