@@ -7,10 +7,7 @@ import by.training.model.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 public class SerialDaoImpl implements SerialDao {
 
@@ -31,20 +28,17 @@ public class SerialDaoImpl implements SerialDao {
             statement.setString(1, name);
             resultSet = statement.executeQuery();
             Set<Genre> genreSet = new HashSet<>();
-            Set<Comment> commentSet = new HashSet<>();
             Serial serial = null;
             if (resultSet.next()) {
                 genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
                         resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
                         resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
                         resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
                         new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
-                        genreSet, commentSet);
+                        genreSet);
                 while (resultSet.next()) {
                     genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                    commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 }
             }
             return serial;
@@ -57,8 +51,39 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     @Override
-    public List<Serial> findAll() throws DaoException { //TODO Коллекция?
-        return null;
+    public List<Serial> findAll() throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(getProperties().getProperty("findAllSerial"));
+            resultSet = statement.executeQuery();
+            String[] genres;
+            Genre genre;
+            Set<Genre> genreSet;
+            Serial serial;
+            List<Serial> serialList = new ArrayList<>();
+            while (resultSet.next()) {
+                genreSet = new HashSet<>();
+                genres = resultSet.getString(getProperties().getProperty("genres")).split(",");
+                for (String s : genres) {
+                    genre = new Genre(Integer.parseInt(s));
+                    genreSet.add(genre);
+                }
+                serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
+                        resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
+                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
+                        resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
+                        new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
+                        genreSet);
+                serialList.add(serial);
+            }
+            return serialList;
+        } catch (SQLException e) {
+            throw new DaoException("SQLException", e);
+        } finally {
+            close(resultSet);
+            close(statement);
+        }
     }
 
     @Override
@@ -70,20 +95,17 @@ public class SerialDaoImpl implements SerialDao {
             statement.setString(1, id);
             resultSet = statement.executeQuery();
             Set<Genre> genreSet = new HashSet<>();
-            Set<Comment> commentSet = new HashSet<>();
             Serial serial = null;
             if (resultSet.next()) {
                 genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
                         resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
                         resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
                         resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
                         new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
-                        genreSet, commentSet);
+                        genreSet);
                 while (resultSet.next()) {
                     genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                    commentSet.add(new Comment(resultSet.getInt(getProperties().getProperty("commentId"))));
                 }
             }
             return serial;

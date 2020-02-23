@@ -16,9 +16,9 @@ import java.util.Set;
 public class CommentServiceImpl implements CommentService {
     @Override
     public Set<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
+        Connection connection = null;
         try {
-            System.out.println("!!!!!!!!");
-            Connection connection = ConnectionPool.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
             Set<Comment> commentSet = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
             User user;
@@ -41,8 +41,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment findById(String id) throws ServiceException {
+        Connection connection = null;
         try {
-            Connection connection = ConnectionPool.getInstance().getConnection();
+            connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
             Comment comment = DaoFactory.getInstance().getCommentDao(connection).findById(id);
             User user = DaoFactory.getInstance().getUserDao(connection).findById(String.valueOf(comment.getUser().getId()));
@@ -73,4 +74,5 @@ public class CommentServiceImpl implements CommentService {
     public boolean update(Comment entity) throws ServiceException {
         return false;
     }
+
 }

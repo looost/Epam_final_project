@@ -1,15 +1,13 @@
 package by.training.multithreading.entity;
 
 
-import by.training.multithreading.entity.exception.MatrixException;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Matrix {
     private int[][] a;
+    private ReentrantLock lock = new ReentrantLock();
 
-    public Matrix(int n, int m) throws MatrixException {
-        if ((n < 1) || (m < 1)) {
-            throw new MatrixException("Значение строки или столбца не может быть меньше 1!");
-        }
+    public Matrix(int n, int m) {
         a = new int[n][m];
     }
 
@@ -21,20 +19,12 @@ public class Matrix {
         return a[0].length;
     }
 
-    public int getElement(int i, int j) throws MatrixException {
-        if (checkRange(i, j)) { // проверка i и j
-            return a[i][j];
-        } else {
-            throw new MatrixException("Такого элемента не существует!");
-        }
+    public int getElement(int i, int j) {
+        return a[i][j];
     }
 
-    public void setElement(int i, int j, int value) throws MatrixException {
-        if (checkRange(i, j)) { // проверка i и j
-            a[i][j] = value;
-        } else {
-            throw new MatrixException("Такого элемента не существует!");
-        }
+    public void setElement(int i, int j, int value) {
+        a[i][j] = value;
     }
 
     @Override
@@ -47,13 +37,5 @@ public class Matrix {
             s.append("\n");
         }
         return s.toString();
-    }
-
-    private boolean checkRange(int i, int j) {
-        if (i >= 0 && i < a.length && j >= 0 && j < a[0].length) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

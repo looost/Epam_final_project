@@ -1,15 +1,13 @@
 package by.training.model;
 
+import java.util.Set;
 
-import java.io.Serializable;
-import java.util.List;
-
-public class Genre extends AbstractEntity implements Serializable {
+public class Genre extends AbstractEntity {
 
     private static final long serialVersionUID = 3379973670323251459L;
 
     private String name;
-    private List<Serial> serialList;
+    private Set<Serial> serials;
 
     public Genre() {
     }
@@ -31,12 +29,12 @@ public class Genre extends AbstractEntity implements Serializable {
         this.name = name;
     }
 
-    public List<Serial> getSerialList() {
-        return serialList;
+    public Set<Serial> getSerials() {
+        return serials;
     }
 
-    public void setSerialList(List<Serial> serialList) {
-        this.serialList = serialList;
+    public void setSerials(Set<Serial> serials) {
+        this.serials = serials;
     }
 
     @Override
@@ -48,14 +46,14 @@ public class Genre extends AbstractEntity implements Serializable {
         Genre genre = (Genre) o;
 
         if (name != null ? !name.equals(genre.name) : genre.name != null) return false;
-        return serialList != null ? serialList.equals(genre.serialList) : genre.serialList == null;
+        return serials != null ? serials.equals(genre.serials) : genre.serials == null;
     }
 
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (serialList != null ? serialList.hashCode() : 0);
+        result = 31 * result + (serials != null ? serials.hashCode() : 0);
         return result;
     }
 

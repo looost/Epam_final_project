@@ -65,6 +65,19 @@ public class Serial extends AbstractEntity {
         this.comments = comments;
     }
 
+    public Serial(int id, String name, String description, String logo, String full_logo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.logo = logo;
+        this.full_logo = full_logo;
+        this.releaseDate = releaseDate;
+        this.countLike = countLike;
+        this.country = country;
+        this.studio = studio;
+        this.genres = genres;
+    }
+
     public String getName() {
         return name;
     }

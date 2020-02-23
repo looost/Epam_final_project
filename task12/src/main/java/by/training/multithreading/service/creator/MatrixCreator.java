@@ -5,8 +5,11 @@ import by.training.multithreading.entity.exception.MatrixException;
 import by.training.multithreading.service.exception.ServiceException;
 
 public class MatrixCreator {
-    public static Matrix createMatrix(String[] strings) throws ServiceException {
-        try {
+
+    private MatrixCreator() {
+    }
+
+    public static Matrix createMatrix(String[] strings) {
             int count = 0;
             Matrix matrix = new Matrix(10, 10);
             for (int i = 0; i < matrix.getVerticalSize(); i++) {
@@ -15,8 +18,5 @@ public class MatrixCreator {
                 }
             }
             return matrix;
-        } catch (MatrixException e) {
-            throw new ServiceException("Cannot create matrix", e);
-        }
     }
 }
