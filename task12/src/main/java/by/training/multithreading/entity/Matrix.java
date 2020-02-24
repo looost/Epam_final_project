@@ -1,11 +1,8 @@
 package by.training.multithreading.entity;
 
 
-import java.util.concurrent.locks.ReentrantLock;
-
 public class Matrix {
     private int[][] a;
-    private ReentrantLock lock = new ReentrantLock();
 
     public Matrix(int n, int m) {
         a = new int[n][m];

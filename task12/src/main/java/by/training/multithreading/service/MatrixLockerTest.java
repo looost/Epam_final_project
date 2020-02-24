@@ -2,17 +2,33 @@ package by.training.multithreading.service;
 
 import by.training.multithreading.entity.Matrix;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class MatrixService extends Thread {
+public class MatrixLockerTest extends Thread {
     private ReentrantLock locker;
     private Matrix matrix;
     private int value;
-    private int[] arr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private static List<Integer> list;
 
-    public MatrixService(Matrix matrix, int value, ReentrantLock lock) {
+    static {
+        list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
+        list.add(7);
+        list.add(8);
+        list.add(9);
+    }
+
+    public MatrixLockerTest(Matrix matrix, int value, ReentrantLock lock) {
         this.matrix = matrix;
         this.value = value;
         this.locker = lock;
@@ -20,18 +36,17 @@ public class MatrixService extends Thread {
 
     @Override
     public void run() {
-        Random random = new Random();
         int bound;
-        int rand;
         boolean flag = true;
+        int index;
         while (flag) {
-            rand = random.nextInt(10);
-            bound = arr[rand];
+            bound = getRandomList(list);
+            index = list.indexOf(bound);
             try {
                 locker.lock();
                 if (bound != -1 && matrix.getElement(bound, bound) == 0) {
                     matrix.setElement(bound, bound, value);
-                    arr[rand] = -1;
+                    list.set(index, -1);
                     System.out.println(Thread.currentThread().getName() + " записал в ячейку " + "(" + bound + ", " + bound + ") "
                             + " значение - " + value);
                 }
@@ -54,6 +69,11 @@ public class MatrixService extends Thread {
 
     public void setMatrix(Matrix matrix) {
         this.matrix = matrix;
+    }
+
+    private int getRandomList(List<Integer> list) {
+        int index = ThreadLocalRandom.current().nextInt(list.size());
+        return list.get(index);
     }
 
     private boolean check() {
