@@ -77,13 +77,13 @@ public class MatrixLockerTest extends Thread {
     }
 
     private boolean check() {
-        for (int i = 0; i < matrix.getVerticalSize(); i++) {
-            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
-                if (i == j && matrix.getElement(i, j) == 0) {
-                    return true;
-                }
+
+        int length = this.matrix.getVerticalSize();
+        for (int i = 0; i < length; i++) {
+            if (matrix.getElement(i,i) != 0) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 }

@@ -31,17 +31,17 @@ public class Runner {
         MatrixSemaphore matrixSemaphore;
 
 
-//        for (int i = 1; i < 6; i++) {
-//            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
-//            matrixSemaphore.start();
-//        }
-
-
-        MatrixLockerTest threadMatrixLockerTest;
         for (int i = 1; i < 6; i++) {
-            threadMatrixLockerTest = new MatrixLockerTest(matrix, i, lock);
-            threadMatrixLockerTest.start();
+            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
+            matrixSemaphore.start();
         }
+
+
+//        MatrixLockerTest threadMatrixLockerTest;
+//        for (int i = 1; i < 6; i++) {
+//            threadMatrixLockerTest = new MatrixLockerTest(matrix, i, lock);
+//            threadMatrixLockerTest.start();
+//        }
 
 
         TimeUnit.MILLISECONDS.sleep(1000);

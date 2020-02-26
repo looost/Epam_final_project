@@ -12,7 +12,7 @@ public class Serial extends AbstractEntity {
     private String name;
     private String description;
     private String logo;
-    private String full_logo;
+    private String fullLogo;
     private Date releaseDate;
     private int countLike;
     private Country country;
@@ -27,36 +27,36 @@ public class Serial extends AbstractEntity {
         super(id);
     }
 
-    public Serial(int id, String name, String description, String logo, String full_logo, Set<Genre> genres) {
+    public Serial(int id, String name, String description, String logo, String fullLogo, Set<Genre> genres) {
         super(id);
         this.name = name;
         this.description = description;
         this.logo = logo;
-        this.full_logo = full_logo;
+        this.fullLogo = fullLogo;
         this.genres = genres;
     }
 
-    public Serial(String name, String description, String logo, String full_logo) {
+    public Serial(String name, String description, String logo, String fullLogo) {
         this.name = name;
         this.description = description;
         this.logo = logo;
-        this.full_logo = full_logo;
+        this.fullLogo = fullLogo;
     }
 
-    public Serial(String name, String description, String logo, String full_logo, Set<Genre> genres) {
+    public Serial(String name, String description, String logo, String fullLogo, Set<Genre> genres) {
         this.name = name;
         this.description = description;
         this.logo = logo;
-        this.full_logo = full_logo;
+        this.fullLogo = fullLogo;
         this.genres = genres;
     }
 
-    public Serial(int id, String name, String description, String logo, String full_logo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres, Set<Comment> comments) {
+    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres, Set<Comment> comments) {
         super(id);
         this.name = name;
         this.description = description;
         this.logo = logo;
-        this.full_logo = full_logo;
+        this.fullLogo = fullLogo;
         this.releaseDate = releaseDate;
         this.countLike = countLike;
         this.country = country;
@@ -65,12 +65,12 @@ public class Serial extends AbstractEntity {
         this.comments = comments;
     }
 
-    public Serial(int id, String name, String description, String logo, String full_logo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres) {
+    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres) {
         super(id);
         this.name = name;
         this.description = description;
         this.logo = logo;
-        this.full_logo = full_logo;
+        this.fullLogo = fullLogo;
         this.releaseDate = releaseDate;
         this.countLike = countLike;
         this.country = country;
@@ -102,12 +102,12 @@ public class Serial extends AbstractEntity {
         this.logo = logo;
     }
 
-    public String getFull_logo() {
-        return full_logo;
+    public String getFullLogo() {
+        return fullLogo;
     }
 
-    public void setFull_logo(String full_logo) {
-        this.full_logo = full_logo;
+    public void setFullLogo(String fullLogo) {
+        this.fullLogo = fullLogo;
     }
 
     public Set<Genre> getGenres() {
@@ -169,7 +169,7 @@ public class Serial extends AbstractEntity {
         if (name != null ? !name.equals(serial.name) : serial.name != null) return false;
         if (description != null ? !description.equals(serial.description) : serial.description != null) return false;
         if (logo != null ? !logo.equals(serial.logo) : serial.logo != null) return false;
-        if (full_logo != null ? !full_logo.equals(serial.full_logo) : serial.full_logo != null) return false;
+        if (fullLogo != null ? !fullLogo.equals(serial.fullLogo) : serial.fullLogo != null) return false;
         if (country != null ? !country.equals(serial.country) : serial.country != null) return false;
         if (studio != null ? !studio.equals(serial.studio) : serial.studio != null) return false;
         if (genres != null ? !genres.equals(serial.genres) : serial.genres != null) return false;
@@ -182,7 +182,7 @@ public class Serial extends AbstractEntity {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (logo != null ? logo.hashCode() : 0);
-        result = 31 * result + (full_logo != null ? full_logo.hashCode() : 0);
+        result = 31 * result + (fullLogo != null ? fullLogo.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (studio != null ? studio.hashCode() : 0);
         result = 31 * result + (genres != null ? genres.hashCode() : 0);
@@ -197,7 +197,7 @@ public class Serial extends AbstractEntity {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", logo='" + logo + '\'' +
-                ", full_logo='" + full_logo + '\'' +
+                ", full_logo='" + fullLogo + '\'' +
                 ", releaseDate=" + releaseDate +
                 ", countLike=" + countLike +
                 ", country=" + country +

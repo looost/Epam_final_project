@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.training.by/serials"
+        xmlns:tns="http://www.training.by/serials"
+        elementFormDefault="qualified">
+    <element name="serials">
+        <complexType>
+            <sequence>
+                <element name="serial"
+                         type="tns:Serial"
+                         minOccurs="1"
+                         maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="Serial">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="description" type="string"/>
+            <element name="fullLogo" type="string"/>
+            <element name="releaseDate" type="date"/>
+            <element name="countLike" type="int" default="0"/>
+            <element name="country" type="tns:Country"/>
+            <element name="studio" type="tns:Studio"/>
+            <element name="genres" type="tns:Genres"/>
+            <element name="comment" type="tns:Comments"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+        <!--        <attribute name="faculty" use="optional" default="mmf">-->
+        <!--            <simpleType>-->
+        <!--                <restriction base="string">-->
+        <!--                    <enumeration value="mmf"></enumeration>-->
+        <!--                    <enumeration value="geo"></enumeration>-->
+        <!--                    <enumeration value="ksis"></enumeration>-->
+        <!--                </restriction>-->
+        <!--            </simpleType>-->
+        <!--        </attribute>-->
+    </complexType>
+    <complexType name="Country">
+        <sequence>
+            <element name="name" type="string"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+    </complexType>
+
+    <complexType name="Studio">
+        <sequence>
+            <element name="name" type="string"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+    </complexType>
+
+    <complexType name="Genres">
+        <sequence>
+            <element name="name" type="tns:Genre"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Comments">
+        <sequence>
+            <element name="comment" type="tns:Comment"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Genre">
+        <sequence>
+            <element name="name" type="string"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+    </complexType>
+
+    <complexType name="Comment">
+        <sequence>
+            <element name="user" type="tns:User"/>
+            <element name="comment-text" type="string"/>
+            <element name="publicationDate" type="date"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+    </complexType>
+
+    <complexType name="User">
+        <sequence>
+            <element name="login" type="string"/>
+            <element name="password" type="string"/>
+        </sequence>
+        <attribute name="id" type="int" use="required"/>
+        <attribute name="role" type="int" use="required"/>
+    </complexType>
+
+    <simpleType name="Login">
+        <restriction base="ID">
+            <pattern value="([a-zA-Z])[a-zA-Z0-9]{7,19}"/>
+        </restriction>
+    </simpleType>
+    <complexType name="Address">
+        <sequence>
+            <element name="country" type="string"/>
+            <element name="city" type="string"/>
+            <element name="street" type="string"/>
+        </sequence>
+    </complexType>
+</schema>

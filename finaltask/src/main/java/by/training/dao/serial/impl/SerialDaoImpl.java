@@ -139,7 +139,7 @@ public class SerialDaoImpl implements SerialDao {
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getDescription());
             statement.setString(3, entity.getLogo());
-            statement.setString(4, entity.getFull_logo());
+            statement.setString(4, entity.getFullLogo());
             return statement.execute();
         } catch (SQLException e) {
             throw new DaoException("SQLException", e);
@@ -156,7 +156,7 @@ public class SerialDaoImpl implements SerialDao {
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getDescription());
             statement.setString(3, entity.getLogo());
-            statement.setString(3, entity.getFull_logo());
+            statement.setString(3, entity.getFullLogo());
             return statement.execute();
         } catch (SQLException e) {
             throw new DaoException("SQLException", e);

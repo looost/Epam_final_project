@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" xsi:schemaLocation="http://www.training.by/serials serials.xsd"?>
+<serials>
+
+    <serial id="0">
+        <name>Dark</name>
+        <description>Description .....................</description>
+        <logo>img/dark.jpg</logo>
+        <fullLogo>img/dark_full.jpg</fullLogo>
+        <releaseDate>2017-12-01</releaseDate>
+        <countLike>0</countLike>
+        <coutnry id="0">
+            <name>USA</name>
+        </coutnry>
+        <studio id="0">
+            <name>HBO</name>
+        </studio>
+        <genres>
+            <genre id="0">
+                <name>Drama</name>
+            </genre>
+            <genre id="1">
+                <name>Crime</name>
+            </genre>
+            <genre id="2">
+                <name>Mystery</name>
+            </genre>
+        </genres>
+        <comment>
+            <user id="0" role="3">
+                <login>user</login>
+                <password>password</password>
+            </user>
+            <comment-text>Комментарий .............</comment-text>
+            <publicationDate>2019-01-20</publicationDate>
+        </comment>
+        <comment>
+            <user id="1" role="2">
+                <login>admin</login>
+                <password>password</password>
+            </user>
+            <comment-text>Комментарий 22222222 .............</comment-text>
+            <publicationDate>2019-02-01</publicationDate>
+        </comment>
+        <comment>
+            <user id="0" role="3">
+                <login>user</login>
+                <password>password</password>
+            </user>
+            <comment-text>Комментарий adfsadfsdf sdf sdf .............</comment-text>
+            <publicationDate>2019-12-13</publicationDate>
+        </comment>
+    </serial>
+
+</serials>
