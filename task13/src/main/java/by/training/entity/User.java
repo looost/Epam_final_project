@@ -1,4 +1,4 @@
-package by.training.model;
+package by.training.entity;
 
 public class User extends AbstractEntity {
 

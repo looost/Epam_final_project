@@ -7,13 +7,10 @@ import by.training.multithreadingv2.entity.Matrix;
 import by.training.multithreadingv2.service.MatrixCountDownLatch;
 import by.training.multithreadingv2.service.MatrixLocker;
 import by.training.multithreadingv2.service.MatrixSemaphore;
-import by.training.multithreadingv2.service.ThreadSaveCollection;
 import by.training.multithreadingv2.service.creator.MatrixCreator;
-import by.training.multithreadingv2.service.parser.MatrixCyclicBarrierRunner;
 import by.training.multithreadingv2.service.parser.Parser;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -42,13 +39,13 @@ public class Runner {
 //            matrixSemaphore.start();
 //        }
 
-//        CountDownLatch countDownLatch = new CountDownLatch(3);
-//        MatrixCountDownLatch matrixCountDownLatch;
-//
-//        for (int i = 1; i < 6; i++) {
-//            matrixCountDownLatch = new MatrixCountDownLatch(matrix, i, countDownLatch);
-//            matrixCountDownLatch.start();
-//        }
+        CountDownLatch countDownLatch = new CountDownLatch(2);
+        MatrixCountDownLatch matrixCountDownLatch;
+
+        for (int i = 1; i < 6; i++) {
+            matrixCountDownLatch = new MatrixCountDownLatch(matrix, i, countDownLatch);
+            matrixCountDownLatch.start();
+        }
 
 //        ThreadSaveCollection threadSaveCollection;
 //

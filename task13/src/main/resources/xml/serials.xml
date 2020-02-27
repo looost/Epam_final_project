@@ -1,19 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" xsi:schemaLocation="http://www.training.by/serials serials.xsd"?>
-<serials>
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<serials xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.training.by/serials"
+         xsi:schemaLocation="http://www.example.com/students serials.xsd">
 
     <serial id="0">
+
         <name>Dark</name>
+
         <description>Description .....................</description>
+
         <logo>img/dark.jpg</logo>
+
         <fullLogo>img/dark_full.jpg</fullLogo>
+
         <releaseDate>2017-12-01</releaseDate>
+
         <countLike>0</countLike>
-        <coutnry id="0">
+
+        <country id="0">
             <name>USA</name>
-        </coutnry>
+        </country>
+
         <studio id="0">
             <name>HBO</name>
         </studio>
+
         <genres>
             <genre id="0">
                 <name>Drama</name>
@@ -25,30 +38,76 @@
                 <name>Mystery</name>
             </genre>
         </genres>
-        <comment>
-            <user id="0" role="3">
-                <login>user</login>
-                <password>password</password>
-            </user>
-            <comment-text>Комментарий .............</comment-text>
-            <publicationDate>2019-01-20</publicationDate>
-        </comment>
-        <comment>
-            <user id="1" role="2">
-                <login>admin</login>
-                <password>password</password>
-            </user>
-            <comment-text>Комментарий 22222222 .............</comment-text>
-            <publicationDate>2019-02-01</publicationDate>
-        </comment>
-        <comment>
-            <user id="0" role="3">
-                <login>user</login>
-                <password>password</password>
-            </user>
-            <comment-text>Комментарий adfsadfsdf sdf sdf .............</comment-text>
-            <publicationDate>2019-12-13</publicationDate>
-        </comment>
+
+        <comments>
+            <comment id="1">
+                <user id="0" role="3">
+                    <login>user</login>
+                    <password>password</password>
+                </user>
+                <comment-text>Комментарий .............</comment-text>
+                <publicationDate>2019-01-20</publicationDate>
+            </comment>
+            <comment id="2">
+                <user id="1" role="2">
+                    <login>admin</login>
+                    <password>password</password>
+                </user>
+                <comment-text>Комментарий 22222222 .............</comment-text>
+                <publicationDate>2019-02-01</publicationDate>
+            </comment>
+            <comment id="3">
+                <user id="0" role="3">
+                    <login>user</login>
+                    <password>password</password>
+                </user>
+                <comment-text>Комментарий adfsadfsdf sdf sdf .............</comment-text>
+                <publicationDate>2019-12-13</publicationDate>
+            </comment>
+        </comments>
+
     </serial>
 
+    <serial id="1">
+
+        <name>La Casa de Papel</name>
+
+        <description>История о преступниках, решивших ограбить Королевский монетный двор Испании и украсть 2,4 млрд
+            евро.
+        </description>
+
+        <logo>img/papel.jpg</logo>
+
+        <fullLogo>img/lcdp_full.jpg</fullLogo>
+
+        <releaseDate>2017-05-02</releaseDate>
+
+        <countLike>0</countLike>
+
+        <country id="3">
+            <name>Spain</name>
+        </country>
+
+        <studio id="3">
+            <name>Channel 3</name>
+        </studio>
+
+        <genres>
+            <genre id="1">
+                <name>Crime</name>
+            </genre>
+        </genres>
+
+        <comments>
+            <comment id="4">
+                <user id="2" role="2">
+                    <login>moder</login>
+                    <password>123456</password>
+                </user>
+                <comment-text>Кооментарий</comment-text>
+                <publicationDate>2019-02-13</publicationDate>
+            </comment>
+        </comments>
+
+    </serial>
 </serials>
