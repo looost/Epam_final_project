@@ -8,13 +8,12 @@
             <sequence>
                 <element name="serial"
                          type="tns:Serial"
-                         minOccurs="1"
                          maxOccurs="unbounded"/>
             </sequence>
         </complexType>
     </element>
     <complexType name="Serial">
-        <sequence>
+        <all>
             <element name="name" type="string"/>
             <element name="description" type="string"/>
             <element name="logo" type="string"/>
@@ -25,20 +24,21 @@
             <element name="studio" type="tns:Studio"/>
             <element name="genres" type="tns:Genres"/>
             <element name="comments" type="tns:Comments"/>
-        </sequence>
+        </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
+
     <complexType name="Country">
-        <sequence>
+        <all>
             <element name="name" type="string"/>
-        </sequence>
+        </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
 
     <complexType name="Studio">
-        <sequence>
+        <all>
             <element name="name" type="string"/>
-        </sequence>
+        </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
 
@@ -55,26 +55,26 @@
     </complexType>
 
     <complexType name="Genre">
-        <sequence>
+        <all>
             <element name="name" type="string"/>
-        </sequence>
+        </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
 
     <complexType name="Comment">
-        <sequence>
+        <all>
             <element name="user" type="tns:User"/>
             <element name="comment-text" type="string"/>
             <element name="publicationDate" type="date"/>
-        </sequence>
+        </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
 
     <complexType name="User">
-        <sequence>
+        <all>
             <element name="login" type="string"/>
             <element name="password" type="string"/>
-        </sequence>
+        </all>
         <attribute name="id" type="int" use="required"/>
         <attribute name="role" use="required">
             <simpleType>

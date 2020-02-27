@@ -24,17 +24,18 @@ public class MatrixCountDownLatch extends Thread {
     @Override
     public void run() {
         while (check()) {
-            System.out.println(Thread.currentThread().getName() + " сейчас count - " + lock.getCount());
-            lock.countDown();
-                Element element = getOpenElement();
 
-                try {
-                    TimeUnit.MILLISECONDS.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                Element element = getOpenElement();
+            try {
+                TimeUnit.MILLISECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            lock.countDown();
+
 
             try {
+                System.out.println(Thread.currentThread().getName() + " ждет");
                 lock.await();
                 if (element != null) {
                     element.setValue(value);

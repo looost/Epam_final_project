@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-
 <serials xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://www.training.by/serials"
          xsi:schemaLocation="http://www.example.com/students serials.xsd">
@@ -82,11 +81,11 @@
 
         <releaseDate>2017-05-02</releaseDate>
 
-        <countLike>0</countLike>
-
         <country id="3">
             <name>Spain</name>
         </country>
+
+        <countLike>0</countLike>
 
         <studio id="3">
             <name>Channel 3</name>

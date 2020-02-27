@@ -39,11 +39,16 @@ public class Runner {
 //            matrixSemaphore.start();
 //        }
 
-        CountDownLatch countDownLatch = new CountDownLatch(2);
+        CountDownLatch countDownLatch = new CountDownLatch(3);
         MatrixCountDownLatch matrixCountDownLatch;
 
         for (int i = 1; i < 6; i++) {
             matrixCountDownLatch = new MatrixCountDownLatch(matrix, i, countDownLatch);
+            try {
+                TimeUnit.MILLISECONDS.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             matrixCountDownLatch.start();
         }
 
