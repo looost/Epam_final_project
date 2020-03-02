@@ -272,3 +272,832 @@
 02::03::2020 09:53:57 [Thread-3] INFO  service.MatrixSemaphore  run Количество изменений у потока Thread-3 - 1
 02::03::2020 09:53:57 [Thread-0] INFO  service.MatrixSemaphore  run Количество изменений у потока Thread-0 - 3
 02::03::2020 09:53:57 [Thread-2] INFO  service.MatrixSemaphore  run Количество изменений у потока Thread-2 - 2
+02::03::2020 14:58:26 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 14:58:26 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 7
+02::03::2020 14:58:26 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:27 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 14:58:27 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 3
+02::03::2020 14:58:27 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:28 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 8
+02::03::2020 14:58:28 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 8
+02::03::2020 14:58:28 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:28 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 14:58:28 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 14:58:28 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 2
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 0
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 6
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 2
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 7
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 6
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 4
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 4
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 6
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 2
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 2
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 1
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 9
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 1
+02::03::2020 14:58:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 14:58:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 14:58:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 14:58:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 14:58:29 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 6
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 1
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 1
+02::03::2020 14:58:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 14:58:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 8
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 3
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:30 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 1
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 9
+02::03::2020 14:58:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 1
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:30 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 14:58:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 6
+02::03::2020 14:58:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 6
+02::03::2020 14:58:30 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 4
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 4
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 9
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 14:58:30 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:30 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 14:58:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 7
+02::03::2020 14:58:31 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 7
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 7
+02::03::2020 14:58:31 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 7
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 8
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:31 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 14:58:31 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 5
+02::03::2020 14:58:31 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 5
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 8
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 3
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:31 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 6
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 6
+02::03::2020 14:58:31 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 6
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 1
+02::03::2020 14:58:31 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 6
+02::03::2020 14:58:31 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 14:58:31 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 14:58:31 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 14:58:31 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 14:58:32 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 0
+02::03::2020 14:58:32 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 3
+02::03::2020 14:58:32 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 5
+02::03::2020 15:00:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 3
+02::03::2020 15:00:10 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:00:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 3
+02::03::2020 15:00:11 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 1
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:12 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:12 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:00:12 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 9
+02::03::2020 15:00:12 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 0
+02::03::2020 15:00:12 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:00:12 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:12 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:12 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:12 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 0
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 0
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 4
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 1
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 0
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 0
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 7
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 6
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 взял элемент 6
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 изменил значение на 4
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 6
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 6
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 1
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 1
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 1
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 1
+02::03::2020 15:00:13 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 8
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 6
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 6
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 8
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 4
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 4
+02::03::2020 15:00:13 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:13 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:13 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 8
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 3
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 3
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 8
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 0
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 0
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 0
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 8
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 0
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 8
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 3
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 0
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 0
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 5
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 взял элемент 5
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:14 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 изменил значение на 5
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 8
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 8
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 0
+02::03::2020 15:00:14 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:14 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:14 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 1
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 1
+02::03::2020 15:00:14 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:15 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 0
+02::03::2020 15:00:15 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 0
+02::03::2020 15:00:15 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:15 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:00:15 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 3
+02::03::2020 15:00:15 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 2
+02::03::2020 15:00:15 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:00:15 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 1
+02::03::2020 15:00:15 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 2
+02::03::2020 15:00:15 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:15 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:15 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:15 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:15 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 1
+02::03::2020 15:00:15 [Thread-4] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-4 - 1
+02::03::2020 15:00:15 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 2
+02::03::2020 15:00:15 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 2
+02::03::2020 15:00:15 [Thread-0] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-0 - 4
+02::03::2020 15:00:32 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 15:00:32 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 7
+02::03::2020 15:00:32 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:33 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:00:33 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 3
+02::03::2020 15:00:33 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 0
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 2
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 6
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 9
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 2
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 3
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 4
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 4
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:00:34 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:34 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:34 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 2
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 2
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 взял элемент 8
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 изменил значение на 4
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 8
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 1
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 6
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 8
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 6
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 6
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 6
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 8
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 5
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 8
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 5
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 5
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 5
+02::03::2020 15:00:35 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:35 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:35 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:35 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 1
+02::03::2020 15:00:36 [Thread-0] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-0 - 2
+02::03::2020 15:00:36 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 3
+02::03::2020 15:00:36 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 4
+02::03::2020 15:00:36 [Thread-4] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-4 - 0
+02::03::2020 15:00:48 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:48 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 3
+02::03::2020 15:00:48 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:49 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 0
+02::03::2020 15:00:49 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 0
+02::03::2020 15:00:49 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 0
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 6
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 6
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 6
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 2
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 4
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 4
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 2
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:50 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:50 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:50 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 1
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 9
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 0
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 0
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 2
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 2
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 8
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 8
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 6
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 6
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 0
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 0
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 8
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 5
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 5
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 8
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 5
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 5
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:51 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:00:51 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:51 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 4
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 4
+02::03::2020 15:00:51 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 0
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 0
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 0
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 0
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 5
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 5
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 4
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 4
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 6
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 6
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 5
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 5
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 5
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 5
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 0
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 0
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 6
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 6
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 5
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 5
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:00:52 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:52 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:52 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 0
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 0
+02::03::2020 15:00:52 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 9
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 9
+02::03::2020 15:00:52 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 2
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 2
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 0
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 0
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 8
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 8
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 2
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 2
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 9
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 9
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 4
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 4
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 2
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 2
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 6
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 6
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 4
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 4
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 7
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 7
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 1
+02::03::2020 15:00:53 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:00:53 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:00:53 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:00:53 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 0
+02::03::2020 15:00:53 [Thread-4] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-4 - 0
+02::03::2020 15:00:54 [Thread-0] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-0 - 2
+02::03::2020 15:00:54 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 5
+02::03::2020 15:00:54 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 3
+02::03::2020 15:01:25 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 15:01:25 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 9
+02::03::2020 15:01:25 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:26 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 1
+02::03::2020 15:01:26 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 1
+02::03::2020 15:01:26 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:27 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:01:27 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 0
+02::03::2020 15:01:27 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 9
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 9
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:28 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:28 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:01:28 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 8
+02::03::2020 15:01:28 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 15:01:28 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 взял элемент 8
+02::03::2020 15:01:28 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 4
+02::03::2020 15:01:28 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 7
+02::03::2020 15:01:28 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 3
+02::03::2020 15:01:28 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 4
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:28 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 изменил значение на 4
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 4
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 4
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 6
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 6
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 2
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 2
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 2
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 2
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 2
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 2
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 7
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 2
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 2
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:29 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 4
+02::03::2020 15:01:29 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 4
+02::03::2020 15:01:29 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 7
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 7
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 8
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 8
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 7
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 7
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:01:29 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:29 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:29 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:29 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:29 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 0
+02::03::2020 15:01:29 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 0
+02::03::2020 15:01:29 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 1
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 8
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 1
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 2
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 2
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 8
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 7
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 7
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 3
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 3
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 2
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 2
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 0
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 0
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 7
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 7
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 6
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 6
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 2
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 0
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 2
+02::03::2020 15:01:30 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:30 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:30 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:30 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 0
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 0
+02::03::2020 15:01:30 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:01:31 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 15:01:31 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 15:01:31 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 9
+02::03::2020 15:01:31 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:01:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:01:31 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 9
+02::03::2020 15:01:31 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 9
+02::03::2020 15:01:31 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:31 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:31 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:31 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:31 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 5
+02::03::2020 15:01:31 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 взял элемент 5
+02::03::2020 15:01:31 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:31 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 изменил значение на 5
+02::03::2020 15:01:31 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 1
+02::03::2020 15:01:31 [Thread-0] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-0 - 3
+02::03::2020 15:01:31 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 2
+02::03::2020 15:01:31 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 3
+02::03::2020 15:01:31 [Thread-4] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-4 - 1
+02::03::2020 15:01:45 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 0
+02::03::2020 15:01:45 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 9
+02::03::2020 15:01:45 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 4
+02::03::2020 15:01:45 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 5
+02::03::2020 15:01:45 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 0
+02::03::2020 15:01:45 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 0
+02::03::2020 15:01:45 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 взял элемент 5
+02::03::2020 15:01:45 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 взял элемент 4
+02::03::2020 15:01:45 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 9
+02::03::2020 15:01:45 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 0
+02::03::2020 15:01:45 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:45 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:45 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:45 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:45 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:45 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 изменил значение на 4
+02::03::2020 15:01:45 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:01:45 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:45 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 изменил значение на 5
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 4
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 4
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 5
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 5
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 9
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 9
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 9
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 3
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 6
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 3
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 3
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 2
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 взял элемент 2
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 1
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 1
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 изменил значение на 5
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 7
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 взял элемент 7
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 6
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 7
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 2
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 2
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 8
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 8
+02::03::2020 15:01:46 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 изменил значение на 4
+02::03::2020 15:01:46 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:01:46 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:01:46 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:01:46 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:01:47 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 2
+02::03::2020 15:01:47 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 2
+02::03::2020 15:01:47 [Thread-0] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-0 - 0
+02::03::2020 15:01:47 [Thread-4] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-4 - 2
+02::03::2020 15:01:47 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 4
+02::03::2020 15:02:06 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 0
+02::03::2020 15:02:06 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 0
+02::03::2020 15:02:06 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:07 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 4
+02::03::2020 15:02:07 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 взял элемент 4
+02::03::2020 15:02:07 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:08 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 5
+02::03::2020 15:02:08 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 5
+02::03::2020 15:02:08 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:09 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:02:09 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 взял элемент 3
+02::03::2020 15:02:09 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:09 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:02:09 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 изменил значение на 4
+02::03::2020 15:02:09 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 изменил значение на 2
+02::03::2020 15:02:09 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 6
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 6
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 7
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 7
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 7
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 7
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 2
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 2
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 4
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 4
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 7
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 7
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 4
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 4
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 1
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 3
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 взял элемент 1
+02::03::2020 15:02:10 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:10 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:10 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:10 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 изменил значение на 1
+02::03::2020 15:02:10 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 1
+02::03::2020 15:02:10 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 1
+02::03::2020 15:02:10 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 3
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 3
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 7
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 7
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 2
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 2
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 1
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 1
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 9
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 взял элемент 9
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 3
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 3
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 9
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 1
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 9
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 1
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 изменил значение на 3
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 4
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 4
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 7
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 7
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 6
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 6
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 6
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 6
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 6
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 6
+02::03::2020 15:02:11 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:11 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:11 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:11 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 4
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 не смог взять позицию 4
+02::03::2020 15:02:11 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:02:12 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 хочет взять позицию 4
+02::03::2020 15:02:12 [Thread-2] INFO  service.MatrixPhaser  getOpenElement Thread-2 не смог взять позицию 4
+02::03::2020 15:02:12 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 хочет взять позицию 4
+02::03::2020 15:02:12 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 хочет взять позицию 2
+02::03::2020 15:02:12 [Thread-0] INFO  service.MatrixPhaser  getOpenElement Thread-0 не смог взять позицию 4
+02::03::2020 15:02:12 [Thread-3] INFO  service.MatrixPhaser  getOpenElement Thread-3 не смог взять позицию 2
+02::03::2020 15:02:12 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 хочет взять позицию 3
+02::03::2020 15:02:12 [Thread-1] INFO  service.MatrixPhaser  getOpenElement Thread-1 не смог взять позицию 3
+02::03::2020 15:02:12 [Thread-2] INFO  service.MatrixPhaser  run Thread-2 ждет
+02::03::2020 15:02:12 [Thread-0] INFO  service.MatrixPhaser  run Thread-0 ждет
+02::03::2020 15:02:12 [Thread-3] INFO  service.MatrixPhaser  run Thread-3 ждет
+02::03::2020 15:02:12 [Thread-1] INFO  service.MatrixPhaser  run Thread-1 ждет
+02::03::2020 15:02:12 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 хочет взять позицию 8
+02::03::2020 15:02:12 [Thread-4] INFO  service.MatrixPhaser  getOpenElement Thread-4 взял элемент 8
+02::03::2020 15:02:12 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 ждет
+02::03::2020 15:02:12 [Thread-4] INFO  service.MatrixPhaser  run Thread-4 изменил значение на 5
+02::03::2020 15:02:12 [Thread-2] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-2 - 4
+02::03::2020 15:02:12 [Thread-0] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-0 - 3
+02::03::2020 15:02:12 [Thread-3] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-3 - 1
+02::03::2020 15:02:12 [Thread-1] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-1 - 1
+02::03::2020 15:02:12 [Thread-4] INFO  service.MatrixPhaser  run Количество изменений у потока Thread-4 - 1

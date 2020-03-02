@@ -6,11 +6,13 @@ import by.training.multithreadingv2.dao.factory.DaoFactory;
 import by.training.multithreadingv2.entity.Matrix;
 import by.training.multithreadingv2.service.MatrixCountDownLatch;
 import by.training.multithreadingv2.service.MatrixLocker;
+import by.training.multithreadingv2.service.MatrixPhaser;
 import by.training.multithreadingv2.service.MatrixSemaphore;
 import by.training.multithreadingv2.service.creator.MatrixCreator;
 import by.training.multithreadingv2.service.parser.Parser;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Phaser;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -34,10 +36,10 @@ public class Runner {
         Semaphore semaphore = new Semaphore(2);
         MatrixSemaphore matrixSemaphore;
 
-        for (int i = 1; i < 6; i++) {
-            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
-            matrixSemaphore.start();
-        }
+//        for (int i = 1; i < 6; i++) {
+//            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
+//            matrixSemaphore.start();
+//        }
 
         CountDownLatch countDownLatch = new CountDownLatch(3);
         MatrixCountDownLatch matrixCountDownLatch;
@@ -58,6 +60,19 @@ public class Runner {
 //            threadSaveCollection = new ThreadSaveCollection(matrix, i, lock);
 //            threadSaveCollection.start();
 //        }
+
+        Phaser phaser = new Phaser(4);
+        MatrixPhaser matrixPhaser;
+
+        for (int i = 1; i < 6; i++) {
+            matrixPhaser = new MatrixPhaser(matrix, i, phaser, lock);
+            try {
+                TimeUnit.MILLISECONDS.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            matrixPhaser.start();
+        }
 
 
         TimeUnit.MILLISECONDS.sleep(4000);
