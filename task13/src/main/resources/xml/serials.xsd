@@ -64,7 +64,7 @@
     <complexType name="Comment">
         <all>
             <element name="user" type="tns:User"/>
-            <element name="comment-text" type="string"/>
+            <element name="commentText" type="string"/>
             <element name="publicationDate" type="date"/>
         </all>
         <attribute name="id" type="int" use="required"/>

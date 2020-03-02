@@ -94,7 +94,7 @@ public class Comment extends AbstractEntity {
         return "Comment{" +
                 "id=" + id +
                 ", user=" + user.getLogin() +
-                ", serial=" + serial.getName() +
+//                ", serial=" + serial.getName() +
                 ", comment='" + comment + '\'' +
                 ", publication_date=" + publicationDate +
                 '}';

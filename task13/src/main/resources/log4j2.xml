@@ -24,13 +24,6 @@
         <Logger name="logger" level="info">
             <AppenderRef ref="infoLogFile"/>
         </Logger>
-        <Logger name="logger2" level="error">
-            <AppenderRef ref="errorLogFile"/>
-        </Logger>
-        <Logger name="logger3" level="fatal">
-            <AppenderRef ref="errorLogFile"/>
-        </Logger>
-
         <Root level="All">
             <AppenderRef ref="console"/>
         </Root>

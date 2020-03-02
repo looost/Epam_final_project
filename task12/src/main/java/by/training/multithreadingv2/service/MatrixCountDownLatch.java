@@ -3,21 +3,28 @@ package by.training.multithreadingv2.service;
 import by.training.multithreadingv2.entity.Element;
 import by.training.multithreadingv2.entity.Matrix;
 import by.training.multithreadingv2.entity.Status;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MatrixCountDownLatch extends Thread {
-    private CountDownLatch lock;
+
+    private Logger logger = LogManager.getLogger("logger");
+    private CountDownLatch countDownLatch;
+    private ReentrantLock lock;
     private Matrix matrix;
     private int value;
     private int[] arr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     private int countChange = 0;
 
-    public MatrixCountDownLatch(Matrix matrix, int value, CountDownLatch lock) {
+    public MatrixCountDownLatch(Matrix matrix, int value, CountDownLatch countDownLatch, ReentrantLock lock) {
         this.matrix = matrix;
         this.value = value;
+        this.countDownLatch = countDownLatch;
         this.lock = lock;
     }
 
@@ -31,39 +38,43 @@ public class MatrixCountDownLatch extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            lock.countDown();
+            countDownLatch.countDown();
 
 
             try {
-                System.out.println(Thread.currentThread().getName() + " ждет");
-                lock.await();
+                logger.info(Thread.currentThread().getName() + " ждет");
+                countDownLatch.await();
                 if (element != null) {
                     element.setValue(value);
                     countChange++;
-                    System.out.println(Thread.currentThread().getName() + " изменил значение на " + value);
+                    logger.info(Thread.currentThread().getName() + " изменил значение на " + value);
                     element.setStatus(Status.CHANGED);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            try {
-                TimeUnit.MILLISECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } finally {
+                try {
+                    TimeUnit.MILLISECONDS.sleep(300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
-        System.out.println("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
+        logger.info("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
     }
 
     private Element getOpenElement() {
         int index = ThreadLocalRandom.current().nextInt(arr.length);
-        System.out.println(Thread.currentThread().getName() + " хочет взять позицию " + index);
+        logger.info(Thread.currentThread().getName() + " хочет взять позицию " + index);
+        lock.lock();
         if (matrix.getElement(index, index).getValue() == 0 && matrix.getElement(index, index).getStatus().equals(Status.OPEN)) {
-            System.out.println(Thread.currentThread().getName() + " взял элемент " + index);
+            logger.info(Thread.currentThread().getName() + " взял элемент " + index);
             matrix.getElement(index, index).setStatus(Status.CLOSE);
+            lock.unlock();
             return matrix.getElement(index, index);
         }
-        System.out.println(Thread.currentThread().getName() + " не смог взять позицию " + index);
+        lock.unlock();
+        logger.info(Thread.currentThread().getName() + " не смог взять позицию " + index);
         return null;
     }
 
@@ -76,7 +87,7 @@ public class MatrixCountDownLatch extends Thread {
         return false;
     }
 
-    public CountDownLatch getLock() {
-        return lock;
+    public CountDownLatch getCountDownLatch() {
+        return countDownLatch;
     }
 }

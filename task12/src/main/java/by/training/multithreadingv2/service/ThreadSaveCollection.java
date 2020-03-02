@@ -2,7 +2,8 @@ package by.training.multithreadingv2.service;
 
 import by.training.multithreadingv2.entity.Element;
 import by.training.multithreadingv2.entity.Matrix;
-import by.training.multithreadingv2.entity.Status;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ThreadSaveCollection extends Thread {
+
+    private Logger logger = LogManager.getLogger("logger");
     private Matrix matrix;
     private int value;
     private int[] arr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -35,7 +38,7 @@ public class ThreadSaveCollection extends Thread {
 
             lock.lock();
             if (((Element) list.get(index)).getValue() == 0) {
-                System.out.println(Thread.currentThread().getName() + " записывает в ячейку - " + index + " значение - " + value);
+                logger.info(Thread.currentThread().getName() + " записывает в ячейку - " + index + " значение - " + value);
                 ((Element) list.get(index)).setValue(value);
                 countChange++;
             }
@@ -46,7 +49,7 @@ public class ThreadSaveCollection extends Thread {
                 e.printStackTrace();
             }
         }
-        System.out.println("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
+        logger.info("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
     }
 
     private boolean check() {

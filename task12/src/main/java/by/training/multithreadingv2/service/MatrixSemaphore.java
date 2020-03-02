@@ -3,12 +3,16 @@ package by.training.multithreadingv2.service;
 import by.training.multithreadingv2.entity.Element;
 import by.training.multithreadingv2.entity.Matrix;
 import by.training.multithreadingv2.entity.Status;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class MatrixSemaphore extends Thread {
+
+    private Logger logger = LogManager.getLogger("logger");
     private Semaphore semaphore;
     private Matrix matrix;
     private int value;
@@ -28,7 +32,7 @@ public class MatrixSemaphore extends Thread {
             if (element != null) {
                 element.setValue(value);
                 countChange++;
-                System.out.println(Thread.currentThread().getName() + " изменил значение на " + value);
+                logger.info(Thread.currentThread().getName() + " изменил значение на " + value);
                 element.setStatus(Status.CHANGED);
             }
             try {
@@ -37,17 +41,17 @@ public class MatrixSemaphore extends Thread {
                 e.printStackTrace();
             }
         }
-        System.out.println("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
+        logger.info("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
     }
 
     private Element getOpenElement() {
         boolean flag = false; // - для работы проверки семафора
         int index = ThreadLocalRandom.current().nextInt(arr.length);
-        System.out.println(Thread.currentThread().getName() + " хочет взять позицию " + index);
+        logger.info(Thread.currentThread().getName() + " хочет взять позицию " + index);
         try {
             semaphore.acquire();
             if (matrix.getElement(index, index).getValue() == 0 && matrix.getElement(index, index).getStatus().equals(Status.OPEN)) {
-                System.out.println(Thread.currentThread().getName() + " взял элемент " + index);
+                logger.info(Thread.currentThread().getName() + " взял элемент " + index);
                 matrix.getElement(index, index).setStatus(Status.CLOSE);
                 flag = true;
                 return matrix.getElement(index, index);
@@ -61,11 +65,11 @@ public class MatrixSemaphore extends Thread {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName() + " УШЕЛ");
+                logger.info(Thread.currentThread().getName() + " УШЕЛ");
             }
             semaphore.release();
         }
-        System.out.println(Thread.currentThread().getName() + " не смог взять позицию " + index);
+        logger.info(Thread.currentThread().getName() + " не смог взять позицию " + index);
         return null;
     }
 

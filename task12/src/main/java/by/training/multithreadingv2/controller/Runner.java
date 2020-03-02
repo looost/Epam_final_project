@@ -34,23 +34,23 @@ public class Runner {
         Semaphore semaphore = new Semaphore(2);
         MatrixSemaphore matrixSemaphore;
 
-//        for (int i = 1; i < 6; i++) {
-//            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
-//            matrixSemaphore.start();
-//        }
+        for (int i = 1; i < 6; i++) {
+            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
+            matrixSemaphore.start();
+        }
 
         CountDownLatch countDownLatch = new CountDownLatch(3);
         MatrixCountDownLatch matrixCountDownLatch;
 
-        for (int i = 1; i < 6; i++) {
-            matrixCountDownLatch = new MatrixCountDownLatch(matrix, i, countDownLatch);
-            try {
-                TimeUnit.MILLISECONDS.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            matrixCountDownLatch.start();
-        }
+//        for (int i = 1; i < 6; i++) {
+//            matrixCountDownLatch = new MatrixCountDownLatch(matrix, i, countDownLatch, lock);
+//            try {
+//                TimeUnit.MILLISECONDS.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            matrixCountDownLatch.start();
+//        }
 
 //        ThreadSaveCollection threadSaveCollection;
 //
@@ -60,7 +60,7 @@ public class Runner {
 //        }
 
 
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(4000);
 
         System.out.println(matrix);
     }

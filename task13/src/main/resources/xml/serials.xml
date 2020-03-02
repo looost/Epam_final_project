@@ -44,7 +44,7 @@
                     <login>user</login>
                     <password>password</password>
                 </user>
-                <comment-text>Комментарий .............</comment-text>
+                <commentText>Комментарий .............</commentText>
                 <publicationDate>2019-01-20</publicationDate>
             </comment>
             <comment id="2">
@@ -52,7 +52,7 @@
                     <login>admin</login>
                     <password>password</password>
                 </user>
-                <comment-text>Комментарий 22222222 .............</comment-text>
+                <commentText>Комментарий 22222222 .............</commentText>
                 <publicationDate>2019-02-01</publicationDate>
             </comment>
             <comment id="3">
@@ -60,7 +60,7 @@
                     <login>user</login>
                     <password>password</password>
                 </user>
-                <comment-text>Комментарий adfsadfsdf sdf sdf .............</comment-text>
+                <commentText>Комментарий adfsadfsdf sdf sdf .............</commentText>
                 <publicationDate>2019-12-13</publicationDate>
             </comment>
         </comments>
@@ -103,7 +103,7 @@
                     <login>moder</login>
                     <password>123456</password>
                 </user>
-                <comment-text>Кооментарий</comment-text>
+                <commentText>Кооментарий</commentText>
                 <publicationDate>2019-02-13</publicationDate>
             </comment>
         </comments>
