@@ -8,6 +8,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.stream.XMLInputFactory;
 import java.sql.Date;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -26,7 +27,6 @@ public class SerialHandler3 extends DefaultHandler {
     private String currentTeg;
     private SerialEnum currentEnum = null;
     private EnumSet<SerialEnum> withText;
-    private GenreSAXBuilder saxBuilder;
 
     public SerialHandler3() {
         this.serials = new HashSet<>();
@@ -108,6 +108,7 @@ public class SerialHandler3 extends DefaultHandler {
             } else if (currentEnum.equals(SerialEnum.PUBLICATIONDATE)) {
                 currentComment.setPublicationDate(Date.valueOf(s));
             }
+
             currentTeg = "";
         }
 

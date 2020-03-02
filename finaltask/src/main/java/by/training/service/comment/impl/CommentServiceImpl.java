@@ -51,12 +51,19 @@ public class CommentServiceImpl implements CommentService {
             Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById(String.valueOf(comment.getSerial().getId()));
             comment.setSerial(serial);
             connection.commit();
-            ConnectionPool.getInstance().close(connection);
+
             return comment;
         } catch (DaoException e) {
             throw new ServiceException(e);
         } catch (SQLException e) {
             throw new ServiceException("Commit problem", e);
+        } finally {
+            try {
+                ConnectionPool.getInstance().close(connection);
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+
         }
     }
 

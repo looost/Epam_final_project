@@ -2,6 +2,7 @@ package by.training.service;
 
 public enum SerialEnum {
     SERIALS,
+    SERIAL,
     NAME,
     DESCRIPTION,
     LOGO,
