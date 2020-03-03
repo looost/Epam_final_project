@@ -1,47 +1,41 @@
 package by.training.service.builder;
 
-import by.training.entity.Serial;
-import by.training.service.SerialHandler2;
-import by.training.service.SerialHandler3;
+import by.training.service.SerialHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
-import java.util.Set;
 
-public class SerialSAXBuilder {
-    private Set<Serial> serials;
-    //private SerialHandler2 sh;
-    private SerialHandler3 sh;
+public class SerialSAXBuilder extends BaseBuilder {
+
+    private Logger logger = LogManager.getLogger("logger");
+    private SerialHandler sh;
     private XMLReader reader;
 
     public SerialSAXBuilder() {
         // создание SAX-анализатора
-        sh = new SerialHandler3();
+        sh = new SerialHandler();
         try {
             // создание объекта-обработчика
             reader = XMLReaderFactory.createXMLReader();
             reader.setContentHandler(sh);
         } catch (SAXException e) {
-            System.err.print("ошибка SAX парсера: " + e);
+            logger.error("ошибка SAX парсера: " + e);
         }
     }
 
-    public Set<Serial> getSerials() {
-        return serials;
-    }
-
+    @Override
     public void buildSetSerials(String fileName) {
         try {
             // разбор XML-документа
             reader.parse(fileName);
         } catch (SAXException e) {
-            System.err.print("ошибка SAX парсера: " + e);
+            logger.error("ошибка SAX парсера: " + e);
         } catch (IOException e) {
-            System.err.print("ошибка I/О потока: " + e);
+            logger.error("ошибка I/О потока: " + e);
         }
         serials = sh.getSerials();
     }

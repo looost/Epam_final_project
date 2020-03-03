@@ -8,7 +8,7 @@
 
         <name>Dark</name>
 
-        <description>Description .....................</description>
+        <description>Description serial Dark</description>
 
         <logo>img/dark.jpg</logo>
 
@@ -42,7 +42,7 @@
             <comment id="1">
                 <user id="0" role="3">
                     <login>user</login>
-                    <password>password</password>
+                    <password>test</password>
                 </user>
                 <commentText>Комментарий .............</commentText>
                 <publicationDate>2019-01-20</publicationDate>
@@ -50,7 +50,7 @@
             <comment id="2">
                 <user id="1" role="2">
                     <login>admin</login>
-                    <password>password</password>
+                    <password>12345</password>
                 </user>
                 <commentText>Комментарий 22222222 .............</commentText>
                 <publicationDate>2019-02-01</publicationDate>
@@ -71,9 +71,7 @@
 
         <name>La Casa de Papel</name>
 
-        <description>История о преступниках, решивших ограбить Королевский монетный двор Испании и украсть 2,4 млрд
-            евро.
-        </description>
+        <description>Description serial La Casa De Papel</description>
 
         <logo>img/papel.jpg</logo>
 

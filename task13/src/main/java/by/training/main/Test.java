@@ -1,22 +1,9 @@
 package by.training.main;
 
-import by.training.entity.Genre;
-import by.training.entity.Serial;
-import by.training.service.SerialHandler;
-import by.training.service.builder.GenreSAXBuilder;
+import by.training.service.builder.BaseBuilder;
+import by.training.service.builder.SerialDomBuilder;
 import by.training.service.builder.SerialSAXBuilder;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.XMLReaderFactory;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.io.File;
-import java.io.IOException;
+import by.training.service.builder.SerialStAXBuilder;
 
 public class Test {
     public static void main(String[] args) {
@@ -32,13 +19,31 @@ public class Test {
 //            System.err.print("ошибка I/О потока " + e);
 //        }
 
-        SerialSAXBuilder saxBuilder = new SerialSAXBuilder();
-        saxBuilder.buildSetSerials("src\\main\\resources\\xml\\serials.xml");
-        for (Serial s : saxBuilder.getSerials()
-        ) {
-            System.out.println(s);
-        }
+//        SerialSAXBuilder saxBuilder = new SerialSAXBuilder();
+//        saxBuilder.buildSetSerials("src\\main\\resources\\xml\\serials.xml");
+//        for (Serial s : saxBuilder.getSerials()
+//        ) {
+//            System.out.println(s);
+//        }
+        String path = "src\\main\\resources\\xml\\serials.xml";
 
+        System.out.println("SAX Builder:");
+        BaseBuilder builder = new SerialSAXBuilder();
+        builder.buildSetSerials(path);
+        builder.getSerials().forEach(System.out::println);
+        System.out.println("-----");
+
+        System.out.println("StAX Builder:");
+        BaseBuilder builder1 = new SerialStAXBuilder();
+        builder1.buildSetSerials(path);
+        builder1.getSerials().forEach(System.out::println);
+        System.out.println("-----");
+
+        System.out.println("DOM Builder:");
+        BaseBuilder builder2 = new SerialDomBuilder();
+        builder2.buildSetSerials(path);
+        builder2.getSerials().forEach(System.out::println);
+        System.out.println("-----");
 
 //        GenreSAXBuilder saxBuilder = new GenreSAXBuilder();
 //        saxBuilder.buildGenres("src\\main\\resources\\xml\\serials.xml");

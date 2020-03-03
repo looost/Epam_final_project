@@ -1,6 +1,8 @@
 package by.training.service.builder;
 
-import by.training.entity.Serial;
+import by.training.entity.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -11,11 +13,13 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SerialDomBuilder {
-    private Set<Serial> serials;
+public class SerialDomBuilder extends BaseBuilder {
+
+    private Logger logger = LogManager.getLogger("logger");
     private DocumentBuilder docBuilder;
 
     public SerialDomBuilder() {
@@ -25,18 +29,15 @@ public class SerialDomBuilder {
         try {
             docBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            System.err.println("Ошибка конфигурации парсера: " + e);
+            logger.error("Ошибка конфигурации парсера: " + e);
         }
     }
 
-    public Set<Serial> getSerials() {
-        return serials;
-    }
-
-    public void buildSetStudents(String fileName) {
+    @Override
+    public void buildSetSerials(String fileName) {
         Document doc = null;
         try {
-// parsing XML-документа и создание древовидной структуры
+            // parsing XML-документа и создание древовидной структуры
             doc = docBuilder.parse(fileName);
             Element root = doc.getDocumentElement();
             // получение списка дочерних элементов <student>
@@ -44,13 +45,12 @@ public class SerialDomBuilder {
             for (int i = 0; i < serialList.getLength(); i++) {
                 Element serialElement = (Element) serialList.item(i);
                 Serial serial = buildSerial(serialElement);
-                System.err.println(serial);
                 serials.add(serial);
             }
         } catch (IOException e) {
-            System.err.println("File error or I/O error: " + e);
+            logger.error("File error or I/O error: " + e);
         } catch (SAXException e) {
-            System.err.println("Parsing failure: " + e);
+            logger.error("Parsing failure: " + e);
         }
     }
 
@@ -61,29 +61,69 @@ public class SerialDomBuilder {
         serial.setName(getElementTextContent(serialElement, "name"));
         serial.setDescription(getElementTextContent(serialElement, "description"));
         serial.setLogo(getElementTextContent(serialElement, "logo"));
-        serial.setFullLogo(getElementTextContent(serialElement, "fulllogo"));
-//        Student.Address address = student.getAddress();
-//        // заполнение объекта address
-//        Element adressElement = (Element) studentElement.getElementsByTagName(
-//                "address").item(0);
-//        address.setCountry(getElementTextContent(adressElement, "country"));
-//        address.setCity(getElementTextContent(adressElement, "city"));
-//        address.setStreet(getElementTextContent(adressElement, "street"));
-//        student.setLogin(studentElement.getAttribute("login"));
+        serial.setFullLogo(getElementTextContent(serialElement, "fullLogo"));
+        serial.setReleaseDate(Date.valueOf(getElementTextContent(serialElement, "releaseDate")));
+
+        Country country = new Country();
+        Element countryElement = (Element) serialElement.getElementsByTagName("country").item(0);
+        country.setId(Integer.parseInt(countryElement.getAttribute("id")));
+        country.setName(getElementTextContent(countryElement, "name"));
+        serial.setCountry(country);
+
+        Studio studio = new Studio();
+        Element studioElement = (Element) serialElement.getElementsByTagName("studio").item(0);
+        studio.setId(Integer.parseInt(countryElement.getAttribute("id")));
+        studio.setName(getElementTextContent(studioElement, "name"));
+        serial.setStudio(studio);
+
+        NodeList genreList = serialElement.getElementsByTagName("genre");
+        Set<Genre> genreSet = new HashSet<>();
+        for (int i = 0; i < genreList.getLength(); i++) {
+            Element genreElement = (Element) genreList.item(i);
+            Genre genre = buildGenre(genreElement);
+            genreSet.add(genre);
+        }
+        serial.setGenres(genreSet);
+
+        NodeList commentList = serialElement.getElementsByTagName("comment");
+        Set<Comment> commentSet = new HashSet<>();
+        for (int i = 0; i < commentList.getLength(); i++) {
+            Element commentElement = (Element) commentList.item(i);
+            Comment comment = buildComment(commentElement);
+            commentSet.add(comment);
+        }
+        serial.setComments(commentSet);
         return serial;
+    }
+
+    private Genre buildGenre(Element genreElement) {
+        Genre genre = new Genre();
+        genre.setId(Integer.parseInt(genreElement.getAttribute("id")));
+        genre.setName(getElementTextContent(genreElement, "name"));
+        return genre;
+    }
+
+    private Comment buildComment(Element commentElement) {
+        Comment comment = new Comment();
+        comment.setId(Integer.parseInt(commentElement.getAttribute("id")));
+
+        User user = new User();
+        Element userElement = (Element) commentElement.getElementsByTagName("user").item(0);
+        user.setId(Integer.parseInt(userElement.getAttribute("id")));
+        user.setRole(Integer.parseInt(userElement.getAttribute("role")));
+        user.setLogin(getElementTextContent(userElement, "login"));
+        user.setPassword(getElementTextContent(userElement, "password"));
+
+        comment.setUser(user);
+        comment.setComment(getElementTextContent(commentElement, "commentText"));
+        comment.setPublicationDate(Date.valueOf(getElementTextContent(commentElement, "publicationDate")));
+        return comment;
     }
 
     // получение текстового содержимого тега
     private static String getElementTextContent(Element element, String elementName) {
         NodeList nList = element.getElementsByTagName(elementName);
         Node node = nList.item(0);
-        String text = node.getTextContent();
-        return text;
-    }
-
-    public static void main(String[] args) {
-        SerialDomBuilder domBuilder = new SerialDomBuilder();
-        domBuilder.buildSetStudents("src\\main\\resources\\xml\\serials.xml");
-        System.out.println(domBuilder.getSerials());
+        return node.getTextContent();
     }
 }

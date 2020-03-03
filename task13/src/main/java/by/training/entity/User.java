@@ -73,6 +73,7 @@ public class User extends AbstractEntity {
         return "User{" +
                 "id=" + id +
                 ", login='" + login + '\'' +
+                ", role=" + role + '\'' +
                 '}';
     }
 }

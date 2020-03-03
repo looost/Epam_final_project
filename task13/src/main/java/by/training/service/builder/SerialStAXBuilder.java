@@ -2,6 +2,8 @@ package by.training.service.builder;
 
 import by.training.entity.*;
 import by.training.service.SerialEnum;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -15,19 +17,17 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SerialStAXBuilder {
-    private Set<Serial> serials = new HashSet<>();
+public class SerialStAXBuilder extends BaseBuilder {
+
+    private Logger logger = LogManager.getLogger("logger");
     private XMLInputFactory inputFactory;
 
     public SerialStAXBuilder() {
+        serials = new HashSet<>();
         inputFactory = XMLInputFactory.newInstance();
     }
 
-    public Set<Serial> getSerials() {
-        return serials;
-    }
-
-    public void buildSetStudents(String fileName) {
+    public void buildSetSerials(String fileName) {
         FileInputStream inputStream = null;
         XMLStreamReader reader = null;
         String name;
@@ -46,16 +46,16 @@ public class SerialStAXBuilder {
                 }
             }
         } catch (XMLStreamException ex) {
-            System.err.println("StAX parsing error! " + ex.getMessage());
+            logger.error("StAX parsing error! " + ex.getMessage());
         } catch (FileNotFoundException ex) {
-            System.err.println("File " + fileName + " not found! " + ex);
+            logger.error("File " + fileName + " not found! " + ex);
         } finally {
             try {
                 if (inputStream != null) {
                     inputStream.close();
                 }
             } catch (IOException e) {
-                System.err.println("Impossible close file " + fileName + " : " + e);
+                logger.error("Impossible close file " + fileName + " : " + e);
             }
         }
     }
@@ -68,6 +68,8 @@ public class SerialStAXBuilder {
         while (reader.hasNext()) {
             int type = reader.next();
             switch (type) {
+                case XMLStreamConstants.CHARACTERS:
+                    break;
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
                     switch (SerialEnum.valueOf(name.toUpperCase())) {
@@ -102,6 +104,7 @@ public class SerialStAXBuilder {
                             serial.setComments(getXMLComments(reader));
                             break;
                         default:
+                            logger.error("Unknown element in tag Serial");
                             throw new XMLStreamException("Unknown element in tag Serial");
                     }
                     break;
@@ -112,9 +115,11 @@ public class SerialStAXBuilder {
                     }
                     break;
                 default:
+                    logger.error("Unknown element in tag Serial");
                     throw new XMLStreamException("Unknown element in tag Serial");
             }
         }
+        logger.error("Unknown element in tag Serial");
         throw new XMLStreamException("Unknown element in tag Serial");
     }
 
@@ -128,12 +133,11 @@ public class SerialStAXBuilder {
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
-                    switch (SerialEnum.valueOf(name.toUpperCase())) {
-                        case NAME:
-                            country.setName(getXMLText(reader));
-                            break;
+                    if (SerialEnum.valueOf(name.toUpperCase()).equals(SerialEnum.NAME)) {
+                        country.setName(getXMLText(reader));
                     }
                     break;
+
                 case XMLStreamConstants.END_ELEMENT:
                     name = reader.getLocalName();
                     if (SerialEnum.valueOf(name.toUpperCase()) == SerialEnum.COUNTRY) {
@@ -142,6 +146,7 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag Country");
         throw new XMLStreamException("Unknown element in tag Country");
     }
 
@@ -155,10 +160,8 @@ public class SerialStAXBuilder {
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
-                    switch (SerialEnum.valueOf(name.toUpperCase())) {
-                        case NAME:
-                            studio.setName(getXMLText(reader));
-                            break;
+                    if (SerialEnum.valueOf(name.toUpperCase()).equals(SerialEnum.NAME)) {
+                        studio.setName(getXMLText(reader));
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
@@ -169,6 +172,7 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag Studio");
         throw new XMLStreamException("Unknown element in tag Studio");
     }
 
@@ -181,10 +185,8 @@ public class SerialStAXBuilder {
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
-                    switch (SerialEnum.valueOf(name.toUpperCase())) {
-                        case GENRE:
-                            genreSet.add(getXMLGenre(reader));
-                            break;
+                    if (SerialEnum.valueOf(name.toUpperCase()).equals(SerialEnum.GENRE)) {
+                        genreSet.add(getXMLGenre(reader));
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
@@ -195,6 +197,7 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag Genres");
         throw new XMLStreamException("Unknown element in tag Genres");
     }
 
@@ -208,10 +211,8 @@ public class SerialStAXBuilder {
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
-                    switch (SerialEnum.valueOf(name.toUpperCase())) {
-                        case NAME:
-                            genre.setName(getXMLText(reader));
-                            break;
+                    if (SerialEnum.valueOf(name.toUpperCase()).equals(SerialEnum.NAME)) {
+                        genre.setName(getXMLText(reader));
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
@@ -222,6 +223,7 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag Genre");
         throw new XMLStreamException("Unknown element in tag Genre");
     }
 
@@ -234,10 +236,8 @@ public class SerialStAXBuilder {
             switch (type) {
                 case XMLStreamConstants.START_ELEMENT:
                     name = reader.getLocalName();
-                    switch (SerialEnum.valueOf(name.toUpperCase())) {
-                        case COMMENT:
-                            commentSet.add(getXMLComment(reader));
-                            break;
+                    if (SerialEnum.valueOf(name.toUpperCase()).equals(SerialEnum.COMMENT)) {
+                        commentSet.add(getXMLComment(reader));
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
@@ -248,6 +248,7 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag Comments");
         throw new XMLStreamException("Unknown element in tag Comments");
     }
 
@@ -281,12 +282,14 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag Comment");
         throw new XMLStreamException("Unknown element in tag Comment");
     }
 
     private User getXMLUser(XMLStreamReader reader) throws XMLStreamException {
         User user = new User();
         user.setId(Integer.parseInt(reader.getAttributeValue(null, "id")));
+        user.setRole(Integer.parseInt(reader.getAttributeValue(null, "role")));
         int type;
         String name;
         while (reader.hasNext()) {
@@ -310,6 +313,7 @@ public class SerialStAXBuilder {
                     break;
             }
         }
+        logger.error("Unknown element in tag User");
         throw new XMLStreamException("Unknown element in tag User");
     }
 
@@ -321,11 +325,4 @@ public class SerialStAXBuilder {
         }
         return text;
     }
-
-    public static void main(String[] args) {
-        SerialStAXBuilder stAXBuilder = new SerialStAXBuilder();
-        stAXBuilder.buildSetStudents("src\\main\\resources\\xml\\serials.xml");
-        System.out.println(stAXBuilder.getSerials());
-    }
-
 }

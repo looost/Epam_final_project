@@ -1,14 +1,16 @@
 package by.training.service.builder;
 
-import by.training.entity.Genre;
+import by.training.entity.Serial;
+
+import java.util.Set;
 
 public abstract class BaseBuilder {
 
-    protected Genre genre = new Genre();
+    protected Set<Serial> serials;
 
-    public Genre getGenre() {
-        return this.genre;
+    public Set<Serial> getSerials() {
+        return serials;
     }
 
-    public abstract void buildGenres(String fileName);
+    public abstract void buildSetSerials(String fileName);
 }
