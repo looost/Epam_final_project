@@ -16,10 +16,11 @@
 <body>
 <div class="container-fluid">
     <h1>Hello, world!</h1>
-    <form action="/xml/parser" method="post">
+
+    <form action="/xml/parser" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Загрузите xml файл</label>
-            <input type="file" class="form-control-file">
+            <input name="data" type="file" class="form-control-file">
         </div>
         <div>
             <label>Выберете способ парсинга XML</label>
@@ -33,6 +34,21 @@
             <button type="submit" class="btn btn-primary mt-3">Отправить</button>
         </div>
     </form>
+
+    <%--    <form action="/xml/parser1" method="post" enctype="multipart/form-data">--%>
+    <%--    <input name="description" type="text"><br>--%>
+    <%--    <input name="data" type="file"><br>--%>
+    <%--    <input type="submit"><br>--%>
+    <%--    </form>--%>
+
+    <%--    <form method="POST" action="/xml/parser"  >--%>
+    <%--        File:--%>
+    <%--        <input type="file" name="file" id="file" /> <br/>--%>
+    <%--        Destination:--%>
+    <%--        <input type="text" value="/tmp" name="parser"/>--%>
+    <%--        </br>--%>
+    <%--        <input type="submit" value="Upload" name="upload" id="upload" />--%>
+    <%--    </form>--%>
 </div>
 </body>
 </html>

@@ -29,6 +29,9 @@ public class SerialSAXBuilder extends BaseBuilder {
 
     @Override
     public void buildSetSerials(String fileName) {
+
+        System.out.println("РАБОТАЕТ SAX BUILDER");
+
         try {
             // разбор XML-документа
             reader.parse(fileName);

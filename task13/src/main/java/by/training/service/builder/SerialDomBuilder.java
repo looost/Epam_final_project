@@ -35,6 +35,9 @@ public class SerialDomBuilder extends BaseBuilder {
 
     @Override
     public void buildSetSerials(String fileName) {
+
+        System.out.println("РАБОТАЕТ DOM BUILDER");
+
         Document doc = null;
         try {
             // parsing XML-документа и создание древовидной структуры

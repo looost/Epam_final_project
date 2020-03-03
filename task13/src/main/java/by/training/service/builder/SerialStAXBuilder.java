@@ -27,7 +27,11 @@ public class SerialStAXBuilder extends BaseBuilder {
         inputFactory = XMLInputFactory.newInstance();
     }
 
+    @Override
     public void buildSetSerials(String fileName) {
+
+        System.out.println("РАБОТАЕТ StAX BUILDER");
+
         FileInputStream inputStream = null;
         XMLStreamReader reader = null;
         String name;

@@ -2975,3 +2975,5 @@ Parsing ended
 03::03::2020 12:31:51 [main] INFO  service.SerialHandler  startDocument Start parsing...
 03::03::2020 12:31:51 [main] INFO  service.SerialHandler  endDocument 
 Parsing ended
+03::03::2020 19:09:04 [main] ERROR builder.SerialStAXBuilder  buildSerial Unknown element in tag Serial
+03::03::2020 19:09:04 [main] ERROR builder.SerialStAXBuilder  buildSetSerials StAX parsing error! Unknown element in tag Serial
