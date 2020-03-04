@@ -19,7 +19,7 @@
             <element name="logo" type="string"/>
             <element name="fullLogo" type="string"/>
             <element name="releaseDate" type="date"/>
-            <element name="countLike" type="int" default="0"/>
+            <element name="countLike" type="int" default="999"/>
             <element name="country" type="tns:Country"/>
             <element name="studio" type="tns:Studio"/>
             <element name="genres" type="tns:Genres"/>

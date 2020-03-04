@@ -7,6 +7,9 @@ import by.training.service.builder.SerialStAXBuilder;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,18 +25,14 @@ import java.util.Set;
 @WebServlet("/xml/parser")
 public class ParseServlet extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getServletContext().getRequestDispatcher("/jsp/parse.jsp").forward(req, resp);
-    }
+    private final Logger logger = LogManager.getLogger("logger");
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String name = "";
-
-
         String filePath = "";
+
         try {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
@@ -44,9 +43,15 @@ public class ParseServlet extends HttpServlet {
                 if (item.isFormField()) {
                     name = item.getString();
                 } else {
-                    File file = new File("D:\\Training\\task13\\src\\main\\resources\\data\\" + item.getName());
-                    item.write(file);
-                    filePath = file.getPath();
+                    if (FilenameUtils.getExtension(item.getName()).equals("xml")) {
+                        File file = new File("E:\\Java-Training\\task13\\src\\main\\resources\\data\\" + item.getName());
+                        item.write(file);
+                        filePath = file.getPath();
+                    } else {
+                        logger.error("Неверное расширение файла");
+                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                        return;
+                    }
                 }
             }
 

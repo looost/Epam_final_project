@@ -2977,3 +2977,44 @@ Parsing ended
 Parsing ended
 03::03::2020 19:09:04 [main] ERROR builder.SerialStAXBuilder  buildSerial Unknown element in tag Serial
 03::03::2020 19:09:04 [main] ERROR builder.SerialStAXBuilder  buildSetSerials StAX parsing error! Unknown element in tag Serial
+04::03::2020 11:10:13 [main] ERROR builder.SerialStAXBuilder  buildSerial Unknown element in tag Serial
+04::03::2020 11:10:13 [main] ERROR builder.SerialStAXBuilder  buildSetSerials StAX parsing error! Unknown element in tag Serial
+04::03::2020 11:19:31 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 11:19:32 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 11:19:32 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 11:28:51 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 11:28:51 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 11:28:51 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 14:36:51 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 14:38:30 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 14:38:45 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 14:38:48 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 14:45:15 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - S
+04::03::2020 14:45:18 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - ASDFAS
+04::03::2020 14:45:22 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 14:45:24 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 14:45:27 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 14:45:32 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - 0
+04::03::2020 14:50:19 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - S
+04::03::2020 14:50:27 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 14:55:23 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 14:55:46 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 15:00:46 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 15:00:46 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 15:00:46 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:09:42 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:10:03 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:10:33 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:10:51 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:14:39 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:14:59 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:15:25 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:15:47 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:17:54 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:18:41 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:20:36 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+04::03::2020 15:21:45 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - S
+04::03::2020 15:22:09 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 15:22:50 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+04::03::2020 15:22:53 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+04::03::2020 15:22:55 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder

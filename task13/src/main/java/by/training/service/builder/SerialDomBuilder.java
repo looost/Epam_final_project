@@ -9,9 +9,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
@@ -26,6 +30,7 @@ public class SerialDomBuilder extends BaseBuilder {
         this.serials = new HashSet<>();
         // создание DOM-анализатора
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
         try {
             docBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
@@ -36,7 +41,7 @@ public class SerialDomBuilder extends BaseBuilder {
     @Override
     public void buildSetSerials(String fileName) {
 
-        System.out.println("РАБОТАЕТ DOM BUILDER");
+        logger.info("Работает DOM builder");
 
         Document doc = null;
         try {

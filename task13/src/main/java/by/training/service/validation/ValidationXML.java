@@ -1,4 +1,4 @@
-package by.training.main;
+package by.training.service.validation;
 
 import org.xml.sax.SAXException;
 
@@ -11,11 +11,10 @@ import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.IOException;
 
-public class ValidatorXml {
-    public static void main(String[] args) {
+public class ValidationXML {
+
+    public static boolean xmlIsValid(String fileName, String schemaName) {
         String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-        String fileName = "src\\main\\resources\\xml\\serials.xml";
-        String schemaName = "src\\main\\resources\\xml\\serials.xsd";
         SchemaFactory factory = SchemaFactory.newInstance(language);
         File schemaLocation = new File(schemaName);
         try {
@@ -27,6 +26,7 @@ public class ValidatorXml {
             Source source = new StreamSource(fileName);
             validator.validate(source);
             System.out.println(fileName + " is valid.");
+            return true;
         } catch (SAXException e) {
             System.err.print("validation " + fileName + " is not valid because "
                     + e.getMessage());
@@ -34,5 +34,6 @@ public class ValidatorXml {
             System.err.print(fileName + " is not valid because "
                     + e.getMessage());
         }
+        return false;
     }
 }

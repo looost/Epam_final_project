@@ -30,7 +30,7 @@ public class SerialStAXBuilder extends BaseBuilder {
     @Override
     public void buildSetSerials(String fileName) {
 
-        System.out.println("РАБОТАЕТ StAX BUILDER");
+        logger.info("Работает StAX builder");
 
         FileInputStream inputStream = null;
         XMLStreamReader reader = null;

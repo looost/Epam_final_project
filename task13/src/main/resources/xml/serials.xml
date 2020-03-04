@@ -18,8 +18,8 @@
 
         <countLike>0</countLike>
 
-        <country id="0">
-            <name>USA</name>
+        <country id="4">
+            <name>Germany</name>
         </country>
 
         <studio id="0">
@@ -106,5 +106,49 @@
             </comment>
         </comments>
 
+    </serial>
+
+    <serial id="4">
+        <name>See</name>
+        <description>Description serial See</description>
+        <logo>img/see.jpg</logo>
+        <fullLogo>img/see.jpg</fullLogo>
+        <releaseDate>2019-11-01</releaseDate>
+        <countLike>0</countLike>
+        <country id="0">
+            <name>USA</name>
+        </country>
+        <studio id="4">
+            <name>Apple TV+</name>
+        </studio>
+        <genres>
+            <genre id="0">
+                <name>Drama</name>
+            </genre>
+            <genre id="3">
+                <name>Sci-Fi</name>
+            </genre>
+            <genre id="8">
+                <name>Action</name>
+            </genre>
+        </genres>
+        <comments>
+            <comment id="5">
+                <user id="2" role="2">
+                    <login>moder</login>
+                    <password>123456</password>
+                </user>
+                <commentText>Комментарий к сериалу See</commentText>
+                <publicationDate>2020-02-20</publicationDate>
+            </comment>
+            <comment id="6">
+                <user id="1" role="2">
+                    <login>admin</login>
+                    <password>12345</password>
+                </user>
+                <commentText>Гневный комментарий</commentText>
+                <publicationDate>2020-03-03</publicationDate>
+            </comment>
+        </comments>
     </serial>
 </serials>

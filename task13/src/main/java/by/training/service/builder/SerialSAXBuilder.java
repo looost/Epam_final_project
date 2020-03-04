@@ -30,7 +30,7 @@ public class SerialSAXBuilder extends BaseBuilder {
     @Override
     public void buildSetSerials(String fileName) {
 
-        System.out.println("РАБОТАЕТ SAX BUILDER");
+        logger.info("Работает SAX builder");
 
         try {
             // разбор XML-документа
