@@ -1,53 +1,86 @@
 package by.training.multithreading.controller;
 
+
 import by.training.multithreading.dao.exception.DaoException;
 import by.training.multithreading.dao.factory.DaoFactory;
 import by.training.multithreading.entity.Matrix;
-import by.training.multithreading.service.MatrixLocker;
-import by.training.multithreading.service.MatrixSemaphore;
-import by.training.multithreading.service.MatrixLockerTest;
+import by.training.multithreading.service.*;
 import by.training.multithreading.service.creator.MatrixCreator;
-import by.training.multithreading.service.exception.ServiceException;
 import by.training.multithreading.service.parser.Parser;
-import by.training.multithreadingv2.service.MatrixCountDownLatch;
 
+import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Phaser;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Runner {
-    public static void main(String[] args) throws DaoException, ServiceException, InterruptedException {
-        String str = DaoFactory.getInstance().getDao().readData();
-        String[] st1 = Parser.parsFile(str, " ");
-        Matrix matrix = MatrixCreator.createMatrix(st1);
-        ReentrantLock lock = new ReentrantLock();
-        MatrixLocker thread;
+    public static void main(String[] args) throws DaoException, InterruptedException {
+        String matrixValue = DaoFactory.getInstance().getDao().readData("src\\main\\java\\by\\training\\multithreading\\data\\matrix.txt");
+        String threadValue = DaoFactory.getInstance().getDao().readData("src\\main\\java\\by\\training\\multithreading\\data\\thread.txt");
 
-//        for (int i = 1; i < 6; i++) {
-//            thread = new MatrixLocker(matrix, i, lock);
-//            thread.start();
+        String[] st1 = Parser.parsFile(matrixValue, " ");
+        String[] st2 = Parser.parsFile(threadValue, " ");
+        int matrixSize = 11;
+
+        Matrix matrix = MatrixCreator.createMatrix(st1, matrixSize);
+        System.out.println(matrix);
+
+
+        ReentrantLock lock = new ReentrantLock();
+        MatrixLocker matrixLocker;
+
+
+//        for (int i = 0; i < matrixSize/2; i++) {
+//            matrixLocker = new MatrixLocker(matrix, Integer.parseInt(st2[i]), lock);
+//            matrixLocker.start();
 //        }
 
-        Semaphore semaphore = new Semaphore(4);
+        Semaphore semaphore = new Semaphore(2);
         MatrixSemaphore matrixSemaphore;
 
-
-//        for (int i = 1; i < 6; i++) {
-//            matrixSemaphore = new MatrixSemaphore(matrix, i, semaphore);
+//        for (int i = 0; i < matrixSize/2; i++) {
+//            matrixSemaphore = new MatrixSemaphore(matrix, Integer.parseInt(st2[i]), semaphore);
 //            matrixSemaphore.start();
 //        }
 
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+        MatrixCountDownLatch matrixCountDownLatch;
 
+//        for (int i = 0; i < matrixSize/2; i++) {
+//            matrixCountDownLatch = new MatrixCountDownLatch(matrix, Integer.parseInt(st2[i]), countDownLatch, lock);
+//            try {
+//                TimeUnit.MILLISECONDS.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            matrixCountDownLatch.start();
+//        }
 
-//        MatrixLockerTest threadMatrixLockerTest;
-//        for (int i = 1; i < 6; i++) {
-//            threadMatrixLockerTest = new MatrixLockerTest(matrix, i, lock);
-//            threadMatrixLockerTest.start();
+        ThreadSaveCollection threadSaveCollection;
+
+//        for (int i = 0; i < matrixSize/2; i++) {
+//            threadSaveCollection = new ThreadSaveCollection(matrix, Integer.parseInt(st2[i]), lock);
+//            threadSaveCollection.start();
+//        }
+
+        Phaser phaser = new Phaser(4);
+        MatrixPhaser matrixPhaser;
+
+//        for (int i = 0; i < matrixSize/2; i++) {
+//            matrixPhaser = new MatrixPhaser(matrix, Integer.parseInt(st2[i]), phaser, lock);
+//            try {
+//                TimeUnit.MILLISECONDS.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            matrixPhaser.start();
 //        }
 
 
-        TimeUnit.MILLISECONDS.sleep(1000);
+        TimeUnit.MILLISECONDS.sleep(4000);
+
         System.out.println(matrix);
     }
 

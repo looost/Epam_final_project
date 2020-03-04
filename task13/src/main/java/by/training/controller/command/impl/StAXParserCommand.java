@@ -4,7 +4,6 @@ import by.training.controller.command.Command;
 import by.training.entity.Serial;
 import by.training.service.builder.BaseBuilder;
 import by.training.service.builder.SerialStAXBuilder;
-import by.training.service.factory.ServiceFactory;
 
 import java.util.Set;
 

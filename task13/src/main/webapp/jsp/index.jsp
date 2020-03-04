@@ -16,10 +16,10 @@
 <body>
 <div class="container-fluid pt-5">
 
-    <form action="/xml/parser" method="post" enctype="multipart/form-data">
+    <form action="/xml/parser" method="post" enctype="multipart/form-data" >
         <div class="form-group">
             <label>Загрузите xml файл</label>
-            <input name="data" type="file" class="form-control-file">
+            <input name="data" type="file" class="form-control-file" accept="application/xml">
         </div>
         <div>
             <label>Выберете способ парсинга XML</label>

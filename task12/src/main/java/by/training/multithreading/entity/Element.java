@@ -1,4 +1,4 @@
-package by.training.multithreadingv2.entity;
+package by.training.multithreading.entity;
 
 public class Element {
 

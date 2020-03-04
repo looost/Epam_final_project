@@ -1,14 +1,13 @@
-package by.training.multithreadingv2.service;
+package by.training.multithreading.service;
 
-import by.training.multithreadingv2.entity.Element;
-import by.training.multithreadingv2.entity.Matrix;
-import by.training.multithreadingv2.entity.Status;
+import by.training.multithreading.entity.Element;
+import by.training.multithreading.entity.Matrix;
+import by.training.multithreading.entity.Status;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.concurrent.CountDownLatch;
+import java.util.Random;
 import java.util.concurrent.Phaser;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -19,7 +18,7 @@ public class MatrixPhaser extends Thread {
     private ReentrantLock lock;
     private Matrix matrix;
     private int value;
-    private int[] arr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private Random random = new Random();
     private int countChange = 0;
 
     public MatrixPhaser(Matrix matrix, int value, Phaser phaser, ReentrantLock lock) {
@@ -62,7 +61,7 @@ public class MatrixPhaser extends Thread {
     }
 
     private Element getOpenElement() {
-        int index = ThreadLocalRandom.current().nextInt(arr.length);
+        int index = random.nextInt(matrix.getHorizontalSize());
         logger.info(Thread.currentThread().getName() + " хочет взять позицию " + index);
         lock.lock();
         if (matrix.getElement(index, index).getValue() == 0 && matrix.getElement(index, index).getStatus().equals(Status.OPEN)) {

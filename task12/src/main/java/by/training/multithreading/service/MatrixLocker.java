@@ -1,69 +1,72 @@
 package by.training.multithreading.service;
 
+
+import by.training.multithreading.entity.Element;
 import by.training.multithreading.entity.Matrix;
+import by.training.multithreading.entity.Status;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class MatrixLocker extends Thread {
-    private ReentrantLock locker;
+
+    private Logger logger = LogManager.getLogger("logger");
+    private ReentrantLock lock;
     private Matrix matrix;
     private int value;
-    private int[] arr = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private Random random = new Random();
+    private int countChange = 0;
 
     public MatrixLocker(Matrix matrix, int value, ReentrantLock lock) {
         this.matrix = matrix;
         this.value = value;
-        this.locker = lock;
+        this.lock = lock;
     }
 
     @Override
     public void run() {
-        Random random = new Random();
-        int bound;
-        int rand;
-        boolean flag = true;
-        while (flag) {
-            rand = random.nextInt(10);
-            bound = arr[rand];
-            try {
-                locker.lock();
-                if (bound != -1 && matrix.getElement(bound, bound) == 0) {
-                    matrix.setElement(bound, bound, value);
-                    arr[rand] = -1;
-                    System.out.println(Thread.currentThread().getName() + " записал в ячейку " + "(" + bound + ", " + bound + ") "
-                            + " значение - " + value);
-                }
-            } finally {
-                locker.unlock();
-                try {
-                    TimeUnit.MILLISECONDS.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        while (check()) {
+            Element element = getOpenElement();
+            if (element != null) {
+                element.setValue(value);
+                countChange++;
+                logger.info(Thread.currentThread().getName() + " изменил значение на " + value);
+                element.setStatus(Status.CHANGED);
             }
-
-            flag = check();
+            try {
+                TimeUnit.MILLISECONDS.sleep(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        logger.info("Количество изменений у потока " + Thread.currentThread().getName() + " - " + countChange);
     }
 
-    public Matrix getMatrix() {
-        return matrix;
-    }
-
-    public void setMatrix(Matrix matrix) {
-        this.matrix = matrix;
+    private Element getOpenElement() {
+        int index = random.nextInt(matrix.getHorizontalSize());
+        logger.info(Thread.currentThread().getName() + " хочет взять позицию " + index);
+        lock.lock();
+        if (matrix.getElement(index, index).getValue() == 0 && matrix.getElement(index, index).getStatus().equals(Status.OPEN)) {
+            logger.info(Thread.currentThread().getName() + " взял элемент " + index);
+            matrix.getElement(index, index).setStatus(Status.CLOSE);
+            lock.unlock();
+            return matrix.getElement(index, index);
+        }
+        lock.unlock();
+        logger.info(Thread.currentThread().getName() + " не смог взять позицию " + index);
+        return null;
     }
 
     private boolean check() {
-        for (int i = 0; i < matrix.getVerticalSize(); i++) {
-            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
-                if (i == j && matrix.getElement(i, j) == 0) {
-                    return true;
-                }
+        for (int i = 0; i < matrix.getHorizontalSize(); i++) {
+            if (matrix.getElement(i, i).getValue() == 0) {
+                return true;
             }
         }
         return false;
     }
+
 }
