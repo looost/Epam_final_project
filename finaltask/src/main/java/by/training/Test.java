@@ -8,7 +8,7 @@ import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Test {
@@ -22,8 +22,15 @@ public class Test {
 //        Serial serial = ServiceFactory.getInstance().getSerialService().findSerialByName("WestWorld");
 //        System.out.println(serial);
         //List <Serial> serialList = DaoFactory.getInstance().getSerialDao(ConnectionPool.getInstance().getConnection()).findAll();
+//        List <Serial> serialList =
+//        serialList.forEach(serial -> System.out.println(serial));
+
+
+        List <Genre> genres = DaoFactory.getInstance().getGenreDao(ConnectionPool.getInstance().getConnection()).findGenreBySerialId("3");
+        genres.forEach(System.out::println);
+
         List <Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
-        serialList.forEach(serial -> System.out.println(serial));
+        serialList.forEach(System.out::println);
 
     }
 }

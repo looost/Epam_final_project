@@ -27,14 +27,12 @@
         </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
-
     <complexType name="Country">
         <all>
             <element name="name" type="string"/>
         </all>
         <attribute name="id" type="int" use="required"/>
     </complexType>
-
     <complexType name="Studio">
         <all>
             <element name="name" type="string"/>

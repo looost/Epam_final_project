@@ -57,18 +57,11 @@ public class SerialDaoImpl implements SerialDao {
         try {
             statement = connection.prepareStatement(getProperties().getProperty("findAllSerial"));
             resultSet = statement.executeQuery();
-            String[] genres;
-            Genre genre;
             Set<Genre> genreSet;
             Serial serial;
             List<Serial> serialList = new ArrayList<>();
             while (resultSet.next()) {
                 genreSet = new HashSet<>();
-                genres = resultSet.getString(getProperties().getProperty("genres")).split(",");
-                for (String s : genres) {
-                    genre = new Genre(Integer.parseInt(s));
-                    genreSet.add(genre);
-                }
                 serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
                         resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
                         resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),

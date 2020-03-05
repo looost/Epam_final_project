@@ -22,7 +22,7 @@ public class SerialServiceImpl implements SerialService {
             connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
             Serial serial = DaoFactory.getInstance().getSerialDao(connection).findSerialByName(name);
-            List<Genre> genreList = DaoFactory.getInstance().getGenreDao(connection).findAll();
+            List<Genre> genreList = DaoFactory.getInstance().getGenreDao(connection).findGenreBySerialId(String.valueOf(serial.getId()));
             for (Genre serialGenre : serial.getGenres()
             ) {
                 for (Genre g : genreList

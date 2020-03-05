@@ -30,7 +30,9 @@ public class MatrixCountDownLatch extends Thread {
 
     @Override
     public void run() {
+
         while (check()) {
+            boolean take = false;
             Element element = getOpenElement();
             try {
                 TimeUnit.MILLISECONDS.sleep(10);
@@ -39,11 +41,11 @@ public class MatrixCountDownLatch extends Thread {
             }
             countDownLatch.countDown();
 
-
             try {
                 logger.info(Thread.currentThread().getName() + " ждет");
                 countDownLatch.await();
                 if (element != null) {
+                    take = true;
                     element.setValue(value);
                     countChange++;
                     logger.info(Thread.currentThread().getName() + " изменил значение на " + value);
@@ -53,7 +55,9 @@ public class MatrixCountDownLatch extends Thread {
                 e.printStackTrace();
             } finally {
                 try {
-                    TimeUnit.MILLISECONDS.sleep(300);
+                    if (take) {
+                        TimeUnit.MILLISECONDS.sleep(300);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

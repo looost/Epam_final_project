@@ -43,6 +43,28 @@ public class GenreDaoImpl implements GenreDao {
     }
 
     @Override
+    public List<Genre> findGenreBySerialId(String serialId) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(getProperties().getProperty("findGenresBySerialId"));
+            statement.setString(1, serialId);
+            resultSet = statement.executeQuery();
+            List<Genre> genreList = new ArrayList<>();
+            while (resultSet.next()) {
+                genreList.add(new Genre(resultSet.getInt(getProperties().getProperty("id")),
+                        resultSet.getString(getProperties().getProperty("genreName"))));
+            }
+            return genreList;
+        } catch (SQLException e) {
+            throw new DaoException("SQLException", e);
+        } finally {
+            close(resultSet);
+            close(statement);
+        }
+    }
+
+    @Override
     public List<Genre> findAll() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

@@ -30,8 +30,9 @@ public class MatrixPhaser extends Thread {
 
     @Override
     public void run() {
-        while (check()) {
 
+        while (check()) {
+            boolean take = false;
             Element element = getOpenElement();
             try {
                 TimeUnit.MILLISECONDS.sleep(10);
@@ -43,6 +44,7 @@ public class MatrixPhaser extends Thread {
                 logger.info(Thread.currentThread().getName() + " ждет");
                 phaser.arriveAndAwaitAdvance();
                 if (element != null) {
+                    take = true;
                     element.setValue(value);
                     countChange++;
                     logger.info(Thread.currentThread().getName() + " изменил значение на " + value);
@@ -51,7 +53,9 @@ public class MatrixPhaser extends Thread {
             } finally {
                 phaser.arriveAndDeregister();
                 try {
-                    TimeUnit.MILLISECONDS.sleep(300);
+                    if (take) {
+                        TimeUnit.MILLISECONDS.sleep(300);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

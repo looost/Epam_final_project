@@ -3018,3 +3018,18 @@ Parsing ended
 04::03::2020 15:22:50 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
 04::03::2020 15:22:53 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
 04::03::2020 15:22:55 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+05::03::2020 10:34:13 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:34:46 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:36:33 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:38:18 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:40:57 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:41:36 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:46:26 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:46:26 [main] ERROR builder.SerialStAXBuilder  buildSerial Unknown element in tag Serial
+05::03::2020 10:46:26 [main] ERROR builder.SerialStAXBuilder  buildSetSerials StAX parsing error! Unknown element in tag Serial
+05::03::2020 10:46:50 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 10:46:50 [main] ERROR builder.SerialStAXBuilder  buildSerial Unknown element in tag Serial
+05::03::2020 10:46:50 [main] ERROR builder.SerialStAXBuilder  buildSetSerials StAX parsing error! Unknown element in tag Serial
+05::03::2020 11:04:49 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+05::03::2020 11:04:52 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+05::03::2020 11:04:55 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
