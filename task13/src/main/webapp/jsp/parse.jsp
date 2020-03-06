@@ -78,6 +78,51 @@
 
     </table>
 
+    <hr>
+    <hr>
+
+    <table class="table table-sm table-hover table-bordered" style="text-align: center">
+        <thead class="thead">
+        <tr>
+            <th rowspan="2">id</th>
+            <th rowspan="2">Serial name</th>
+            <th rowspan="2">Description</th>
+            <th rowspan="2">Logo</th>
+            <th rowspan="2">Full logo</th>
+            <th rowspan="2">Release date</th>
+            <th rowspan="2">Count like</th>
+            <th rowspan="2">Country</th>
+            <th rowspan="2">Studio</th>
+            <th rowspan="2" style="width: 150px">Genres</th>
+            <th rowspan="2">Comments</th>
+        </tr>
+
+        </thead>
+
+        <c:forEach items="${serials}" var="s">
+            <tr>
+                <td>${s.id}</td>
+                <td>${s.name}</td>
+                <td>${s.description}</td>
+                <td>${s.logo}</td>
+                <td>${s.fullLogo}</td>
+                <td>${s.releaseDate}</td>
+                <td>${s.countLike}</td>
+                <td>${s.country.name}</td>
+                <td>${s.studio.name}</td>
+                <td><c:forEach items="${s.genres}" var="g">${g.name} <br>
+                    <hr>
+                </c:forEach></td>
+                <td><c:forEach items="${s.comments}"
+                               var="c"> User: login=${c.user.login}
+                    Comment text: ${c.comment} Publication date: ${c.publicationDate} <br>
+                    <hr>
+                </c:forEach></td>
+            </tr>
+        </c:forEach>
+
+    </table>
+
 
 </div>
 </body>

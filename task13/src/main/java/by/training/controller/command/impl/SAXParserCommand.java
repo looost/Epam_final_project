@@ -1,18 +1,35 @@
 package by.training.controller.command.impl;
 
 import by.training.controller.command.Command;
+import by.training.controller.command.CommandResponse;
 import by.training.entity.Serial;
 import by.training.service.builder.BaseBuilder;
 import by.training.service.builder.SerialSAXBuilder;
-import by.training.service.factory.ServiceFactory;
+import by.training.service.exception.ServiceException;
+import by.training.service.validation.ValidationXML;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class SAXParserCommand implements Command {
     @Override
-    public Set<Serial> getSerials(String request) {
-        BaseBuilder baseBuilder = new SerialSAXBuilder();
-        baseBuilder.buildSetSerials(request);
-        return baseBuilder.getSerials();
+    public CommandResponse getSerials(String filePath) {
+        CommandResponse response;
+        if (!ValidationXML.xmlResolutionIsValid(filePath)) {
+            response = new CommandResponse("file resolution should be xml", new HashSet<>());
+            return response;
+        }
+        try {
+            BaseBuilder baseBuilder = new SerialSAXBuilder();
+            baseBuilder.buildSetSerials(filePath);
+            response = new CommandResponse("OK", baseBuilder.getSerials());
+            return response;
+        } catch (ServiceException e) {
+            Set<Serial> empty = new HashSet<>();
+            response = new CommandResponse(e.getMessage(), empty);
+            return response;
+        }
     }
 }

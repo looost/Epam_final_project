@@ -1,6 +1,7 @@
 package by.training.service.builder;
 
 import by.training.entity.Serial;
+import by.training.service.exception.ServiceException;
 
 import java.util.Set;
 
@@ -12,5 +13,5 @@ public abstract class BaseBuilder {
         return serials;
     }
 
-    public abstract void buildSetSerials(String fileName);
+    public abstract void buildSetSerials(String fileName) throws ServiceException;
 }

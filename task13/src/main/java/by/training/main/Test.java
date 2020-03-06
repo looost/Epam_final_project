@@ -50,11 +50,11 @@ public class Test {
 //        builder1.getSerials().forEach(System.out::println);
 //        System.out.println("-----");
 
-        System.out.println("DOM Builder:");
-        BaseBuilder builder2 = new SerialDomBuilder();
-        builder2.buildSetSerials(path);
-        builder2.getSerials().forEach(System.out::println);
-        System.out.println("-----");
+//        System.out.println("DOM Builder:");
+//        BaseBuilder builder2 = new SerialDomBuilder();
+//        builder2.buildSetSerials(path);
+//        builder2.getSerials().forEach(System.out::println);
+//        System.out.println("-----");
 
 //        GenreSAXBuilder saxBuilder = new GenreSAXBuilder();
 //        saxBuilder.buildGenres("src\\main\\resources\\xml\\serials.xml");

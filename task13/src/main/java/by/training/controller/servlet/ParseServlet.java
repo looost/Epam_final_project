@@ -1,6 +1,7 @@
 package by.training.controller.servlet;
 
 import by.training.controller.Controller;
+import by.training.controller.command.CommandResponse;
 import by.training.entity.Serial;
 import by.training.service.builder.BaseBuilder;
 import by.training.service.builder.SerialStAXBuilder;
@@ -26,8 +27,6 @@ import java.util.Set;
 @WebServlet("/xml/parser")
 public class ParseServlet extends HttpServlet {
 
-    private final Logger logger = LogManager.getLogger("logger");
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -43,46 +42,29 @@ public class ParseServlet extends HttpServlet {
                 if (item.isFormField()) {
                     name = item.getString();
                 } else {
-                    if (FilenameUtils.getExtension(item.getName()).equals("xml")) {
                         File file = new File("E:\\Java-Training\\task13\\src\\main\\resources\\data\\" + item.getName());
                         item.write(file);
                         filePath = file.getPath();
-                    } else {
-                        logger.error("Неверное расширение файла");
-                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-                        return;
-                    }
                 }
             }
 
-//                System.out.println(multiFiles.get(0).getName());
-//                File file = new File("D:\\Training\\task13\\src\\main\\resources\\data\\" + multiFiles.get(0).getName());
-//                multiFiles.get(0).write(file);
-//                filePath = file.getPath();
-//                System.out.println(file.getPath());
-
         } catch (Exception e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace();
+            req.setAttribute("error", e.getMessage());
+            req.getServletContext().getRequestDispatcher("/jsp/error.jsp").forward(req, resp);
         }
 
         Controller controller = new Controller();
+        CommandResponse commandResponse = controller.getCommand(name).getSerials(filePath);
 
+        if (commandResponse.getStatus().equals("OK")) {
+            Set<Serial> serials = controller.getCommand(name).getSerials(filePath).getValue();
+            req.setAttribute("parser", name);
+            req.setAttribute("serials", serials);
+            req.getServletContext().getRequestDispatcher("/jsp/parse.jsp").forward(req, resp);
+        } else {
+            req.setAttribute("error", commandResponse.getStatus());
+            req.getServletContext().getRequestDispatcher("/jsp/error.jsp").forward(req, resp);
+        }
 
-        Set<Serial> serials = controller.getCommand(name).getSerials(filePath);
-
-        String path = filePath;
-
-
-//        String path = "D:\\Training\\task13\\src\\main\\resources\\xml\\serials.xml";
-//
-//        BaseBuilder builder1 = new SerialStAXBuilder();
-//        builder1.buildSetSerials(path);
-//        Set<Serial> serials = builder1.getSerials();
-
-        req.setAttribute("parser", name);
-        req.setAttribute("serials", serials);
-
-        req.getServletContext().getRequestDispatcher("/jsp/parse.jsp").forward(req, resp);
     }
 }

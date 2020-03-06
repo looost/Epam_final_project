@@ -1,5 +1,6 @@
 package by.training.controller;
 
+import by.training.controller.command.CommandResponse;
 import by.training.entity.Serial;
 import by.training.view.UserUI;
 import by.training.view.ViewConsole;
@@ -16,12 +17,18 @@ public class Runner {
         boolean flag = true;
         Set<Serial> serials;
         String filePath = "src\\main\\resources\\xml\\serials.xml";
+        CommandResponse commandResponse;
 
         while (flag) {
             view.showMenu();
             request = userUI.enterString();
-            serials = controller.getCommand(request).getSerials(filePath);
-            view.showXml(serials);
+            commandResponse = controller.getCommand(request).getSerials(filePath);
+            if (commandResponse.getStatus().equals("OK")) {
+                serials = commandResponse.getValue();
+                view.showXml(serials);
+            } else {
+                view.showError(commandResponse.getStatus());
+            }
             view.showMessage("Для выхода введите 0");
             request = userUI.enterString();
             if (request.equals("0")) {

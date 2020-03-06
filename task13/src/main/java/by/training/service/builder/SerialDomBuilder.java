@@ -1,6 +1,8 @@
 package by.training.service.builder;
 
 import by.training.entity.*;
+import by.training.service.exception.ServiceException;
+import by.training.service.validation.ValidationXML;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -24,6 +26,7 @@ import java.util.Set;
 public class SerialDomBuilder extends BaseBuilder {
 
     private Logger logger = LogManager.getLogger("logger");
+    private static final String schemaPath = "E:\\Java-Training\\task13\\src\\main\\resources\\xml\\serials.xsd";
     private DocumentBuilder docBuilder;
 
     public SerialDomBuilder() {
@@ -39,9 +42,14 @@ public class SerialDomBuilder extends BaseBuilder {
     }
 
     @Override
-    public void buildSetSerials(String fileName) {
+    public void buildSetSerials(String fileName) throws ServiceException {
 
         logger.info("Работает DOM builder");
+
+        if (!ValidationXML.xmlIsValid(fileName, schemaPath)) {
+            logger.error("Invalid XML");
+            throw new ServiceException("Invalid XML");
+        }
 
         Document doc = null;
         try {
