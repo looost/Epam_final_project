@@ -52,7 +52,7 @@ public class MatrixCountDownLatch extends Thread {
                     element.setStatus(Status.CHANGED);
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+               logger.error(e.getMessage());
             } finally {
                 try {
                     if (take) {

@@ -3,7 +3,7 @@ package by.training;
 import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.Genre;
+import by.training.dao.jdbc.JDBCUtil;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
@@ -25,12 +25,9 @@ public class Test {
 //        List <Serial> serialList =
 //        serialList.forEach(serial -> System.out.println(serial));
 
-
-        List <Genre> genres = DaoFactory.getInstance().getGenreDao(ConnectionPool.getInstance().getConnection()).findGenreBySerialId("3");
-        genres.forEach(System.out::println);
-
-        List <Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
-        serialList.forEach(System.out::println);
-
+        Serial serial = ServiceFactory.getInstance().getSerialService().findById("1");
+        serial.setName("Мир Дикого Запада");
+        boolean f = DaoFactory.getInstance().getSerialDao(ConnectionPool.getInstance().getConnection()).update(serial);
+        System.out.println(f);
     }
 }

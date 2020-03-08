@@ -3,14 +3,9 @@ package by.training.controller.servlet;
 import by.training.controller.Controller;
 import by.training.controller.command.CommandResponse;
 import by.training.entity.Serial;
-import by.training.service.builder.BaseBuilder;
-import by.training.service.builder.SerialStAXBuilder;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
 
@@ -42,7 +36,7 @@ public class ParseServlet extends HttpServlet {
                 if (item.isFormField()) {
                     name = item.getString();
                 } else {
-                        File file = new File("E:\\Java-Training\\task13\\src\\main\\resources\\data\\" + item.getName());
+                        File file = new File("D:\\Training\\task13\\src\\main\\resources\\data\\" + item.getName());
                         item.write(file);
                         filePath = file.getPath();
                 }

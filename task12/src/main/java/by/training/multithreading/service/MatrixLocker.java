@@ -46,7 +46,7 @@ public class MatrixLocker extends Thread {
     }
 
     private Element getOpenElement() {
-        int index = random.nextInt(matrix.getHorizontalSize());
+        int index = random.nextInt(matrix.getHorizontalSize()); //TODO изменить выбор индекса
         logger.info(Thread.currentThread().getName() + " хочет взять позицию " + index);
         lock.lock();
         if (matrix.getElement(index, index).getValue() == 0 && matrix.getElement(index, index).getStatus().equals(Status.OPEN)) {

@@ -3,11 +3,12 @@ package by.training.dao.comment;
 import by.training.dao.exception.DaoException;
 import by.training.model.Comment;
 
+import java.util.List;
 import java.util.Set;
 
 public interface CommentDao {
 
-    Set<Comment> findAllCommentForSerial(String serialId) throws DaoException;
+    List<Comment> findAllCommentForSerial(String serialId) throws DaoException;
 
     Comment findById(String id) throws DaoException;
 

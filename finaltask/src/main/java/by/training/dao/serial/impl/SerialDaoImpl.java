@@ -1,7 +1,10 @@
 package by.training.dao.serial.impl;
 
 import by.training.dao.exception.DaoException;
+import by.training.dao.jdbc.ResultSetHandler;
 import by.training.dao.serial.SerialDao;
+import by.training.dao.jdbc.JDBCUtil;
+import by.training.dao.jdbc.ResultSetHandlerFactory;
 import by.training.model.*;
 
 import java.io.FileInputStream;
@@ -11,9 +14,11 @@ import java.util.*;
 
 public class SerialDaoImpl implements SerialDao {
 
-    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlSerial.properties";
+    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlSerial.properties";
 
     private Connection connection;
+    private static final ResultSetHandler<Serial> SERIAL_RESULT_SET_HANDLER =
+            ResultSetHandlerFactory.SERIAL_RESULT_SET_HANDLER;
 
     public SerialDaoImpl(Connection connection) {
         this.connection = connection;
@@ -21,162 +26,51 @@ public class SerialDaoImpl implements SerialDao {
 
     @Override
     public Serial findSerialByName(String name) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("findSerialByName"));
-            statement.setString(1, name);
-            resultSet = statement.executeQuery();
-            Set<Genre> genreSet = new HashSet<>();
-            Serial serial = null;
-            if (resultSet.next()) {
-                genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
-                        resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
-                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
-                        resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
-                        new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
-                        genreSet);
-                while (resultSet.next()) {
-                    genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                }
-            }
-            return serial;
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(resultSet);
-            close(statement);
-        }
+        return JDBCUtil.select(connection, getProperties().getProperty("findSerialByName"),
+                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), name);
     }
 
     @Override
     public List<Serial> findAll() throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("findAllSerial"));
-            resultSet = statement.executeQuery();
-            Set<Genre> genreSet;
-            Serial serial;
-            List<Serial> serialList = new ArrayList<>();
-            while (resultSet.next()) {
-                genreSet = new HashSet<>();
-                serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
-                        resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
-                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
-                        resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
-                        new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
-                        genreSet);
-                serialList.add(serial);
-            }
-            return serialList;
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(resultSet);
-            close(statement);
-        }
+        return JDBCUtil.select(connection, getProperties().getProperty("findAllSerial"),
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER));
+    }
+
+    @Override
+    public List<Serial> findAllSerial2(int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        return JDBCUtil.select(connection, getProperties().getProperty("findAllSerial2"),
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit, offset);
+    }
+
+    @Override
+    public List<Serial> findSerialBySearchForm(String searchQuery) throws DaoException {
+        return JDBCUtil.select(connection, getProperties().getProperty("findSerialBySearchQuery"),
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER));
     }
 
     @Override
     public Serial findById(String id) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("findSerialById"));
-            statement.setString(1, id);
-            resultSet = statement.executeQuery();
-            Set<Genre> genreSet = new HashSet<>();
-            Serial serial = null;
-            if (resultSet.next()) {
-                genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                serial = new Serial(resultSet.getInt(getProperties().getProperty("serialId")),
-                        resultSet.getString(getProperties().getProperty("serialName")), resultSet.getString(getProperties().getProperty("serialDescription")),
-                        resultSet.getString(getProperties().getProperty("serialLogo")), resultSet.getString(getProperties().getProperty("serialFullLogo")),
-                        resultSet.getDate(getProperties().getProperty("serialReleaseDate")), resultSet.getInt(getProperties().getProperty("serialCountLike")),
-                        new Country(resultSet.getInt(getProperties().getProperty("countryId"))), new Studio(resultSet.getInt(getProperties().getProperty("studioId"))),
-                        genreSet);
-                while (resultSet.next()) {
-                    genreSet.add(new Genre(resultSet.getInt(getProperties().getProperty("genreId"))));
-                }
-            }
-            return serial;
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(resultSet);
-            close(statement);
-        }
+        return JDBCUtil.select(connection, getProperties().getProperty("findSerialById"),
+                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), id);
     }
 
     @Override
     public boolean delete(String id) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("deleteSerialById"));
-            statement.setString(1, id);
-            return statement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(statement);
-        }
+        return JDBCUtil.delete(connection, getProperties().getProperty("deleteSerialById"), id);
     }
 
     @Override
     public boolean create(Serial entity) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("createSerial"));
-            statement.setString(1, entity.getName());
-            statement.setString(2, entity.getDescription());
-            statement.setString(3, entity.getLogo());
-            statement.setString(4, entity.getFullLogo());
-            return statement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(statement);
-        }
+        return JDBCUtil.create(connection, getProperties().getProperty("createSerial"),
+                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getReleaseDate(),
+                entity.getCountry().getId(), entity.getStudio().getId());
     }
 
     @Override
     public boolean update(Serial entity) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("updateSerial"));
-            statement.setString(1, entity.getName());
-            statement.setString(2, entity.getDescription());
-            statement.setString(3, entity.getLogo());
-            statement.setString(3, entity.getFullLogo());
-            return statement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(statement);
-        }
-    }
-
-
-    private void close(ResultSet resultSet) throws DaoException {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Cannot close resultSet", e);
-        }
-    }
-
-    private void close(Statement statement) throws DaoException {
-        try {
-            if (statement != null) {
-                statement.close();
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Cannot close statement", e);
-        }
+        return JDBCUtil.update(connection, getProperties().getProperty("updateSerial"),
+                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getId());
     }
 
     private Properties getProperties() throws DaoException {

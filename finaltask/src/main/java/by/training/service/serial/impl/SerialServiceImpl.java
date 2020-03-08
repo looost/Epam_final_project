@@ -22,17 +22,9 @@ public class SerialServiceImpl implements SerialService {
             connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
             Serial serial = DaoFactory.getInstance().getSerialDao(connection).findSerialByName(name);
+
             List<Genre> genreList = DaoFactory.getInstance().getGenreDao(connection).findGenreBySerialId(String.valueOf(serial.getId()));
-            for (Genre serialGenre : serial.getGenres()
-            ) {
-                for (Genre g : genreList
-                ) {
-                    if (g.getId() == serialGenre.getId()) {
-                        serialGenre.setName(g.getName());
-                        break;
-                    }
-                }
-            }
+            serial.setGenres(genreList);
 
             Country country = DaoFactory.getInstance().getCountryDao(connection).findById(String.valueOf(serial.getCountry().getId()));
             serial.getCountry().setName(country.getName());
@@ -40,7 +32,7 @@ public class SerialServiceImpl implements SerialService {
             Studio studio = DaoFactory.getInstance().getStudioDao(connection).findById(String.valueOf(serial.getStudio().getId()));
             serial.getStudio().setName(studio.getName());
 
-            Set<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial(String.valueOf(serial.getId()));
+            List<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial(String.valueOf(serial.getId()));
             serial.setComments(commentSet);
 
             connection.commit();
@@ -60,6 +52,48 @@ public class SerialServiceImpl implements SerialService {
             connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
             List <Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findAll();
+            int size = serialList.size();
+            for (int i = 0; i < size; i++) {
+                serialList.set(i, findSerialByName(serialList.get(i).getName()));
+            }
+            connection.commit();
+            ConnectionPool.getInstance().close(connection);
+            return serialList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (SQLException e) {
+            throw new ServiceException("Commit problem", e);
+        }
+    }
+
+    @Override
+    public List<Serial> findAllSerial2(int page, int limit) throws ServiceException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findAllSerial2(page, limit);
+            int size = serialList.size();
+            for (int i = 0; i < size; i++) {
+                serialList.set(i, findSerialByName(serialList.get(i).getName()));
+            }
+            connection.commit();
+            ConnectionPool.getInstance().close(connection);
+            return serialList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (SQLException e) {
+            throw new ServiceException("Commit problem", e);
+        }
+    }
+
+    @Override
+    public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findSerialBySearchForm(searchQuery);
             int size = serialList.size();
             for (int i = 0; i < size; i++) {
                 serialList.set(i, findSerialByName(serialList.get(i).getName()));

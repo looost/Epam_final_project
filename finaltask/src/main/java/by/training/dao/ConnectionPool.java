@@ -2,6 +2,10 @@ package by.training.dao;
 
 import by.training.dao.exception.DaoException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,12 +22,31 @@ public class ConnectionPool {
 
     public Connection getConnection() throws DaoException {
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             return DriverManager
                     .getConnection("jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC", "application", "admin");
         } catch (SQLException e) {
             throw new DaoException("Cannot connection", e);
+        } catch (ClassNotFoundException e) {
+            throw new DaoException("Cannot connection", e);
         }
     }
+
+
+//    public Connection getConnection() {
+//        Context ctx;
+//        Connection c = null;
+//        try {
+//            ctx = new InitialContext();
+//            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/serial");
+//            c = ds.getConnection();
+//        } catch (NamingException e) {
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return c;
+//    }
 
     public void close(Connection connection) throws DaoException {
         try {
@@ -34,22 +57,4 @@ public class ConnectionPool {
             throw new DaoException("Cannot close connection", e);
         }
     }
-
-//    public Connection getConnection() throws DaoException {
-//        Context ctx;
-//        Connection connection = null;
-//        try {
-//            Context envCtx = (Context) (new InitialContext().lookup("java:comp/env"));
-//            DataSource ds = (DataSource) envCtx.lookup("jdbc/serials");
-//            connection = ds.getConnection();
-//            ctx = new InitialContext();
-//            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/serials");
-//            connection = ds.getConnection();
-//        } catch (NamingException e) {
-//            throw new DaoException("NamingException from ConnectionPool", e);
-//        } catch (SQLException e) {
-//            throw new DaoException("SQLException from ConnectionPool", e);
-//        }
-//        return connection;
-//    }
 }

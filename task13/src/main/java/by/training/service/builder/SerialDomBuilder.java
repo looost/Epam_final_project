@@ -11,13 +11,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
@@ -26,7 +22,7 @@ import java.util.Set;
 public class SerialDomBuilder extends BaseBuilder {
 
     private Logger logger = LogManager.getLogger("logger");
-    private static final String schemaPath = "E:\\Java-Training\\task13\\src\\main\\resources\\xml\\serials.xsd";
+    private static final String schemaPath = "D:\\Training\\task13\\src\\main\\resources\\xml\\serials.xsd";
     private DocumentBuilder docBuilder;
 
     public SerialDomBuilder() {

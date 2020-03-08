@@ -11,16 +11,16 @@ import by.training.service.exception.ServiceException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Set;
+import java.util.List;
 
 public class CommentServiceImpl implements CommentService {
     @Override
-    public Set<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
+    public List<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             connection.setAutoCommit(false);
-            Set<Comment> commentSet = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
+            List<Comment> commentSet = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
             User user;
             Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById(serialId);
             for (Comment c : commentSet
@@ -74,7 +74,19 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean create(Comment entity) throws ServiceException {
-        return false;
+        Connection connection;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            connection.setAutoCommit(false);
+            DaoFactory.getInstance().getCommentDao(connection).create(entity);
+            connection.commit();
+            ConnectionPool.getInstance().close(connection);
+            return true;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override

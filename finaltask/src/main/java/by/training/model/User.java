@@ -22,6 +22,12 @@ public class User extends AbstractEntity {
         this.role = role;
     }
 
+    public User(String login, String password, int role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
+    }
+
     public String getLogin() {
         return login;
     }

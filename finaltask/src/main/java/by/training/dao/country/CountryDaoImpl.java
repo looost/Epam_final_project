@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class CountryDaoImpl implements AbstractDao<String, Country> {
 
-    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlCountry.properties";
+    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlCountry.properties";
 
     private Connection connection;
 

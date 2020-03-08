@@ -2,6 +2,7 @@ package by.training.model;
 
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -17,8 +18,8 @@ public class Serial extends AbstractEntity {
     private int countLike;
     private Country country;
     private Studio studio;
-    private Set<Genre> genres;
-    private Set<Comment> comments;
+    private List<Genre> genres;
+    private List<Comment> comments;
 
     public Serial() {
     }
@@ -27,7 +28,7 @@ public class Serial extends AbstractEntity {
         super(id);
     }
 
-    public Serial(int id, String name, String description, String logo, String fullLogo, Set<Genre> genres) {
+    public Serial(int id, String name, String description, String logo, String fullLogo, List<Genre> genres) {
         super(id);
         this.name = name;
         this.description = description;
@@ -43,7 +44,7 @@ public class Serial extends AbstractEntity {
         this.fullLogo = fullLogo;
     }
 
-    public Serial(String name, String description, String logo, String fullLogo, Set<Genre> genres) {
+    public Serial(String name, String description, String logo, String fullLogo, List<Genre> genres) {
         this.name = name;
         this.description = description;
         this.logo = logo;
@@ -51,7 +52,7 @@ public class Serial extends AbstractEntity {
         this.genres = genres;
     }
 
-    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres, Set<Comment> comments) {
+    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
         super(id);
         this.name = name;
         this.description = description;
@@ -65,7 +66,7 @@ public class Serial extends AbstractEntity {
         this.comments = comments;
     }
 
-    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, Set<Genre> genres) {
+    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres) {
         super(id);
         this.name = name;
         this.description = description;
@@ -110,11 +111,11 @@ public class Serial extends AbstractEntity {
         this.fullLogo = fullLogo;
     }
 
-    public Set<Genre> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(Set<Genre> genres) {
+    public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 
@@ -134,11 +135,11 @@ public class Serial extends AbstractEntity {
         this.studio = studio;
     }
 
-    public Set<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Set<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 

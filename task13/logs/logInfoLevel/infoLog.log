@@ -3066,3 +3066,10 @@ Parsing ended
 06::03::2020 13:33:02 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - DON
 06::03::2020 13:33:04 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
 06::03::2020 13:33:04 [main] INFO  validation.ValidationXML  xmlIsValid src\main\resources\xml\serials.xml is valid.
+06::03::2020 18:59:17 [main] ERROR command.CommandProvider  getCommand Введена неверная команда - S
+06::03::2020 18:59:24 [main] INFO  builder.SerialStAXBuilder  buildSetSerials Работает StAX builder
+06::03::2020 18:59:24 [main] INFO  validation.ValidationXML  xmlIsValid src\main\resources\xml\serials.xml is valid.
+06::03::2020 18:59:26 [main] INFO  builder.SerialSAXBuilder  buildSetSerials Работает SAX builder
+06::03::2020 18:59:26 [main] INFO  validation.ValidationXML  xmlIsValid src\main\resources\xml\serials.xml is valid.
+06::03::2020 18:59:29 [main] INFO  builder.SerialDomBuilder  buildSetSerials Работает DOM builder
+06::03::2020 18:59:29 [main] INFO  validation.ValidationXML  xmlIsValid src\main\resources\xml\serials.xml is valid.

@@ -33,6 +33,12 @@ public class Comment extends AbstractEntity {
         this.publicationDate = publicationDate;
     }
 
+    public Comment(User user, Serial serial, String comment) {
+        this.user = user;
+        this.serial = serial;
+        this.comment = comment;
+    }
+
     public User getUser() {
         return user;
     }

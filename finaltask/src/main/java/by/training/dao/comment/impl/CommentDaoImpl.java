@@ -2,137 +2,55 @@ package by.training.dao.comment.impl;
 
 import by.training.dao.comment.CommentDao;
 import by.training.dao.exception.DaoException;
+import by.training.dao.jdbc.JDBCUtil;
+import by.training.dao.jdbc.ResultSetHandler;
+import by.training.dao.jdbc.ResultSetHandlerFactory;
 import by.training.model.Comment;
-import by.training.model.Serial;
-import by.training.model.User;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 public class CommentDaoImpl implements CommentDao {
 
-    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlComment.properties";
+    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlComment.properties";
 
     private Connection connection;
+    private static final ResultSetHandler<Comment> COMMENT_RESULT_SET_HANDLER =
+            ResultSetHandlerFactory.COMMENT_RESULT_SET_HANDLER;
 
     public CommentDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public Set<Comment> findAllCommentForSerial(String serialId) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("findAllCommentForSerial"));
-            statement.setString(1, serialId);
-            resultSet = statement.executeQuery();
-            Set<Comment> commentSet = new HashSet<>();
-            Comment comment;
-            while (resultSet.next()) {
-                comment = new Comment(resultSet.getInt(getProperties().getProperty("commentId")), new User(resultSet.getInt(getProperties().getProperty("commentUserId"))),
-                        new Serial(resultSet.getInt(getProperties().getProperty("commentSerialId"))), resultSet.getString(getProperties().getProperty("comment"))
-                        , resultSet.getDate(getProperties().getProperty("commentPublicationDate")));
-                commentSet.add(comment);
-            }
-            return commentSet;
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(resultSet);
-            close(statement);
-        }
+    public List<Comment> findAllCommentForSerial(String serialId) throws DaoException {
+        return JDBCUtil.select(connection, getProperties().getProperty("findAllCommentForSerial"),
+                ResultSetHandlerFactory.getListResultSetHandler(COMMENT_RESULT_SET_HANDLER), serialId);
     }
 
     @Override
     public Comment findById(String id) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("findCommentById"));
-            statement.setString(1, id);
-            resultSet = statement.executeQuery();
-            Comment comment = null;
-            while (resultSet.next()) {
-                comment = new Comment(resultSet.getInt(getProperties().getProperty("commentId")), new User(resultSet.getInt(getProperties().getProperty("commentUserId"))),
-                        new Serial(resultSet.getInt(getProperties().getProperty("commentSerialId"))), resultSet.getString(getProperties().getProperty("comment"))
-                        , resultSet.getDate(getProperties().getProperty("commentPublicationDate")));
-            }
-            return comment;
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(resultSet);
-            close(statement);
-        }
+        return JDBCUtil.select(connection, getProperties().getProperty("findCommentById"),
+                ResultSetHandlerFactory.getSingleResultSetHandler(COMMENT_RESULT_SET_HANDLER), id);
     }
 
     @Override
     public boolean delete(String id) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("deleteCommentById"));
-            statement.setString(1, id);
-            return statement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(statement);
-        }
+        return JDBCUtil.delete(connection, getProperties().getProperty("deleteCommentById"), id);
     }
 
     @Override
     public boolean create(Comment entity) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("createComment"));
-            statement.setString(1, String.valueOf(entity.getUser().getId()));
-            statement.setString(2, String.valueOf(entity.getSerial().getId()));
-            statement.setString(3, entity.getComment());
-            return statement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(statement);
-        }
+        return JDBCUtil.create(connection, getProperties().getProperty("createComment"),
+                String.valueOf(entity.getUser().getId()), String.valueOf(entity.getSerial().getId()), entity.getComment());
     }
 
     @Override
     public boolean update(Comment entity) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(getProperties().getProperty("updateComment"));
-            statement.setString(1, entity.getComment());
-            return statement.execute();
-        } catch (SQLException e) {
-            throw new DaoException("SQLException", e);
-        } finally {
-            close(statement);
-        }
-    }
-
-    private void close(ResultSet resultSet) throws DaoException {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Cannot close resultSet", e);
-        }
-    }
-
-    private void close(Statement statement) throws DaoException {
-        try {
-            if (statement != null) {
-                statement.close();
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Cannot close statement", e);
-        }
+        return JDBCUtil.update(connection, getProperties().getProperty("updateComment"), entity.getComment());
     }
 
     private Properties getProperties() throws DaoException {

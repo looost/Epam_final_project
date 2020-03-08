@@ -3,11 +3,12 @@ package by.training.service.comment;
 import by.training.model.Comment;
 import by.training.service.exception.ServiceException;
 
+import java.util.List;
 import java.util.Set;
 
 public interface CommentService {
 
-    Set<Comment> findAllCommentForSerial(String serialId) throws ServiceException;
+    List<Comment> findAllCommentForSerial(String serialId) throws ServiceException;
 
     Comment findById(String id) throws ServiceException;
 

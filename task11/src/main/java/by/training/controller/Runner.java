@@ -19,9 +19,7 @@ public class Runner {
         Controller controller = new Controller();
 
 
-        String test = DAOFactory.getInstance().getDao().readData();
-
-
+        String text = DAOFactory.getInstance().getDao().readData();
 
 
         Handler textParser = HandlerFactory.getInstance().getTextHandler();
@@ -43,12 +41,12 @@ public class Runner {
         String request;
         CommandResponse commandResponse;
 
-        component = new Composite(Type.TEXT);
-        textParser.parse(component, test);
+
+
 
         while (flag) {
-
-
+            component = new Composite(Type.TEXT);
+            textParser.parse(component, text);
             viewConsole.showMenu();
             request = userUI.enterString();
             commandResponse = controller.getCommand(request).execute(component, request);

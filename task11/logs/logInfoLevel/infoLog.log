@@ -156,3 +156,45 @@ java.lang.NumberFormatException: For input string: "asd"
 16::02::2020 18:11:28 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 p
 16::02::2020 18:11:35 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
 16::02::2020 18:12:42 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 p
+06::03::2020 17:56:17 [main] INFO  by.training.controller.command.CommandProvider  getCommand 1
+06::03::2020 17:56:20 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+06::03::2020 17:56:25 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+06::03::2020 17:56:41 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:56:53 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+06::03::2020 17:57:16 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:57:18 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+06::03::2020 17:57:20 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:57:42 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:57:45 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+06::03::2020 17:57:46 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:57:49 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+06::03::2020 17:58:00 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
+06::03::2020 17:58:24 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+06::03::2020 17:58:37 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 t
+06::03::2020 17:58:40 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:59:10 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 17:59:13 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 t
+06::03::2020 17:59:20 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+06::03::2020 17:59:41 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+06::03::2020 17:59:45 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 18:00:50 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4
+06::03::2020 18:00:50 [main] ERROR training.controller.command.impl.SortLexemeInSentenceByCharCommand  execute Не введен символ!
+06::03::2020 18:00:52 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 w
+06::03::2020 18:00:54 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 18:00:56 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+06::03::2020 18:01:04 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 19:46:09 [main] INFO  by.training.controller.command.CommandProvider  getCommand 1
+06::03::2020 19:46:24 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 19:47:08 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 g
+06::03::2020 19:47:50 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 19:48:56 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 19:49:03 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+06::03::2020 19:54:39 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 19:54:43 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+06::03::2020 19:54:48 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+06::03::2020 19:55:04 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2
+06::03::2020 19:55:08 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 r
+06::03::2020 19:55:32 [main] INFO  by.training.controller.command.CommandProvider  getCommand 4 i
+06::03::2020 19:55:52 [main] INFO  by.training.controller.command.CommandProvider  getCommand 3
+06::03::2020 19:56:44 [main] INFO  by.training.controller.command.CommandProvider  getCommand 5
+06::03::2020 19:56:49 [main] INFO  by.training.controller.command.CommandProvider  getCommand 2

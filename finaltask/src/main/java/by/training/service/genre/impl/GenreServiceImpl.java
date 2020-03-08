@@ -24,7 +24,12 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List findAll() throws ServiceException {
-        return null;
+        try {
+            Connection connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getGenreDao(connection).findAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override

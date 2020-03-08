@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class UserDaoImpl implements UserDao {
 
-    private static final String PATH_TO_PROPERTIES = "src/main/resources/sqlUser.properties";
+    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlUser.properties";
     private Connection connection;
 
     public UserDaoImpl(Connection connection) {
@@ -33,6 +33,28 @@ public class UserDaoImpl implements UserDao {
                         resultSet.getString(getProperties().getProperty("userPassword")), resultSet.getInt(getProperties().getProperty("userRole")));
             }
             return new User();
+        } catch (SQLException e) {
+            throw new DaoException("SQLException", e);
+        } finally {
+            close(resultSet);
+            close(statement);
+        }
+    }
+
+    @Override
+    public User findByLoginAndPassword(String login, String password) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(getProperties().getProperty("findUserByLoginAndPassword"));
+            statement.setString(1, login);
+            statement.setString(2, password);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new User(resultSet.getInt(getProperties().getProperty("userId")), resultSet.getString(getProperties().getProperty("userLogin")),
+                        resultSet.getString(getProperties().getProperty("userPassword")), resultSet.getInt(getProperties().getProperty("userRole")));
+            }
+            return null;
         } catch (SQLException e) {
             throw new DaoException("SQLException", e);
         } finally {

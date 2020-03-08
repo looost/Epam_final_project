@@ -18,6 +18,7 @@ public class Runner {
         String[] matrixValue = ServiceFactory.getInstance().getService().getMatrixValue("src\\main\\java\\by\\training\\multithreading\\data\\matrix.txt");
         String[] threadValue = ServiceFactory.getInstance().getService().getThreadValue("src\\main\\java\\by\\training\\multithreading\\data\\thread.txt");
         int matrixSize = 11;
+        int countThread = 5;
 
         Matrix matrix = MatrixCreator.createMatrix(matrixValue, matrixSize);
 
@@ -34,7 +35,7 @@ public class Runner {
         Semaphore semaphore = new Semaphore(2);
         MatrixSemaphore matrixSemaphore;
 
-//        for (int i = 0; i < matrixSize/2; i++) {
+//        for (int i = 0; i < matrixSize/2; i++) { //TODO
 //            matrixSemaphore = new MatrixSemaphore(matrix, Integer.parseInt(threadValue[i]), semaphore);
 //            matrixSemaphore.start();
 //        }
@@ -62,15 +63,15 @@ public class Runner {
         Phaser phaser = new Phaser(4);
         MatrixPhaser matrixPhaser;
 
-        for (int i = 0; i < matrixSize / 2; i++) {
-            matrixPhaser = new MatrixPhaser(matrix, Integer.parseInt(threadValue[i]), phaser, lock);
-            try {
-                TimeUnit.MILLISECONDS.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            matrixPhaser.start();
-        }
+//        for (int i = 0; i < matrixSize / 2; i++) {
+//            matrixPhaser = new MatrixPhaser(matrix, Integer.parseInt(threadValue[i]), phaser, lock);
+//            try {
+//                TimeUnit.MILLISECONDS.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            matrixPhaser.start();
+//        }
 
 
         TimeUnit.MILLISECONDS.sleep(4000);

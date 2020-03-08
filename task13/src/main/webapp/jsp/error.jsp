@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-2">
 
-            <a href="/xml" class="btn btn-info btn-lg active mt-3 mb-3" role="button" aria-pressed="true">Вернуться
+            <a href="/task13/xml" class="btn btn-info btn-lg active mt-3 mb-3" role="button" aria-pressed="true">Вернуться
                 назад</a>
         </div>
         <div class="col-10">

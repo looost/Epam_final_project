@@ -123,3 +123,4 @@ java.lang.NumberFormatException: For input string: "asd"
 	at by.training.controller.command.CommandProvider.getCommand(CommandProvider.java:31) [classes/:?]
 	at by.training.controller.Controller.getCommand(Controller.java:9) [classes/:?]
 	at by.training.controller.Runner.main(Runner.java:52) [classes/:?]
+06::03::2020 18:00:50 [main] ERROR training.controller.command.impl.SortLexemeInSentenceByCharCommand execute Не введен символ!

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <!-- Specify a JDBC datasource -->
+    <Resource
+            name="jdbc/serial"
+            auth="Container"
+            type="javax.sql.DataSource"
+            username="application"
+            password="admin"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC"
+            validationQuery="select 1"
+            maxActive="10"
+            maxIdle="4"/>
+</Context>

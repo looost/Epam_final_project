@@ -35,7 +35,7 @@ public class ThreadSaveCollection extends Thread {
     public void run() {
         while (check()) {
             int index = random.nextInt(matrix.getHorizontalSize());
-
+ // TODO использовать remove
             lock.lock();
             if (((Element) list.get(index)).getValue() == 0) {
                 logger.info(Thread.currentThread().getName() + " записывает в ячейку - " + index + " значение - " + value);
