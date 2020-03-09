@@ -15,7 +15,7 @@ import java.util.Properties;
 
 public class CommentDaoImpl implements CommentDao {
 
-    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlComment.properties";
+    private static final String PATH_TO_PROPERTIES = "E:\\Java-Training\\finaltask\\src\\main\\resources\\sqlComment.properties";
 
     private Connection connection;
     private static final ResultSetHandler<Comment> COMMENT_RESULT_SET_HANDLER =

@@ -13,7 +13,7 @@ import java.util.*;
 
 public class GenreDaoImpl implements GenreDao {
 
-    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlGenre.properties";
+    private static final String PATH_TO_PROPERTIES = "E:\\Java-Training\\finaltask\\src\\main\\resources\\sqlGenre.properties";
 
     private Connection connection;
 

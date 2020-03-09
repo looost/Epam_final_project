@@ -26,8 +26,7 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        resp.setCharacterEncoding("UTF-8");
-//        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding("UTF-8");
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         String logo = req.getParameter("logo");

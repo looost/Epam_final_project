@@ -17,7 +17,7 @@
 
         <div class="row">
 
-            <div class="col-1 mb-3 clear">
+            <div class="col-1 mb-3 p-0">
                 <c:forEach var="g" items="${genres}">
                     <a class="nav-link" href="#">${g.name}</a>
                 </c:forEach>
@@ -28,14 +28,16 @@
                 <div class="container-fluid">
                     <div class="row">
 
+                        <div class="row row-cols-1 row-cols-md-4">
                         <c:forEach items="${shows}" var="s">
-                            <div class="col-3 card clear my_card">
-                                <a href="/show?id=${s.id}">
-                                    <img class="card-img-top" src="${s.logo}" alt="Card image cap" height="144px">
+                            <div class="col mb-4">
+                                <div class="card h-100">
+                                <a href="/final/show?id=${s.id}">
+                                    <img class="card-img-top" src="${s.logo}" alt="Card image cap" >
                                 </a>
 
                                 <div class="card-header" style="max-height: 3rem">
-                                    <a class="card-title" href="/show?id=${s.id}" style="font-family: segoe print">
+                                    <a class="card-title" href="/final/show?id=${s.id}" style="font-family: segoe print">
                                         <h5 class="text-center">${s.name}</h5>
                                     </a>
                                 </div>
@@ -46,14 +48,15 @@
                                     <small class="text-muted">${s.studio.name}</small>
                                 </div>
                             </div>
+                            </div>
                         </c:forEach>
-
+                        </div>
 
                     </div>
                 </div>
             </div>
 
-            <div class="card col-2 mb-3 clear">
+            <div class="card col-2 mb-3 p-0">
 
                 <div class="card text-white bg-dark mb-3" style="max-height: 3rem;">
                     <div class="card-header">
@@ -61,43 +64,29 @@
                     </div>
                 </div>
 
-                <div class="card bg-dark text-white my_card">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay clear">
-                        <div class="layout">
-                            <p class="info">Звездный путь: Пикар</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-dark text-white my_card">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay clear">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-dark text-white my_card">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay clear">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-dark text-white my_card">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay clear">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
+<c:forEach var="l" items="${last}">
 
+    <div class="card mb-3">
+        <a href="/final/show?id=${l.id}">
+            <img class="card-img-top" src="${l.logo}" alt="Card image cap">
+        </a>
+        <div class="card-body">
+            <h5 class="card-title">${l.name}</h5>
+            <p class="card-text"><small class="text-muted">${l.releaseDate}</small></p>
+        </div>
+    </div>
+
+
+<%--                <div class="card bg-dark text-white mb-1">--%>
+<%--                    <img class="card-img" src="${l.logo}" alt="Card image">--%>
+<%--                    <div class="card-img-overlay overlay p-0">--%>
+<%--                        <div class="layout">--%>
+<%--                            <p class="info">${l.name}</p>--%>
+<%--                            <p class="data">${l.releaseDate}</p>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+</c:forEach>
 
             </div>
 

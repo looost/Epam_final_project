@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class StudioDaoImpl implements AbstractDao<String, Studio> {
 
-    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlStudio.properties";
+    private static final String PATH_TO_PROPERTIES = "E:\\Java-Training\\finaltask\\src\\main\\resources\\sqlStudio.properties";
 
     private Connection connection;
 

@@ -22,7 +22,7 @@ import java.util.Set;
 public class SerialStAXBuilder extends BaseBuilder {
 
     private Logger logger = LogManager.getLogger("logger");
-    private static final String schemaPath = "D:\\Training\\task13\\src\\main\\resources\\xml\\serials.xsd";
+    private static final String schemaPath = "..\\webapps\\ROOT\\WEB-INF\\classes\\xml\\serials.xsd";
     private XMLInputFactory inputFactory;
 
     public SerialStAXBuilder() {

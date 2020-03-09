@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class UserDaoImpl implements UserDao {
 
-    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlUser.properties";
+    private static final String PATH_TO_PROPERTIES = "E:\\Java-Training\\finaltask\\src\\main\\resources\\sqlUser.properties";
     private Connection connection;
 
     public UserDaoImpl(Connection connection) {

@@ -8,7 +8,7 @@
 
         <div class="col-4">
 
-            <form method="post" action="/login">
+            <form method="post" action="/final/login">
                 <div class="card mt-5 mb-5" style="background-color: #9999CC">
                     <form class="ml-3 mr-3">
                         <div class="form-group m-2">

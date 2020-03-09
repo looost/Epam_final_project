@@ -36,7 +36,7 @@ public class ParseServlet extends HttpServlet {
                 if (item.isFormField()) {
                     name = item.getString();
                 } else {
-                        File file = new File("D:\\Training\\task13\\src\\main\\resources\\data\\" + item.getName());
+                    File file = new File("E:\\Java-Training\\task13\\src\\main\\webapp\\WEB-INF\\userdate\\" + item.getName());
                         item.write(file);
                         filePath = file.getPath();
                 }

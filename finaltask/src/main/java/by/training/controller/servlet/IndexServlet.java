@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("/index")
 public class IndexServlet extends HttpServlet {
@@ -28,8 +30,10 @@ public class IndexServlet extends HttpServlet {
         try {
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
             List<Genre> genres = ServiceFactory.getInstance().getGenreService().findAll();
+            List <Serial> last =  serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
 //            List <Serial> serialList = ServiceFactory.getInstance().getSerialService().findAllSerial2(1,4);
             req.setAttribute("shows", serialList);
+            req.setAttribute("last", last);
             req.setAttribute("genres", genres);
         } catch (ServiceException e) {
             e.printStackTrace();

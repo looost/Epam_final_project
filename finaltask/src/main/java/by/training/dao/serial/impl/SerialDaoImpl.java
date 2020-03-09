@@ -1,20 +1,21 @@
 package by.training.dao.serial.impl;
 
 import by.training.dao.exception.DaoException;
-import by.training.dao.jdbc.ResultSetHandler;
-import by.training.dao.serial.SerialDao;
 import by.training.dao.jdbc.JDBCUtil;
+import by.training.dao.jdbc.ResultSetHandler;
 import by.training.dao.jdbc.ResultSetHandlerFactory;
-import by.training.model.*;
+import by.training.dao.serial.SerialDao;
+import by.training.model.Serial;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Properties;
 
 public class SerialDaoImpl implements SerialDao {
 
-    private static final String PATH_TO_PROPERTIES = "D:\\Training\\finaltask\\src\\main\\resources\\sqlSerial.properties";
+    private static final String PATH_TO_PROPERTIES = "E:\\Java-Training\\finaltask\\src\\main\\resources\\sqlSerial.properties";
 
     private Connection connection;
     private static final ResultSetHandler<Serial> SERIAL_RESULT_SET_HANDLER =
@@ -45,8 +46,9 @@ public class SerialDaoImpl implements SerialDao {
 
     @Override
     public List<Serial> findSerialBySearchForm(String searchQuery) throws DaoException {
+        searchQuery = "%" + searchQuery + "%";
         return JDBCUtil.select(connection, getProperties().getProperty("findSerialBySearchQuery"),
-                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER));
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), searchQuery, searchQuery);
     }
 
     @Override
