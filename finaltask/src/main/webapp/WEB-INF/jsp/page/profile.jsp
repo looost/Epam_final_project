@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <form method="post">
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="exampleFormControlInput1">Название сериала:</label>
             <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
                    placeholder="Название сериала">
@@ -28,20 +28,39 @@
             <input type="text" name="full_logo" class="form-control" id="full_logo"
                    placeholder="Ссылка на полное лого">
         </div>
+
         <div class="form-group">
-            <label for="date">Дата выхода сериала</label>
-            <input type="text" name="release_date" class="form-control" id="date"
-                   placeholder="Дата выхода сериала">
+            <label for="date">Введите дату выхода сериала:</label>
+            <input type="date" class="form-control" name="release_date" id="date">
         </div>
-        <div class="form-group">
-            <label for="country_id">ID страны</label>
-            <input type="text" name="country_id" class="form-control" id="country_id"
-                   placeholder="id страны">
+
+        <div class="mb-2">
+            <label>Выберите жанры:</label>
+            <c:forEach var="g" items="${genres}">
+                <div class="custom-control custom-checkbox">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="${g.id}" name="genre">
+                    <label class="form-check-label" for="inlineCheckbox2">${g.name}</label>
+                </div>
+            </c:forEach>
         </div>
-        <div class="form-group">
-            <label for="studio_id">ID студии</label>
-            <input type="text" name="studio_id" class="form-control" id="studio_id"
-                   placeholder="ID студии">
+
+        <div class="mb-2">
+            <label>Выберите страну:</label>
+            <br>
+            <select class="custom-select" name="country">
+                <c:forEach var="c" items="${country}">
+                    <option value="${c.id}">${c.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <div class="mb-2">
+            <label>Выберите студию:</label>
+            <select class="custom-select" name="studio">
+                <c:forEach var="s" items="${studio}">
+                    <option value="${s.id}">${s.name}</option>
+                </c:forEach>
+            </select>
         </div>
 
 

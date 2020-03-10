@@ -1,7 +1,7 @@
 package by.training.model;
 
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Comment extends AbstractEntity {
     private static final long serialVersionUID = -4451328805432622998L;

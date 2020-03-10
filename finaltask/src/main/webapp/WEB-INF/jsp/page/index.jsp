@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- portfolio -->
 <div class="portfolio">
     <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>
@@ -72,7 +73,8 @@
         </a>
         <div class="card-body">
             <h5 class="card-title">${l.name}</h5>
-            <p class="card-text"><small class="text-muted">${l.releaseDate}</small></p>
+            <p class="card-text"><small class="text-muted"><fmt:formatDate value="${l.releaseDate}"
+                                                                           pattern="dd-MM-yyyy"/> </small></p>
         </div>
     </div>
 

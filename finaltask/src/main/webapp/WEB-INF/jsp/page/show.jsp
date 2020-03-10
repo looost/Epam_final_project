@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <div class="portfolio">
     <h1 class="text-center m-3" style="font-family: segoe print">${show.name}</h1>
@@ -42,7 +44,8 @@
 
                             <div class="card p-0 border-light" >
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Даты выхода: ${show.releaseDate}</li>
+                                    <li class="list-group-item">Даты выхода: <fmt:formatDate value="${show.releaseDate}"
+                                                                                             pattern="dd-MM-yyyy"/></li>
                                     <li class="list-group-item">Страна: ${show.country.name}</li>
                                     <li class="list-group-item">Студия: ${show.studio.name}</li>
                                     <li class="list-group-item">Жанры:<c:forEach items="${show.genres}"
@@ -86,7 +89,8 @@
                             <p class="card-text text-left">${comment.comment}</p>
                         </div>
                         <div class="card-footer text-muted">
-                                ${comment.publicationDate}
+                            <fmt:formatDate value="${comment.publicationDate}" pattern="dd-MM-yyyy hh:mm:ss"/>
+
                         </div>
                     </div>
                 </c:forEach>

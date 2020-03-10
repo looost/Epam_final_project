@@ -1,5 +1,6 @@
-package by.training.controller.servlet;
+package by.training.controller.command.impl;
 
+import by.training.controller.command.Command;
 import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
@@ -11,17 +12,15 @@ import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
-public class ShowServlet extends HttpServlet {
+public class ShowCommand implements Command {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void executeDoGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
@@ -32,8 +31,10 @@ public class ShowServlet extends HttpServlet {
         RoutingUtils.forwardToPage("show.jsp", req, resp);
     }
 
+
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void executeDoPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.setCharacterEncoding("UTF-8");
         String comment = req.getParameter("comment");
         String id = req.getParameter("id");
@@ -44,10 +45,9 @@ public class ShowServlet extends HttpServlet {
             Comment newComment = new Comment(user, serial, comment);
             ServiceFactory.getInstance().getCommentService().create(newComment);
             req.setAttribute("show", serial);
-            doGet(req, resp);
+            RoutingUtils.redirectToPage("show?id=" + id, resp);
         } catch (DaoException | ServiceException e) {
             e.printStackTrace();
         }
-
     }
 }
