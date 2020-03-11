@@ -4,4 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>xml</servlet-name>
+        <servlet-class>by.training.controller.servlet.XmlServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>xml</servlet-name>
+        <url-pattern>/xml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>xml</servlet-name>
+        <url-pattern>/xml/parser</url-pattern>
+    </servlet-mapping>
 </web-app>

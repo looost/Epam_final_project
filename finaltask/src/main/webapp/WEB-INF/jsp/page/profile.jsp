@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data" action="/final/profile">
         <div class="form-group mt-3">
             <label for="exampleFormControlInput1">Название сериала:</label>
             <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
@@ -18,16 +18,28 @@
             <label for="description">Описание сериала</label>
             <textarea class="form-control" name="description" id="description" rows="3"></textarea>
         </div>
+
         <div class="form-group">
-            <label for="logo">Ссылка на лого</label>
-            <input type="text" name="logo" class="form-control" id="logo"
-                   placeholder="Ссылка на лого">
+            <label for="logo">Выберите фото превью</label>
+            <input type="file" class="form-control-file" id="logo" name="logo">
         </div>
+
+        <%--        <div class="form-group">--%>
+        <%--            <label for="logo">Ссылка на лого</label>--%>
+        <%--            <input type="text" name="logo" class="form-control" id="logo"--%>
+        <%--                   placeholder="Ссылка на лого">--%>
+        <%--        </div>--%>
+
         <div class="form-group">
-            <label for="full_logo">Ссылка на полное лого</label>
-            <input type="text" name="full_logo" class="form-control" id="full_logo"
-                   placeholder="Ссылка на полное лого">
+            <label for="full_logo">Выберите полное фото</label>
+            <input type="file" class="form-control-file" id="full_logo" name="full_logo">
         </div>
+
+        <%--        <div class="form-group">--%>
+        <%--            <label for="full_logo">Ссылка на полное лого</label>--%>
+        <%--            <input type="text" name="full_logo" class="form-control" id="full_logo"--%>
+        <%--                   placeholder="Ссылка на полное лого">--%>
+        <%--        </div>--%>
 
         <div class="form-group">
             <label for="date">Введите дату выхода сериала:</label>

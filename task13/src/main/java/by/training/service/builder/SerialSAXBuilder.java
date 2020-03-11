@@ -14,7 +14,7 @@ import java.io.IOException;
 public class SerialSAXBuilder extends BaseBuilder {
 
     private Logger logger = LogManager.getLogger("logger");
-    private static final String schemaPath = "..\\webapps\\ROOT\\WEB-INF\\classes\\xml\\serials.xsd";
+    private static final String schemaPath = "..\\webapps\\task13\\WEB-INF\\classes\\xml\\serials.xsd";
     private SerialHandler sh;
     private XMLReader reader;
 

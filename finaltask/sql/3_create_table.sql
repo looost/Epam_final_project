@@ -37,15 +37,15 @@ create table user
 
 create table serial
 (
-    `id`           INTEGER      NOT NULL AUTO_INCREMENT,
-    `name`         VARCHAR(45)  NOT NULL UNIQUE,
-    `description`  VARCHAR(512) NOT NULL,
-    `logo`         VARCHAR(20), -- TODO как буду хранить карттинки?
-    `full_logo`    VARCHAR(20),
-    `release_date` DATE         NOT NULL,
+    `id`           INTEGER       NOT NULL AUTO_INCREMENT,
+    `name`         VARCHAR(45)   NOT NULL UNIQUE,
+    `description`  VARCHAR(1024) NOT NULL,
+    `logo`         VARCHAR(100), -- TODO как буду хранить карттинки?
+    `full_logo`    VARCHAR(100),
+    `release_date` DATE          NOT NULL,
     `count_like`   INTEGER DEFAULT 0,
-    `country_id`   INTEGER      NOT NULL,
-    `studio_id`    INTEGER      NOT NULL,
+    `country_id`   INTEGER       NOT NULL,
+    `studio_id`    INTEGER       NOT NULL,
     CONSTRAINT pk_serial PRIMARY KEY (`id`),
     CONSTRAINT fk_serial_country FOREIGN KEY (`country_id`)
         REFERENCES country (`id`)

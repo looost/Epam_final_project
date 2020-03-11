@@ -34,7 +34,7 @@
                             <div class="col mb-4">
                                 <div class="card h-100">
                                 <a href="/final/show?id=${s.id}">
-                                    <img class="card-img-top" src="${s.logo}" alt="Card image cap" >
+                                    <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                 </a>
 
                                 <div class="card-header" style="max-height: 3rem">

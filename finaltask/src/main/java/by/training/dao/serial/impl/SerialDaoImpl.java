@@ -15,7 +15,7 @@ import java.util.Properties;
 
 public class SerialDaoImpl implements SerialDao {
 
-    private static final String PATH_TO_PROPERTIES = "E:\\Java-Training\\finaltask\\src\\main\\resources\\sqlSerial.properties";
+    private static final String PATH_TO_PROPERTIES = "..\\webapps\\final\\WEB-INF\\classes\\sqlSerial.properties";
 
     private Connection connection;
     private static final ResultSetHandler<Serial> SERIAL_RESULT_SET_HANDLER =
