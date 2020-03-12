@@ -1,128 +1,84 @@
 package by.training.service.serial.impl;
 
+import by.training.service.transaction.TransactionHandler;
+import by.training.service.transaction.TransactionHandlerFactory;
 import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.*;
+import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
-import by.training.service.factory.ServiceFactory;
 import by.training.service.serial.SerialService;
+import by.training.service.transaction.TransactionUtil;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 public class SerialServiceImpl implements SerialService {
 
+    private static final TransactionHandler<Serial> SERIAL_TRANSACTION_HANDLER = TransactionHandlerFactory.SERIAL_TRANSACTION_HANDLER;
+
     @Override
     public Serial findSerialByName(String name) throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
             Serial serial = DaoFactory.getInstance().getSerialDao(connection).findSerialByName(name);
-
-            List<Genre> genreList = DaoFactory.getInstance().getGenreDao(connection).findGenreBySerialId(String.valueOf(serial.getId()));
-            serial.setGenres(genreList);
-
-            Country country = DaoFactory.getInstance().getCountryDao(connection).findById(String.valueOf(serial.getCountry().getId()));
-            serial.getCountry().setName(country.getName());
-
-            Studio studio = DaoFactory.getInstance().getStudioDao(connection).findById(String.valueOf(serial.getStudio().getId()));
-            serial.getStudio().setName(studio.getName());
-
-            List<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial(String.valueOf(serial.getId()));
-            serial.setComments(commentSet);
-
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return serial;
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getSingleTransactionHandler(SERIAL_TRANSACTION_HANDLER), serial);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new ServiceException("Commit problem", e);
         }
     }
 
     @Override
     public List<Serial> findAll() throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            List <Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findAll();
-            int size = serialList.size();
-            for (int i = 0; i < size; i++) {
-                serialList.set(i, findSerialByName(serialList.get(i).getName()));
-            }
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return serialList;
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findAll();
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new ServiceException("Commit problem", e);
         }
     }
 
     @Override
     public List<Serial> findAllSerial2(int page, int limit) throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findAllSerial2(page, limit);
-            int size = serialList.size();
-            for (int i = 0; i < size; i++) {
-                serialList.set(i, findSerialByName(serialList.get(i).getName()));
-            }
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return serialList;
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new ServiceException("Commit problem", e);
         }
     }
 
     @Override
     public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findSerialBySearchForm(searchQuery);
-            int size = serialList.size();
-            for (int i = 0; i < size; i++) {
-                serialList.set(i, findSerialByName(serialList.get(i).getName()));
-            }
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return serialList;
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new ServiceException("Commit problem", e);
         }
     }
 
     @Override
     public Serial findById(String id) throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
             Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById(id);
-            serial = findSerialByName(serial.getName());
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return serial;
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getSingleTransactionHandler(SERIAL_TRANSACTION_HANDLER), serial);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new ServiceException("Cannot auto commit", e);
         }
     }
 
@@ -135,16 +91,20 @@ public class SerialServiceImpl implements SerialService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
-
     }
 
     @Override
-    public boolean create(Serial entity) throws ServiceException {
+    public boolean create(Serial entity) throws ServiceException { // КОСТЫЛЬ
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getSerialDao(connection).create(entity);
+            DaoFactory.getInstance().getSerialDao(connection).create(entity);
+            Serial serial = findSerialByName(entity.getName());
+            serial.setGenres(entity.getGenres());
+            DaoFactory.getInstance().getSerialGenreDao(connection).create(serial);
+            return true;
         } catch (DaoException e) {
+            e.printStackTrace();
             throw new ServiceException(e);
         }
     }

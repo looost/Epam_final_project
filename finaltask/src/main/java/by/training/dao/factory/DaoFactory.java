@@ -7,6 +7,7 @@ import by.training.dao.genre.GenreDao;
 import by.training.dao.genre.impl.GenreDaoImpl;
 import by.training.dao.serial.SerialDao;
 import by.training.dao.serial.impl.SerialDaoImpl;
+import by.training.dao.serialgenre.SerialGenreDao;
 import by.training.dao.studio.StudioDaoImpl;
 import by.training.dao.user.UserDao;
 import by.training.dao.user.impl.UserDaoImpl;
@@ -45,5 +46,9 @@ public class DaoFactory {
 
     public CommentDao getCommentDao(Connection connection) {
         return new CommentDaoImpl(connection);
+    }
+
+    public SerialGenreDao getSerialGenreDao(Connection connection) {
+        return new SerialGenreDao(connection);
     }
 }

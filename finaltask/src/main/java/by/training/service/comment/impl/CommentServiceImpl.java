@@ -4,36 +4,28 @@ import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Comment;
-import by.training.model.Serial;
-import by.training.model.User;
 import by.training.service.comment.CommentService;
 import by.training.service.exception.ServiceException;
+import by.training.service.transaction.TransactionHandler;
+import by.training.service.transaction.TransactionHandlerFactory;
+import by.training.service.transaction.TransactionUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class CommentServiceImpl implements CommentService {
+
+    private static final TransactionHandler<Comment> COMMENT_TRANSACTION_HANDLER = TransactionHandlerFactory.COMMENT_TRANSACTION_HANDLER;
+
     @Override
     public List<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            List<Comment> commentSet = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
-            User user;
-            Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById(serialId);
-            for (Comment c : commentSet
-            ) {
-                user = DaoFactory.getInstance().getUserDao(connection).findById(String.valueOf(c.getUser().getId()));
-                c.setUser(user);
-                c.setSerial(serial);
-            }
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return commentSet;
-        } catch (SQLException e) {
-            throw new ServiceException("Commit problem", e);
+            List<Comment> commentList = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(COMMENT_TRANSACTION_HANDLER), commentList);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -41,29 +33,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment findById(String id) throws ServiceException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
             Comment comment = DaoFactory.getInstance().getCommentDao(connection).findById(id);
-            User user = DaoFactory.getInstance().getUserDao(connection).findById(String.valueOf(comment.getUser().getId()));
-            comment.setUser(user);
-            Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById(String.valueOf(comment.getSerial().getId()));
-            comment.setSerial(serial);
-            connection.commit();
-
-            return comment;
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getSingleTransactionHandler(COMMENT_TRANSACTION_HANDLER), comment);
         } catch (DaoException e) {
             throw new ServiceException(e);
-        } catch (SQLException e) {
-            throw new ServiceException("Commit problem", e);
-        } finally {
-            try {
-                ConnectionPool.getInstance().close(connection);
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-
         }
     }
 

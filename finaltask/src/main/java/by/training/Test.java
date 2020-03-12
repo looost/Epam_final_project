@@ -1,13 +1,15 @@
 package by.training;
 
+import by.training.service.transaction.TransactionHandlerFactory;
+import by.training.service.transaction.TransactionUtil;
 import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.Comment;
+import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 
 public class Test {
     public static void main(String[] args) throws DaoException, ServiceException, SQLException {
@@ -22,10 +24,9 @@ public class Test {
         //List <Serial> serialList = DaoFactory.getInstance().getSerialDao(ConnectionPool.getInstance().getConnection()).findAll();
 //        List <Serial> serialList =
 //        serialList.forEach(serial -> System.out.println(serial));
-
-        Comment comment = DaoFactory.getInstance().getCommentDao(ConnectionPool.getInstance().getConnection()).findById("2");
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH-mm");
-
-        System.out.println(format.format(comment.getPublicationDate()));
+        Connection connection = ConnectionPool.getInstance().getConnection();
+        Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById("1");
+        Serial serial1 = TransactionUtil.select(connection, TransactionHandlerFactory.SERIAL_TRANSACTION_HANDLER, serial);
+        System.out.println(serial1);
     }
 }
