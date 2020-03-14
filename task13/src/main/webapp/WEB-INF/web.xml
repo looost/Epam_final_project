@@ -14,6 +14,23 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>xml</servlet-name>
-        <url-pattern>/xml/parser</url-pattern>
+        <url-pattern>/parser</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>xml</servlet-name>
+        <url-pattern>/language</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>xml</servlet-name>
+        <url-pattern>/parserget</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <!-- Timeout of inactivity in minutes -->
+        <session-timeout>15</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <!-- Cookie lifetime in seconds -->
+            <max-age>10</max-age>
+        </cookie-config>
+    </session-config>
 </web-app>

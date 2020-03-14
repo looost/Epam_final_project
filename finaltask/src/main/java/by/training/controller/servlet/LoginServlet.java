@@ -30,7 +30,8 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         User user = null;
         try {
-            user = DaoFactory.getInstance().getUserDao(ConnectionPool.getInstance().getConnection()).findByLoginAndPassword(login, password);
+            user = DaoFactory.getInstance()
+                    .getUserDao(ConnectionPool.getInstance().getConnection()).findByLoginAndPassword(login, password);
         } catch (DaoException e) {
             e.printStackTrace();
         }

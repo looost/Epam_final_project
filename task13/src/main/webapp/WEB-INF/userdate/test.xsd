@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.training.by/serialsNew"
+        xmlns:tns="http://www.training.by/serialsNew"
+        elementFormDefault="qualified">
+
+    <element name="entities">
+        <complexType>
+            <sequence>
+                <element ref="tns:entity"
+                         maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="entity" type="tns:Entity" abstract="true"/>
+    <element name="serial" type="tns:Serial" substitutionGroup="tns:entity"/>
+    <element name="studio" type="tns:Studio" substitutionGroup="tns:entity"/>
+    <element name="comment" type="tns:Comment" substitutionGroup="tns:entity"/>
+    <element name="country" type="tns:Country" substitutionGroup="tns:entity"/>
+    <element name="user" type="tns:User" substitutionGroup="tns:entity"/>
+
+    <complexType name="Entity">
+        <sequence>
+            <element name="id" type="positiveInteger"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Serial">
+        <complexContent>
+            <extension base="tns:Entity">
+                <all>
+                    <element name="name" type="string"/>
+                    <element name="description" type="string"/>
+                    <element name="logo" type="string"/>
+                    <element name="fullLogo" type="string"/>
+                    <element name="releaseDate" type="date"/>
+                    <element name="countLike" type="int" default="0"/>
+                    <element name="country" type="tns:Country"/>
+                    <element name="studio" type="tns:Studio"/>
+                    <element name="genres" type="tns:Genres"/>
+                    <element name="comments" type="tns:Comments"/>
+                </all>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Country">
+        <complexContent>
+            <extension base="tns:Entity">
+                <all>
+                    <element name="name" type="string"/>
+                </all>
+                <attribute name="id" type="int" use="required"/>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Studio">
+        <complexContent>
+            <extension base="tns:Entity">
+                <all>
+                    <element name="name" type="string"/>
+                </all>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Genres">
+        <sequence>
+            <element name="genre" type="tns:Genre" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Comments">
+        <sequence>
+            <element name="comment" type="tns:Comment" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="Genre">
+        <complexContent>
+            <extension base="tns:Entity">
+                <all>
+                    <element name="name" type="string"/>
+                </all>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="Comment">
+        <complexContent>
+            <extension base="tns:Entity">
+                <all>
+                    <element name="user" type="tns:User"/>
+                    <element name="comment-text" type="string"/>
+                    <element name="publicationDate" type="date"/>
+                </all>
+            </extension>
+        </complexContent>
+    </complexType>
+
+    <complexType name="User">
+        <complexContent>
+            <extension base="tns:Entity">
+                <all>
+                    <element name="login" type="string"/>
+                    <element name="password" type="string"/>
+                </all>
+                <attribute name="role" use="required">
+                    <simpleType>
+                        <restriction base="int">
+                            <enumeration value="1"/>
+                            <enumeration value="2"/>
+                            <enumeration value="3"/>
+                        </restriction>
+                    </simpleType>
+                </attribute>
+            </extension>
+        </complexContent>
+    </complexType>
+
+
+</schema>

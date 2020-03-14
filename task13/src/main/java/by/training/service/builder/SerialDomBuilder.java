@@ -11,9 +11,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashSet;
@@ -24,17 +28,13 @@ public class SerialDomBuilder extends BaseBuilder {
     private Logger logger = LogManager.getLogger("logger");
     private static final String schemaPath = "..\\webapps\\task13\\WEB-INF\\classes\\xml\\serials.xsd";
     private DocumentBuilder docBuilder;
+    private DocumentBuilderFactory factory;
 
     public SerialDomBuilder() {
         this.serials = new HashSet<>();
         // создание DOM-анализатора
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        this.factory = DocumentBuilderFactory.newInstance();
 
-        try {
-            docBuilder = factory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            logger.error("Ошибка конфигурации парсера: " + e);
-        }
     }
 
     @Override
@@ -45,6 +45,24 @@ public class SerialDomBuilder extends BaseBuilder {
         if (!ValidationXML.xmlIsValid(fileName, schemaPath)) {
             logger.error("Invalid XML");
             throw new ServiceException("Invalid XML");
+        }
+
+        String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+        SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
+        Schema schema = null;
+        try {
+            schema = xsdFactory.newSchema(new File(schemaPath));
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
+        factory.setNamespaceAware(true);
+        factory.setValidating(true);
+        factory.setSchema(schema);
+
+        try {
+            docBuilder = factory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            logger.error("Ошибка конфигурации парсера: " + e);
         }
 
         Document doc = null;
@@ -75,6 +93,7 @@ public class SerialDomBuilder extends BaseBuilder {
         serial.setLogo(getElementTextContent(serialElement, "logo"));
         serial.setFullLogo(getElementTextContent(serialElement, "fullLogo"));
         serial.setReleaseDate(Date.valueOf(getElementTextContent(serialElement, "releaseDate")));
+        serial.setCountLike(Integer.parseInt(getElementTextContent(serialElement, "countLike")));
 
         Country country = new Country();
         Element countryElement = (Element) serialElement.getElementsByTagName("country").item(0);

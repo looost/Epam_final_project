@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 <head>
     <title>Xml Exercise</title>
@@ -15,14 +17,28 @@
 </head>
 <body>
 <div class="container-fluid pt-5">
+    <fmt:setLocale value="${sessionScope.language}" scope="session"/>
+    <fmt:setBundle basename="property.text" var="rb"/>
+    <div>
+        <form method="post" action="/task13/language">
+            <label>
+                <select name="language">
+                    <option value="ru_RU">Русский</option>
+                    <option value="en_US">English</option>
+                    <option value="by_BY">Беларускі</option>
+                </select>
+            </label>
+            <input type="submit" value="<fmt:message key="send" bundle="${ rb }" />">
+        </form>
+    </div>
 
-    <form action="xml/parser" method="post" enctype="multipart/form-data" >
+    <form action="/task13/parser" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label>Загрузите xml файл</label>
+            <label><fmt:message key="upload" bundle="${ rb }"/> </label>
             <input name="data" type="file" class="form-control-file" accept="application/xml">
         </div>
         <div>
-            <label>Выберете способ парсинга XML</label>
+            <label><fmt:message key="choise" bundle="${ rb }"/></label>
             <select class="form-control" name="parser">
                 <option>SAX</option>
                 <option>StAX</option>
@@ -30,24 +46,9 @@
             </select>
         </div>
         <div>
-            <button type="submit" class="btn btn-primary mt-3">Отправить</button>
+            <button type="submit" class="btn btn-primary mt-3"><fmt:message key="send" bundle="${ rb }"/></button>
         </div>
     </form>
-
-    <%--    <form action="/xml/parser1" method="post" enctype="multipart/form-data">--%>
-    <%--    <input name="description" type="text"><br>--%>
-    <%--    <input name="data" type="file"><br>--%>
-    <%--    <input type="submit"><br>--%>
-    <%--    </form>--%>
-
-    <%--    <form method="POST" action="/xml/parser"  >--%>
-    <%--        File:--%>
-    <%--        <input type="file" name="file" id="file" /> <br/>--%>
-    <%--        Destination:--%>
-    <%--        <input type="text" value="/tmp" name="parser"/>--%>
-    <%--        </br>--%>
-    <%--        <input type="submit" value="Upload" name="upload" id="upload" />--%>
-    <%--    </form>--%>
 </div>
 </body>
 </html>
