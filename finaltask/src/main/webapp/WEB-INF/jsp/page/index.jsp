@@ -33,12 +33,13 @@
                         <c:forEach items="${shows}" var="s">
                             <div class="col mb-4">
                                 <div class="card h-100">
-                                <a href="/final/show?id=${s.id}">
+                                    <a href="/final/show.html?id=${s.id}">
                                     <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                 </a>
 
                                 <div class="card-header" style="max-height: 3rem">
-                                    <a class="card-title" href="/final/show?id=${s.id}" style="font-family: segoe print">
+                                    <a class="card-title" href="/final/show.html?id=${s.id}"
+                                       style="font-family: segoe print">
                                         <h5 class="text-center">${s.name}</h5>
                                     </a>
                                 </div>
@@ -68,7 +69,7 @@
 <c:forEach var="l" items="${last}">
 
     <div class="card mb-3">
-        <a href="/final/show?id=${l.id}">
+        <a href="/final/show.html?id=${l.id}">
             <img class="card-img-top" src="${l.logo}" alt="Card image cap">
         </a>
         <div class="card-body">

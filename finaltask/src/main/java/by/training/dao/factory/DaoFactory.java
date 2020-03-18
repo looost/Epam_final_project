@@ -1,16 +1,16 @@
 package by.training.dao.factory;
 
-import by.training.dao.comment.CommentDao;
-import by.training.dao.comment.impl.CommentDaoImpl;
-import by.training.dao.country.CountryDaoImpl;
-import by.training.dao.genre.GenreDao;
-import by.training.dao.genre.impl.GenreDaoImpl;
-import by.training.dao.serial.SerialDao;
-import by.training.dao.serial.impl.SerialDaoImpl;
-import by.training.dao.serialgenre.SerialGenreDao;
-import by.training.dao.studio.StudioDaoImpl;
-import by.training.dao.user.UserDao;
-import by.training.dao.user.impl.UserDaoImpl;
+import by.training.dao.CommentDao;
+import by.training.dao.impl.CommentDaoImpl;
+import by.training.dao.impl.CountryDaoImpl;
+import by.training.dao.GenreDao;
+import by.training.dao.impl.GenreDaoImpl;
+import by.training.dao.SerialDao;
+import by.training.dao.impl.SerialDaoImpl;
+import by.training.dao.impl.SerialGenreDao;
+import by.training.dao.impl.StudioDaoImpl;
+import by.training.dao.UserDao;
+import by.training.dao.impl.UserDaoImpl;
 
 import java.sql.Connection;
 

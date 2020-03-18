@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class WrongRequestCommand implements Command {
+public class RegistrationCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RoutingUtils.forwardToPage("error.jsp", req, resp);
+        RoutingUtils.forwardToPage("registration.jsp", req, resp);
     }
 }

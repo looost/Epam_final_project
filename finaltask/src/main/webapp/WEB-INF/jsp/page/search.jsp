@@ -23,12 +23,13 @@
 
                         <c:forEach items="${shows}" var="s">
                             <div class="col-3 card p-0 mb-2">
-                                <a href="/final/show?id=${s.id}">
+                                <a href="/final/show.html?id=${s.id}">
                                     <img class="card-img-top" src="${s.logo}" alt="Card image cap" height="144px">
                                 </a>
 
                                 <div class="card-header" style="max-height: 3rem">
-                                    <a class="card-title" href="/final/show?id=${s.id}" style="font-family: segoe print">
+                                    <a class="card-title" href="/final/show.html?id=${s.id}"
+                                       style="font-family: segoe print">
                                         <h5 class="text-center">${s.name}</h5>
                                     </a>
                                 </div>

@@ -1,17 +1,20 @@
 package by.training.service.factory;
 
-import by.training.service.comment.CommentService;
-import by.training.service.comment.impl.CommentServiceImpl;
-import by.training.service.genre.GenreService;
-import by.training.service.genre.impl.GenreServiceImpl;
-import by.training.service.serial.SerialService;
-import by.training.service.serial.impl.SerialServiceImpl;
+import by.training.service.CommentService;
+import by.training.service.UserService;
+import by.training.service.impl.CommentServiceImpl;
+import by.training.service.GenreService;
+import by.training.service.impl.GenreServiceImpl;
+import by.training.service.SerialService;
+import by.training.service.impl.SerialServiceImpl;
+import by.training.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
     private final SerialService serialService = new SerialServiceImpl();
     private final CommentService commentService = new CommentServiceImpl();
     private final GenreService genreService = new GenreServiceImpl();
+    private final UserService userService = new UserServiceImpl();
 
 
     private ServiceFactory() {
@@ -31,5 +34,9 @@ public class ServiceFactory {
 
     public GenreService getGenreService() {
         return genreService;
+    }
+
+    public UserService getUserService() {
+        return userService;
     }
 }

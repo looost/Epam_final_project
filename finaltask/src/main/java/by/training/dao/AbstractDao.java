@@ -3,12 +3,7 @@ package by.training.dao;
 import by.training.dao.exception.DaoException;
 import by.training.model.AbstractEntity;
 
-import java.util.List;
-import java.util.Set;
-
 public interface AbstractDao<KEY, ENTITY extends AbstractEntity> {
-
-    List<ENTITY> findAll() throws DaoException; // TODO для жанров нужен не List а Set - жанры уникальны
 
     ENTITY findById(KEY id) throws DaoException;
 

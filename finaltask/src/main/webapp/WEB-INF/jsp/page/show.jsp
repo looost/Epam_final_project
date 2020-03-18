@@ -63,7 +63,7 @@
                 <c:choose>
                 <c:when test="${sessionScope.user != null}">
                 <div>
-                    <form action="/final/show?id=${show.id}" method="post">
+                    <form action="/final/add_comment.html?id=${show.id}" method="post">
                         <div class="form-group mt-3">
                             <label for="exampleFormControlTextarea1">Оставить свой комментарий:</label>
                             <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"
@@ -75,7 +75,8 @@
                 </c:when>
                 <c:when test="${sessionScope.user == null}">
                     <div class="alert alert-danger mt-3" role="alert">
-                        Оставлять комментарии могут только зарегистрированные пользователи. <a href="/final/login" class="alert-link">Войти</a>.
+                        Оставлять комментарии могут только зарегистрированные пользователи. <a href="/final/login.html"
+                                                                                               class="alert-link">Войти</a>.
                     </div>
                 </c:when>
                 </c:choose>

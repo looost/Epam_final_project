@@ -103,6 +103,6 @@ java.sql.SQLException: Column 'genre_id' not found.
 	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63) ~[mysql-connector-java-8.0.19.jar:8.0.19]
 	at com.mysql.cj.jdbc.result.ResultSetImpl.findColumn(ResultSetImpl.java:548) ~[mysql-connector-java-8.0.19.jar:8.0.19]
 	at com.mysql.cj.jdbc.result.ResultSetImpl.getInt(ResultSetImpl.java:807) ~[mysql-connector-java-8.0.19.jar:8.0.19]
-	at by.training.dao.serial.impl.SerialDaoImpl.findSerialByName(SerialDaoImpl.java:51) [classes/:?]
-	at by.training.service.serial.impl.SerialServiceImpl.findSerialByName(ShowServiceImpl.java:16) [classes/:?]
+	at by.training.dao.impl.SerialDaoImpl.findSerialByName(SerialDaoImpl.java:51) [classes/:?]
+	at by.training.service.impl.SerialServiceImpl.findSerialByName(ShowServiceImpl.java:16) [classes/:?]
 	at by.training.main.Test.main(Test.java:15) [classes/:?]

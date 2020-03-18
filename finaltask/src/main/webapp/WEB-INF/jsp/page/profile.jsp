@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    <form method="post" enctype="multipart/form-data" action="/final/profile">
+    <form method="post" enctype="multipart/form-data" action="/final/profile.html">
         <div class="form-group mt-3">
             <label for="exampleFormControlInput1">Название сериала:</label>
             <input type="text" name="name" class="form-control" id="exampleFormControlInput1"

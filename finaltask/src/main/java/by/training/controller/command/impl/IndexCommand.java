@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class IndexCommand implements Command {
 
     @Override
-    public void executeDoGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //resp.setCharacterEncoding("UTF-8");
         try {
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
@@ -31,11 +31,5 @@ public class IndexCommand implements Command {
         }
 
         RoutingUtils.forwardToPage("index.jsp", req, resp);
-    }
-
-
-    @Override
-    public void executeDoPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // unsupported
     }
 }
