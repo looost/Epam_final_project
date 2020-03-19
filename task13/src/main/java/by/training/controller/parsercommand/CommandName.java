@@ -1,4 +1,4 @@
-package by.training.controller.command;
+package by.training.controller.parsercommand;
 
 public enum CommandName {
     SAX,

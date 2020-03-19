@@ -94,7 +94,7 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public boolean create(Serial entity) throws ServiceException { // КОСТЫЛЬ
+    public boolean create(Serial entity) throws ServiceException { //TODO КОСТЫЛЬ?
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();

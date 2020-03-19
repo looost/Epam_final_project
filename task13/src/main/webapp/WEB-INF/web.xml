@@ -30,7 +30,7 @@
         <cookie-config>
             <http-only>true</http-only>
             <!-- Cookie lifetime in seconds -->
-            <max-age>10</max-age>
+            <max-age>30</max-age>
         </cookie-config>
     </session-config>
 </web-app>

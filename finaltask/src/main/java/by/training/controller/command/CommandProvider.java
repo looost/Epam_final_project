@@ -21,6 +21,7 @@ public class CommandProvider {
         repository.put(CommandName.ADD_COMMENT, new AddCommentCommand());
         repository.put(CommandName.PROFILE, new ProfileCommand());
         repository.put(CommandName.PROFILEPOST, new ProfilePostCommand());
+        repository.put(CommandName.LANGUAGE, new LanguageCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
     }
 
@@ -32,7 +33,6 @@ public class CommandProvider {
         try {
             return repository.get(CommandName.valueOf(requestURI.toUpperCase()));
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
             return repository.get(CommandName.WRONG_REQUEST);
         }
     }

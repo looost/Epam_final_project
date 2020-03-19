@@ -1,4 +1,4 @@
-package by.training.controller.command;
+package by.training.controller.parsercommand;
 
 import by.training.entity.Serial;
 

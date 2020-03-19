@@ -11,6 +11,7 @@
         <div class="row">
 
             <div class="col-1 mb-3 p-0">
+                <jsp:useBean id="genres" scope="request" type="java.util.List"/>
                 <c:forEach var="g" items="${genres}">
                     <a class="nav-link" href="#">${g.name}</a>
                 </c:forEach>
@@ -43,15 +44,17 @@
                         <%--                        </c:forEach>--%>
 
                         <div class="row row-cols-1 row-cols-md-4">
+                            <jsp:useBean id="shows" scope="request" type="java.util.List"/>
                             <c:forEach items="${shows}" var="s">
                                 <div class="col mb-4">
                                     <div class="card h-100">
-                                        <a href="/final/show.html?id=${s.id}">
+                                        <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
                                             <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                         </a>
 
                                         <div class="card-header" style="max-height: 3rem">
-                                            <a class="card-title" href="/final/show.html?id=${s.id}"
+                                            <a class="card-title"
+                                               href="${pageContext.request.contextPath}/show.html?id=${s.id}"
                                                style="font-family: segoe print">
                                                 <h5 class="text-center">${s.name}</h5>
                                             </a>

@@ -9,15 +9,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
 <!-- portfolio -->
 <div class="portfolio">
     <%--    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>--%>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Сериалы</h1>
+            <h1 class="display-4"><fmt:message key="serials" bundle="${ rb }"/></h1>
             <hr class="my-4">
-            <p class="lead">Добро пожаловать на сервис, который поможет Вам следить за своими любимыми сериалами и
-                делиться отзывами о них с другими людьми!</p>
+            <p class="lead"><fmt:message key="welcome" bundle="${ rb }"/></p>
         </div>
     </div>
 
@@ -26,6 +28,7 @@
         <div class="row">
 
             <div class="col-1 mb-3 p-0">
+                <jsp:useBean id="genres" scope="request" type="java.util.List"/>
                 <c:forEach var="g" items="${genres}">
                     <a class="nav-link" href="#">${g.name}</a>
                 </c:forEach>
@@ -37,15 +40,16 @@
                     <div class="row">
 
                         <div class="row row-cols-1 row-cols-md-4">
+                            <jsp:useBean id="shows" scope="request" type="java.util.List"/>
                         <c:forEach items="${shows}" var="s">
                             <div class="col mb-4">
                                 <div class="card h-100">
-                                    <a href="/final/show.html?id=${s.id}">
+                                    <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
                                     <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                 </a>
 
                                 <div class="card-header" style="max-height: 3rem">
-                                    <a class="card-title" href="/final/show.html?id=${s.id}"
+                                    <a class="card-title" href="${pageContext.request.contextPath}/show.html?id=${s.id}"
                                        style="font-family: segoe print">
                                         <h5 class="text-center">${s.name}</h5>
                                     </a>
@@ -69,14 +73,16 @@
 
                 <div class="card text-white bg-dark mb-3" style="max-height: 3rem;">
                     <div class="card-header">
-                        <h6 class="text-center" style="font-family: segoe print">Новые сериалы:</h6>
+                        <h6 class="text-center" style="font-family: segoe print"><fmt:message key="newShows"
+                                                                                              bundle="${ rb }"/></h6>
                     </div>
                 </div>
 
+                <jsp:useBean id="last" scope="request" type="java.util.List"/>
 <c:forEach var="l" items="${last}">
 
     <div class="card mb-3">
-        <a href="/final/show.html?id=${l.id}">
+        <a href="${pageContext.request.contextPath}/show.html?id=${l.id}">
             <img class="card-img-top" src="${l.logo}" alt="Card image cap">
         </a>
         <div class="card-body">

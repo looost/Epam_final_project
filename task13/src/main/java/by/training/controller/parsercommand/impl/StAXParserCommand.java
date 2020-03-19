@@ -1,18 +1,17 @@
-package by.training.controller.command.impl;
+package by.training.controller.parsercommand.impl;
 
-import by.training.controller.command.Command;
-import by.training.controller.command.CommandResponse;
+import by.training.controller.parsercommand.Command;
+import by.training.controller.parsercommand.CommandResponse;
 import by.training.entity.Serial;
 import by.training.service.builder.BaseBuilder;
-import by.training.service.builder.SerialDomBuilder;
+import by.training.service.builder.SerialStAXBuilder;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.ValidationXML;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class DOMParserCommand implements Command {
-
+public class StAXParserCommand implements Command {
     @Override
     public CommandResponse getSerials(String filePath) {
         CommandResponse response;
@@ -21,7 +20,7 @@ public class DOMParserCommand implements Command {
             return response;
         }
         try {
-            BaseBuilder baseBuilder = new SerialDomBuilder();
+            BaseBuilder baseBuilder = new SerialStAXBuilder();
             baseBuilder.buildSetSerials(filePath);
             response = new CommandResponse("OK", baseBuilder.getSerials());
             return response;

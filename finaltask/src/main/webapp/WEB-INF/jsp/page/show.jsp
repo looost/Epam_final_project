@@ -1,3 +1,4 @@
+<jsp:useBean id="show" scope="request" type="by.training.model.Serial"/>
 <%--
   Created by IntelliJ IDEA.
   User: Misha
@@ -9,6 +10,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
 
 <div class="portfolio">
     <h1 class="text-center m-3" style="font-family: segoe print">${show.name}</h1>
@@ -43,15 +46,20 @@
 
                             <div class="card p-0 border-light" >
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Даты выхода: <fmt:formatDate value="${show.releaseDate}"
-                                                                                             pattern="dd-MM-yyyy"/></li>
-                                    <li class="list-group-item">Страна: ${show.country.name}</li>
-                                    <li class="list-group-item">Студия: ${show.studio.name}</li>
-                                    <li class="list-group-item">Жанры:<c:forEach items="${show.genres}"
-                                                                                 var="genre"> ${genre.name} </c:forEach></li>
                                     <li class="list-group-item">
-                                        <button type="button" class="btn btn-danger">Лайк</button>
-                                    </li>
+                                        <fmt:message key="releaseDates" bundle="${ rb }"/>: <fmt:formatDate
+                                            value="${show.releaseDate}"
+                                            pattern="dd-MM-yyyy"/></li>
+                                    <li class="list-group-item"><fmt:message key="country"
+                                                                             bundle="${ rb }"/>: ${show.country.name}</li>
+                                    <li class="list-group-item"><fmt:message key="studio"
+                                                                             bundle="${ rb }"/>: ${show.studio.name}</li>
+                                    <li class="list-group-item"><fmt:message key="genres" bundle="${ rb }"/>:<c:forEach
+                                            items="${show.genres}"
+                                            var="genre"> ${genre.name} </c:forEach></li>
+                                    <%--                                    <li class="list-group-item">--%>
+                                    <%--                                        <button type="button" class="btn btn-danger">Лайк</button>--%>
+                                    <%--                                    </li>        --%>
                                 </ul>
                             </div>
 
@@ -62,24 +70,29 @@
 
                 </div>
                 <c:choose>
-                <c:when test="${sessionScope.user != null}">
-                <div>
-                    <form action="/final/add_comment.html?id=${show.id}" method="post">
-                        <div class="form-group mt-3">
-                            <label for="exampleFormControlTextarea1">Оставить свой комментарий:</label>
-                            <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                      placeholder="Максимальное количество симолов - 255"></textarea>
+                    <c:when test="${sessionScope.user != null}">
+                        <div>
+                            <form action="${pageContext.request.contextPath}/add_comment.html?id=${show.id}"
+                                  method="post">
+                                <div class="form-group mt-3">
+                                    <label for="exampleFormControlTextarea1"><fmt:message key="enterComment"
+                                                                                          bundle="${ rb }"/>:</label>
+                                    <textarea name="comment" class="form-control" id="exampleFormControlTextarea1"
+                                              rows="3"
+                                              placeholder="<fmt:message key="maxNumberCharacters" bundle="${ rb }" /> - 512"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-danger mb-2"><fmt:message key="send"
+                                                                                               bundle="${ rb }"/></button>
+                            </form>
                         </div>
-                        <button type="submit" class="btn btn-danger mb-2">Отправить</button>
-                    </form>
-                </div>
-                </c:when>
-                <c:when test="${sessionScope.user == null}">
-                    <div class="alert alert-danger mt-3" role="alert">
-                        Оставлять комментарии могут только зарегистрированные пользователи. <a href="/final/login.html"
-                                                                                               class="alert-link">Войти</a>.
-                    </div>
-                </c:when>
+                    </c:when>
+                    <c:when test="${sessionScope.user == null}">
+                        <div class="alert alert-danger mt-3" role="alert">
+                            <fmt:message key="commentRegistrUser" bundle="${ rb }"/> <a
+                                href="${pageContext.request.contextPath}/login.html"
+                                class="alert-link"><fmt:message key="signIn" bundle="${ rb }"/></a>.
+                        </div>
+                    </c:when>
                 </c:choose>
 
                 <c:forEach items="${show.comments}" var="comment">
@@ -103,14 +116,16 @@
 
                 <div class="card text-white bg-dark mb-3" style="max-height: 3rem;">
                     <div class="card-header">
-                        <h6 class="text-center" style="font-family: segoe print">Новые сериалы:</h6>
+                        <h6 class="text-center" style="font-family: segoe print"><fmt:message key="newShows"
+                                                                                              bundle="${ rb }"/></h6>
                     </div>
                 </div>
 
+                <jsp:useBean id="last" scope="request" type="java.util.List"/>
                 <c:forEach var="l" items="${last}">
 
                     <div class="card mb-3">
-                        <a href="/final/show.html?id=${l.id}">
+                        <a href="${pageContext.request.contextPath}/show.html?id=${l.id}">
                             <img class="card-img-top" src="${l.logo}" alt="Card image cap">
                         </a>
                         <div class="card-body">
@@ -118,8 +133,8 @@
                             <p class="card-text"><small class="text-muted"><fmt:formatDate value="${l.releaseDate}"
                                                                                            pattern="dd-MM-yyyy"/> </small>
                             </p>
+                        </div>
                     </div>
-                </div>
                 </c:forEach>
 
             </div>

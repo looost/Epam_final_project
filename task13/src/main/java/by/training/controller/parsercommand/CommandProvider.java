@@ -1,9 +1,9 @@
-package by.training.controller.command;
+package by.training.controller.parsercommand;
 
-import by.training.controller.command.impl.DOMParserCommand;
-import by.training.controller.command.impl.SAXParserCommand;
-import by.training.controller.command.impl.StAXParserCommand;
-import by.training.controller.command.impl.WrongRequestCommand;
+import by.training.controller.parsercommand.impl.DOMParserCommand;
+import by.training.controller.parsercommand.impl.SAXParserCommand;
+import by.training.controller.parsercommand.impl.StAXParserCommand;
+import by.training.controller.parsercommand.impl.WrongRequestCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

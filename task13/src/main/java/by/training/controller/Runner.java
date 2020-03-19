@@ -1,6 +1,6 @@
 package by.training.controller;
 
-import by.training.controller.command.CommandResponse;
+import by.training.controller.parsercommand.CommandResponse;
 import by.training.entity.Serial;
 import by.training.view.UserUI;
 import by.training.view.ViewConsole;

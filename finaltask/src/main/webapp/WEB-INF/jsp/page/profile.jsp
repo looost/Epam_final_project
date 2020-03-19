@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    <form method="post" enctype="multipart/form-data" action="/final/profilepost.html">
+    <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/profilepost.html">
         <div class="form-group mt-3">
             <label for="exampleFormControlInput1">Название сериала:</label>
             <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
@@ -48,6 +48,7 @@
 
         <div class="mb-2">
             <label>Выберите жанры:</label>
+            <jsp:useBean id="genres" scope="request" type="java.util.List"/>
             <c:forEach var="g" items="${genres}">
                 <div class="custom-control custom-checkbox">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="${g.id}" name="genre">
@@ -60,6 +61,7 @@
             <label>Выберите страну:</label>
             <br>
             <select class="custom-select" name="country">
+                <jsp:useBean id="country" scope="request" type="java.util.List"/>
                 <c:forEach var="c" items="${country}">
                     <option value="${c.id}">${c.name}</option>
                 </c:forEach>
@@ -69,6 +71,7 @@
         <div class="mb-2">
             <label>Выберите студию:</label>
             <select class="custom-select" name="studio">
+                <jsp:useBean id="studio" scope="request" type="java.util.List"/>
                 <c:forEach var="s" items="${studio}">
                     <option value="${s.id}">${s.name}</option>
                 </c:forEach>

@@ -12,6 +12,7 @@ public enum CommandName {
     ADD_COMMENT,
     PROFILE,
     PROFILEPOST,
+    LANGUAGE,
     WRONG_REQUEST,
 
 }

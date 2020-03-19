@@ -1,16 +1,14 @@
-package by.training.controller.command.impl;
+package by.training.controller.parsercommand.impl;
 
-import by.training.controller.command.Command;
-import by.training.controller.command.CommandResponse;
+import by.training.controller.parsercommand.Command;
+import by.training.controller.parsercommand.CommandResponse;
 import by.training.entity.Serial;
 import by.training.service.builder.BaseBuilder;
 import by.training.service.builder.SerialSAXBuilder;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.ValidationXML;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class SAXParserCommand implements Command {

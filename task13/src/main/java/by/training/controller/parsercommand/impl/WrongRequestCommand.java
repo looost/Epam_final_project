@@ -1,7 +1,7 @@
-package by.training.controller.command.impl;
+package by.training.controller.parsercommand.impl;
 
-import by.training.controller.command.Command;
-import by.training.controller.command.CommandResponse;
+import by.training.controller.parsercommand.Command;
+import by.training.controller.parsercommand.CommandResponse;
 
 import java.util.HashSet;
 

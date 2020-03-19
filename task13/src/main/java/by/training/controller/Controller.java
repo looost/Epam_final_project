@@ -1,7 +1,7 @@
 package by.training.controller;
 
-import by.training.controller.command.Command;
-import by.training.controller.command.CommandProvider;
+import by.training.controller.parsercommand.Command;
+import by.training.controller.parsercommand.CommandProvider;
 
 public class Controller {
     private final CommandProvider commandProvider = new CommandProvider();

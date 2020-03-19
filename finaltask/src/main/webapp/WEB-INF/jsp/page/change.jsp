@@ -8,6 +8,9 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
 <div class="container">
     <form method="post" enctype="multipart/form-data" action="/final/profilepost.html">
         <div class="form-group mt-3">

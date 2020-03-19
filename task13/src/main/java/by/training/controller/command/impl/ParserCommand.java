@@ -1,8 +1,8 @@
-package by.training.controller.servletcommand.impl;
+package by.training.controller.command.impl;
 
 import by.training.controller.Controller;
-import by.training.controller.command.CommandResponse;
-import by.training.controller.servletcommand.CommandServlet;
+import by.training.controller.parsercommand.CommandResponse;
+import by.training.controller.command.CommandServlet;
 import by.training.entity.Serial;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -17,12 +17,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public class ParserCommandServlet implements CommandServlet {
+public class ParserCommand implements CommandServlet {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = "";
         String filePath = "";
-
         try {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
@@ -32,7 +31,7 @@ public class ParserCommandServlet implements CommandServlet {
                 if (item.isFormField()) {
                     name = item.getString();
                 } else {
-                    File file = new File("..\\webapps\\task13\\WEB-INF\\userdate\\" + item.getName());
+                    File file = new File(req.getServletContext().getRealPath("") + "\\WEB-INF\\userdate\\" + item.getName());
                     item.write(file);
                     filePath = file.getPath();
                 }
@@ -49,6 +48,7 @@ public class ParserCommandServlet implements CommandServlet {
             Set<Serial> serials = commandResponse.getValue();
 
             HttpSession session = req.getSession();
+
             session.setAttribute("parser", name);
             session.setAttribute("serials", serials);
             resp.sendRedirect("/task13/parserget");
