@@ -32,7 +32,6 @@
 
                         <div class="col-8 card p-0 border-light" style="width: 18rem  ;" >
                             <img class="card-img-top border " src="${show.fullLogo}" alt="Card image cap">
-                            <button type="button" class="btn btn-danger">Лайк</button>
                             <div class="card-body">
                                 <p class="card-text">${show.description}</p>
                             </div>
@@ -50,7 +49,9 @@
                                     <li class="list-group-item">Студия: ${show.studio.name}</li>
                                     <li class="list-group-item">Жанры:<c:forEach items="${show.genres}"
                                                                                  var="genre"> ${genre.name} </c:forEach></li>
-
+                                    <li class="list-group-item">
+                                        <button type="button" class="btn btn-danger">Лайк</button>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -98,46 +99,28 @@
 
             </div>
 
-
             <div class="card col-2 mb-3 p-0">
 
-                <div class="card bg-dark text-white mb-1">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay p-0">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-dark text-white mb-1">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay p-0">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-dark text-white mb-1">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay p-0">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card bg-dark text-white mb-1">
-                    <img class="card-img" src="img/pik.jpg" alt="Card image">
-                    <div class="card-img-overlay overlay p-0">
-                        <div class="layout">
-                            <p class="info">2 сезон 12 серия</p>
-                            <p class="data">02.02.2020</p>
-                        </div>
+                <div class="card text-white bg-dark mb-3" style="max-height: 3rem;">
+                    <div class="card-header">
+                        <h6 class="text-center" style="font-family: segoe print">Новые сериалы:</h6>
                     </div>
                 </div>
 
+                <c:forEach var="l" items="${last}">
+
+                    <div class="card mb-3">
+                        <a href="/final/show.html?id=${l.id}">
+                            <img class="card-img-top" src="${l.logo}" alt="Card image cap">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">${l.name}</h5>
+                            <p class="card-text"><small class="text-muted"><fmt:formatDate value="${l.releaseDate}"
+                                                                                           pattern="dd-MM-yyyy"/> </small>
+                            </p>
+                    </div>
+                </div>
+                </c:forEach>
 
             </div>
 

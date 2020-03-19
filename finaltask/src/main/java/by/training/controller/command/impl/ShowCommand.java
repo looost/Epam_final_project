@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShowCommand implements Command {
 
@@ -18,7 +21,10 @@ public class ShowCommand implements Command {
         String id = req.getParameter("id");
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
+            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
+            List<Serial> last = serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
             req.setAttribute("show", serial);
+            req.setAttribute("last", last);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

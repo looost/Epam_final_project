@@ -11,8 +11,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- portfolio -->
 <div class="portfolio">
-    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>
-
+    <%--    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>--%>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Сериалы</h1>
+            <hr class="my-4">
+            <p class="lead">Добро пожаловать на сервис, который поможет Вам следить за своими любимыми сериалами и
+                делиться отзывами о них с другими людьми!</p>
+        </div>
+    </div>
 
     <div class="container-fluid">
 
@@ -78,17 +85,6 @@
                                                                            pattern="dd-MM-yyyy"/> </small></p>
         </div>
     </div>
-
-
-<%--                <div class="card bg-dark text-white mb-1">--%>
-<%--                    <img class="card-img" src="${l.logo}" alt="Card image">--%>
-<%--                    <div class="card-img-overlay overlay p-0">--%>
-<%--                        <div class="layout">--%>
-<%--                            <p class="info">${l.name}</p>--%>
-<%--                            <p class="data">${l.releaseDate}</p>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
 </c:forEach>
 
             </div>

@@ -39,12 +39,24 @@
         </div>
     </c:if>
     <c:if test="${sessionScope.user != null}">
-        <div>
-            <a href="/final/profile.html" class="btn btn-dark btn-lg active mr-3" role="button"
-               aria-pressed="true">${sessionScope.user}</a>
+        <div class="dropdown">
+            <a class="btn btn-dark btn-lg active" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                    ${sessionScope.user}
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="/final/profile.html">Профиль</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/final/logout.html">Выход</a>
+            </div>
         </div>
-        <div>
-            <a href="/final/logout.html" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Выход</a>
-        </div>
+        <%--        <div>--%>
+        <%--            <a href="/final/profile.html" class="btn btn-dark btn-lg active mr-3" role="button"--%>
+        <%--               aria-pressed="true">${sessionScope.user}</a>--%>
+        <%--        </div>--%>
+        <%--        <div>--%>
+        <%--            <a href="/final/logout.html" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Выход</a>--%>
+        <%--        </div>--%>
     </c:if>
 </nav>

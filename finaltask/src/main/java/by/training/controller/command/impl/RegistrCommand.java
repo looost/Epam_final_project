@@ -22,10 +22,10 @@ public class RegistrCommand implements Command {
 
         try {
             if (ServiceFactory.getInstance().getUserService().create(user)) {
-                RoutingUtils.redirectToPage("/final/login", resp);
+                RoutingUtils.redirectToPage("/final/login.html", resp);
             } else {
                 req.getSession().setAttribute("incorrect", "Пользователь с таким логином уже существует!");
-                RoutingUtils.redirectToPage("/final/registration", resp);
+                RoutingUtils.redirectToPage("/final/registration.html", resp);
             }
         } catch (ServiceException e) {
             e.printStackTrace();

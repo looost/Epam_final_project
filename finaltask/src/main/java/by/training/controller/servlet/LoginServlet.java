@@ -26,22 +26,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        User user = null;
-        try {
-            user = DaoFactory.getInstance()
-                    .getUserDao(ConnectionPool.getInstance().getConnection()).findByLoginAndPassword(login, password);
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
-        if (user != null) {
-            HttpSession session = req.getSession();
-            session.setAttribute("user", login);
-            resp.sendRedirect(req.getContextPath() + "/index");
-        } else {
-            resp.sendRedirect(req.getContextPath() + "/login");
-        }
+
 
     }
 }

@@ -5,7 +5,13 @@ public enum CommandName {
     SHOW,
     REGISTRATION,
     REGISTR,
+    LOGIN,
+    LOGINPOST,
+    SEARCH,
+    LOGOUT,
     ADD_COMMENT,
+    PROFILE,
+    PROFILEPOST,
     WRONG_REQUEST,
 
 }

@@ -22,10 +22,10 @@ public class MultiFilesHandler {
         ) {
             switch (f.getFieldName()) {
                 case "name":
-                    serial.setName(f.getString());
+                    serial.setName(f.getString("UTF-8"));
                     break;
                 case "description":
-                    serial.setDescription(f.getString());
+                    serial.setDescription(f.getString("UTF-8"));
                     break;
                 case "logo":
                     File logo = new File("..\\webapps\\final\\img\\" + f.getName());

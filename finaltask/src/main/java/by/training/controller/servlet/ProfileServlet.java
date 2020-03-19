@@ -80,7 +80,6 @@ public class ProfileServlet extends HttpServlet {
         try {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
-
             for (FileItem i : multiFiles
             ) {
                 System.out.println(i.getFieldName());

@@ -14,7 +14,13 @@ public class CommandProvider {
         repository.put(CommandName.SHOW, new ShowCommand());
         repository.put(CommandName.REGISTRATION, new RegistrationCommand());
         repository.put(CommandName.REGISTR, new RegistrCommand());
+        repository.put(CommandName.LOGIN, new LoginCommand());
+        repository.put(CommandName.LOGINPOST, new LoginPostCommand());
+        repository.put(CommandName.LOGOUT, new LogOutCommand());
+        repository.put(CommandName.SEARCH, new SearchCommand());
         repository.put(CommandName.ADD_COMMENT, new AddCommentCommand());
+        repository.put(CommandName.PROFILE, new ProfileCommand());
+        repository.put(CommandName.PROFILEPOST, new ProfilePostCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestCommand());
     }
 

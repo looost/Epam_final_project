@@ -30,7 +30,7 @@ public class AddCommentCommand implements Command {
             Comment newComment = new Comment(user, serial, comment);
             ServiceFactory.getInstance().getCommentService().create(newComment);
             req.setAttribute("show", serial);
-            RoutingUtils.redirectToPage("show?id=" + id, resp);
+            RoutingUtils.redirectToPage("show.html?id=" + id, resp);
         } catch (DaoException | ServiceException e) {
             e.printStackTrace();
         }

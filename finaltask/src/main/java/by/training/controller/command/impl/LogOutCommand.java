@@ -6,11 +6,14 @@ import by.training.utils.RoutingUtils;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class LoginCommand implements Command {
+public class LogOutCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RoutingUtils.forwardToPage("signup2.jsp", req, resp);
+        HttpSession session = req.getSession();
+        session.removeAttribute("user");
+        RoutingUtils.redirectToPage("/final/index.html", resp);
     }
 }
