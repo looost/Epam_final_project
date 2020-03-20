@@ -16,4 +16,6 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     List<Serial> findSerialBySearchForm(String searchQuery) throws DaoException;
 
+    boolean createSerialGenre(Serial serial) throws DaoException;
+
 }

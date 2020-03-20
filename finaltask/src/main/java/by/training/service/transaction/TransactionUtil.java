@@ -13,5 +13,8 @@ public class TransactionUtil {
         return handler.transaction(c, entity);
     }
 
+    public static <T> T create(Connection c, TransactionHandler<T> handler, T entity) throws ServiceException {
+        return handler.transaction(c, entity);
+    }
 
 }

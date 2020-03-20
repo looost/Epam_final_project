@@ -1,26 +1,22 @@
 package by.training.dao.impl;
 
+import by.training.dao.SerialDao;
 import by.training.dao.exception.DaoException;
 import by.training.dao.impl.jdbc.JDBCUtil;
 import by.training.dao.impl.jdbc.ResultSetHandler;
 import by.training.dao.impl.jdbc.ResultSetHandlerFactory;
-import by.training.dao.SerialDao;
 import by.training.model.Country;
+import by.training.model.Genre;
 import by.training.model.Serial;
 import by.training.model.Studio;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class SerialDaoImpl implements SerialDao {
-
-    private static final String PATH_TO_PROPERTIES = "..\\webapps\\final\\WEB-INF\\classes\\sqlSerial.properties";
 
     private Connection connection;
 
@@ -55,64 +51,78 @@ public class SerialDaoImpl implements SerialDao {
         this.connection = connection;
     }
 
+    private static final String FIND_SERIAL_BY_NAME = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.name = ?";
     @Override
     public Serial findSerialByName(String name) throws DaoException {
-        return JDBCUtil.select(connection, getProperties().getProperty("findSerialByName"),
+        return JDBCUtil.select(connection, FIND_SERIAL_BY_NAME,
                 ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), name);
     }
 
+    private static final String FIND_ALL_SERIAL = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s";
     @Override
     public List<Serial> findAll() throws DaoException {
-        return JDBCUtil.select(connection, getProperties().getProperty("findAllSerial"),
+        return JDBCUtil.select(connection, FIND_ALL_SERIAL,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER));
     }
 
+    private static final String FIND_ALL_SERIAL_2 = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s LIMIT ? OFFSET ?";
     @Override
     public List<Serial> findAllSerial2(int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
-        return JDBCUtil.select(connection, getProperties().getProperty("findAllSerial2"),
+        return JDBCUtil.select(connection, FIND_ALL_SERIAL_2,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit, offset);
     }
 
+    private static final String FIND_SERIAL_BY_SEARCH_QUERY = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s where (name like ? or description like ?)";
     @Override
     public List<Serial> findSerialBySearchForm(String searchQuery) throws DaoException {
         searchQuery = "%" + searchQuery + "%";
-        return JDBCUtil.select(connection, getProperties().getProperty("findSerialBySearchQuery"),
+        return JDBCUtil.select(connection, FIND_SERIAL_BY_SEARCH_QUERY,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), searchQuery, searchQuery);
     }
 
+    private static final String FIND_SERIAL_BY_ID = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.id = ?";
     @Override
     public Serial findById(String id) throws DaoException {
-        return JDBCUtil.select(connection, getProperties().getProperty("findSerialById"),
+        return JDBCUtil.select(connection, FIND_SERIAL_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), id);
     }
 
+    private static final String DELETE_SERIAL_BY_ID = "DELETE FROM serial WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(connection, getProperties().getProperty("deleteSerialById"), id);
+        return JDBCUtil.delete(connection, DELETE_SERIAL_BY_ID, id);
     }
 
+    private static final String CREATE_SERIAL = "INSERT INTO serial VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT, ?, ?)";
     @Override
     public boolean create(Serial entity) throws DaoException {
-        return JDBCUtil.create(connection, getProperties().getProperty("createSerial"),
+        return JDBCUtil.create(connection, CREATE_SERIAL,
                 entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getReleaseDate(),
                 entity.getCountry().getId(), entity.getStudio().getId());
     }
 
+    private static final String SERIAL_GENRE_VALUES = "INSERT INTO serial_genre VALUES (?, ?)";
+
     @Override
-    public boolean update(Serial entity) throws DaoException {
-        return JDBCUtil.update(connection, getProperties().getProperty("updateSerial"),
-                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getId());
+    public boolean createSerialGenre(Serial serial) throws DaoException {
+        for (Genre g : serial.getGenres()
+        ) {
+            JDBCUtil.create(connection, SERIAL_GENRE_VALUES, serial.getId(), g.getId());
+        }
+        return true;
     }
 
-    private Properties getProperties() throws DaoException {
-        Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream(PATH_TO_PROPERTIES));
-            return properties;
-        } catch (IOException e) {
-            throw new DaoException("Not found properties file", e);
-        }
+    private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?, logo = ?, full_logo = ? WHERE id = ?";
+    @Override
+    public boolean update(Serial entity) throws DaoException {
+        return JDBCUtil.update(connection, UPDATE_SERIAL,
+                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getId());
     }
 
 }

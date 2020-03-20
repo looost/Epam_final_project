@@ -2,10 +2,7 @@ package by.training.dao.impl.jdbc;
 
 import by.training.dao.exception.DaoException;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class JDBCUtil {
 
@@ -24,9 +21,17 @@ public class JDBCUtil {
 
 
     public static boolean create(Connection c, String sql, Object... param) throws DaoException {
-        try (PreparedStatement ps = c.prepareStatement(sql)) {
+        try (PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             populatePrepareStatement(ps, param);
-            return ps.execute();
+            int f = ps.executeUpdate();
+            System.out.println(f + "!!!!");
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                System.out.println(rs.getInt(1));
+            } else {
+                System.out.println("FALSE");
+            }
+            return true;
         } catch (SQLException e) {
             throw new DaoException(e);
         }

@@ -1,13 +1,13 @@
 package by.training.service.impl;
 
-import by.training.service.transaction.TransactionHandler;
-import by.training.service.transaction.TransactionHandlerFactory;
 import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Serial;
-import by.training.service.exception.ServiceException;
 import by.training.service.SerialService;
+import by.training.service.exception.ServiceException;
+import by.training.service.transaction.TransactionHandler;
+import by.training.service.transaction.TransactionHandlerFactory;
 import by.training.service.transaction.TransactionUtil;
 
 import java.sql.Connection;
@@ -16,6 +16,7 @@ import java.util.List;
 public class SerialServiceImpl implements SerialService {
 
     private static final TransactionHandler<Serial> SERIAL_TRANSACTION_HANDLER = TransactionHandlerFactory.SERIAL_TRANSACTION_HANDLER;
+    private static final TransactionHandler<Serial> CREATE_SERIAL_WITH_GENRE = TransactionHandlerFactory.CREATE_SERIAL_WITH_GENRE;
 
     @Override
     public Serial findSerialByName(String name) throws ServiceException {
@@ -98,13 +99,27 @@ public class SerialServiceImpl implements SerialService {
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
-            DaoFactory.getInstance().getSerialDao(connection).create(entity);
-            Serial serial = findSerialByName(entity.getName());
-            serial.setGenres(entity.getGenres());
-            DaoFactory.getInstance().getSerialGenreDao(connection).create(serial);
+//            connection.setAutoCommit(false);
+//            DaoFactory.getInstance().getSerialDao(connection).create(entity);
+//            Serial serial = findSerialByName(entity.getName());
+//            serial.setGenres(entity.getGenres());
+//            DaoFactory.getInstance().getSerialGenreDao(connection).create(serial);
+//            connection.commit();
+//            ConnectionPool.getInstance().close(connection);
+            Serial s = TransactionUtil
+                    .create(connection, TransactionHandlerFactory.getSingleTransactionHandler(CREATE_SERIAL_WITH_GENRE), entity);
+            System.out.println(s);
             return true;
         } catch (DaoException e) {
             e.printStackTrace();
+            throw new ServiceException(e);
+        }
+    }
+
+    private boolean createSerialGenre(Connection c, Serial serial) throws ServiceException {
+        try {
+            return DaoFactory.getInstance().getSerialDao(c).createSerialGenre(serial);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

@@ -38,6 +38,22 @@ public class TransactionHandlerFactory {
         }
     };
 
+    public static final TransactionHandler<Serial> CREATE_SERIAL_WITH_GENRE = new TransactionHandler<Serial>() {
+        @Override
+        public Serial transaction(Connection c, Serial entity) throws ServiceException {
+            try {
+                System.out.println(entity);
+                DaoFactory.getInstance().getSerialDao(c).create(entity);
+                Serial serial = ServiceFactory.getInstance().getSerialService().findSerialByName(entity.getName());
+                serial.setGenres(entity.getGenres());
+                DaoFactory.getInstance().getSerialGenreDao(c).create(serial);
+                return serial;
+            } catch (DaoException e) {
+                throw new ServiceException(e);
+            }
+        }
+    };
+
     public static final TransactionHandler<Comment> COMMENT_TRANSACTION_HANDLER = new TransactionHandler<Comment>() {
         @Override
         public Comment transaction(Connection c, Comment entity) throws ServiceException {
