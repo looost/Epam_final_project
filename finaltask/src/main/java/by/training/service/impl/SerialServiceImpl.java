@@ -95,7 +95,7 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public boolean create(Serial entity) throws ServiceException { //TODO КОСТЫЛЬ?
+    public boolean create(Serial entity) throws ServiceException {
         Connection connection = null;
         try {
             connection = ConnectionPool.getInstance().getConnection();
@@ -106,19 +106,9 @@ public class SerialServiceImpl implements SerialService {
 //            DaoFactory.getInstance().getSerialGenreDao(connection).create(serial);
 //            connection.commit();
 //            ConnectionPool.getInstance().close(connection);
-            Serial s = TransactionUtil
+            TransactionUtil
                     .create(connection, TransactionHandlerFactory.getSingleTransactionHandler(CREATE_SERIAL_WITH_GENRE), entity);
-            System.out.println(s);
             return true;
-        } catch (DaoException e) {
-            e.printStackTrace();
-            throw new ServiceException(e);
-        }
-    }
-
-    private boolean createSerialGenre(Connection c, Serial serial) throws ServiceException {
-        try {
-            return DaoFactory.getInstance().getSerialDao(c).createSerialGenre(serial);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

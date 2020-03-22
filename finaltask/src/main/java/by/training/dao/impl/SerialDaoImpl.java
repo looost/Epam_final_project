@@ -107,13 +107,19 @@ public class SerialDaoImpl implements SerialDao {
                 entity.getCountry().getId(), entity.getStudio().getId());
     }
 
-    private static final String SERIAL_GENRE_VALUES = "INSERT INTO serial_genre VALUES (?, ?)";
-
     @Override
-    public boolean createSerialGenre(Serial serial) throws DaoException {
-        for (Genre g : serial.getGenres()
+    public int createAndReturnIndex(Serial serial) throws DaoException {
+        return JDBCUtil.createAndReturnIndex(connection, CREATE_SERIAL,
+                serial.getName(), serial.getDescription(), serial.getLogo(), serial.getFullLogo(), serial.getReleaseDate(),
+                serial.getCountry().getId(), serial.getStudio().getId());
+    }
+
+    private static final String SERIAL_GENRE_VALUES = "INSERT INTO serial_genre VALUES (?, ?)";
+    @Override
+    public boolean createSerialGenre(int serialId, List<Genre> genres) throws DaoException {
+        for (Genre g : genres
         ) {
-            JDBCUtil.create(connection, SERIAL_GENRE_VALUES, serial.getId(), g.getId());
+            JDBCUtil.create(connection, SERIAL_GENRE_VALUES, serialId, g.getId());
         }
         return true;
     }

@@ -21,17 +21,25 @@ public class JDBCUtil {
 
 
     public static boolean create(Connection c, String sql, Object... param) throws DaoException {
+        try (PreparedStatement ps = c.prepareStatement(sql)) {
+            populatePrepareStatement(ps, param);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public static int createAndReturnIndex(Connection c, String sql, Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             populatePrepareStatement(ps, param);
-            int f = ps.executeUpdate();
-            System.out.println(f + "!!!!");
+            ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                System.out.println(rs.getInt(1));
+                return rs.getInt(1);
             } else {
-                System.out.println("FALSE");
+                throw new DaoException("There is no autoincrement index after trying to add record into table");
             }
-            return true;
         } catch (SQLException e) {
             throw new DaoException(e);
         }

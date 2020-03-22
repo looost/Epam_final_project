@@ -21,6 +21,10 @@ public class Genre extends AbstractEntity {
         this.name = name;
     }
 
+    public Genre(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

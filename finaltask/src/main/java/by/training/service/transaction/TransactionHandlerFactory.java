@@ -42,12 +42,11 @@ public class TransactionHandlerFactory {
         @Override
         public Serial transaction(Connection c, Serial entity) throws ServiceException {
             try {
-                System.out.println(entity);
-                DaoFactory.getInstance().getSerialDao(c).create(entity);
-                Serial serial = ServiceFactory.getInstance().getSerialService().findSerialByName(entity.getName());
-                serial.setGenres(entity.getGenres());
-                DaoFactory.getInstance().getSerialGenreDao(c).create(serial);
-                return serial;
+                int index = DaoFactory.getInstance().getSerialDao(c).createAndReturnIndex(entity);
+//                Serial serial = ServiceFactory.getInstance().getSerialService().findSerialByName(entity.getName());
+//                serial.setGenres(entity.getGenres());
+                DaoFactory.getInstance().getSerialDao(c).createSerialGenre(index, entity.getGenres());
+                return entity;
             } catch (DaoException e) {
                 throw new ServiceException(e);
             }

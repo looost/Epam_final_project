@@ -3,7 +3,6 @@ package by.training.service.impl;
 import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.AbstractEntity;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.GenreService;
@@ -34,22 +33,40 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public AbstractEntity findById(Object id) throws ServiceException {
+    public Genre findById(String id) throws ServiceException {
         return null;
     }
 
     @Override
-    public boolean delete(Object id) throws ServiceException {
-        return false;
+    public boolean delete(String id) throws ServiceException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getGenreDao(connection).delete(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public boolean create(AbstractEntity abstractEntity) throws ServiceException {
-        return false;
+    public boolean create(Genre entity) throws ServiceException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getGenreDao(connection).create(entity);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public boolean update(AbstractEntity abstractEntity) throws ServiceException {
-        return false;
+    public boolean update(Genre entity) throws ServiceException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getGenreDao(connection).update(entity);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 }

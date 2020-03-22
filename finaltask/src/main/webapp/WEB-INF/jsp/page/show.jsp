@@ -68,6 +68,87 @@
 
                     </div>
 
+                    <div>
+
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary mt-3 mb-3" data-toggle="modal"
+                                data-target="#exampleModalCenter">
+                            Изменить
+                        </button>
+
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form method="post" enctype="multipart/form-data"
+                                              action="${pageContext.request.contextPath}/profilepost.html">
+                                            <div class="form-group mt-3">
+                                                <label for="exampleFormControlInput1">Название сериала:</label>
+                                                <input type="text" name="name" class="form-control"
+                                                       id="exampleFormControlInput1"
+                                                       placeholder="Название сериала">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="description">Описание сериала</label>
+                                                <textarea class="form-control" name="description" id="description"
+                                                          rows="3"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="logo">Выберите фото превью</label>
+                                                <input type="file" class="form-control-file" id="logo" name="logo">
+                                            </div>
+
+                                            <%--        <div class="form-group">--%>
+                                            <%--            <label for="logo">Ссылка на лого</label>--%>
+                                            <%--            <input type="text" name="logo" class="form-control" id="logo"--%>
+                                            <%--                   placeholder="Ссылка на лого">--%>
+                                            <%--        </div>--%>
+
+                                            <div class="form-group">
+                                                <label for="full_logo">Выберите полное фото</label>
+                                                <input type="file" class="form-control-file" id="full_logo"
+                                                       name="full_logo">
+                                            </div>
+
+                                            <%--        <div class="form-group">--%>
+                                            <%--            <label for="full_logo">Ссылка на полное лого</label>--%>
+                                            <%--            <input type="text" name="full_logo" class="form-control" id="full_logo"--%>
+                                            <%--                   placeholder="Ссылка на полное лого">--%>
+                                            <%--        </div>--%>
+
+                                            <div class="form-group">
+                                                <label for="date">Введите дату выхода сериала:</label>
+                                                <input type="date" class="form-control" name="release_date" id="date">
+                                            </div>
+
+
+                                            <button type="submit" class="btn btn-primary">Добавить</button>
+                                        </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
                 </div>
                 <c:choose>
                     <c:when test="${sessionScope.user != null}">
