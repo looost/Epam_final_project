@@ -7,9 +7,13 @@ import by.training.model.Studio;
 import org.apache.commons.fileupload.FileItem;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MultiFilesHandler {
 
@@ -28,12 +32,12 @@ public class MultiFilesHandler {
                     serial.setDescription(f.getString("UTF-8"));
                     break;
                 case "logo":
-                    File logo = new File("..\\webapps\\final\\img\\" + f.getName());
+                    File logo = new File("..\\webapps\\final\\img\\" + UUID.randomUUID().toString() + f.getName());
                     f.write(logo);
                     serial.setLogo("img\\" + logo.getName());
                     break;
                 case "full_logo":
-                    File fullLogo = new File("..\\webapps\\final\\img\\" + f.getName());
+                    File fullLogo = new File("..\\webapps\\final\\img\\" + UUID.randomUUID().toString() + f.getName());
                     f.write(fullLogo);
                     serial.setFullLogo("img\\" + fullLogo.getName());
                     break;
