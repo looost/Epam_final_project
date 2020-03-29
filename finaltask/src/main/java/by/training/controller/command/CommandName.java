@@ -14,6 +14,8 @@ public enum CommandName {
     ADD_COUNTRY,
     CHANGE_GENRE,
     DELETE_GENRE,
+    WATCH_SERIAL,
+    MY_SERIAL,
     PROFILE,
     PROFILEPOST,
     LANGUAGE,

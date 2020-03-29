@@ -131,4 +131,26 @@ public class SerialDaoImpl implements SerialDao {
                 entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getId());
     }
 
+    private static final String WATCH_SERIAL = "INSERT INTO viewed VALUES (?, ?)";
+
+    @Override
+    public boolean toWatchSerial(String userId, String serialId) throws DaoException {
+        return JDBCUtil.create(connection, WATCH_SERIAL, userId, serialId);
+    }
+
+    private static final String STOP_WATCH_SERIAL = "DELETE FROM viewed WHERE (user_id = ? and serial_id = ?)";
+
+    @Override
+    public boolean stopWatchSerial(String userId, String serialId) throws DaoException {
+        return JDBCUtil.delete(connection, STOP_WATCH_SERIAL, userId, serialId);
+    }
+
+    private static final String FIND_SERIALS_THAT_I_WATCH = "SELECT s.id, s.name, s.description, s.logo, s.full_logo, " +
+            "s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ?";
+
+    @Override
+    public List<Serial> findSerialsThatIWatch(String userId) throws DaoException {
+        return JDBCUtil.select(connection, FIND_SERIALS_THAT_I_WATCH,
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId);
+    }
 }

@@ -14,4 +14,11 @@ public interface SerialService extends AbstractService<String, Serial> {
     List<Serial> findAllSerial2(int page, int limit) throws ServiceException;
 
     List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException;
+
+    boolean toWatchSerial(String userId, String serialId) throws ServiceException;
+
+    boolean stopWatchSerial(String userId, String serialId) throws ServiceException;
+
+    List<Serial> findSerialsThatIWatch(String userId) throws ServiceException;
+
 }

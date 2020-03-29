@@ -71,6 +71,41 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
+    public List<Serial> findSerialsThatIWatch(String userId) throws ServiceException {
+        Connection connection;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findSerialsThatIWatch(userId);
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+        } catch (DaoException e) {
+            throw new ServiceException();
+        }
+    }
+
+    @Override
+    public boolean toWatchSerial(String userId, String serialId) throws ServiceException {
+        Connection connection = null;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getSerialDao(connection).toWatchSerial(userId, serialId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public boolean stopWatchSerial(String userId, String serialId) throws ServiceException {
+        Connection connection;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getSerialDao(connection).stopWatchSerial(userId, serialId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Serial findById(String id) throws ServiceException {
         Connection connection;
         try {

@@ -7,16 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
-<%
-    VendorMap map = new VendorMap();
-    request.setAttribute("rw", map);
-%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <div class="container text-center">
-    <%--    <ctg:info-time/>--%>
-    <ctg:table-revenue rows="${ rw.size }" head="Revenue">
-        ${ rw.revenue }
-    </ctg:table-revenue>
-    <br/>
-    <ctg:table-revenue>5 rub BulbaComp</ctg:table-revenue>
     <small>Copyright &copy; Shows</small>
 </div>

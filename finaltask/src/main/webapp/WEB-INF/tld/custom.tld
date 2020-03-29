@@ -36,4 +36,14 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+    <tag>
+        <name>test</name>
+        <tag-class>by.training.tag.Test</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>bundle</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>

@@ -16,17 +16,9 @@ public class Test {
 
         try {
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(ConnectionPool.getInstance().getConnection())
-                    .findSerialBySearchForm("Мир");
-            System.out.println(serialList.size());
+                    .findSerialsThatIWatch("3");
             serialList.forEach(System.out::println);
-
-//            List <Genre> genres = ServiceFactory.getInstance().getGenreService().findAll();
-//            genres.forEach(System.out::println);
-
         }
-//        catch (  ServiceException e) {
-//            e.printStackTrace();
-//        }
         catch (DaoException e) {
         }
     }

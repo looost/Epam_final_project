@@ -28,6 +28,7 @@ public class LoginPostCommand implements Command {
         if (user != null) {
             HttpSession session = req.getSession();
             session.setAttribute("user", login);
+            session.setAttribute("userId", user.getId());
             RoutingUtils.redirectToPage("/final/index.html", resp);
         } else {
             RoutingUtils.redirectToPage("/final/login.html", resp);

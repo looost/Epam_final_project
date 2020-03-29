@@ -21,4 +21,9 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     int createAndReturnIndex(Serial serial) throws DaoException;
 
+    boolean toWatchSerial(String userId, String serialId) throws DaoException;
+
+    boolean stopWatchSerial(String userId, String serialId) throws DaoException;
+
+    List<Serial> findSerialsThatIWatch(String userId) throws DaoException;
 }

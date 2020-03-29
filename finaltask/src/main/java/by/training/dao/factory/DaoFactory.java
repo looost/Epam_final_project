@@ -39,10 +39,6 @@ public class DaoFactory {
         return new CommentDaoImpl(connection);
     }
 
-    public SerialGenreDao getSerialGenreDao(Connection connection) {
-        return new SerialGenreDao(connection);
-    }
-
     public ViewedDao getViewedDao(Connection connection) {
         return new ViewedDao(connection);
     }

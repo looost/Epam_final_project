@@ -57,9 +57,11 @@
                                     <li class="list-group-item"><fmt:message key="genres" bundle="${ rb }"/>:<c:forEach
                                             items="${show.genres}"
                                             var="genre"> ${genre.name} </c:forEach></li>
-                                    <%--                                    <li class="list-group-item">--%>
-                                    <%--                                        <button type="button" class="btn btn-danger">Лайк</button>--%>
-                                    <%--                                    </li>        --%>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/watch_serial.html?id=${show.id}"
+                                           class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
+                                            Смотреть</a>
+                                    </li>
                                 </ul>
                             </div>
 

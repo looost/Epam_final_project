@@ -23,6 +23,8 @@ public class CommandProvider {
         repository.put(CommandName.ADD_COUNTRY, new AddCountryCommand());
         repository.put(CommandName.CHANGE_GENRE, new ChangeGenreCommand());
         repository.put(CommandName.DELETE_GENRE, new DeleteGenreCommand());
+        repository.put(CommandName.WATCH_SERIAL, new WatchSerialCommand());
+        repository.put(CommandName.MY_SERIAL, new ViewedSerial());
         repository.put(CommandName.PROFILE, new ProfileCommand());
         repository.put(CommandName.PROFILEPOST, new ProfilePostCommand());
         repository.put(CommandName.LANGUAGE, new LanguageCommand());

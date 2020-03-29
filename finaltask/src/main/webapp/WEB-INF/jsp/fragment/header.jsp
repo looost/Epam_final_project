@@ -34,6 +34,11 @@
                         <fmt:message key="profile" bundle="${ rb }"/>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/my_serial.html">
+                        Сериалы, которые я смотрю
+                    </a>
+                </li>
             </c:if>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="${pageContext.request.contextPath}/search.html">
