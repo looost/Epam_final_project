@@ -8,18 +8,18 @@ public class Studio extends AbstractEntity {
     public Studio() {
     }
 
-    public Studio(String name) {
-        this.name = name;
-    }
-
-    public Studio(int id) {
-        super(id);
-    }
-
-    public Studio(int id, String name) {
-        super(id);
-        this.name = name;
-    }
+//    public Studio(String name) {
+//        this.name = name;
+//    }
+//
+//    public Studio(int id) {
+//        super(id);
+//    }
+//
+//    public Studio(int id, String name) {
+//        super(id);
+//        this.name = name;
+//    }
 
     public String getName() {
         return name;
@@ -27,6 +27,29 @@ public class Studio extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static Builder newBuilder() {
+        return new Studio().new Builder();
+    }
+
+    public class Builder {
+        private Builder() {
+        }
+
+        public Builder setId(int id) {
+            Studio.this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Studio.this.name = name;
+            return this;
+        }
+
+        public Studio build() {
+            return Studio.this;
+        }
     }
 
     @Override

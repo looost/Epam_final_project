@@ -28,7 +28,6 @@ public class TransactionHandlerFactory {
 
                 Studio studio = DaoFactory.getInstance().getStudioDao(c).findById(String.valueOf(entity.getStudio().getId()));
                 entity.getStudio().setName(studio.getName());
-
                 List<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial(String.valueOf(entity.getId()));
                 entity.setComments(commentSet);
                 return entity;

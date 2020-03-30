@@ -3,7 +3,6 @@ package by.training.model;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Set;
 
 
 public class Serial extends AbstractEntity {
@@ -28,56 +27,56 @@ public class Serial extends AbstractEntity {
         super(id);
     }
 
-    public Serial(int id, String name, String description, String logo, String fullLogo, List<Genre> genres) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.fullLogo = fullLogo;
-        this.genres = genres;
-    }
-
-    public Serial(String name, String description, String logo, String fullLogo) {
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.fullLogo = fullLogo;
-    }
-
-    public Serial(String name, String description, String logo, String fullLogo, List<Genre> genres) {
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.fullLogo = fullLogo;
-        this.genres = genres;
-    }
-
-    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.fullLogo = fullLogo;
-        this.releaseDate = releaseDate;
-        this.countLike = countLike;
-        this.country = country;
-        this.studio = studio;
-        this.genres = genres;
-        this.comments = comments;
-    }
-
-    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.fullLogo = fullLogo;
-        this.releaseDate = releaseDate;
-        this.countLike = countLike;
-        this.country = country;
-        this.studio = studio;
-        this.genres = genres;
-    }
+//    public Serial(int id, String name, String description, String logo, String fullLogo, List<Genre> genres) {
+//        super(id);
+//        this.name = name;
+//        this.description = description;
+//        this.logo = logo;
+//        this.fullLogo = fullLogo;
+//        this.genres = genres;
+//    }
+//
+//    public Serial(String name, String description, String logo, String fullLogo) {
+//        this.name = name;
+//        this.description = description;
+//        this.logo = logo;
+//        this.fullLogo = fullLogo;
+//    }
+//
+//    public Serial(String name, String description, String logo, String fullLogo, List<Genre> genres) {
+//        this.name = name;
+//        this.description = description;
+//        this.logo = logo;
+//        this.fullLogo = fullLogo;
+//        this.genres = genres;
+//    }
+//
+//    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
+//        super(id);
+//        this.name = name;
+//        this.description = description;
+//        this.logo = logo;
+//        this.fullLogo = fullLogo;
+//        this.releaseDate = releaseDate;
+//        this.countLike = countLike;
+//        this.country = country;
+//        this.studio = studio;
+//        this.genres = genres;
+//        this.comments = comments;
+//    }
+//
+//    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres) {
+//        super(id);
+//        this.name = name;
+//        this.description = description;
+//        this.logo = logo;
+//        this.fullLogo = fullLogo;
+//        this.releaseDate = releaseDate;
+//        this.countLike = countLike;
+//        this.country = country;
+//        this.studio = studio;
+//        this.genres = genres;
+//    }
 
     public String getName() {
         return name;

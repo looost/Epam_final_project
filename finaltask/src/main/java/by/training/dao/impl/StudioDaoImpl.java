@@ -19,10 +19,14 @@ public class StudioDaoImpl implements StudioDao {
     private static final ResultSetHandler<Studio> STUDIO_RESULT_SET_HANDLER = new ResultSetHandler<Studio>() {
         @Override
         public Studio handle(ResultSet rs) throws DaoException {
-            Studio studio = new Studio();
+            Studio studio;
             try {
-                studio.setId(rs.getInt("id"));
-                studio.setName(rs.getString("name"));
+                studio = Studio.newBuilder()
+                        .setId(rs.getInt("id"))
+                        .setName(rs.getString("name"))
+                        .build();
+//                studio.setId(rs.getInt("id"));
+//                studio.setName(rs.getString("name"));
                 return studio;
             } catch (SQLException e) {
                 throw new DaoException(e);

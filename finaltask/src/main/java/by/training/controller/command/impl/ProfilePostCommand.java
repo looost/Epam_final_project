@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+
 public class ProfilePostCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setCharacterEncoding("UTF-8");
-        req.setCharacterEncoding("UTF-8");
+
         try {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
