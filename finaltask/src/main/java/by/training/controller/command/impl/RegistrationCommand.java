@@ -11,6 +11,11 @@ import java.io.IOException;
 public class RegistrationCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String str = (String) req.getSession().getAttribute("incorrect");
+        if (str != null) {
+            req.getSession().removeAttribute("incorrect");
+            req.setAttribute("incorrect2", str);
+        }
         RoutingUtils.forwardToPage("registration.jsp", req, resp);
     }
 }

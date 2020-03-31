@@ -25,6 +25,7 @@ public class IndexCommand implements Command {
             List<Serial> last = serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
             req.setAttribute("shows", serialList);
             req.setAttribute("last", last);
+
             req.setAttribute("genres", genres);
         } catch (ServiceException e) {
             e.printStackTrace();

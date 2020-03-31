@@ -1,4 +1,4 @@
-package by.training.controller.servlet;
+package by.training.controller.filter;
 
 import javax.servlet.*;
 import java.io.IOException;

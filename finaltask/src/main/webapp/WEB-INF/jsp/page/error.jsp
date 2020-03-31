@@ -9,3 +9,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h1 class="text-center m-3" style="font-family: segoe print">ОШИБКА</h1>
+<h1 class="text-center m-3" style="font-family: segoe print">${error}</h1>

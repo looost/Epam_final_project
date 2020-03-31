@@ -47,10 +47,18 @@
 
     <filter>
         <filter-name>EncodingFilter</filter-name>
-        <filter-class>by.training.controller.servlet.EncodingFilter</filter-class>
+        <filter-class>by.training.controller.filter.EncodingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
+        <servlet-name>test</servlet-name>
+    </filter-mapping>
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>by.training.controller.filter.SecurityFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
         <servlet-name>test</servlet-name>
     </filter-mapping>
 
