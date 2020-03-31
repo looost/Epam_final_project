@@ -4,8 +4,8 @@ import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
-import by.training.service.exception.ServiceException;
 import by.training.service.GenreService;
+import by.training.service.exception.ServiceException;
 
 import java.sql.Connection;
 import java.util.List;
@@ -25,6 +25,10 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<Genre> findAll() throws ServiceException {
         try {
+//            TransactionFactory transactionFactory = new TransactionFactory();
+//            Transaction transaction = transactionFactory.createTransaction();
+//            GenreDao genreDao = transaction.createDao(EntityEnum.GENRE);
+//            return genreDao.findAll();
             Connection connection = ConnectionPool.getInstance().getConnection();
             return DaoFactory.getInstance().getGenreDao(connection).findAll();
         } catch (DaoException e) {

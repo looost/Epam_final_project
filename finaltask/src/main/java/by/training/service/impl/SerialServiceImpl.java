@@ -1,10 +1,13 @@
 package by.training.service.impl;
 
 import by.training.dao.ConnectionPool;
+import by.training.dao.EntityEnum;
+import by.training.dao.SerialDao;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Serial;
 import by.training.service.SerialService;
+import by.training.service.Service;
 import by.training.service.exception.ServiceException;
 import by.training.service.transaction.TransactionHandler;
 import by.training.service.transaction.TransactionHandlerFactory;
@@ -13,7 +16,7 @@ import by.training.service.transaction.TransactionUtil;
 import java.sql.Connection;
 import java.util.List;
 
-public class SerialServiceImpl implements SerialService {
+public class SerialServiceImpl extends Service implements SerialService {
 
     private static final TransactionHandler<Serial> SERIAL_TRANSACTION_HANDLER = TransactionHandlerFactory.SERIAL_TRANSACTION_HANDLER;
     private static final TransactionHandler<Serial> CREATE_SERIAL_WITH_GENRE = TransactionHandlerFactory.CREATE_SERIAL_WITH_GENRE;
@@ -133,17 +136,21 @@ public class SerialServiceImpl implements SerialService {
     public boolean create(Serial entity) throws ServiceException {
         Connection connection = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
-//            connection.setAutoCommit(false);
-//            DaoFactory.getInstance().getSerialDao(connection).create(entity);
-//            Serial serial = findSerialByName(entity.getName());
-//            serial.setGenres(entity.getGenres());
-//            DaoFactory.getInstance().getSerialGenreDao(connection).create(serial);
-//            connection.commit();
-//            ConnectionPool.getInstance().close(connection);
-            TransactionUtil
-                    .create(connection, TransactionHandlerFactory.getSingleTransactionHandler(CREATE_SERIAL_WITH_GENRE), entity);
+//            connection = ConnectionPool.getInstance().getConnection();
+
+//            TransactionFactory transactionFactory = new TransactionFactory();
+//            Transaction transaction = transactionFactory.createTransaction();
+            SerialDao serialDao = transaction.createDao(EntityEnum.SERIAL);
+            int index = serialDao.createAndReturnIndex(entity);
+            serialDao.createSerialGenre(index, entity.getGenres());
+            transaction.commit();
+            System.out.println(transaction.getConnection() + "!");
+            transaction.close();
+            System.out.println(transaction.getConnection());
             return true;
+//            TransactionUtil
+//                    .create(connection, TransactionHandlerFactory.getSingleTransactionHandler(CREATE_SERIAL_WITH_GENRE), entity);
+//            return true;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

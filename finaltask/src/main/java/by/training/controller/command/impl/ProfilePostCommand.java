@@ -25,8 +25,8 @@ public class ProfilePostCommand implements Command {
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
 
             Serial serial = MultiFilesHandler.Handler(multiFiles);
-
             ServiceFactory.getInstance().getSerialService().create(serial);
+
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,9 @@
 package by.training.service.factory;
 
 import by.training.service.*;
+import by.training.service.exception.ServiceException;
 import by.training.service.impl.*;
+import by.training.service.transaction.Transaction;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
@@ -19,7 +21,9 @@ public class ServiceFactory {
         return instance;
     }
 
-    public SerialService getSerialService() {
+    public SerialService getSerialService() throws ServiceException {
+        Transaction transaction = new TransactionFactory().createTransaction();
+        ((Service) serialService).setTransaction(transaction);
         return serialService;
     }
 
