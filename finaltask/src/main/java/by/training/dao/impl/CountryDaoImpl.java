@@ -1,6 +1,7 @@
 package by.training.dao.impl;
 
 import by.training.dao.CountryDao;
+import by.training.dao.Dao;
 import by.training.dao.exception.DaoException;
 import by.training.dao.impl.jdbc.JDBCUtil;
 import by.training.dao.impl.jdbc.ResultSetHandler;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CountryDaoImpl implements CountryDao {
+public class CountryDaoImpl extends Dao implements CountryDao {
 
     private static final ResultSetHandler<Country> COUNTRY_RESULT_SET_HANDLER = new ResultSetHandler<Country>() {
         @Override
@@ -28,7 +29,10 @@ public class CountryDaoImpl implements CountryDao {
         }
     };
 
-    private Connection connection;
+    //    private Connection connection;
+//
+    public CountryDaoImpl() {
+    }
 
     public CountryDaoImpl(Connection connection) {
         this.connection = connection;

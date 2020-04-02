@@ -31,6 +31,10 @@ public class DaoFactory {
         return new CountryDaoImpl(connection);
     }
 
+    public CountryDaoImpl getCountryDao() {
+        return new CountryDaoImpl();
+    }
+
     public StudioDaoImpl getStudioDao(Connection connection) {
         return new StudioDaoImpl(connection);
     }

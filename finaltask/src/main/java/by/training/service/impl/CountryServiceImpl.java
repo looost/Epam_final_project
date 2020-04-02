@@ -1,19 +1,33 @@
 package by.training.service.impl;
 
-import by.training.dao.ConnectionPool;
+import by.training.dao.CountryDao;
+import by.training.dao.Dao;
+import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Country;
 import by.training.service.CountryService;
 import by.training.service.exception.ServiceException;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class CountryServiceImpl implements CountryService {
+
     @Override
     public List<Country> findAll() throws ServiceException {
-        return null;
+        try {
+            Transaction transaction = new Transaction();
+            CountryDao countryDao = DaoFactory.getInstance().getCountryDao();
+            transaction.startTransaction((Dao) countryDao);
+            List<Country> countryList = countryDao.findAll();
+            //transaction.commit();
+            transaction.test();
+            transaction.close();
+            transaction.test();
+            return countryList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
@@ -28,10 +42,14 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public boolean create(Country entity) throws ServiceException {
-        Connection connection = null;
         try {
-            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getCountryDao(connection).create(entity);
+            Transaction transaction = new Transaction();
+            CountryDao countryDao = DaoFactory.getInstance().getCountryDao();
+            transaction.startTransaction((Dao) countryDao);
+            boolean res = countryDao.create(entity);
+            transaction.commit();
+            transaction.close();
+            return res;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

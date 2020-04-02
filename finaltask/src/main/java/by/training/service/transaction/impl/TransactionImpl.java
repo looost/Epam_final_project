@@ -20,13 +20,12 @@ public class TransactionImpl implements Transaction {
         this.connection = connection;
 
         repository.put(EntityEnum.COMMENT, new CommentDaoImpl(connection));
-        repository.put(EntityEnum.COUNTRY, new CountryDaoImpl(connection));
+        //repository.put(EntityEnum.COUNTRY, new CountryDaoImpl(connection));
         repository.put(EntityEnum.GENRE, new GenreDaoImpl(connection));
         repository.put(EntityEnum.SERIAL, new SerialDaoImpl(connection));
         repository.put(EntityEnum.STUDIO, new StudioDaoImpl(connection));
         repository.put(EntityEnum.USER, new UserDaoImpl(connection));
     }
-
 
     @Override
     public <T extends AbstractDao> T createDao(EntityEnum dao) throws ServiceException {
