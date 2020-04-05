@@ -30,7 +30,8 @@
             <div class="col-1 mb-3 p-0">
                 <jsp:useBean id="genres" scope="request" type="java.util.List"/>
                 <c:forEach var="g" items="${genres}">
-                    <a class="nav-link" href="#">${g.name}</a>
+                    <a class="nav-link"
+                       href="${pageContext.request.contextPath}/search.html?genreId=${g.id}">${g.name}</a>
                 </c:forEach>
 
             </div>
@@ -39,7 +40,7 @@
                 <div class="container-fluid">
                     <div class="row">
 
-                        <div class="row row-cols-1 row-cols-md-4">
+                        <div class="row row-cols-1 row-cols-md-3">
                             <jsp:useBean id="shows" scope="request" type="java.util.List"/>
                         <c:forEach items="${shows}" var="s">
                             <div class="col mb-4">

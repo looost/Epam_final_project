@@ -74,6 +74,19 @@ public class SerialServiceImpl extends Service implements SerialService {
     }
 
     @Override
+    public List<Serial> findSerialByGenre(String genreId) throws ServiceException {
+        Connection connection;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findSerialByGenre(genreId);
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Serial> findSerialsThatIWatch(String userId) throws ServiceException {
         Connection connection;
         try {

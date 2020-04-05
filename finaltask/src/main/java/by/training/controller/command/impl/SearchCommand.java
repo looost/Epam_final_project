@@ -16,14 +16,28 @@ public class SearchCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String query = req.getParameter("query");
-        try {
-            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialBySearchForm(query);
-            List genres = ServiceFactory.getInstance().getGenreService().findAll();
-            req.setAttribute("shows", serialList);
-            req.setAttribute("genres", genres);
+        if (query != null) {
+            try {
+                List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialBySearchForm(query);
+                List genres = ServiceFactory.getInstance().getGenreService().findAll();
+                req.setAttribute("shows", serialList);
+                req.setAttribute("genres", genres);
 
-        } catch (ServiceException e) {
-            e.printStackTrace();
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+        }
+        String genreQuery = req.getParameter("genreId");
+        if (genreQuery != null) {
+            try {
+                List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialByGenre(genreQuery);
+                List genres = ServiceFactory.getInstance().getGenreService().findAll();
+                req.setAttribute("shows", serialList);
+                req.setAttribute("genres", genres);
+
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
         }
         RoutingUtils.forwardToPage("search.jsp", req, resp);
     }

@@ -43,7 +43,7 @@
                         <%--                            </div>--%>
                         <%--                        </c:forEach>--%>
 
-                        <div class="row row-cols-1 row-cols-md-4">
+                            <div class="row row-cols-1 row-cols-md-3">
                             <jsp:useBean id="shows" scope="request" type="java.util.List"/>
                             <c:forEach items="${shows}" var="s">
                                 <div class="col mb-4">

@@ -21,7 +21,7 @@ public class ProfileCommand implements Command {
 //        resp.setCharacterEncoding("UTF-8");
 //        req.setCharacterEncoding("UTF-8");
         try {
-            List<Country> countryList = DaoFactory.getInstance().getCountryDao().findAll();
+            List<Country> countryList = DaoFactory.getInstance().getCountryDao(ConnectionPool.getInstance().getConnection()).findAll();
             List<Studio> studios = DaoFactory.getInstance().getStudioDao(ConnectionPool.getInstance().getConnection()).findAll();
             List<Genre> genres = DaoFactory.getInstance().getGenreDao(ConnectionPool.getInstance().getConnection()).findAll();
             req.setAttribute("genres", genres);

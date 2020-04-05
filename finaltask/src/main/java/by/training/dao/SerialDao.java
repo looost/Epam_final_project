@@ -17,6 +17,8 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     List<Serial> findSerialBySearchForm(String searchQuery) throws DaoException;
 
+    List<Serial> findSerialByGenre(String genreId) throws DaoException;
+
     boolean createSerialGenre(int serialId, List<Genre> genres) throws DaoException;
 
     int createAndReturnIndex(Serial serial) throws DaoException;
@@ -24,6 +26,8 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     boolean toWatchSerial(String userId, String serialId) throws DaoException;
 
     boolean stopWatchSerial(String userId, String serialId) throws DaoException;
+
+    Serial serialIsWatchStatus(String serialId, String userId) throws DaoException;
 
     List<Serial> findSerialsThatIWatch(String userId) throws DaoException;
 }

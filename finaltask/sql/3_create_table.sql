@@ -79,6 +79,7 @@ create table viewed
 (
     `user_id`   INTEGER NOT NULL,
     `serial_id` INTEGER NOT NULL,
+    UNIQUE (`user_id`, `serial_id`),
     CONSTRAINT fk_viewed_user FOREIGN KEY (`user_id`)
         REFERENCES user (`id`)
         ON DELETE CASCADE

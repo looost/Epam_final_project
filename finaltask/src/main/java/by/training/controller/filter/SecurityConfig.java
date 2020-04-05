@@ -15,6 +15,9 @@ public class SecurityConfig {
         urlAdminPattern.add(CommandName.INDEX);
         urlAdminPattern.add(CommandName.PROFILE);
         urlAdminPattern.add(CommandName.PROFILEPOST);
+        //urlAdminPattern.add(CommandName.ADD_GENRE);
+        urlAdminPattern.add(CommandName.CHANGE_GENRE);
+        urlAdminPattern.add(CommandName.DELETE_GENRE);
         mapConfig.put(RoleEnum.ADMIN, urlAdminPattern);
 
         List<CommandName> urlUserPattern = new ArrayList<>();

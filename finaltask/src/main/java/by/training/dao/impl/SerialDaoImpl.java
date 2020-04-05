@@ -9,6 +9,7 @@ import by.training.model.Country;
 import by.training.model.Genre;
 import by.training.model.Serial;
 import by.training.model.Studio;
+import by.training.service.validation.Validation;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -85,6 +86,15 @@ public class SerialDaoImpl implements SerialDao {
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), searchQuery, searchQuery);
     }
 
+    private static final String FIND_SERIAL_BY_GENRE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE sg.genre_id = ?";
+
+    @Override
+    public List<Serial> findSerialByGenre(String genreId) throws DaoException {
+        return JDBCUtil.select(connection, FIND_SERIAL_BY_GENRE,
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), genreId);
+    }
+
     private static final String FIND_SERIAL_BY_ID = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
             " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.id = ?";
     @Override
@@ -132,22 +142,31 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String WATCH_SERIAL = "INSERT INTO viewed VALUES (?, ?)";
-
     @Override
     public boolean toWatchSerial(String userId, String serialId) throws DaoException {
-        return JDBCUtil.create(connection, WATCH_SERIAL, userId, serialId);
+        if (Validation.serialIsWatch(connection, serialId, userId)) {
+            return JDBCUtil.create(connection, WATCH_SERIAL, userId, serialId);
+        }
+        return false;
     }
 
     private static final String STOP_WATCH_SERIAL = "DELETE FROM viewed WHERE (user_id = ? and serial_id = ?)";
-
     @Override
     public boolean stopWatchSerial(String userId, String serialId) throws DaoException {
         return JDBCUtil.delete(connection, STOP_WATCH_SERIAL, userId, serialId);
     }
 
+    private static final String SERIAL_IS_WATCH_STATUS = "SELECT s.id, s.name, s.description, s.logo, s.full_logo, " +
+            "s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ? and v.serial_id = ?";
+
+    @Override
+    public Serial serialIsWatchStatus(String serialId, String userId) throws DaoException {
+        return JDBCUtil.select(connection, SERIAL_IS_WATCH_STATUS,
+                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId, serialId);
+    }
+
     private static final String FIND_SERIALS_THAT_I_WATCH = "SELECT s.id, s.name, s.description, s.logo, s.full_logo, " +
             "s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ?";
-
     @Override
     public List<Serial> findSerialsThatIWatch(String userId) throws DaoException {
         return JDBCUtil.select(connection, FIND_SERIALS_THAT_I_WATCH,
