@@ -6,6 +6,7 @@ import by.training.dao.SerialDao;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Serial;
+import by.training.model.form.SearchForm;
 import by.training.service.SerialService;
 import by.training.service.Service;
 import by.training.service.exception.ServiceException;
@@ -61,11 +62,27 @@ public class SerialServiceImpl extends Service implements SerialService {
     }
 
     @Override
-    public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {
+    public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {   //TODO deprecated
         Connection connection;
         try {
             connection = ConnectionPool.getInstance().getConnection();
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findSerialBySearchForm(searchQuery);
+            return TransactionUtil
+                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Serial> findSerialBySearchForm(SearchForm searchForm) throws ServiceException {
+        Connection connection;
+        try {
+            connection = ConnectionPool.getInstance().getConnection();
+            if (searchForm.getQuery() == null) {
+                searchForm.setQuery("");
+            }
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(connection).findSerialBySearchForm(searchForm);
             return TransactionUtil
                     .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
         } catch (DaoException e) {

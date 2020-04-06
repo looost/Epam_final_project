@@ -22,11 +22,12 @@ public class IndexCommand implements Command {
         try {
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
+            List country = ServiceFactory.getInstance().getCountryService().findAll();
             List<Serial> last = serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
             req.setAttribute("shows", serialList);
             req.setAttribute("last", last);
-
             req.setAttribute("genres", genres);
+            req.setAttribute("country", country);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

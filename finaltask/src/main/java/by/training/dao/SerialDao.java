@@ -3,6 +3,7 @@ package by.training.dao;
 import by.training.dao.exception.DaoException;
 import by.training.model.Genre;
 import by.training.model.Serial;
+import by.training.model.form.SearchForm;
 
 import java.util.List;
 
@@ -16,6 +17,8 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     List<Serial> findAllSerial2(int page, int limit) throws DaoException;
 
     List<Serial> findSerialBySearchForm(String searchQuery) throws DaoException;
+
+    List<Serial> findSerialBySearchForm(SearchForm searchForm) throws DaoException;
 
     List<Serial> findSerialByGenre(String genreId) throws DaoException;
 

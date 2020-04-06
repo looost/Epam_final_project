@@ -3,6 +3,7 @@ package by.training.dao.impl.jdbc;
 import by.training.dao.exception.DaoException;
 
 import java.sql.*;
+import java.util.List;
 
 public class JDBCUtil {
 
@@ -72,6 +73,20 @@ public class JDBCUtil {
             }
         } catch (SQLException e) {
             throw new DaoException(e);
+        }
+    }
+
+    public static void populateSqlAndParams(StringBuilder sql, List<String> params, List<Integer> list, String expression) {
+        if (list != null && !list.isEmpty()) {
+            sql.append(" AND (");
+            for (int i = 0; i < list.size(); i++) {
+                sql.append(expression);
+                params.add(String.valueOf(list.get(i)));
+                if (i != list.size() - 1) {
+                    sql.append(" OR ");
+                }
+            }
+            sql.append(")");
         }
     }
 }

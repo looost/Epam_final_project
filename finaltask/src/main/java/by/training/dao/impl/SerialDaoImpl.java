@@ -9,6 +9,8 @@ import by.training.model.Country;
 import by.training.model.Genre;
 import by.training.model.Serial;
 import by.training.model.Studio;
+import by.training.model.form.SearchForm;
+import by.training.model.form.SearchQuery;
 import by.training.service.validation.Validation;
 
 import java.sql.Connection;
@@ -84,6 +86,25 @@ public class SerialDaoImpl implements SerialDao {
         searchQuery = "%" + searchQuery + "%";
         return JDBCUtil.select(connection, FIND_SERIAL_BY_SEARCH_QUERY,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), searchQuery, searchQuery);
+    }
+
+    @Override
+    public List<Serial> findSerialBySearchForm(SearchForm searchForm) throws DaoException {
+        SearchQuery query = buildSearchQuery(searchForm);
+        return JDBCUtil.select(connection, query.getSql().toString(),
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), query.getParams().toArray());
+    }
+
+    private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
+
+    private SearchQuery buildSearchQuery(SearchForm searchForm) {
+        List<String> param = new ArrayList<>();
+        StringBuilder sql = new StringBuilder(FIND_SERIAL_BY_SEARCH_FORM_2);
+        param.add("%" + searchForm.getQuery() + "%");
+        param.add("%" + searchForm.getQuery() + "%");
+        JDBCUtil.populateSqlAndParams(sql, param, searchForm.getGenres(), "sg.genre_id = ?");
+        JDBCUtil.populateSqlAndParams(sql, param, searchForm.getCountry(), "s.country_id = ?");
+        return new SearchQuery(sql, param);
     }
 
     private static final String FIND_SERIAL_BY_GENRE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +

@@ -20,8 +20,10 @@ public class ViewedSerial implements Command {
             try {
                 List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialsThatIWatch(userId);
                 List genres = ServiceFactory.getInstance().getGenreService().findAll();
+                List country = ServiceFactory.getInstance().getCountryService().findAll();
                 req.setAttribute("shows", serialList);
                 req.setAttribute("genres", genres);
+                req.setAttribute("country", country);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }

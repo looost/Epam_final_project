@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="customTag" tagdir="/WEB-INF/tags" %>
 <!-- portfolio -->
 <div class="portfolio">
     <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>
@@ -10,15 +11,13 @@
 
         <div class="row">
 
-            <div class="col-1 mb-3 p-0">
+            <div class="col-2 mb-3 p-0">
                 <jsp:useBean id="genres" scope="request" type="java.util.List"/>
-                <c:forEach var="g" items="${genres}">
-                    <a class="nav-link" href="#">${g.name}</a>
-                </c:forEach>
-
+                <jsp:useBean id="country" scope="request" type="java.util.List"/>
+                <customTag:search-filter genres="${genres}" country="${country}"/>
             </div>
 
-            <div class="col-11 mb-3">
+            <div class="col-10 mb-3">
                 <div class="container-fluid">
                     <div class="row">
 
