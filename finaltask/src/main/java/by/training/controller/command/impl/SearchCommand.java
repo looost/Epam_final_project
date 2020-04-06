@@ -50,6 +50,7 @@ public class SearchCommand implements Command {
             req.setAttribute("shows", serialList);
             req.setAttribute("genres", genres);
             req.setAttribute("country", country);
+            req.setAttribute("searchForm", searchForm);
 
         } catch (ServiceException e) {
             e.printStackTrace();

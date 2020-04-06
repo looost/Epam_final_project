@@ -20,6 +20,10 @@ public class IndexCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.setCharacterEncoding("UTF-8");
         try {
+//            int page = 1;
+//            if (req.getParameter("page") != null) {
+//                page = Integer.parseInt(req.getParameter("page"));
+//            }
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();

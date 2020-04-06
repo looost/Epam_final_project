@@ -16,7 +16,6 @@ public class SecurityUtils {
         securityPage.add(CommandName.PROFILE);
         securityPage.add(CommandName.PROFILEPOST);
         securityPage.add(CommandName.ADD_COMMENT);
-        securityPage.add(CommandName.ADD_GENRE);
     }
 
     static boolean isSecurityPage(CommandName commandName) {

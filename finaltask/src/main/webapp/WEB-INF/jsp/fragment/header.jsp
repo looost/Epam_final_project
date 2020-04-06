@@ -42,7 +42,8 @@
             </c:if>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="${pageContext.request.contextPath}/search.html">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Поиск" name="query">
+            <input class="form-control mr-sm-2" type="search"
+                   placeholder="<fmt:message key="enterSerialName" bundle="${ rb }"/>" aria-label="Поиск" name="query">
             <button class="btn btn-outline-success my-2 my-sm-0 mr-3" type="submit">
                 <fmt:message key="search" bundle="${ rb }"/>
             </button>

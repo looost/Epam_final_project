@@ -22,13 +22,13 @@
 
         <div class="row">
 
-            <div class="col-1 mb-3 p-0">
-                <jsp:useBean id="genres" scope="request" type="java.util.List"/>
-                <jsp:useBean id="country" scope="request" type="java.util.List"/>
-                <customTag:search-filter genres="${genres}" country="${country}"/>
-            </div>
+            <%--            <div class="col-2 mb-3 p-0">--%>
+            <%--                <jsp:useBean id="genres" scope="request" type="java.util.List"/>--%>
+            <%--                <jsp:useBean id="country" scope="request" type="java.util.List"/>--%>
+            <%--                <customTag:search-filter genres="${genres}" country="${country}"/>--%>
+            <%--            </div>--%>
 
-            <div class="col-9 mb-3">
+            <div class="col-10 mb-3">
                 <div class="container-fluid">
                     <div class="row">
 

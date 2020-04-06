@@ -11,22 +11,25 @@ import by.training.service.exception.ServiceException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Test {
-    public static void main(String[] args) throws DaoException, ServiceException, SQLException {
-//        Set<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial("1");
-//        commentSet.forEach(comment -> System.out.println(comment));
+public class Test extends Super03 {
+    public static void main(String... args) {
+        Super03 obj = new Test();
+        obj.method();
+    }
 
-//        System.out.println(ServiceFactory.getInstance().getCommentService().findById("13"));
+    void method() {
+        super.method();
+        this.method("This ");
+    }
 
-//        Serial serial = ServiceFactory.getInstance().getSerialService().findById("3");
-//        Serial serial = ServiceFactory.getInstance().getSerialService().findSerialByName("WestWorld");
-//        System.out.println(serial);
-        //List <Serial> serialList = DaoFactory.getInstance().getSerialDao(ConnectionPool.getInstance().getConnection()).findAll();
-//        List <Serial> serialList =
-//        serialList.forEach(serial -> System.out.println(serial));
-        Connection connection = ConnectionPool.getInstance().getConnection();
-        Serial serial = DaoFactory.getInstance().getSerialDao(connection).findById("1");
-        Serial serial1 = TransactionUtil.select(connection, TransactionHandlerFactory.SERIAL_TRANSACTION_HANDLER, serial);
-        System.out.println(serial1);
+    void method(String str) {
+        System.out.println(str);
     }
 }
+
+class Super03 {
+    void method() {
+        System.out.print("Super ");
+    }
+}
+

@@ -95,11 +95,15 @@
         <li class="page-item disabled">
             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Предыдущая</a>
         </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item active"><a class="page-link"
+                                        href="${pageContext.request.contextPath}/index.html?page=1">1</a></li>
+        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index.html?page=2">2</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index.html?page=3">3</a>
+        </li>
         <li class="page-item">
             <a class="page-link" href="#">Следующая</a>
         </li>
     </ul>
 </nav>
+
