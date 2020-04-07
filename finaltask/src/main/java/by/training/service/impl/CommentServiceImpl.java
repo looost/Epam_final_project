@@ -20,26 +20,26 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
-        Connection connection;
-        try {
-            connection = ConnectionPool.getInstance().getConnection();
+//        Connection connection;
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+//            connection = ConnectionPool.getInstance().getConnection();
             List<Comment> commentList = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
             return TransactionUtil
                     .select(connection, TransactionHandlerFactory.getListTransactionHandler(COMMENT_TRANSACTION_HANDLER), commentList);
-        } catch (DaoException e) {
+        } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
     @Override
     public Comment findById(String id) throws ServiceException {
-        Connection connection;
-        try {
-            connection = ConnectionPool.getInstance().getConnection();
+//        Connection connection;
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+//            connection = ConnectionPool.getInstance().getConnection();
             Comment comment = DaoFactory.getInstance().getCommentDao(connection).findById(id);
             return TransactionUtil
                     .select(connection, TransactionHandlerFactory.getSingleTransactionHandler(COMMENT_TRANSACTION_HANDLER), comment);
-        } catch (DaoException e) {
+        } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
@@ -51,17 +51,11 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public boolean create(Comment entity) throws ServiceException {
-        Connection connection;
-        try {
-            connection = ConnectionPool.getInstance().getConnection();
-            connection.setAutoCommit(false);
-            DaoFactory.getInstance().getCommentDao(connection).create(entity);
-            connection.commit();
-            ConnectionPool.getInstance().close(connection);
-            return true;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        } catch (SQLException e) {
+//        Connection connection;
+        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+//            connection = ConnectionPool.getInstance().getConnection();
+            return DaoFactory.getInstance().getCommentDao(connection).create(entity);
+        } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }

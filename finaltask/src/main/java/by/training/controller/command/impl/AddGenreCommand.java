@@ -18,6 +18,7 @@ public class AddGenreCommand implements Command {
         Genre genre = new Genre(genreName);
         try {
             ServiceFactory.getInstance().getGenreService().create(genre);
+            //ServiceFactory.getInstance().getGenreService().create(genre);
             RoutingUtils.redirectToPage("/final/profile.html", resp);
         } catch (ServiceException e) {
             e.printStackTrace();

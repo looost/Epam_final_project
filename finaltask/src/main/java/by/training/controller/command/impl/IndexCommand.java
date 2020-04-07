@@ -24,6 +24,8 @@ public class IndexCommand implements Command {
 //            if (req.getParameter("page") != null) {
 //                page = Integer.parseInt(req.getParameter("page"));
 //            }
+            //Serial serial = by.training.service.impl.test.ServiceFactory.getInstance().getSerialService().findById("1");
+            //System.out.println(serial);
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();

@@ -1,12 +1,11 @@
 package by.training.controller.command.impl;
 
 import by.training.controller.command.Command;
-import by.training.dao.ConnectionPool;
-import by.training.dao.exception.DaoException;
-import by.training.dao.factory.DaoFactory;
 import by.training.model.Country;
 import by.training.model.Genre;
 import by.training.model.Studio;
+import by.training.service.exception.ServiceException;
+import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 
 import javax.servlet.ServletException;
@@ -21,13 +20,13 @@ public class ProfileCommand implements Command {
 //        resp.setCharacterEncoding("UTF-8");
 //        req.setCharacterEncoding("UTF-8");
         try {
-            List<Country> countryList = DaoFactory.getInstance().getCountryDao(ConnectionPool.getInstance().getConnection()).findAll();
-            List<Studio> studios = DaoFactory.getInstance().getStudioDao(ConnectionPool.getInstance().getConnection()).findAll();
-            List<Genre> genres = DaoFactory.getInstance().getGenreDao(ConnectionPool.getInstance().getConnection()).findAll();
+            List<Country> countryList = ServiceFactory.getInstance().getCountryService().findAll();
+            List<Studio> studios = ServiceFactory.getInstance().getStudioService().findAll();
+            List<Genre> genres = ServiceFactory.getInstance().getGenreService().findAll();
             req.setAttribute("genres", genres);
             req.setAttribute("studio", studios);
             req.setAttribute("country", countryList);
-        } catch (DaoException e) {
+        } catch (ServiceException e) {
             e.printStackTrace();
         }
         RoutingUtils.forwardToPage("profile.jsp", req, resp);

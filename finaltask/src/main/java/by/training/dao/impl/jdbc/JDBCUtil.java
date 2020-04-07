@@ -49,7 +49,8 @@ public class JDBCUtil {
     public static boolean update(Connection c, String sql, Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
-            return ps.execute();
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -58,7 +59,8 @@ public class JDBCUtil {
     public static boolean delete(Connection c, String sql, Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
-            return ps.execute();
+            ps.executeUpdate();
+            return true;
         } catch (SQLException e) {
             throw new DaoException(e);
         }

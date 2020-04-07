@@ -1,9 +1,6 @@
 package by.training.controller.command.impl;
 
 import by.training.controller.command.Command;
-import by.training.dao.ConnectionPool;
-import by.training.dao.exception.DaoException;
-import by.training.dao.factory.DaoFactory;
 import by.training.model.Comment;
 import by.training.model.Serial;
 import by.training.model.User;
@@ -26,12 +23,13 @@ public class AddCommentCommand implements Command {
         HttpSession session = req.getSession();
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
-            User user = DaoFactory.getInstance().getUserDao(ConnectionPool.getInstance().getConnection()).findByLogin(session.getAttribute("user").toString());
+            User user = ServiceFactory.getInstance().getUserService().findByLogin(session.getAttribute("user").toString());
+            //User user = DaoFactory.getInstance().getUserDao(ConnectionPool.getInstance().getConnection()).findByLogin(session.getAttribute("user").toString());
             Comment newComment = new Comment(user, serial, comment);
             ServiceFactory.getInstance().getCommentService().create(newComment);
             req.setAttribute("show", serial);
             RoutingUtils.redirectToPage("show.html?id=" + id, resp);
-        } catch (DaoException | ServiceException e) {
+        } catch (ServiceException e) {
             e.printStackTrace();
         }
     }

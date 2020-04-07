@@ -7,24 +7,17 @@ import java.sql.SQLException;
 
 public class Transaction {
 
-    private Connection connection;
-
-    public void startTransaction(Dao... dao) throws DaoException {
-        if (connection == null) {
-            connection = ConnectionPool.getInstance().getConnection();
-        }
+    public Connection getConnection() throws DaoException {
         try {
-            connection.setAutoCommit(false);
+            Connection c = ConnectionPool.getInstance().getConnection();
+            c.setAutoCommit(false);
+            return c;
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        for (Dao d : dao
-        ) {
-            d.setConnection(connection);
-        }
     }
 
-    public void commit() throws DaoException {
+    public void commit(Connection connection) throws DaoException {
         try {
             connection.commit();
         } catch (SQLException e) {
@@ -32,12 +25,15 @@ public class Transaction {
         }
     }
 
-    public void close() throws DaoException {
-        ConnectionPool.getInstance().close(connection);
+    public void close(Connection connection) throws DaoException {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
-    public void test() {
-        System.out.println(connection);
-    }
 
 }

@@ -3,15 +3,16 @@ package by.training.service.factory;
 import by.training.service.*;
 import by.training.service.exception.ServiceException;
 import by.training.service.impl.*;
-import by.training.service.transaction.Transaction;
+import by.training.dao.Transaction;
 
 public class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
-    private final SerialService serialService = new SerialServiceImpl();
+    //    private final SerialService serialService = new SerialServiceImpl();
     private final CommentService commentService = new CommentServiceImpl();
-    private final GenreService genreService = new GenreServiceImpl();
+    //    private final GenreService genreService = new GenreServiceImpl();
     private final UserService userService = new UserServiceImpl();
     private final CountryService countryService = new CountryServiceImpl();
+    private final StudioService studioService = new StudioServiceImpl();
 
 
     private ServiceFactory() {
@@ -22,9 +23,9 @@ public class ServiceFactory {
     }
 
     public SerialService getSerialService() throws ServiceException {
-        Transaction transaction = new TransactionFactory().createTransaction();
-        ((Service) serialService).setTransaction(transaction);
-        return serialService;
+//        Transaction transaction = new TransactionFactory().createTransaction();
+//        ((Service) serialService).setTransaction(transaction);
+        return new SerialServiceImpl(new Transaction());
     }
 
     public CommentService getCommentService() {
@@ -32,7 +33,7 @@ public class ServiceFactory {
     }
 
     public GenreService getGenreService() {
-        return genreService;
+        return new GenreServiceImpl(new Transaction());
     }
 
     public UserService getUserService() {
@@ -41,5 +42,9 @@ public class ServiceFactory {
 
     public CountryService getCountryService() {
         return countryService;
+    }
+
+    public StudioService getStudioService() {
+        return studioService;
     }
 }

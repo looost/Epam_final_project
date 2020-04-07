@@ -1,6 +1,5 @@
 package by.training.service.transaction;
 
-import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.*;
@@ -8,7 +7,6 @@ import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class TransactionHandlerFactory {
@@ -28,6 +26,7 @@ public class TransactionHandlerFactory {
 
                 Studio studio = DaoFactory.getInstance().getStudioDao(c).findById(String.valueOf(entity.getStudio().getId()));
                 entity.getStudio().setName(studio.getName());
+                //List <Comment> commentSet = DaoFactory.getInstance().getCommentDao(c).findAllCommentForSerial(String.valueOf(entity.getId()));
                 List<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial(String.valueOf(entity.getId()));
                 entity.setComments(commentSet);
                 return entity;
@@ -71,15 +70,11 @@ public class TransactionHandlerFactory {
         return new TransactionHandler<T>() {
             @Override
             public T transaction(Connection c, T entity) throws ServiceException {
-                try {
-                    c.setAutoCommit(false);
-                    T result = handler.transaction(c, entity);
-                    c.commit();
-                    ConnectionPool.getInstance().close(c); //TODO close and finally problem (exception in finally block)
-                    return result;
-                } catch (DaoException | SQLException e) {
-                    throw new ServiceException(e);
-                }
+                //c.setAutoCommit(false);
+                T result = handler.transaction(c, entity);
+                //c.commit();
+                //ConnectionPool.getInstance().close(c); //TODO close and finally problem (exception in finally block)
+                return result;
             }
         };
     }
@@ -88,18 +83,14 @@ public class TransactionHandlerFactory {
         return new TransactionHandler<List<T>>() {
             @Override
             public List<T> transaction(Connection c, List<T> entity) throws ServiceException {
-                try {
-                    c.setAutoCommit(false);
-                    for (T e : entity
-                    ) {
-                        handler.transaction(c, e);
-                    }
-                    c.commit();
-                    ConnectionPool.getInstance().close(c);
-                    return entity;
-                } catch (DaoException | SQLException e) {
-                    throw new ServiceException(e);
+                //c.setAutoCommit(false);
+                for (T e : entity
+                ) {
+                    handler.transaction(c, e);
                 }
+                // c.commit();
+                //  ConnectionPool.getInstance().close(c);
+                return entity;
             }
         };
     }

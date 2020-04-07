@@ -7,7 +7,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionPool {
@@ -20,33 +19,30 @@ public class ConnectionPool {
         return instance;
     }
 
-    public Connection getConnection() throws DaoException {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC", "application", "admin");
-        } catch (SQLException e) {
-            throw new DaoException("Cannot connection", e);
-        } catch (ClassNotFoundException e) {
-            throw new DaoException("Cannot connection", e);
-        }
-    }
-
-
-//    public Connection getConnection() {
-//        Context ctx;
-//        Connection c = null;
+//    public Connection getConnection()  {
 //        try {
-//            ctx = new InitialContext();
-//            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/serial");
-//            c = ds.getConnection();
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
+//            Class.forName("com.mysql.jdbc.Driver");
+//            return DriverManager
+//                    .getConnection("jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC", "application", "admin");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            //throw new DaoException("Cannot connection", e);
+//            return null;
 //        }
-//        return c;
 //    }
+
+
+    public Connection getConnection() {
+        Context ctx;
+        Connection c = null;
+        try {
+            ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/serial");
+            c = ds.getConnection();
+        } catch (NamingException | SQLException e) {
+            e.printStackTrace();
+        }
+        return c;
+    }
 
     public void close(Connection connection) throws DaoException {
         try {

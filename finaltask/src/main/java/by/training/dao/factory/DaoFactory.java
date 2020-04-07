@@ -31,9 +31,9 @@ public class DaoFactory {
         return new CountryDaoImpl(connection);
     }
 
-    public CountryDaoImpl getCountryDao() {
-        return new CountryDaoImpl();
-    }
+//    public CountryDaoImpl getCountryDao() {
+//        return new CountryDaoImpl();
+//    }
 
     public StudioDaoImpl getStudioDao(Connection connection) {
         return new StudioDaoImpl(connection);
@@ -41,9 +41,5 @@ public class DaoFactory {
 
     public CommentDao getCommentDao(Connection connection) {
         return new CommentDaoImpl(connection);
-    }
-
-    public ViewedDao getViewedDao(Connection connection) {
-        return new ViewedDao(connection);
     }
 }
