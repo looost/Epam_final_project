@@ -1,6 +1,7 @@
 package by.training.service.impl;
 
 import by.training.dao.ConnectionPool;
+import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Country;
@@ -15,15 +16,15 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public List<Country> findAll() throws ServiceException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            Transaction transaction = new Transaction();
 //            CountryDao countryDao = DaoFactory.getInstance().getCountryDao();
 //            transaction.startTransaction((Dao) countryDao);
 //            List<Country> countryList = countryDao.findAll();
 //            transaction.commit();
 //            transaction.close();
-            return DaoFactory.getInstance().getCountryDao(connection).findAll();
-        } catch (DaoException | SQLException e) {
+            return DaoFactory.getInstance().getCountryDao(transaction).findAll();
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -40,9 +41,9 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public boolean create(Country entity) throws ServiceException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
-            return DaoFactory.getInstance().getCountryDao(connection).create(entity);
-        } catch (DaoException | SQLException e) {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getCountryDao(transaction).create(entity);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

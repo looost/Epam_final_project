@@ -15,31 +15,31 @@ public class DaoFactory {
         return instance;
     }
 
-    public UserDao getUserDao(Connection connection) { // TODO как сделать фабрику?
-        return new UserDaoImpl(connection);
+    public UserDao getUserDao(Transaction transaction) { // TODO как сделать фабрику?
+        return new UserDaoImpl(transaction);
     }
 
-    public SerialDao getSerialDao(Connection connection) {
-        return new SerialDaoImpl(connection);
+    public SerialDao getSerialDao(Transaction transaction) {
+        return new SerialDaoImpl(transaction);
     }
 
-    public GenreDao getGenreDao(Connection connection) {
-        return new GenreDaoImpl(connection);
+    public GenreDao getGenreDao(Transaction transaction) {
+        return new GenreDaoImpl(transaction);
     }
 
-    public CountryDaoImpl getCountryDao(Connection connection) {
-        return new CountryDaoImpl(connection);
+    public CountryDaoImpl getCountryDao(Transaction transaction) {
+        return new CountryDaoImpl(transaction);
     }
 
 //    public CountryDaoImpl getCountryDao() {
 //        return new CountryDaoImpl();
 //    }
 
-    public StudioDaoImpl getStudioDao(Connection connection) {
-        return new StudioDaoImpl(connection);
+    public StudioDaoImpl getStudioDao(Transaction transaction) {
+        return new StudioDaoImpl(transaction);
     }
 
-    public CommentDao getCommentDao(Connection connection) {
-        return new CommentDaoImpl(connection);
+    public CommentDao getCommentDao(Transaction transaction) {
+        return new CommentDaoImpl(transaction);
     }
 }

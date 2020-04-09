@@ -16,7 +16,7 @@
 <!-- portfolio -->
 <div class="portfolio">
     <%--    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>--%>
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid bg-white">
         <div class="container">
             <h1 class="display-4"><fmt:message key="serials" bundle="${ rb }"/></h1>
             <hr class="my-4">
@@ -32,6 +32,7 @@
             <div class="col-2 mb-2 p-0">
                 <jsp:useBean id="genres" scope="request" type="java.util.List"/>
                 <jsp:useBean id="country" scope="request" type="java.util.List"/>
+                <jsp:useBean id="studio" scope="request" type="java.util.List"/>
                 <customTag:search-filter genres="${genres}" country="${country}" studio="${studio}"/>
             </div>
 
@@ -57,16 +58,16 @@
                                     <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                 </a>
 
-                                <div class="card-header" style="max-height: 3rem">
+                                    <div class="card-header" style="max-height: 3rem;">
                                     <a class="card-title" href="${pageContext.request.contextPath}/show.html?id=${s.id}"
                                        style="font-family: segoe print">
                                         <h5 class="text-center">${s.name}</h5>
                                     </a>
                                 </div>
-                                <div class="card-body">
+                                    <div class="card-body">
                                     <p class="card-text"><em>${fn:substring(s.description, 0, 100)}...</em></p>
                                 </div>
-                                <div class="card-footer">
+                                    <div class="card-footer">
                                     <small class="text-muted">${s.studio.name}</small>
                                 </div>
                             </div>
@@ -87,7 +88,6 @@
 
     </div>
 
-</div>
 </div>
 
 <nav aria-label="Page navigation example">

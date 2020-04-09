@@ -1,6 +1,7 @@
 package by.training.service.impl;
 
 import by.training.dao.ConnectionPool;
+import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.User;
@@ -16,10 +17,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByLogin(String login) throws ServiceException {
 //        Connection connection;
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getUserDao(connection).findByLogin(login);
-        } catch (DaoException | SQLException e) {
+            return DaoFactory.getInstance().getUserDao(transaction).findByLogin(login);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -27,10 +28,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByLoginAndPassword(String login, String password) throws ServiceException {
 //        Connection connection;
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getUserDao(connection).findByLoginAndPassword(login, password);
-        } catch (DaoException | SQLException e) {
+            return DaoFactory.getInstance().getUserDao(transaction).findByLoginAndPassword(login, password);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -53,15 +54,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean create(User entity) throws ServiceException {
 //        Connection connection;
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            connection = ConnectionPool.getInstance().getConnection();
-            if (Validation.isCorrectUserLogin(connection, entity)) {
-                DaoFactory.getInstance().getUserDao(connection).create(entity);
+            if (Validation.isCorrectUserLogin(transaction, entity)) {
+                DaoFactory.getInstance().getUserDao(transaction).create(entity);
                 return true;
             } else {
                 return false;
             }
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

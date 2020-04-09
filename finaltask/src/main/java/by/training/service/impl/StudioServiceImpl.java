@@ -1,6 +1,7 @@
 package by.training.service.impl;
 
 import by.training.dao.ConnectionPool;
+import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Studio;
@@ -14,9 +15,9 @@ import java.util.List;
 public class StudioServiceImpl implements StudioService {
     @Override
     public List<Studio> findAll() throws ServiceException {
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
-            return DaoFactory.getInstance().getStudioDao(connection).findAll();
-        } catch (SQLException | DaoException e) {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getStudioDao(transaction).findAll();
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

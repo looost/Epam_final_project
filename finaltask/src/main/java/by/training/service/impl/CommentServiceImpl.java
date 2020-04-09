@@ -1,6 +1,6 @@
 package by.training.service.impl;
 
-import by.training.dao.ConnectionPool;
+import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Comment;
@@ -10,8 +10,6 @@ import by.training.service.transaction.TransactionHandler;
 import by.training.service.transaction.TransactionHandlerFactory;
 import by.training.service.transaction.TransactionUtil;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class CommentServiceImpl implements CommentService {
@@ -21,12 +19,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
 //        Connection connection;
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            connection = ConnectionPool.getInstance().getConnection();
-            List<Comment> commentList = DaoFactory.getInstance().getCommentDao(connection).findAllCommentForSerial(serialId);
+            List<Comment> commentList = DaoFactory.getInstance().getCommentDao(transaction).findAllCommentForSerial(serialId);
             return TransactionUtil
-                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(COMMENT_TRANSACTION_HANDLER), commentList);
-        } catch (DaoException | SQLException e) {
+                    .select(transaction, TransactionHandlerFactory.getListTransactionHandler(COMMENT_TRANSACTION_HANDLER), commentList);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -34,12 +32,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment findById(String id) throws ServiceException {
 //        Connection connection;
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            connection = ConnectionPool.getInstance().getConnection();
-            Comment comment = DaoFactory.getInstance().getCommentDao(connection).findById(id);
+            Comment comment = DaoFactory.getInstance().getCommentDao(transaction).findById(id);
             return TransactionUtil
-                    .select(connection, TransactionHandlerFactory.getSingleTransactionHandler(COMMENT_TRANSACTION_HANDLER), comment);
-        } catch (DaoException | SQLException e) {
+                    .select(transaction, TransactionHandlerFactory.getSingleTransactionHandler(COMMENT_TRANSACTION_HANDLER), comment);
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -52,10 +50,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public boolean create(Comment entity) throws ServiceException {
 //        Connection connection;
-        try (Connection connection = ConnectionPool.getInstance().getConnection()) {
+        try (Transaction transaction = new Transaction()) {
 //            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getCommentDao(connection).create(entity);
-        } catch (DaoException | SQLException e) {
+            boolean res = DaoFactory.getInstance().getCommentDao(transaction).create(entity);
+            transaction.commit();
+            return res;
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

@@ -25,7 +25,7 @@ public class ServiceFactory {
     public SerialService getSerialService() throws ServiceException {
 //        Transaction transaction = new TransactionFactory().createTransaction();
 //        ((Service) serialService).setTransaction(transaction);
-        return new SerialServiceImpl(new Transaction());
+        return new SerialServiceImpl();
     }
 
     public CommentService getCommentService() {
@@ -33,7 +33,7 @@ public class ServiceFactory {
     }
 
     public GenreService getGenreService() {
-        return new GenreServiceImpl(new Transaction());
+        return new GenreServiceImpl();
     }
 
     public UserService getUserService() {

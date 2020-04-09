@@ -188,8 +188,9 @@
                             <p class="card-text text-left">${comment.comment}</p>
                         </div>
                         <div class="card-footer text-muted">
-                            <fmt:formatDate value="${comment.publicationDate}" pattern="dd-MM-yyyy hh:mm:ss"/>
-
+                                <%--                                <fmt:parseDate value="${comment.publicationDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="time" type="date"/>--%>
+                                <%--                                <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/>--%>
+                                ${comment.publicationDate}
                         </div>
                     </div>
                 </c:forEach>

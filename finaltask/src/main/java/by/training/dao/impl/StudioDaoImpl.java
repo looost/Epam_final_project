@@ -1,6 +1,7 @@
 package by.training.dao.impl;
 
 import by.training.dao.StudioDao;
+import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.impl.jdbc.JDBCUtil;
 import by.training.dao.impl.jdbc.ResultSetHandler;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class StudioDaoImpl implements StudioDao {
 
-    private Connection connection;
+    private Transaction transaction;
 
     private static final ResultSetHandler<Studio> STUDIO_RESULT_SET_HANDLER = new ResultSetHandler<Studio>() {
         @Override
@@ -34,39 +35,39 @@ public class StudioDaoImpl implements StudioDao {
         }
     };
 
-    public StudioDaoImpl(Connection connection) {
-        this.connection = connection;
+    public StudioDaoImpl(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     private static final String FIND_ALL_STUDIO = "SELECT id, name FROM studio";
     @Override
     public List<Studio> findAll() throws DaoException {
-        return JDBCUtil.select(connection, FIND_ALL_STUDIO,
+        return JDBCUtil.select(transaction.getConnection(), FIND_ALL_STUDIO,
                 ResultSetHandlerFactory.getListResultSetHandler(STUDIO_RESULT_SET_HANDLER));
     }
 
     private static final String FIND_STUDIO_BY_ID = "SELECT id, name FROM studio WHERE id = ?";
     @Override
     public Studio findById(String id) throws DaoException {
-        return JDBCUtil.select(connection, FIND_STUDIO_BY_ID,
+        return JDBCUtil.select(transaction.getConnection(), FIND_STUDIO_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(STUDIO_RESULT_SET_HANDLER), id);
     }
 
     private static final String DELETE_STUDIO_BY_ID = "DELETE FROM studio WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(connection, DELETE_STUDIO_BY_ID, id);
+        return JDBCUtil.delete(transaction.getConnection(), DELETE_STUDIO_BY_ID, id);
     }
 
     private static final String CREATE_STUDIO = "INSERT INTO studio VALUES (DEFAULT, ?)";
     @Override
     public boolean create(Studio entity) throws DaoException {
-        return JDBCUtil.create(connection, CREATE_STUDIO, entity.getName());
+        return JDBCUtil.create(transaction.getConnection(), CREATE_STUDIO, entity.getName());
     }
 
     private static final String UPDATE_STUDIO = "UPDATE studio SET name = ? WHERE id = ?";
     @Override
     public boolean update(Studio entity) throws DaoException {
-        return JDBCUtil.update(connection, UPDATE_STUDIO, entity.getName());
+        return JDBCUtil.update(transaction.getConnection(), UPDATE_STUDIO, entity.getName());
     }
 }

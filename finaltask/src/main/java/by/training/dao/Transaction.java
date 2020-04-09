@@ -5,19 +5,24 @@ import by.training.dao.exception.DaoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class Transaction {
+public class Transaction implements AutoCloseable {
+
+    private final Connection connection;
+
+    public Transaction() {
+        this.connection = ConnectionPool.getInstance().getConnection();
+    }
 
     public Connection getConnection() throws DaoException {
         try {
-            Connection c = ConnectionPool.getInstance().getConnection();
-            c.setAutoCommit(false);
-            return c;
+            connection.setAutoCommit(false);
+            return connection;
         } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
-    public void commit(Connection connection) throws DaoException {
+    public void commit() throws DaoException {
         try {
             connection.commit();
         } catch (SQLException e) {
@@ -25,13 +30,14 @@ public class Transaction {
         }
     }
 
-    public void close(Connection connection) throws DaoException {
+    @Override
+    public void close() throws DaoException {
         try {
             if (connection != null) {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Cannot close connection", e);
         }
     }
 

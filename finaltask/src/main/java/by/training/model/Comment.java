@@ -1,15 +1,14 @@
 package by.training.model;
 
-
-import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Comment extends AbstractEntity {
     private static final long serialVersionUID = -4451328805432622998L;
-
     private User user;
     private Serial serial;
     private String comment;
-    private Date publicationDate;
+    private LocalDateTime publicationDate;
 
     public Comment() {
     }
@@ -18,14 +17,14 @@ public class Comment extends AbstractEntity {
         super(id);
     }
 
-    public Comment(User user, Serial serial, String comment, Date publicationDate) {
+    public Comment(User user, Serial serial, String comment, LocalDateTime publicationDate) {
         this.user = user;
         this.serial = serial;
         this.comment = comment;
         this.publicationDate = publicationDate;
     }
 
-    public Comment(int id, User user, Serial serial, String comment, Date publicationDate) {
+    public Comment(int id, User user, Serial serial, String comment, LocalDateTime publicationDate) {
         super(id);
         this.user = user;
         this.serial = serial;
@@ -63,11 +62,12 @@ public class Comment extends AbstractEntity {
         this.comment = comment;
     }
 
-    public Date getPublicationDate() {
+    public LocalDateTime getPublicationDate() {
+        //publicationDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
         return publicationDate;
     }
 
-    public void setPublicationDate(Date publicationDate) {
+    public void setPublicationDate(LocalDateTime publicationDate) {
         this.publicationDate = publicationDate;
     }
 

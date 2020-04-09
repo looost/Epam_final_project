@@ -1,5 +1,6 @@
 package by.training.dao.impl;
 
+import by.training.dao.Transaction;
 import by.training.dao.UserDao;
 import by.training.dao.exception.DaoException;
 import by.training.dao.impl.jdbc.JDBCUtil;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDao {
 
-    private Connection connection;
+    private Transaction transaction;
 
     private static final ResultSetHandler<User> USER_RESULT_SET_HANDLER = new ResultSetHandler<User>() {
         @Override
@@ -31,52 +32,52 @@ public class UserDaoImpl implements UserDao {
         }
     };
 
-    public UserDaoImpl(Connection connection) {
-        this.connection = connection;
+    public UserDaoImpl(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, role FROM user WHERE login = ?";
     @Override
     public User findByLogin(String login) throws DaoException {
-        return JDBCUtil.select(connection, FIND_USER_BY_LOGIN,
+        return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_LOGIN,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), login);
     }
 
     private static final String FIND_USER_BY_LOGIN_AND_PASSWORD = "SELECT id, login, password, role FROM user WHERE login = ? and password = ?";
     @Override
     public User findByLoginAndPassword(String login, String password) throws DaoException {
-        return JDBCUtil.select(connection, FIND_USER_BY_LOGIN_AND_PASSWORD,
+        return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_LOGIN_AND_PASSWORD,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), login, password);
     }
 
     private static final String FIND_USER_BY_ID = "SELECT id, login, password, role FROM user WHERE id = ?";
     @Override
     public User findById(String id) throws DaoException {
-        return JDBCUtil.select(connection, FIND_USER_BY_ID,
+        return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), id);
     }
 
     private static final String DELETE_USER_BY_ID = "DELETE FROM user WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(connection, DELETE_USER_BY_ID, id);
+        return JDBCUtil.delete(transaction.getConnection(), DELETE_USER_BY_ID, id);
     }
 
     private static final String CREATE_USER = "INSERT INTO user VALUES (DEFAULT, ?, ?, DEFAULT)";
     @Override
     public boolean create(User entity) throws DaoException {
-        return JDBCUtil.create(connection, CREATE_USER, entity.getLogin(), entity.getPassword());
+        return JDBCUtil.create(transaction.getConnection(), CREATE_USER, entity.getLogin(), entity.getPassword());
     }
 
     private static final String UPDATE_USER = "UPDATE user SET login = ?, password = ? WHERE id = ?";
     @Override
     public boolean update(User entity) throws DaoException {
-        return JDBCUtil.update(connection, UPDATE_USER, entity.getLogin(), entity.getPassword(), entity.getId());
+        return JDBCUtil.update(transaction.getConnection(), UPDATE_USER, entity.getLogin(), entity.getPassword(), entity.getId());
     }
 
     private static final String CREATE_USER_WITH_ROLE = "INSERT INTO user VALUES (DEFAULT, ?, ?, ?)";
     @Override
     public boolean createUserWithRole(User user) throws DaoException {
-        return JDBCUtil.create(connection, CREATE_USER_WITH_ROLE, user.getLogin(), user.getPassword(), user.getRole());
+        return JDBCUtil.create(transaction.getConnection(), CREATE_USER_WITH_ROLE, user.getLogin(), user.getPassword(), user.getRole());
     }
 }
