@@ -32,7 +32,7 @@
             <div class="col-2 mb-2 p-0">
                 <jsp:useBean id="genres" scope="request" type="java.util.List"/>
                 <jsp:useBean id="country" scope="request" type="java.util.List"/>
-                <customTag:search-filter genres="${genres}" country="${country}"/>
+                <customTag:search-filter genres="${genres}" country="${country}" studio="${studio}"/>
             </div>
 
 

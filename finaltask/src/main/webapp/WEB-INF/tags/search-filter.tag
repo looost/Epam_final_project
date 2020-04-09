@@ -1,9 +1,9 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ attribute name="genres" required="true" type="java.util.List" %>
 <%@ attribute name="country" required="true" type="java.util.List" %>
+<%@ attribute name="studio" required="true" type="java.util.List" %>
 
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
@@ -31,6 +31,16 @@
                     <input type="checkbox" class="custom-control-input" id="customCountryCheck${c.id}" value="${c.id}"
                            name="country" ${searchForm.country.contains(c.id) ? 'checked' : ''}>
                     <label class="custom-control-label" for="customCountryCheck${c.id}">${c.name}</label>
+                </div>
+            </c:forEach>
+        </div>
+        <div class="mt-2">
+            <span class="badge badge-dark mb-1"><fmt:message key="studio" bundle="${ rb }"/></span>
+            <c:forEach var="s" items="${studio}">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="customStudioCheck${s.id}" value="${s.id}"
+                           name="studio" ${searchForm.studio.contains(s.id) ? 'checked' : ''}>
+                    <label class="custom-control-label" for="customStudioCheck${s.id}">${s.name}</label>
                 </div>
             </c:forEach>
         </div>

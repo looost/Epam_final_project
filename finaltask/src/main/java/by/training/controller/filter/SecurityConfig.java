@@ -4,10 +4,22 @@ import by.training.controller.command.CommandName;
 
 import java.util.*;
 
-public class SecurityConfig {
+class SecurityConfig {
     private static final Map<RoleEnum, List<CommandName>> mapConfig = new EnumMap<>(RoleEnum.class);
+    private static final Set<CommandName> securityPage = new HashSet<>();
 
     private SecurityConfig() {
+    }
+
+
+    static {
+        securityPage.add(CommandName.PROFILE);
+        securityPage.add(CommandName.PROFILEPOST);
+        securityPage.add(CommandName.ADD_COMMENT);
+    }
+
+    static boolean isSecurityPage(CommandName commandName) {
+        return securityPage.contains(commandName);
     }
 
     static {
@@ -24,11 +36,10 @@ public class SecurityConfig {
         urlUserPattern.add(CommandName.INDEX);
         urlUserPattern.add(CommandName.ADD_COMMENT);
         mapConfig.put(RoleEnum.USER, urlUserPattern);
-
-
     }
 
-    static List<CommandName> getUrlPatternForRole(RoleEnum role) {
-        return mapConfig.get(role);
+    static boolean hasPermission(CommandName command, RoleEnum role) {
+        List<CommandName> urlPatterns = mapConfig.get(role);
+        return urlPatterns != null && urlPatterns.contains(command);
     }
 }

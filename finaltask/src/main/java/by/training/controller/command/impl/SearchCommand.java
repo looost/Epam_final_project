@@ -41,15 +41,18 @@ public class SearchCommand implements Command {
 //            }
 //        }
 
-        SearchForm searchForm = new SearchForm(req.getParameter("query"), req.getParameterValues("genre"), req.getParameterValues("country"));
+        SearchForm searchForm = new SearchForm(req.getParameter("query"), req.getParameterValues("genre"),
+                req.getParameterValues("country"), req.getParameterValues("studio"));
         try {
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialBySearchForm(searchForm);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
+            List studio = ServiceFactory.getInstance().getStudioService().findAll();
 
             req.setAttribute("shows", serialList);
             req.setAttribute("genres", genres);
             req.setAttribute("country", country);
+            req.setAttribute("studio", studio);
             req.setAttribute("searchForm", searchForm);
 
         } catch (ServiceException e) {

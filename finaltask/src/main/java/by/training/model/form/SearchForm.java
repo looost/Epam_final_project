@@ -7,11 +7,13 @@ public class SearchForm {
     private String query;
     private List<Integer> genres;
     private List<Integer> country;
+    private List<Integer> studio;
 
-    public SearchForm(String query, String[] genres, String[] country) {
+    public SearchForm(String query, String[] genres, String[] country, String[] studio) {
         this.query = query;
         this.genres = convert(genres);
         this.country = convert(country);
+        this.studio = convert(studio);
     }
 
     private List<Integer> convert(String[] arr) {
@@ -49,5 +51,13 @@ public class SearchForm {
 
     public void setCountry(List<Integer> country) {
         this.country = country;
+    }
+
+    public List<Integer> getStudio() {
+        return studio;
+    }
+
+    public void setStudio(List<Integer> studio) {
+        this.studio = studio;
     }
 }

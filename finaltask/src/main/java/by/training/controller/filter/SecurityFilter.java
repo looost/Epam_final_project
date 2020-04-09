@@ -21,12 +21,7 @@ public class SecurityFilter implements Filter {
                 .substring(req.getRequestURI().lastIndexOf('/') + 1, req.getRequestURI().lastIndexOf('.'));
         CommandName commandName = CommandName.valueOf(requestURI.toUpperCase());
 
-        if (commandName.equals(CommandName.LOGIN)) {
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
-
-        if (SecurityUtils.isSecurityPage(commandName)) {
+        if (SecurityConfig.isSecurityPage(commandName)) {
             try {
                 String userLogin = (String) req.getSession().getAttribute("user");
                 User user = ServiceFactory.getInstance().getUserService().findByLogin(userLogin);
@@ -42,7 +37,7 @@ public class SecurityFilter implements Filter {
                         break;
                     }
                 }
-                if (SecurityUtils.hasPermission(commandName, userRole)) {
+                if (SecurityConfig.hasPermission(commandName, userRole)) {
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
                 } else {

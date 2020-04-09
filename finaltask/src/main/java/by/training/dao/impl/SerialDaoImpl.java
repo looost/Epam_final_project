@@ -104,6 +104,7 @@ public class SerialDaoImpl implements SerialDao {
         param.add("%" + searchForm.getQuery() + "%");
         JDBCUtil.populateSqlAndParams(sql, param, searchForm.getGenres(), "sg.genre_id = ?");
         JDBCUtil.populateSqlAndParams(sql, param, searchForm.getCountry(), "s.country_id = ?");
+        JDBCUtil.populateSqlAndParams(sql, param, searchForm.getStudio(), "s.studio_id = ?");
         return new SearchQuery(sql, param);
     }
 
