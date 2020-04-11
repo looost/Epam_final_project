@@ -64,6 +64,6 @@ public class CountryDaoImpl implements CountryDao {
     private static final String UPDATE_COUNTRY = "UPDATE country SET name = ? WHERE id = ?";
     @Override
     public boolean update(Country entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_COUNTRY, entity.getName());
+        return JDBCUtil.update(transaction.getConnection(), UPDATE_COUNTRY, entity.getName(), entity.getId());
     }
 }

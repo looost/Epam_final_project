@@ -90,20 +90,59 @@
 
 </div>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination pagination-lg justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Предыдущая</a>
-        </li>
-        <li class="page-item active"><a class="page-link"
-                                        href="${pageContext.request.contextPath}/index.html?page=1">1</a></li>
-        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index.html?page=2">2</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index.html?page=3">3</a>
-        </li>
-        <li class="page-item">
-            <a class="page-link" href="#">Следующая</a>
-        </li>
-    </ul>
-</nav>
+<%--<nav aria-label="Page navigation example">--%>
+<%--    <ul class="pagination pagination-lg justify-content-center">--%>
+<%--        <li class="page-item disabled">--%>
+<%--            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Предыдущая</a>--%>
+<%--        </li>--%>
+<%--        <li class="page-item active"><a class="page-link"--%>
+<%--                                        href="${pageContext.request.contextPath}/index.html?page=1">1</a></li>--%>
+<%--        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index.html?page=2">2</a>--%>
+<%--        </li>--%>
+<%--        <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/index.html?page=3">3</a>--%>
+<%--        </li>--%>
+<%--        <li class="page-item">--%>
+<%--            <a class="page-link" href="#">Следующая</a>--%>
+<%--        </li>--%>
+<%--    </ul>--%>
+<%--</nav>--%>
+<div id="content">
+    <div id="pagination-5" class="pagination pagination-lg justify-content-center "></div>
+</div>
+
+<script>
+
+    // function pageClick5(pageNumber) {
+    //     $("#page-number-5").text(pageNumber);
+    // }
+
+    $(document).ready(function () {
+        var itemsCount = ${countAllSerial};
+        var itemsOnPage = ${itemsOnPage};
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        var pagination5 = new Pagination({
+            container: $("#pagination-5"),
+            pageClickUrl: "?page={{page}}",
+            //pageClickUrl: function(num) { return "?page=" + num; },
+            // pageClickCallback: pageClick5,
+            callPageClickCallbackOnInit: true,
+            // showInput: true,
+            // showSlider: true,
+            // enhancedMode: true,
+            maxVisibleElements: 20,
+            inputTitle: "Go to page"
+        });
+        pagination5.make(itemsCount, itemsOnPage, getParameterByName("page"));
+    });
+</script>
 

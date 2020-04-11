@@ -1,6 +1,7 @@
 package by.training.controller.command;
 
 import by.training.controller.command.impl.*;
+import by.training.controller.command.impl.moder.*;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -20,9 +21,11 @@ public class CommandProvider {
         repository.put(CommandName.SEARCH, new SearchCommand());
         repository.put(CommandName.ADD_COMMENT, new AddCommentCommand());
         repository.put(CommandName.ADD_GENRE, new AddGenreCommand());
-        repository.put(CommandName.ADD_COUNTRY, new AddCountryCommand());
         repository.put(CommandName.CHANGE_GENRE, new ChangeGenreCommand());
         repository.put(CommandName.DELETE_GENRE, new DeleteGenreCommand());
+        repository.put(CommandName.ADD_COUNTRY, new AddCountryCommand());
+        repository.put(CommandName.CHANGE_COUNTRY, new ChangeCountryCommand());
+        repository.put(CommandName.DELETE_COUNTRY, new DeleteCountryCommand());
         repository.put(CommandName.WATCH_SERIAL, new WatchSerialCommand());
         repository.put(CommandName.MY_SERIAL, new ViewedSerial());
         repository.put(CommandName.PROFILE, new ProfileCommand());

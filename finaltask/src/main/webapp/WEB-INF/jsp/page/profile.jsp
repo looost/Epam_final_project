@@ -105,16 +105,7 @@
             </div>
 
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-country-tab">
-                <form method="post" action="${pageContext.request.contextPath}/add_country.html">
-                    <div class="form-group mt-3">
-                        <div class="mb-2">
-                            <label for="addCountry">Название страны:</label>
-                            <input type="text" name="country" class="form-control" id="addCountry"
-                                   placeholder="Название страны">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Добавить</button>
-                    </div>
-                </form>
+                <jsp:include page="../fragment/country-panel.jsp"/>
             </div>
 
         </div>

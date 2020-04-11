@@ -62,6 +62,15 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
+    public int countAllSerial() throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getSerialDao(transaction).countAllSerials();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {   //TODO deprecated
 //        Connection connection;
         try (Transaction transaction = new Transaction()) {

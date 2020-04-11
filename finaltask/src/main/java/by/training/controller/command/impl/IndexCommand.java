@@ -20,18 +20,20 @@ public class IndexCommand implements Command {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.setCharacterEncoding("UTF-8");
         try {
-//            int page = 1;
-//            if (req.getParameter("page") != null) {
-//                page = Integer.parseInt(req.getParameter("page"));
-//            }
-            //Serial serial = by.training.service.impl.test.ServiceFactory.getInstance().getSerialService().findById("1");
-            //System.out.println(serial);
-            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
+            int page = 1;
+            if (req.getParameter("page") != null) {
+                page = Integer.parseInt(req.getParameter("page"));
+            }
+            int countAllSerial = ServiceFactory.getInstance().getSerialService().countAllSerial();
+            final int ITEMS_ON_PAGE = 6;
+            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAllSerial2(page, ITEMS_ON_PAGE);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();
             List<Serial> last = serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
             req.setAttribute("shows", serialList);
+            req.setAttribute("countAllSerial", countAllSerial);
+            req.setAttribute("itemsOnPage", ITEMS_ON_PAGE);
             req.setAttribute("last", last);
             req.setAttribute("genres", genres);
             req.setAttribute("country", country);

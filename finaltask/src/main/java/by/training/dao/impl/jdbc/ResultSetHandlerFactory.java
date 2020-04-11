@@ -46,4 +46,21 @@ public class ResultSetHandlerFactory {
         };
     }
 
+    public static ResultSetHandler<Integer> getCountResultSetHandler() {
+        return new ResultSetHandler<Integer>() {
+            @Override
+            public Integer handle(ResultSet rs) throws DaoException {
+                try {
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    } else {
+                        return 0;
+                    }
+                } catch (SQLException e) {
+                    throw new DaoException(e);
+                }
+            }
+        };
+    }
+
 }
