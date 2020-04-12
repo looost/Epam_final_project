@@ -46,6 +46,23 @@ public class StudioDaoImpl implements StudioDao {
                 ResultSetHandlerFactory.getListResultSetHandler(STUDIO_RESULT_SET_HANDLER));
     }
 
+    private static final String FIND_STUDIO_PAGE_BY_PAGE = "SELECT id, name FROM studio ORDER BY name LIMIT ? OFFSET ?";
+
+    @Override
+    public List<Studio> findStudioPageByPage(int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        return JDBCUtil.select(transaction.getConnection(), FIND_STUDIO_PAGE_BY_PAGE,
+                ResultSetHandlerFactory.getListResultSetHandler(STUDIO_RESULT_SET_HANDLER), limit, offset);
+    }
+
+    private static final String COUNT_ALL_STUDIO = "SELECT COUNT(*) FROM studio";
+
+    @Override
+    public int countAllStudio() throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_STUDIO,
+                ResultSetHandlerFactory.getCountResultSetHandler());
+    }
+
     private static final String FIND_STUDIO_BY_ID = "SELECT id, name FROM studio WHERE id = ?";
     @Override
     public Studio findById(String id) throws DaoException {
@@ -68,6 +85,6 @@ public class StudioDaoImpl implements StudioDao {
     private static final String UPDATE_STUDIO = "UPDATE studio SET name = ? WHERE id = ?";
     @Override
     public boolean update(Studio entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_STUDIO, entity.getName());
+        return JDBCUtil.update(transaction.getConnection(), UPDATE_STUDIO, entity.getName(), entity.getId());
     }
 }

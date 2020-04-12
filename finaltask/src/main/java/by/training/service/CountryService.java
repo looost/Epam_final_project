@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface CountryService extends AbstractService<String, Country> {
     List<Country> findAll() throws ServiceException;
+
+    List<Country> findCountryPageByPage(int page, int limit) throws ServiceException;
+
+    int countAllCountry() throws ServiceException;
 }

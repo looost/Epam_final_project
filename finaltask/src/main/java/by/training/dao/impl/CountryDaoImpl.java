@@ -42,6 +42,23 @@ public class CountryDaoImpl implements CountryDao {
                 ResultSetHandlerFactory.getListResultSetHandler(COUNTRY_RESULT_SET_HANDLER));
     }
 
+    private static final String FIND_COUNTRY_PAGE_BY_PAGE = "SELECT id, name FROM country ORDER BY name LIMIT ? OFFSET ?";
+
+    @Override
+    public List<Country> findCountryPageByPage(int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        return JDBCUtil.select(transaction.getConnection(), FIND_COUNTRY_PAGE_BY_PAGE,
+                ResultSetHandlerFactory.getListResultSetHandler(COUNTRY_RESULT_SET_HANDLER), limit, offset);
+    }
+
+    private static final String COUNT_ALL_COUNTRY = "SELECT COUNT(*) FROM country";
+
+    @Override
+    public int countAllCountry() throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_COUNTRY,
+                ResultSetHandlerFactory.getCountResultSetHandler());
+    }
+
     private static final String FIND_COUNTRY_BY_ID = "SELECT id, name FROM country WHERE id = ?";
     @Override
     public Country findById(String id) throws DaoException {

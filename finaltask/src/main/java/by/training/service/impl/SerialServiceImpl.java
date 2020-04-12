@@ -127,10 +127,10 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public boolean toWatchSerial(String userId, String serialId) throws ServiceException {
-//        Connection connection = null;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
+            boolean res = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
+            transaction.commit();
+            return res;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -162,10 +162,10 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public boolean delete(String id) throws ServiceException {
-//        Connection connection = null;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getSerialDao(transaction).delete(id);
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction).delete(id);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -198,10 +198,10 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public boolean update(Serial entity) throws ServiceException {
-//        Connection connection = null;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getSerialDao(transaction).update(entity);
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction).update(entity);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

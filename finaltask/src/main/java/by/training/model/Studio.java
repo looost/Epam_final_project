@@ -8,18 +8,18 @@ public class Studio extends AbstractEntity {
     public Studio() {
     }
 
-//    public Studio(String name) {
-//        this.name = name;
-//    }
-//
+    public Studio(String name) {
+        this.name = name;
+    }
+
 //    public Studio(int id) {
 //        super(id);
 //    }
 //
-//    public Studio(int id, String name) {
-//        super(id);
-//        this.name = name;
-//    }
+public Studio(int id, String name) {
+    super(id);
+    this.name = name;
+}
 
     public String getName() {
         return name;

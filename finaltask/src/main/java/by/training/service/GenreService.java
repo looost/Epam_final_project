@@ -7,5 +7,9 @@ import java.util.List;
 
 public interface GenreService extends AbstractService<String, Genre> {
     List<Genre> findAll() throws ServiceException;
+
+    List<Genre> findGenrePageByPage(int page, int limit) throws ServiceException;
+
+    int countAllGenres() throws ServiceException;
     Genre findByName(String name) throws ServiceException;
 }

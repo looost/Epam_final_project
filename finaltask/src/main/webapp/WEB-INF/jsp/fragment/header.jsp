@@ -40,6 +40,11 @@
                     </a>
                 </li>
             </c:if>
+            <li class="nav-item">
+                <a class="nav-link" href="${pageContext.request.contextPath}/admin/serial.html">
+                    Админка
+                </a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="${pageContext.request.contextPath}/search.html">
             <input class="form-control mr-sm-2" type="search"

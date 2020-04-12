@@ -13,6 +13,7 @@
 
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
+
 <!-- portfolio -->
 <div class="portfolio">
     <%--    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>--%>

@@ -14,14 +14,13 @@ class SecurityConfig {
 
     static {
         securityPage.add(CommandName.PROFILE);
-        securityPage.add(CommandName.PROFILEPOST);
         securityPage.add(CommandName.ADD_COMMENT);
+        securityPage.add(CommandName.PROFILEPOST);
     }
 
     static boolean isSecurityPage(CommandName commandName) {
         return securityPage.contains(commandName);
     }
-
     static {
         List<CommandName> urlAdminPattern = new ArrayList<>();
         urlAdminPattern.add(CommandName.INDEX);

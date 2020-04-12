@@ -43,30 +43,63 @@
                         <%--                            </div>--%>
                         <%--                        </c:forEach>--%>
 
-                            <div class="row row-cols-1 row-cols-md-3">
-                            <jsp:useBean id="shows" scope="request" type="java.util.List"/>
-                            <c:forEach items="${shows}" var="s">
-                                <div class="col mb-4">
-                                    <div class="card h-100">
-                                        <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
-                                            <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
-                                        </a>
+                            <%--                            <div class="row row-cols-1 row-cols-md-3">--%>
 
-                                        <div class="card-header" style="max-height: 3rem">
-                                            <a class="card-title"
-                                               href="${pageContext.request.contextPath}/show.html?id=${s.id}"
-                                               style="font-family: segoe print">
-                                                <h5 class="text-center">${s.name}</h5>
-                                            </a>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text"><em>${fn:substring(s.description, 0, 100)}...</em></p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <small class="text-muted">${s.studio.name}</small>
-                                        </div>
+                            <jsp:useBean id="shows" scope="request" type="java.util.List"/>
+
+                            <c:if test="${empty shows}">
+                                <div class="container">
+                                    <div class="alert alert-info m-2 text-center" role="alert">
+                                        <h4 class="alert-heading">УПС!</h4>
+                                        <hr>
+                                        <p class="mb-0">Не найдено сериалов с такими критериями :(</p>
                                     </div>
                                 </div>
+                            </c:if>
+
+
+                            <c:forEach items="${shows}" var="s">
+                                <%--                                <div class="col mb-4">--%>
+                                <%--                                    <div class="card h-100">--%>
+                                <%--                                        <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">--%>
+                                <%--                                            <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">--%>
+                                <%--                                        </a>--%>
+
+                                <%--                                        <div class="card-header" style="max-height: 3rem">--%>
+                                <%--                                            <a class="card-title"--%>
+                                <%--                                               href="${pageContext.request.contextPath}/show.html?id=${s.id}"--%>
+                                <%--                                               style="font-family: segoe print">--%>
+                                <%--                                                <h5 class="text-center">${s.name}</h5>--%>
+                                <%--                                            </a>--%>
+                                <%--                                        </div>--%>
+                                <%--                                        <div class="card-body">--%>
+                                <%--                                            <p class="card-text"><em>${fn:substring(s.description, 0, 100)}...</em></p>--%>
+                                <%--                                        </div>--%>
+                                <%--                                        <div class="card-footer">--%>
+                                <%--                                            <small class="text-muted">${s.studio.name}</small>--%>
+                                <%--                                        </div>--%>
+                                <%--                                    </div>--%>
+                                <%--                                </div>--%>
+
+                                <div class="row no-gutters bg-light position-relative">
+                                    <div class="col-md-6 mb-md-0 p-md-4">
+                                        <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
+                                            <img src="/final/${s.logo}" class="w-100" alt="...">
+                                        </a>
+
+                                    </div>
+                                    <div class="col-md-6 position-static p-4 pl-md-0">
+                                        <a class="card-title"
+                                           href="${pageContext.request.contextPath}/show.html?id=${s.id}"
+                                           style="font-family: segoe print">
+                                            <h5 class="mt-0">${s.name}</h5>
+                                        </a>
+
+                                        <p>${s.description}</p>
+                                        <small class="text-muted">${s.studio.name}</small>
+                                    </div>
+                                </div>
+
                             </c:forEach>
 
 

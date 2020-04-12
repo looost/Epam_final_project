@@ -1,3 +1,4 @@
+<jsp:useBean id="error" scope="request" type="java.lang.String"/>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -8,5 +9,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<h1 class="text-center m-3" style="font-family: segoe print">ОШИБКА</h1>
-<h1 class="text-center m-3" style="font-family: segoe print">${error}</h1>
+<div class="container">
+
+    <div class="alert alert-danger m-2 text-center" role="alert">
+        <h4 class="alert-heading">УПС!</h4>
+        <hr>
+        <p class="mb-0">${error}</p>
+    </div>
+
+</div>

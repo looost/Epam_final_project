@@ -49,6 +49,23 @@ public class GenreDaoImpl implements GenreDao {
                 ResultSetHandlerFactory.getListResultSetHandler(GENRE_RESULT_SET_HANDLER));
     }
 
+    private static final String FIND_GENRE_PAGE_BY_PAGE = "SELECT id, name FROM genre ORDER BY name LIMIT ? OFFSET ?";
+
+    @Override
+    public List<Genre> findGenrePageByPage(int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        return JDBCUtil.select(transaction.getConnection(), FIND_GENRE_PAGE_BY_PAGE,
+                ResultSetHandlerFactory.getListResultSetHandler(GENRE_RESULT_SET_HANDLER), limit, offset);
+    }
+
+    private static final String COUNT_ALL_GENRE = "SELECT COUNT(*) FROM genre";
+
+    @Override
+    public int countAllGenres() throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_GENRE,
+                ResultSetHandlerFactory.getCountResultSetHandler());
+    }
+
     private static final String FIND_GENRES_BY_SERIAL_ID = "SELECT g.id, g.name FROM genre g JOIN serial_genre sg on g.id = sg.genre_id where serial_id = ?";
     @Override
     public List<Genre> findGenreBySerialId(String serialId) throws DaoException {

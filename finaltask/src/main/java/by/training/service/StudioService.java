@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface StudioService extends AbstractService<String, Studio> {
     List<Studio> findAll() throws ServiceException;
+
+    List<Studio> findStudioPageByPage(int page, int limit) throws ServiceException;
+
+    int countAllStudio() throws ServiceException;
 }

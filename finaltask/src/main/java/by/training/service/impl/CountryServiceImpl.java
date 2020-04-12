@@ -27,6 +27,24 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    public List<Country> findCountryPageByPage(int page, int limit) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getCountryDao(transaction).findCountryPageByPage(page, limit);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int countAllCountry() throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getCountryDao(transaction).countAllCountry();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Country findById(String id) throws ServiceException {
         return null;
     }

@@ -1,7 +1,8 @@
 package by.training.controller.servlet;
 
 
-import by.training.controller.command.CommandProvider;
+import by.training.controller.command.getcommand.GetCommandProvider;
+import by.training.controller.command.postcommand.PostCommandProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,19 +14,29 @@ public class IndexServlet extends HttpServlet {
 
     private static final long serialVersionUID = -3508576924089672311L;
 
-    private void action(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        String requestURI = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1);
-        String requestURI = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1, req.getRequestURI().lastIndexOf("."));
-        CommandProvider.getInstance().getCommand(requestURI).execute(req, resp);
+//    private void action(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+////        System.out.println(req.getServletPath());
+//        //String requestURI = req.getRequestURI().substring(req.getRequestURI().lastIndexOf("/") + 1, req.getRequestURI().lastIndexOf("."));
+//        String requestURI2 = req.getServletPath().substring(1, req.getServletPath().lastIndexOf(".")).replaceAll("/", "-");
+//        System.out.println(requestURI2);
+//        GetCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
+//    }
+
+    private static String getRequestURI(HttpServletRequest req) {
+        return req.getServletPath()
+                .substring(1, req.getServletPath().lastIndexOf(".")).replaceAll("/", "_");
+
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        action(req, resp);
+        String requestURI2 = getRequestURI(req);
+        GetCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        action(req, resp);
+        String requestURI2 = getRequestURI(req);
+        PostCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
     }
 }

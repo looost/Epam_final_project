@@ -81,7 +81,6 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String COUNT_ALL_SERIAL = "SELECT COUNT(*) FROM serial";
-
     @Override
     public int countAllSerials() throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_SERIAL,
@@ -165,11 +164,13 @@ public class SerialDaoImpl implements SerialDao {
         return true;
     }
 
-    private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?, logo = ?, full_logo = ? WHERE id = ?";
+    private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?," +
+            "  country_id = ?, studio_id = ? WHERE id = ?";
     @Override
     public boolean update(Serial entity) throws DaoException {
         return JDBCUtil.update(transaction.getConnection(), UPDATE_SERIAL,
-                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getId());
+                entity.getName(), entity.getDescription(),
+                entity.getCountry().getId(), entity.getStudio().getId(), entity.getId());
     }
 
     private static final String WATCH_SERIAL = "INSERT INTO viewed VALUES (?, ?)";

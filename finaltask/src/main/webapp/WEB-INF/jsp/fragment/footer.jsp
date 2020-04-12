@@ -22,6 +22,7 @@
 <%--    request.setAttribute("rw2", test);--%>
 <%--%>--%>
 
+
 <div class="container text-center">
 
     <%--    <ctg:table-revenue rows="${rw2.size}" head="Revenue">--%>

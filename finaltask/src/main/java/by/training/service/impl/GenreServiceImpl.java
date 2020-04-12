@@ -6,6 +6,8 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;
+import by.training.service.transaction.TransactionHandlerFactory;
+import by.training.service.transaction.TransactionUtil;
 
 import java.util.List;
 
@@ -31,6 +33,24 @@ public class GenreServiceImpl implements GenreService {
 //            return genreDao.findAll();
 //            Connection connection = ConnectionPool.getInstance().getConnection();
             return DaoFactory.getInstance().getGenreDao(transaction).findAll();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public List<Genre> findGenrePageByPage(int page, int limit) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getGenreDao(transaction).findGenrePageByPage(page, limit);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public int countAllGenres() throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            return DaoFactory.getInstance().getGenreDao(transaction).countAllGenres();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
