@@ -2,6 +2,7 @@ package by.training.controller.command.postcommand.impl.moder;
 
 import by.training.controller.command.Command;
 import by.training.controller.servlet.handler.MultiFilesHandler;
+import by.training.controller.servlet.handler.MultiFilesResponse;
 import by.training.model.Serial;
 import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
@@ -21,15 +22,17 @@ public class AddSerialPostCommand implements Command {
         try {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
-
-            Serial serial = MultiFilesHandler.Handler(multiFiles);
-            System.out.println(serial);
-            ServiceFactory.getInstance().getSerialService().create(serial);
-
-
+            MultiFilesResponse multiFilesResponse = MultiFilesHandler.handler(multiFiles, req);
+            //Serial serial = MultiFilesHandler.handler(multiFiles);
+            //System.out.println(serial);
+            if (multiFilesResponse.isHaveProblem()) {
+                RoutingUtils.redirectToPage("/final/admin/serial.html", resp);
+            } else {
+                ServiceFactory.getInstance().getSerialService().create(multiFilesResponse.getSerial());
+                resp.sendRedirect(req.getHeader("referer"));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        resp.sendRedirect(req.getHeader("referer"));
     }
 }

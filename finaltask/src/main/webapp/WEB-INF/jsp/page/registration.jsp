@@ -17,10 +17,10 @@
                         <div class="form-group m-2">
                             <label for="inputEmail"><fmt:message key="login" bundle="${ rb }"/>:</label>
                             <input type="text" name="login"
-                                   class="form-control ${incorrect2 != null ? 'is-invalid' : ''}" id="inputEmail"
+                                   class="form-control ${incorrect != null ? 'is-invalid' : ''}" id="inputEmail"
                                    placeholder="<fmt:message key="enterLogin" bundle="${ rb }" />" required>
-                            <c:if test="${not empty incorrect2}">
-                                <div class="invalid-feedback">${incorrect2}</div>
+                            <c:if test="${not empty incorrect}">
+                                <div class="invalid-feedback">${incorrect}</div>
                             </c:if>
                         </div>
                         <div class="form-group m-2">

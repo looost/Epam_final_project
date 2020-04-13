@@ -128,7 +128,7 @@
                    href="${pageContext.request.contextPath}/language.html?language=ru_RU">Русский</a>
                 <a class="dropdown-item"
                    href="${pageContext.request.contextPath}/language.html?language=en_EU">English</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/language.html?language=by_BY">Беларускі</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/language.html?language=be_BY">Беларускі</a>
             </div>
         </li>
     </ul>

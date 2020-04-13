@@ -14,13 +14,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<Country> findAll() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-//            Transaction transaction = new Transaction();
-//            CountryDao countryDao = DaoFactory.getInstance().getCountryDao();
-//            transaction.startTransaction((Dao) countryDao);
-//            List<Country> countryList = countryDao.findAll();
-//            transaction.commit();
-//            transaction.close();
-            return DaoFactory.getInstance().getCountryDao(transaction).findAll();
+            List<Country> result = DaoFactory.getInstance().getCountryDao(transaction).findAll();
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -29,7 +25,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public List<Country> findCountryPageByPage(int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            return DaoFactory.getInstance().getCountryDao(transaction).findCountryPageByPage(page, limit);
+            List<Country> result = DaoFactory.getInstance().getCountryDao(transaction).findCountryPageByPage(page, limit);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -38,7 +36,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public int countAllCountry() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            return DaoFactory.getInstance().getCountryDao(transaction).countAllCountry();
+            int result = DaoFactory.getInstance().getCountryDao(transaction).countAllCountry();
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -52,9 +52,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public boolean delete(String id) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getCountryDao(transaction).delete(id);
+            boolean result = DaoFactory.getInstance().getCountryDao(transaction).delete(id);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -63,9 +63,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public boolean create(Country entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getCountryDao(transaction).create(entity);
+            boolean result = DaoFactory.getInstance().getCountryDao(transaction).create(entity);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -74,9 +74,9 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public boolean update(Country entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getCountryDao(transaction).update(entity);
+            boolean result = DaoFactory.getInstance().getCountryDao(transaction).update(entity);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

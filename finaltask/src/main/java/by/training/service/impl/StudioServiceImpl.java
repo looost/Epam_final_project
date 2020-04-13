@@ -13,9 +13,9 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public List<Studio> findAll() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            List<Studio> res = DaoFactory.getInstance().getStudioDao(transaction).findAll();
+            List<Studio> result = DaoFactory.getInstance().getStudioDao(transaction).findAll();
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -24,9 +24,9 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public List<Studio> findStudioPageByPage(int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            List<Studio> res = DaoFactory.getInstance().getStudioDao(transaction).findStudioPageByPage(page, limit);
+            List<Studio> result = DaoFactory.getInstance().getStudioDao(transaction).findStudioPageByPage(page, limit);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -35,9 +35,9 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public int countAllStudio() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            int res = DaoFactory.getInstance().getStudioDao(transaction).countAllStudio();
+            int result = DaoFactory.getInstance().getStudioDao(transaction).countAllStudio();
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -51,9 +51,9 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public boolean delete(String id) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getStudioDao(transaction).delete(id);
+            boolean result = DaoFactory.getInstance().getStudioDao(transaction).delete(id);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -62,9 +62,9 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public boolean create(Studio entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getStudioDao(transaction).create(entity);
+            boolean result = DaoFactory.getInstance().getStudioDao(transaction).create(entity);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -73,9 +73,9 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public boolean update(Studio entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getStudioDao(transaction).update(entity);
+            boolean result = DaoFactory.getInstance().getStudioDao(transaction).update(entity);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

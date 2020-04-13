@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -32,9 +33,22 @@
                             <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
                                    placeholder="Название сериала">
                         </div>
-                        <div class="form-group">
-                            <label for="description">Описание сериала</label>
-                            <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+
+                        <%--                        <div class="form-group">--%>
+                        <%--                            <label for="description">Описание сериала</label>--%>
+                        <%--                            <textarea class="form-control" name="description" id="description" rows="3"></textarea>--%>
+                        <%--                        </div>--%>
+
+                        <div class="mb-3">
+                            <label for="validationTextarea">Описание сериала</label>
+                            <textarea class="form-control ${descriptionProblem != null ? 'is-invalid' : 'is-valid' }"
+                                      id="validationTextarea" placeholder="Описание сериала"
+                                      name="description"></textarea>
+                            <c:if test="${descriptionProblem != null}">
+                                <div class="invalid-feedback">
+                                        ${descriptionProblem}
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="form-group">
@@ -57,9 +71,10 @@
                             <jsp:useBean id="genres" scope="request" type="java.util.List"/>
                             <c:forEach var="g" items="${genres}">
                                 <div class="custom-control custom-checkbox">
-                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="${g.id}"
+                                    <input type="checkbox" class="custom-control-input" id="customCheck${g.id}"
+                                           value="${g.id}"
                                            name="genre">
-                                    <label class="form-check-label" for="inlineCheckbox2">${g.name}</label>
+                                    <label class="custom-control-label" for="customCheck${g.id}">${g.name}</label>
                                 </div>
                             </c:forEach>
                         </div>

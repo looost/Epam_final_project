@@ -1,6 +1,5 @@
 package by.training.service.impl;
 
-import by.training.dao.ConnectionPool;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
@@ -9,17 +8,15 @@ import by.training.service.UserService;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.Validation;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class UserServiceImpl implements UserService {
 
     @Override
     public User findByLogin(String login) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getUserDao(transaction).findByLogin(login);
+            User result = DaoFactory.getInstance().getUserDao(transaction).findByLogin(login);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -27,10 +24,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByLoginAndPassword(String login, String password) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getUserDao(transaction).findByLoginAndPassword(login, password);
+            User result = DaoFactory.getInstance().getUserDao(transaction).findByLoginAndPassword(login, password);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -53,11 +50,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean create(User entity) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             if (Validation.isCorrectUserLogin(transaction, entity)) {
                 DaoFactory.getInstance().getUserDao(transaction).create(entity);
+                transaction.commit();
                 return true;
             } else {
                 return false;

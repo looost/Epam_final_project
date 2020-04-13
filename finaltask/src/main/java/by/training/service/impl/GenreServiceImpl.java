@@ -6,8 +6,6 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;
-import by.training.service.transaction.TransactionHandlerFactory;
-import by.training.service.transaction.TransactionUtil;
 
 import java.util.List;
 
@@ -17,8 +15,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public Genre findByName(String name) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-//            Connection connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getGenreDao(transaction).findByName(name);
+            Genre result = DaoFactory.getInstance().getGenreDao(transaction).findByName(name);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -27,12 +26,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<Genre> findAll() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-//            TransactionFactory transactionFactory = new TransactionFactory();
-//            Transaction transaction = transactionFactory.createTransaction();
-//            GenreDao genreDao = transaction.createDao(EntityEnum.GENRE);
-//            return genreDao.findAll();
-//            Connection connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getGenreDao(transaction).findAll();
+            List<Genre> result = DaoFactory.getInstance().getGenreDao(transaction).findAll();
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -41,7 +37,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public List<Genre> findGenrePageByPage(int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            return DaoFactory.getInstance().getGenreDao(transaction).findGenrePageByPage(page, limit);
+            List<Genre> result = DaoFactory.getInstance().getGenreDao(transaction).findGenrePageByPage(page, limit);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -50,7 +48,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public int countAllGenres() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            return DaoFactory.getInstance().getGenreDao(transaction).countAllGenres();
+            int result = DaoFactory.getInstance().getGenreDao(transaction).countAllGenres();
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -63,12 +63,10 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public boolean delete(String id) throws ServiceException {
-//        Connection connection = null;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            boolean res = DaoFactory.getInstance().getGenreDao(transaction).delete(id);
+            boolean result = DaoFactory.getInstance().getGenreDao(transaction).delete(id);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -77,10 +75,9 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public boolean create(Genre entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            boolean res = DaoFactory.getInstance().getGenreDao(transaction).create(entity);
+            boolean result = DaoFactory.getInstance().getGenreDao(transaction).create(entity);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -88,12 +85,10 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public boolean update(Genre entity) throws ServiceException {
-//        Connection connection = null;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            boolean res = DaoFactory.getInstance().getGenreDao(transaction).update(entity);
+            boolean result = DaoFactory.getInstance().getGenreDao(transaction).update(entity);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

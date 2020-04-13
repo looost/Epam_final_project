@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrPostCommand implements Command {
     @Override
@@ -24,7 +26,10 @@ public class RegistrPostCommand implements Command {
             if (ServiceFactory.getInstance().getUserService().create(user)) {
                 RoutingUtils.redirectToPage("/final/login.html", resp);
             } else {
-                req.getSession().setAttribute("incorrect", "Пользователь с таким логином уже существует!");
+                Map<String, String> error = new HashMap<>();
+                error.put("incorrect", "Пользователь с таким логином уже существует!");
+                req.getSession().setAttribute("error", error);
+                //req.getSession().setAttribute("incorrect", "Пользователь с таким логином уже существует!");
                 RoutingUtils.redirectToPage("/final/registration.html", resp);
             }
         } catch (ServiceException e) {

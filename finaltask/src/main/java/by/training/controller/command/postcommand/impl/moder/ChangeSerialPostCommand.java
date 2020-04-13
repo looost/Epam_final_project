@@ -21,7 +21,7 @@ public class ChangeSerialPostCommand implements Command {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
 
-            Serial serial = MultiFilesHandler.Handler(multiFiles);
+            Serial serial = MultiFilesHandler.handler(multiFiles);
             serial.setId(Integer.parseInt(req.getParameter("id")));
 
             ServiceFactory.getInstance().getSerialService().update(serial);

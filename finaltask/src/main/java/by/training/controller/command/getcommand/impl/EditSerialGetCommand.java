@@ -17,6 +17,10 @@ import java.util.List;
 public class EditSerialGetCommand implements Command {
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession().getAttribute("descriptionProblem") != null) {
+            req.setAttribute("descriptionProblem", req.getSession().getAttribute("descriptionProblem"));
+            req.getSession().removeAttribute("descriptionProblem");
+        }
         try {
             List<Country> countryList = ServiceFactory.getInstance().getCountryService().findAll();
             List<Studio> studios = ServiceFactory.getInstance().getStudioService().findAll();

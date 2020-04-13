@@ -1,6 +1,5 @@
 package by.training.service.impl;
 
-import by.training.dao.ConnectionPool;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Serial;
@@ -12,8 +11,6 @@ import by.training.service.transaction.TransactionHandler;
 import by.training.service.transaction.TransactionHandlerFactory;
 import by.training.service.transaction.TransactionUtil;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class SerialServiceImpl implements SerialService {
@@ -23,11 +20,12 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public Serial findSerialByName(String name) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
             Serial serial = DaoFactory.getInstance().getSerialDao(transaction).findSerialByName(name);
-            return TransactionUtil
+            Serial result = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getSingleTransactionHandler(SERIAL_TRANSACTION_HANDLER), serial);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -35,14 +33,11 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public List<Serial> findAll() throws ServiceException {
-        //Connection connection;
         try (Transaction transaction = new Transaction()) {
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findAll();
             serialList = TransactionUtil.select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
             return serialList;
-//            return TransactionUtil
-//                    .select(connection, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -50,12 +45,12 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public List<Serial> findAllSerial2(int page, int limit) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findAllSerial2(page, limit);
-            return TransactionUtil
+            serialList = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -64,7 +59,9 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public int countAllSerial() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            return DaoFactory.getInstance().getSerialDao(transaction).countAllSerials();
+            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerials();
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -72,12 +69,12 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {   //TODO deprecated
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialBySearchForm(searchQuery);
-            return TransactionUtil
+            serialList = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -85,15 +82,15 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public List<Serial> findSerialBySearchForm(SearchForm searchForm) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             if (searchForm.getQuery() == null) {
                 searchForm.setQuery("");
             }
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialBySearchForm(searchForm);
-            return TransactionUtil
+            serialList = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -101,12 +98,12 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public List<Serial> findSerialByGenre(String genreId) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialByGenre(genreId);
-            return TransactionUtil
+            serialList = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -114,12 +111,12 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public List<Serial> findSerialsThatIWatch(String userId) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatIWatch(userId);
-            return TransactionUtil
+            serialList = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
         } catch (DaoException e) {
             throw new ServiceException();
         }
@@ -128,9 +125,9 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public boolean toWatchSerial(String userId, String serialId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
             transaction.commit();
-            return res;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -138,10 +135,10 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public boolean stopWatchSerial(String userId, String serialId) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-            return DaoFactory.getInstance().getSerialDao(transaction).stopWatchSerial(userId, serialId);
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction).stopWatchSerial(userId, serialId);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -149,12 +146,12 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public Serial findById(String id) throws ServiceException {
-//        Connection connection;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
             Serial serial = DaoFactory.getInstance().getSerialDao(transaction).findById(id);
-            return TransactionUtil
+            serial = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getSingleTransactionHandler(SERIAL_TRANSACTION_HANDLER), serial);
+            transaction.commit();
+            return serial;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -173,20 +170,7 @@ public class SerialServiceImpl implements SerialService {
 
     @Override
     public boolean create(Serial entity) throws ServiceException {
-//        Connection connection = null;
         try (Transaction transaction = new Transaction()) {
-//            connection = ConnectionPool.getInstance().getConnection();
-
-//            TransactionFactory transactionFactory = new TransactionFactory();
-//            Transaction transaction = transactionFactory.createTransaction();
-//            SerialDao serialDao = transaction.createDao(EntityEnum.SERIAL);
-//            int index = serialDao.createAndReturnIndex(entity);
-//            serialDao.createSerialGenre(index, entity.getGenres());
-//            transaction.commit();
-//            System.out.println(transaction.getConnection() + "!");
-//            transaction.close();
-//            System.out.println(transaction.getConnection());
-//            return true;
             TransactionUtil
                     .create(transaction, TransactionHandlerFactory.getSingleTransactionHandler(CREATE_SERIAL_WITH_GENRE), entity);
             transaction.commit();
