@@ -21,7 +21,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="info" level="info">
+        <Logger name="debug" level="debug">
             <AppenderRef ref="infoLogFile"/>
         </Logger>
         <Logger name="exception" level="error">
@@ -30,7 +30,7 @@
         </Logger>
 
         <Root level="All">
-            <!--            <AppenderRef ref="console"/>-->
+            <AppenderRef ref="console"/>
         </Root>
     </Loggers>
 

@@ -1,10 +1,11 @@
 package by.training.controller.command.postcommand.impl;
 
 import by.training.controller.command.Command;
+import by.training.controller.command.CommandResponse;
+import by.training.controller.command.RoutingType;
 import by.training.controller.servlet.handler.MultiFilesHandler;
 import by.training.model.Serial;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.RoutingUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -17,8 +18,11 @@ import java.util.List;
 
 
 public class ProfilePostCommand implements Command {
+
+    private static final String ROUTING_PAGE = "/final/profile.html";
+
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
@@ -32,6 +36,7 @@ public class ProfilePostCommand implements Command {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        RoutingUtils.redirectToPage("/final/profile.html", resp);
+        return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+        //RoutingUtils.redirectToPage("/final/profile.html", resp);
     }
 }

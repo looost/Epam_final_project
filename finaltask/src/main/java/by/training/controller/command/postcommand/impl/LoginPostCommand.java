@@ -1,10 +1,11 @@
 package by.training.controller.command.postcommand.impl;
 
 import by.training.controller.command.Command;
+import by.training.controller.command.CommandResponse;
+import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.RoutingUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,8 +14,12 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class LoginPostCommand implements Command {
+
+    private static final String ROUTING_PAGE = "/final/index.html";
+    private static final String ROUTING_LOGIN_PAGE = "/final/login.html";
+
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         User user = null;
@@ -30,9 +35,11 @@ public class LoginPostCommand implements Command {
             HttpSession session = req.getSession();
             session.setAttribute("user", user.getLogin());
             session.setAttribute("userId", user.getId());
-            RoutingUtils.redirectToPage("/final/index.html", resp);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            //RoutingUtils.redirectToPage("/final/index.html", resp);
         } else {
-            RoutingUtils.redirectToPage("/final/login.html", resp);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
+            //RoutingUtils.redirectToPage("/final/login.html", resp);
         }
     }
 }

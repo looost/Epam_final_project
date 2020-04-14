@@ -1,11 +1,12 @@
 package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
+import by.training.controller.command.CommandResponse;
+import by.training.controller.command.RoutingType;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 import by.training.utils.Constant;
-import by.training.utils.RoutingUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,10 @@ import java.util.stream.Collectors;
 
 public class IndexGetCommand implements Command {
 
+    private static final String ROUTING_PAGE = "index.jsp";
+
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //resp.setCharacterEncoding("UTF-8");
         try {
             int page = 1;
@@ -41,7 +44,7 @@ public class IndexGetCommand implements Command {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-
-        RoutingUtils.forwardToPage("index.jsp", req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        //RoutingUtils.forwardToPage("index.jsp", req, resp);
     }
 }

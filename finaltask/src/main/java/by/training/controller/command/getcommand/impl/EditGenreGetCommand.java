@@ -1,11 +1,12 @@
 package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
+import by.training.controller.command.CommandResponse;
+import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 import by.training.utils.Constant;
-import by.training.utils.RoutingUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +15,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class EditGenreGetCommand implements Command {
+
+    private static final String ROUTING_PAGE = "/admin/genre.jsp";
+
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             int page = 1;
             if (req.getParameter("page") != null) {
@@ -29,6 +33,7 @@ public class EditGenreGetCommand implements Command {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        RoutingUtils.forwardToPage("/admin/genre.jsp", req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        //RoutingUtils.forwardToPage("/admin/genre.jsp", req, resp);
     }
 }

@@ -1,10 +1,11 @@
 package by.training.controller.servlet;
 
 
+import by.training.controller.command.CommandResponse;
 import by.training.controller.command.getcommand.GetCommandProvider;
 import by.training.controller.command.postcommand.PostCommandProvider;
+import by.training.utils.RoutingUtils;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,12 +34,14 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestURI2 = getRequestURI(req);
-        GetCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
+        CommandResponse commandResponse = GetCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
+        RoutingUtils.routing(commandResponse);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String requestURI2 = getRequestURI(req);
-        PostCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
+        CommandResponse commandResponse = PostCommandProvider.getInstance().getCommand(requestURI2).execute(req, resp);
+        RoutingUtils.routing(commandResponse);
     }
 }
