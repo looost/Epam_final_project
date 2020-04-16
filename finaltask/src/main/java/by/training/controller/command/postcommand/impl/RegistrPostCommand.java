@@ -6,6 +6,7 @@ import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +24,9 @@ public class RegistrPostCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String password = BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt());
 
-        User user = new User(login, password, 3);
+        User user = new User(login, password);
 
         try {
             if (ServiceFactory.getInstance().getUserService().create(user)) {

@@ -35,7 +35,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean createUserWithRole(User user) throws ServiceException {
-        return false;
+        try (Transaction transaction = new Transaction()) {
+            if (Validation.isCorrectUserLogin(transaction, user)) {
+                DaoFactory.getInstance().getUserDao(transaction).createUserWithRole(user);
+                transaction.commit();
+                return true;
+            } else {
+                return false;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
@@ -65,6 +75,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean update(User entity) throws ServiceException {
-        return false;
+        try (Transaction transaction = new Transaction()) {
+            DaoFactory.getInstance().getUserDao(transaction).update(entity);
+            transaction.commit();
+            return true;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 }

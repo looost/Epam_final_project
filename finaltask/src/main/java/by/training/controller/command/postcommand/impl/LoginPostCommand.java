@@ -6,6 +6,8 @@ import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import by.training.utils.ResourceManager;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ public class LoginPostCommand implements Command {
 
     private static final String ROUTING_PAGE = "/final/index.html";
     private static final String ROUTING_LOGIN_PAGE = "/final/login.html";
+    private static final String ROUTING_ERROR_PAGE = "error.jsp";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,21 +28,23 @@ public class LoginPostCommand implements Command {
         User user = null;
         try {
             user = ServiceFactory.getInstance()
-                    .getUserService().findByLoginAndPassword(login, password);
-//            user = DaoFactory.getInstance()
-//                    .getUserDao(ConnectionPool.getInstance().getConnection()).findByLoginAndPassword(login, password);
+                    .getUserService().findByLogin(login);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            req.setAttribute("error", e.getMessage());
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
         }
-        if (user != null) {
+
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             HttpSession session = req.getSession();
             session.setAttribute("user", user.getLogin());
-            session.setAttribute("userId", user.getId());
+            session.setAttribute("userId", String.valueOf(user.getId()));
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
-            //RoutingUtils.redirectToPage("/final/index.html", resp);
         } else {
+            String errorMessage = ResourceManager.INSTANCE
+                    .changeResource(req)
+                    .getString("incorrectLoginOrPassword");
+            req.getSession().setAttribute("incorrectLoginOrPassword", errorMessage);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
-            //RoutingUtils.redirectToPage("/final/login.html", resp);
         }
     }
 }

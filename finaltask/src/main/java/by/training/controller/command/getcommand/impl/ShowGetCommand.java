@@ -7,6 +7,8 @@ import by.training.model.Genre;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class ShowGetCommand implements Command {
 
     private static final String ROUTING_PAGE = "show.jsp";
+    private static final String ROUTING_ERROR_PAGE = "error.jsp";
+    private static final Logger logger = LogManager.getLogger("debug");
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,6 +36,13 @@ public class ShowGetCommand implements Command {
             List studio = ServiceFactory.getInstance().getStudioService().findAll();
 
 
+            if (req.getSession().getAttribute("userId") != null) {
+                boolean watchStatus = ServiceFactory.getInstance()
+                        .getSerialService()
+                        .userWatchThisSerial((String) req.getSession().getAttribute("userId"), id);
+                req.setAttribute("watchStatus", watchStatus);
+            }
+
             req.setAttribute("genres", genres);
             req.setAttribute("show", serial);
             req.setAttribute("last", last);
@@ -39,9 +50,9 @@ public class ShowGetCommand implements Command {
             req.setAttribute("studio", studio);
 
         } catch (ServiceException e) {
-            e.printStackTrace();
+            req.setAttribute("error", e.getMessage());
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
         }
         return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
-        //RoutingUtils.forwardToPage("show.jsp", req, resp);
     }
 }

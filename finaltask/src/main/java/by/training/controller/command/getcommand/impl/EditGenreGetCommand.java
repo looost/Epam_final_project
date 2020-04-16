@@ -2,6 +2,7 @@ package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
@@ -21,6 +22,7 @@ public class EditGenreGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
+            CommandUtil.transferSingleAttribute("genreProblem", req);
             int page = 1;
             if (req.getParameter("page") != null) {
                 page = Integer.parseInt(req.getParameter("page"));

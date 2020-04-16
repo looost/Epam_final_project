@@ -28,9 +28,9 @@ public class ProfilePostCommand implements Command {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
 
-            Serial serial = MultiFilesHandler.handler(multiFiles);
-            System.out.println(serial);
-            ServiceFactory.getInstance().getSerialService().create(serial);
+//            Serial serial = MultiFilesHandler.handler(multiFiles);
+//            System.out.println(serial);
+//            ServiceFactory.getInstance().getSerialService().create(serial);
 
 
         } catch (Exception e) {

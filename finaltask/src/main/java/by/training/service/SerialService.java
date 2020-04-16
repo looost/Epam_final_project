@@ -16,11 +16,11 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     int countAllSerial() throws ServiceException;
 
-    List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException;
-
     List<Serial> findSerialBySearchForm(SearchForm searchForm) throws ServiceException;
 
     List<Serial> findSerialByGenre(String genreId) throws ServiceException;
+
+    boolean userWatchThisSerial(String userId, String serialId) throws ServiceException;
 
     boolean toWatchSerial(String userId, String serialId) throws ServiceException;
 

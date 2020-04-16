@@ -3,7 +3,7 @@
 
     <Appenders>
         <Console name="console">
-            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %C{2} %M %msg%n"/>
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %C{5} %M %msg%n"/>
         </Console>
         <RollingFile name="errorLogFile" fileName="logs/logErrorLevel/errorLog.log"
                      filePattern="logs/logErrorLevel/errorLog-%d{yyyy-MM-dd}.log"

@@ -23,9 +23,11 @@ public class PostCommandProvider {
         repository.put(CommandName.ADD_COUNTRY, new AddCountryPostCommand());
         repository.put(CommandName.ADD_STUDIO, new AddStudioPostCommand());
         repository.put(CommandName.ADD_SERIAL, new AddSerialPostCommand());
+        repository.put(CommandName.ADD_USER, new AddUserPostCommand());
         repository.put(CommandName.CHANGE_COUNTRY, new ChangeCountryPostCommand());
         repository.put(CommandName.CHANGE_STUDIO, new ChangeStudioPostCommand());
         repository.put(CommandName.CHANGE_SERIAL, new ChangeSerialPostCommand());
+        repository.put(CommandName.CHANGE_PASSWORD, new ChangePasswordPostCommand());
         repository.put(CommandName.DELETE_COUNTRY, new DeleteCountryPostCommand());
         repository.put(CommandName.DELETE_STUDIO, new DeleteStudioPostCommand());
         repository.put(CommandName.DELETE_SERIAL, new DeleteSerialPostCommand());

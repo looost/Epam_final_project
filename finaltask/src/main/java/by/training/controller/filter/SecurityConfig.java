@@ -13,7 +13,7 @@ class SecurityConfig {
 
 
     static {
-        securityPage.add(CommandName.PROFILE);
+        //securityPage.add(CommandName.PROFILE);
         securityPage.add(CommandName.ADD_COMMENT);
         securityPage.add(CommandName.PROFILEPOST);
     }

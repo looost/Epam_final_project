@@ -27,14 +27,16 @@
                             <label for="inputPassword"><fmt:message key="password" bundle="${ rb }"/>:</label>
                             <input type="password" name="password" class="form-control " id="inputPassword"
                                    placeholder="<fmt:message key="enterPassword" bundle="${ rb }" />" required>
-                            <%--                            <c:if test="${sessionScope.incorrect != null}">--%>
-                            <%--                                <div class="invalid-feedback">${sessionScope.incorrect}</div>--%>
-                            <%--                            </c:if>--%>
-
-
                         </div>
 
-                        <button type="submit" class="btn btn-primary m-2">
+                        <div class="form-group m-2">
+                            <label for="replayInputPassword"><fmt:message key="confirmPassword"
+                                                                          bundle="${ rb }"/>:</label>
+                            <input type="password" name="replayPassword" class="form-control " id="replayInputPassword"
+                                   placeholder="<fmt:message key="confirmPassword" bundle="${ rb }" />" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary m-2" onclick="return validateForm()">
                             <fmt:message key="registr" bundle="${ rb }"/>
                         </button>
 
@@ -51,3 +53,14 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    function validateForm() {
+        var password1 = document.getElementById('inputPassword');
+        var password2 = document.getElementById('replayInputPassword');
+        if (password1.value !== password2.value) {
+            alert('<fmt:message key="passwordDoNotMatch" bundle="${ rb }" />');
+            return false;
+        }
+    }
+</script>

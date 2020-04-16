@@ -15,17 +15,15 @@ public class User extends AbstractEntity {
         super(id);
     }
 
-    public User(int id, String login, String password, int role) {
-        super(id);
+    public User(String login, String password, int role) {
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public User(String login, String password, int role) {
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
-        this.role = role;
     }
 
     public String getLogin() {

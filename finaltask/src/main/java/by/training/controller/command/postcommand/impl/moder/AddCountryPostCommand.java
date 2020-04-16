@@ -19,6 +19,10 @@ public class AddCountryPostCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String countryName = req.getParameter("country");
+        if (countryName == null) {
+            req.getSession().setAttribute("countryProblem", "Введите название страны");
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+        }
         Country country = new Country(countryName);
         try {
             ServiceFactory.getInstance().getCountryService().create(country);

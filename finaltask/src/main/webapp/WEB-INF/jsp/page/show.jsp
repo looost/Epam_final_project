@@ -19,30 +19,20 @@
 
 
     <div class="container-fluid">
-
         <div class="row">
-
-            <%--            <div class="col-2 mb-3 p-0">--%>
-            <%--                <jsp:useBean id="genres" scope="request" type="java.util.List"/>--%>
-            <%--                <jsp:useBean id="country" scope="request" type="java.util.List"/>--%>
-            <%--                <customTag:search-filter genres="${genres}" country="${country}"/>--%>
-            <%--            </div>--%>
 
             <div class="col-10 mb-3">
                 <div class="container-fluid">
                     <div class="row">
 
-                        <div class="col-8 card p-0 border-light" style="width: 18rem  ;" >
+                        <div class="col-8 card p-0 border-light">
                             <img class="card-img-top border " src="${show.fullLogo}" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">${show.description}</p>
                             </div>
-
-
                         </div>
 
                         <div class="col-4 card p-0 border-light" >
-
                             <div class="card p-0 border-light" >
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
@@ -57,11 +47,25 @@
                                             items="${show.genres}"
                                             var="genre"> ${genre.name} </c:forEach></li>
                                     <c:if test="${sessionScope.user != null}">
-                                        <li>
-                                            <a href="${pageContext.request.contextPath}/watch_serial.html?id=${show.id}"
-                                               class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">
-                                                Смотреть</a>
-                                        </li>
+                                        <c:choose>
+                                            <c:when test="${watchStatus == false}">
+                                                <li>
+                                                    <a href="${pageContext.request.contextPath}/watch_serial.html?id=${show.id}"
+                                                       class="btn btn-primary btn-lg btn-block" role="button"
+                                                       aria-pressed="true">
+                                                        Смотреть</a>
+                                                </li>
+                                            </c:when>
+
+                                            <c:when test="${watchStatus == true}">
+                                                <li>
+                                                    <a href="${pageContext.request.contextPath}/stop_watch_serial.html?id=${show.id}"
+                                                       class="btn btn-primary btn-lg btn-block" role="button"
+                                                       aria-pressed="true">
+                                                        Перестать смотреть</a>
+                                                </li>
+                                            </c:when>
+                                        </c:choose>
                                     </c:if>
                                 </ul>
                             </div>

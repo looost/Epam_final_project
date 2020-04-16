@@ -7,180 +7,57 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="container">
-    <div class="mt-3 ml-4">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="pills-serial-tab" data-toggle="pill" href="#pills-home" role="tab"
-                   aria-controls="pills-home" aria-selected="true">Сериал</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-genre-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                   aria-controls="pills-profile" aria-selected="false">Жанр</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-country-tab" data-toggle="pill" href="#pills-contact" role="tab"
-                   aria-controls="pills-contact" aria-selected="false">Страна</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-serial-tab">
-                <form method="post" enctype="multipart/form-data"
-                      action="${pageContext.request.contextPath}/profilepost.html">
-                    <div class="form-group mt-3">
-                        <label for="exampleFormControlInput1">Название сериала:</label>
-                        <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
-                               placeholder="Название сериала">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Описание сериала</label>
-                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
-                    </div>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-                    <div class="form-group">
-                        <label for="logo">Выберите фото превью</label>
-                        <input type="file" class="form-control-file" id="logo" name="logo">
-                    </div>
-
-                    <%--        <div class="form-group">--%>
-                    <%--            <label for="logo">Ссылка на лого</label>--%>
-                    <%--            <input type="text" name="logo" class="form-control" id="logo"--%>
-                    <%--                   placeholder="Ссылка на лого">--%>
-                    <%--        </div>--%>
-
-                    <div class="form-group">
-                        <label for="full_logo">Выберите полное фото</label>
-                        <input type="file" class="form-control-file" id="full_logo" name="full_logo">
-                    </div>
-
-                    <%--        <div class="form-group">--%>
-                    <%--            <label for="full_logo">Ссылка на полное лого</label>--%>
-                    <%--            <input type="text" name="full_logo" class="form-control" id="full_logo"--%>
-                    <%--                   placeholder="Ссылка на полное лого">--%>
-                    <%--        </div>--%>
-
-                    <div class="form-group">
-                        <label for="date">Введите дату выхода сериала:</label>
-                        <input type="date" class="form-control" name="release_date" id="date">
-                    </div>
-
-                    <div class="mb-2">
-                        <label>Выберите жанры:</label>
-                        <jsp:useBean id="genres" scope="request" type="java.util.List"/>
-                        <c:forEach var="g" items="${genres}">
-                            <div class="custom-control custom-checkbox">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="${g.id}"
-                                       name="genre">
-                                <label class="form-check-label" for="inlineCheckbox2">${g.name}</label>
-                            </div>
-                        </c:forEach>
-                    </div>
-
-                    <div class="mb-2">
-                        <label>Выберите страну:</label>
-                        <br>
-                        <select class="custom-select" name="country">
-                            <jsp:useBean id="country" scope="request" type="java.util.List"/>
-                            <c:forEach var="c" items="${country}">
-                                <option value="${c.id}">${c.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-
-                    <div class="mb-2">
-                        <label>Выберите студию:</label>
-                        <select class="custom-select" name="studio">
-                            <jsp:useBean id="studio" scope="request" type="java.util.List"/>
-                            <c:forEach var="s" items="${studio}">
-                                <option value="${s.id}">${s.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                </form>
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 m-2">
+            <div class="list-group">
+                <a href="${pageContext.request.contextPath}/profile.html"
+                   class="list-group-item list-group-item-action active">
+                    <fmt:message key="profile" bundle="${ rb }"/></a>
+                <a href="${pageContext.request.contextPath}/my_serial.html"
+                   class="list-group-item list-group-item-action">
+                    <fmt:message key="myShows" bundle="${ rb }"/></a>
             </div>
-
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-genre-tab">
-                <jsp:include page="../fragment/genre_panel.jsp"/>
-            </div>
-
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-country-tab">
-                <jsp:include page="../fragment/country-panel.jsp"/>
-            </div>
-
+        </div>
+        <div class="col-9">
+            <form class="m-2" method="post" action="${pageContext.request.contextPath}/change_password.html">
+                <div class="form-group row">
+                    <label for="staticLogin" class="col-sm-2 col-form-label"> <fmt:message key="login"
+                                                                                           bundle="${ rb }"/></label>
+                    <div class="col-sm-10">
+                        <input type="text" readonly class="form-control-plaintext" id="staticLogin"
+                               value="${sessionScope.user}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label"> <fmt:message key="password"
+                                                                                             bundle="${ rb }"/></label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control ${invalidPassword != null ? "is-invalid" : ""}"
+                               name="password" id="inputPassword"
+                               placeholder="<fmt:message key="password" bundle="${ rb }"/>" required>
+                        <c:if test="${invalidPassword != null}">
+                            <div class="invalid-feedback">${invalidPassword}</div>
+                        </c:if>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputNewPassword" class="col-sm-2 col-form-label"> <fmt:message key="newPassword"
+                                                                                                bundle="${ rb }"/></label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" name="newPassword"
+                               id="inputNewPassword" placeholder="<fmt:message key="newPassword" bundle="${ rb }"/>"
+                               required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <fmt:message key="edit" bundle="${ rb }"/>
+                </button>
+            </form>
         </div>
     </div>
-
-    <%--    <form method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/profilepost.html">--%>
-    <%--        <div class="form-group mt-3">--%>
-    <%--            <label for="exampleFormControlInput1">Название сериала:</label>--%>
-    <%--            <input type="text" name="name" class="form-control" id="exampleFormControlInput1"--%>
-    <%--                   placeholder="Название сериала">--%>
-    <%--        </div>--%>
-    <%--        <div class="form-group">--%>
-    <%--            <label for="description">Описание сериала</label>--%>
-    <%--            <textarea class="form-control" name="description" id="description" rows="3"></textarea>--%>
-    <%--        </div>--%>
-
-    <%--        <div class="form-group">--%>
-    <%--            <label for="logo">Выберите фото превью</label>--%>
-    <%--            <input type="file" class="form-control-file" id="logo" name="logo">--%>
-    <%--        </div>--%>
-
-    <%--        &lt;%&ndash;        <div class="form-group">&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;            <label for="logo">Ссылка на лого</label>&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;            <input type="text" name="logo" class="form-control" id="logo"&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;                   placeholder="Ссылка на лого">&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;        </div>&ndash;%&gt;--%>
-
-    <%--        <div class="form-group">--%>
-    <%--            <label for="full_logo">Выберите полное фото</label>--%>
-    <%--            <input type="file" class="form-control-file" id="full_logo" name="full_logo">--%>
-    <%--        </div>--%>
-
-    <%--        &lt;%&ndash;        <div class="form-group">&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;            <label for="full_logo">Ссылка на полное лого</label>&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;            <input type="text" name="full_logo" class="form-control" id="full_logo"&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;                   placeholder="Ссылка на полное лого">&ndash;%&gt;--%>
-    <%--        &lt;%&ndash;        </div>&ndash;%&gt;--%>
-
-    <%--        <div class="form-group">--%>
-    <%--            <label for="date">Введите дату выхода сериала:</label>--%>
-    <%--            <input type="date" class="form-control" name="release_date" id="date">--%>
-    <%--        </div>--%>
-
-    <%--        <div class="mb-2">--%>
-    <%--            <label>Выберите жанры:</label>--%>
-    <%--            <jsp:useBean id="genres" scope="request" type="java.util.List"/>--%>
-    <%--            <c:forEach var="g" items="${genres}">--%>
-    <%--                <div class="custom-control custom-checkbox">--%>
-    <%--                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="${g.id}" name="genre">--%>
-    <%--                    <label class="form-check-label" for="inlineCheckbox2">${g.name}</label>--%>
-    <%--                </div>--%>
-    <%--            </c:forEach>--%>
-    <%--        </div>--%>
-
-    <%--        <div class="mb-2">--%>
-    <%--            <label>Выберите страну:</label>--%>
-    <%--            <br>--%>
-    <%--            <select class="custom-select" name="country">--%>
-    <%--                <jsp:useBean id="country" scope="request" type="java.util.List"/>--%>
-    <%--                <c:forEach var="c" items="${country}">--%>
-    <%--                    <option value="${c.id}">${c.name}</option>--%>
-    <%--                </c:forEach>--%>
-    <%--            </select>--%>
-    <%--        </div>--%>
-
-    <%--        <div class="mb-2">--%>
-    <%--            <label>Выберите студию:</label>--%>
-    <%--            <select class="custom-select" name="studio">--%>
-    <%--                <jsp:useBean id="studio" scope="request" type="java.util.List"/>--%>
-    <%--                <c:forEach var="s" items="${studio}">--%>
-    <%--                    <option value="${s.id}">${s.name}</option>--%>
-    <%--                </c:forEach>--%>
-    <%--            </select>--%>
-    <%--        </div>--%>
-
-    <%--        <button type="submit" class="btn btn-primary">Добавить</button>--%>
-    <%--    </form>--%>
 </div>

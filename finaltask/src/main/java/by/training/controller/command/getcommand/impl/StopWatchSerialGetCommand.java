@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class WatchSerialGetCommand implements Command {
+public class StopWatchSerialGetCommand implements Command {
 
     private static final String ROUTING_PAGE = "/final/show.html?id=";
     private static final String ROUTING_ERROR_PAGE = "error.jsp";
@@ -22,9 +22,8 @@ public class WatchSerialGetCommand implements Command {
         String userId = (String) req.getSession().getAttribute("userId");
         if (userId != null) {
             try {
-                ServiceFactory.getInstance().getSerialService().toWatchSerial(userId, serialId);
+                ServiceFactory.getInstance().getSerialService().stopWatchSerial(userId, serialId);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE + serialId, req, resp);
-                //RoutingUtils.redirectToPage("/final/show.html?id=" + serialId, resp);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }

@@ -8,7 +8,6 @@ import by.training.dao.impl.jdbc.ResultSetHandler;
 import by.training.dao.impl.jdbc.ResultSetHandlerFactory;
 import by.training.model.Studio;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -73,18 +72,18 @@ public class StudioDaoImpl implements StudioDao {
     private static final String DELETE_STUDIO_BY_ID = "DELETE FROM studio WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(transaction.getConnection(), DELETE_STUDIO_BY_ID, id);
+        return JDBCUtil.execute(transaction.getConnection(), DELETE_STUDIO_BY_ID, id);
     }
 
     private static final String CREATE_STUDIO = "INSERT INTO studio VALUES (DEFAULT, ?)";
     @Override
     public boolean create(Studio entity) throws DaoException {
-        return JDBCUtil.create(transaction.getConnection(), CREATE_STUDIO, entity.getName());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_STUDIO, entity.getName());
     }
 
     private static final String UPDATE_STUDIO = "UPDATE studio SET name = ? WHERE id = ?";
     @Override
     public boolean update(Studio entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_STUDIO, entity.getName(), entity.getId());
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_STUDIO, entity.getName(), entity.getId());
     }
 }

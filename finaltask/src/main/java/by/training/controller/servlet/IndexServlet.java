@@ -4,6 +4,7 @@ package by.training.controller.servlet;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.getcommand.GetCommandProvider;
 import by.training.controller.command.postcommand.PostCommandProvider;
+import by.training.service.exception.ServiceException;
 import by.training.utils.RoutingUtils;
 
 import javax.servlet.ServletException;
@@ -29,7 +30,6 @@ public class IndexServlet extends HttpServlet {
                 .substring(1, req.getServletPath().lastIndexOf(".")).replaceAll("/", "_");
 
     }
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

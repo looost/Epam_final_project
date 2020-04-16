@@ -36,7 +36,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/my_serial.html">
-                        Сериалы, которые я смотрю
+                        <fmt:message key="myShows" bundle="${ rb }"/>
                     </a>
                 </li>
             </c:if>

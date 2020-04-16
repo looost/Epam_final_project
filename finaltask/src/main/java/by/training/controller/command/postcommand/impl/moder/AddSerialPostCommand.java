@@ -26,8 +26,6 @@ public class AddSerialPostCommand implements Command {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
             MultiFilesResponse multiFilesResponse = MultiFilesHandler.handler(multiFiles, req);
-            //Serial serial = MultiFilesHandler.handler(multiFiles);
-            //System.out.println(serial);
             if (multiFilesResponse.isHaveProblem()) {
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
                 //RoutingUtils.redirectToPage("/final/admin/serial.html", resp);

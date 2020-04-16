@@ -19,26 +19,6 @@
         <servlet-class>by.training.controller.servlet.IndexServlet</servlet-class>
     </servlet>
 
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>test</servlet-name>-->
-    <!--        <url-pattern>/index</url-pattern>-->
-    <!--    </servlet-mapping>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>test</servlet-name>-->
-    <!--        <url-pattern>/show</url-pattern>-->
-    <!--    </servlet-mapping>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>test</servlet-name>-->
-    <!--        <url-pattern>/registration</url-pattern>-->
-    <!--    </servlet-mapping>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>test</servlet-name>-->
-    <!--        <url-pattern>/registr</url-pattern>-->
-    <!--    </servlet-mapping>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>test</servlet-name>-->
-    <!--        <url-pattern>/add_comment</url-pattern>-->
-    <!--    </servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>test</servlet-name>
@@ -61,7 +41,6 @@
         <filter-name>SecurityFilter</filter-name>
         <servlet-name>test</servlet-name>
     </filter-mapping>
-
 
     <jsp-config>
         <taglib>

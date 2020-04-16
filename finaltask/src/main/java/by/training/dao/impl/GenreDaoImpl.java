@@ -8,7 +8,6 @@ import by.training.dao.impl.jdbc.ResultSetHandler;
 import by.training.dao.impl.jdbc.ResultSetHandlerFactory;
 import by.training.model.Genre;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -83,19 +82,19 @@ public class GenreDaoImpl implements GenreDao {
     private static final String DELETE_GENRE_BY_ID = "DELETE FROM genre WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(transaction.getConnection(), DELETE_GENRE_BY_ID, id);
+        return JDBCUtil.execute(transaction.getConnection(), DELETE_GENRE_BY_ID, id);
     }
 
     private static final String CREATE_GENRE_BY_ID = "INSERT INTO genre VALUES (DEFAULT, ?)";
     @Override
     public boolean create(Genre entity) throws DaoException {
-        return JDBCUtil.create(transaction.getConnection(), CREATE_GENRE_BY_ID, entity.getName());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_GENRE_BY_ID, entity.getName());
     }
 
     private static final String UPDATE_GENRE_BY_ID = "UPDATE genre SET name = ? WHERE id = ?";
     @Override
     public boolean update(Genre entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_GENRE_BY_ID,
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_GENRE_BY_ID,
                 entity.getName(), String.valueOf(entity.getId()));
     }
 }

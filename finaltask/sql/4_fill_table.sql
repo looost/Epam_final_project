@@ -1,12 +1,12 @@
 INSERT into user (`login`, `password`, `role`)
 values ('admin',
-        'admin',
+        '$2y$12$sG3tSRh.CSQR8uXCpRIC2OVpNFvw3RchhBTa0wOUQb.WIzV6v58pW',
         0),
        ('moder',
-        'moder',
+        '$2y$12$UGFkmNq2KYglOuqejOj8xe6zsQC2WCk5pKOs22Gimr1z9GvqVJkXW',
         1),
        ('user',
-        'user',
+        '$2y$12$GzoeWxB02dvUCpW4tcTbLO7jKK2Xo10NNnrJypZFWtTdw6hpzKUUq',
         2);
 
 insert into country (`name`)

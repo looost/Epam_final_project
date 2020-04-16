@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ViewedSerial implements Command {
 
-    private static final String ROUTING_PAGE = "search.jsp";
+    private static final String ROUTING_PAGE = "my-shows.jsp";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,13 +23,7 @@ public class ViewedSerial implements Command {
         if (userId != null) {
             try {
                 List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialsThatIWatch(userId);
-                List genres = ServiceFactory.getInstance().getGenreService().findAll();
-                List country = ServiceFactory.getInstance().getCountryService().findAll();
-                List studios = ServiceFactory.getInstance().getStudioService().findAll();
                 req.setAttribute("shows", serialList);
-                req.setAttribute("genres", genres);
-                req.setAttribute("country", country);
-                req.setAttribute("studio", studios);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }

@@ -3,7 +3,6 @@ package by.training.service.transaction;
 import by.training.dao.Transaction;
 import by.training.service.exception.ServiceException;
 
-import java.sql.Connection;
 
 public class TransactionUtil {
 

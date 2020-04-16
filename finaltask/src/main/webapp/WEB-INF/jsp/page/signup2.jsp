@@ -15,15 +15,20 @@
                     <form class="ml-3 mr-3">
                         <div class="form-group m-2">
                             <label for="inputEmail"><fmt:message key="login" bundle="${ rb }"/>:</label>
-                            <input type="text" name="login" class="form-control is-valid" id="inputEmail"
+                            <input type="text" name="login"
+                                   class="form-control ${incorrectLoginOrPassword != null ? "is-invalid" : ""}"
+                                   id="inputEmail"
                                    placeholder="<fmt:message key="enterLogin" bundle="${ rb }" />" required>
-                            <div class="valid-feedback">Good! Your login looks valid.</div>
                         </div>
                         <div class="form-group m-2">
                             <label for="inputPassword"><fmt:message key="password" bundle="${ rb }"/>:</label>
-                            <input type="password" name="password" class="form-control is-invalid" id="inputPassword"
+                            <input type="password" name="password"
+                                   class="form-control  ${incorrectLoginOrPassword != null ? "is-invalid" : ""}"
+                                   id="inputPassword"
                                    placeholder="<fmt:message key="enterPassword" bundle="${ rb }" />" required>
-                            <div class="invalid-feedback">Opps! You have entered an invalid password.</div>
+                            <c:if test="${incorrectLoginOrPassword != null}">
+                                <div class="invalid-feedback">${incorrectLoginOrPassword}</div>
+                            </c:if>
                         </div>
                         <p class="message text-center"><fmt:message key="notRegistr" bundle="${ rb }"/>
                             <a href="${pageContext.request.contextPath}/registration.html"><fmt:message

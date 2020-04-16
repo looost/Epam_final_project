@@ -8,7 +8,6 @@ import by.training.dao.impl.jdbc.ResultSetHandler;
 import by.training.dao.impl.jdbc.ResultSetHandlerFactory;
 import by.training.model.User;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -60,24 +59,24 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE_USER_BY_ID = "DELETE FROM user WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(transaction.getConnection(), DELETE_USER_BY_ID, id);
+        return JDBCUtil.execute(transaction.getConnection(), DELETE_USER_BY_ID, id);
     }
 
     private static final String CREATE_USER = "INSERT INTO user VALUES (DEFAULT, ?, ?, DEFAULT)";
     @Override
     public boolean create(User entity) throws DaoException {
-        return JDBCUtil.create(transaction.getConnection(), CREATE_USER, entity.getLogin(), entity.getPassword());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_USER, entity.getLogin(), entity.getPassword());
     }
 
-    private static final String UPDATE_USER = "UPDATE user SET login = ?, password = ? WHERE id = ?";
+    private static final String UPDATE_USER = "UPDATE user SET password = ? WHERE login = ?";
     @Override
     public boolean update(User entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_USER, entity.getLogin(), entity.getPassword(), entity.getId());
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_USER, entity.getPassword(), entity.getLogin());
     }
 
     private static final String CREATE_USER_WITH_ROLE = "INSERT INTO user VALUES (DEFAULT, ?, ?, ?)";
     @Override
     public boolean createUserWithRole(User user) throws DaoException {
-        return JDBCUtil.create(transaction.getConnection(), CREATE_USER_WITH_ROLE, user.getLogin(), user.getPassword(), user.getRole());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_USER_WITH_ROLE, user.getLogin(), user.getPassword(), user.getRole());
     }
 }

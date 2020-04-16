@@ -27,7 +27,9 @@ public class GetCommandProvider {
         repository.put(CommandName.ADMIN_GENRE, new EditGenreGetCommand());
         repository.put(CommandName.ADMIN_COUNTRY, new EditCountryGetCommand());
         repository.put(CommandName.ADMIN_STUDIO, new EditStudioGetCommand());
+        repository.put(CommandName.ADMIN_USER, new EditUserGetCommand());
         repository.put(CommandName.WATCH_SERIAL, new WatchSerialGetCommand());
+        repository.put(CommandName.STOP_WATCH_SERIAL, new StopWatchSerialGetCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestGetCommand());
     }
 

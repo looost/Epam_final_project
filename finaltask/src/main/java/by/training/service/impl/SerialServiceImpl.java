@@ -16,7 +16,6 @@ import java.util.List;
 public class SerialServiceImpl implements SerialService {
 
     private static final TransactionHandler<Serial> SERIAL_TRANSACTION_HANDLER = TransactionHandlerFactory.SERIAL_TRANSACTION_HANDLER;
-    private static final TransactionHandler<Serial> CREATE_SERIAL_WITH_GENRE = TransactionHandlerFactory.CREATE_SERIAL_WITH_GENRE;
 
     @Override
     public Serial findSerialByName(String name) throws ServiceException {
@@ -62,19 +61,6 @@ public class SerialServiceImpl implements SerialService {
             int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerials();
             transaction.commit();
             return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public List<Serial> findSerialBySearchForm(String searchQuery) throws ServiceException {   //TODO deprecated
-        try (Transaction transaction = new Transaction()) {
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialBySearchForm(searchQuery);
-            serialList = TransactionUtil
-                    .select(transaction, TransactionHandlerFactory.getListTransactionHandler(SERIAL_TRANSACTION_HANDLER), serialList);
-            transaction.commit();
-            return serialList;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -145,9 +131,24 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
+    public boolean userWatchThisSerial(String userId, String serialId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction)
+                    .userWatchThisSerial(serialId, userId) != null;
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
     public Serial findById(String id) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             Serial serial = DaoFactory.getInstance().getSerialDao(transaction).findById(id);
+            if (serial == null) {
+                throw new ServiceException("Serial with id = " + id + " not found");
+            }
             serial = TransactionUtil
                     .select(transaction, TransactionHandlerFactory.getSingleTransactionHandler(SERIAL_TRANSACTION_HANDLER), serial);
             transaction.commit();
@@ -171,8 +172,8 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public boolean create(Serial entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            TransactionUtil
-                    .create(transaction, TransactionHandlerFactory.getSingleTransactionHandler(CREATE_SERIAL_WITH_GENRE), entity);
+            int index = DaoFactory.getInstance().getSerialDao(transaction).createAndReturnIndex(entity);
+            DaoFactory.getInstance().getSerialDao(transaction).createSerialGenre(index, entity.getGenres());
             transaction.commit();
             return true;
         } catch (DaoException e) {

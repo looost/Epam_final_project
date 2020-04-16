@@ -4,6 +4,7 @@ import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
 import by.training.controller.servlet.handler.MultiFilesHandler;
+import by.training.controller.servlet.handler.MultiFilesResponse;
 import by.training.model.Serial;
 import by.training.service.factory.ServiceFactory;
 import org.apache.commons.fileupload.FileItem;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class ChangeSerialPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/admin/country.html";
+    private static final String ROUTING_PAGE = "show.html?id=";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,10 +27,18 @@ public class ChangeSerialPostCommand implements Command {
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
 
-            Serial serial = MultiFilesHandler.handler(multiFiles);
-            serial.setId(Integer.parseInt(req.getParameter("id")));
+            MultiFilesResponse multiFilesResponse = MultiFilesHandler.handler(multiFiles, req);
 
-            ServiceFactory.getInstance().getSerialService().update(serial);
+            if (multiFilesResponse.isHaveProblem()) {
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE + req.getParameter("id"), req, resp);
+                //RoutingUtils.redirectToPage("/final/admin/serial.html", resp);
+            } else {
+                multiFilesResponse.getSerial().setId(Integer.parseInt(req.getParameter("id")));
+                ServiceFactory.getInstance().getSerialService().update(multiFilesResponse.getSerial());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE + req.getParameter("id"), req, resp);
+                // resp.sendRedirect(req.getHeader("referer"));
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();

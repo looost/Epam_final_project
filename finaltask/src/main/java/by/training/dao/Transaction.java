@@ -18,7 +18,7 @@ public class Transaction implements AutoCloseable {
             connection.setAutoCommit(false);
             return connection;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Auto commit problem", e);
         }
     }
 
@@ -26,7 +26,7 @@ public class Transaction implements AutoCloseable {
         try {
             connection.commit();
         } catch (SQLException e) {
-            throw new DaoException(e);
+            throw new DaoException("Cannot commit", e);
         }
     }
 

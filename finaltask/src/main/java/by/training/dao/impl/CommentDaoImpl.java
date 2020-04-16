@@ -10,7 +10,6 @@ import by.training.model.Comment;
 import by.training.model.Serial;
 import by.training.model.User;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -62,19 +61,19 @@ public class CommentDaoImpl implements CommentDao {
     private static final String DELETE_COMMENT_BY_ID = "DELETE FROM comment WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(transaction.getConnection(), DELETE_COMMENT_BY_ID, id);
+        return JDBCUtil.execute(transaction.getConnection(), DELETE_COMMENT_BY_ID, id);
     }
 
     private static final String CREATE_COMMENT = "INSERT INTO comment VALUES (DEFAULT, ?, ?, ?, DEFAULT)";
     @Override
     public boolean create(Comment entity) throws DaoException {
-        return JDBCUtil.create(transaction.getConnection(), CREATE_COMMENT,
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_COMMENT,
                 String.valueOf(entity.getUser().getId()), String.valueOf(entity.getSerial().getId()), entity.getComment());
     }
 
     private static final String UPDATE_COMMENT = "UPDATE comment SET comment = ? WHERE id = ?";
     @Override
     public boolean update(Comment entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_COMMENT, entity.getComment());
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_COMMENT, entity.getComment());
     }
 }

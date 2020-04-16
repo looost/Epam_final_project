@@ -1,11 +1,15 @@
 package by.training.dao.impl.jdbc;
 
 import by.training.dao.exception.DaoException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 
 public class JDBCUtil {
+
+    private static final Logger logger = LogManager.getLogger("debug");
 
     private JDBCUtil() {
     }
@@ -21,7 +25,7 @@ public class JDBCUtil {
     }
 
 
-    public static boolean create(Connection c, String sql, Object... param) throws DaoException {
+    public static boolean execute(Connection c, String sql, Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
             ps.executeUpdate();
@@ -31,7 +35,21 @@ public class JDBCUtil {
         }
     }
 
-    public static int createAndReturnIndex(Connection c, String sql, Object... param) throws DaoException {
+    public static boolean executeBatch(Connection c, String sql, List<Object[]> paramList) throws DaoException {
+        try (PreparedStatement ps = c.prepareStatement(sql)) {
+            for (Object[] param : paramList
+            ) {
+                populatePrepareStatement(ps, param);
+                ps.addBatch();
+            }
+            ps.executeBatch();
+            return true;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public static int executeAndReturnIndex(Connection c, String sql, Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             populatePrepareStatement(ps, param);
             ps.executeUpdate();
@@ -41,26 +59,6 @@ public class JDBCUtil {
             } else {
                 throw new DaoException("There is no autoincrement index after trying to add record into table");
             }
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    public static boolean update(Connection c, String sql, Object... param) throws DaoException {
-        try (PreparedStatement ps = c.prepareStatement(sql)) {
-            populatePrepareStatement(ps, param);
-            ps.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    public static boolean delete(Connection c, String sql, Object... param) throws DaoException {
-        try (PreparedStatement ps = c.prepareStatement(sql)) {
-            populatePrepareStatement(ps, param);
-            ps.executeUpdate();
-            return true;
         } catch (SQLException e) {
             throw new DaoException(e);
         }

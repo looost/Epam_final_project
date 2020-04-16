@@ -1,4 +1,4 @@
-<jsp:useBean id="error" scope="request" type="java.lang.String"/>
+
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -14,7 +14,9 @@
     <div class="alert alert-danger m-2 text-center" role="alert">
         <h4 class="alert-heading">УПС!</h4>
         <hr>
-        <p class="mb-0">${error}</p>
+        <c:if test="${error != null}">
+            <p class="mb-0">${error}</p>
+        </c:if>
     </div>
 
 </div>

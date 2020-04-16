@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
 <div class="container-fluid">
 
     <div class="row">
@@ -8,30 +11,37 @@
             <div class="list-group">
                 <a href="${pageContext.request.contextPath}/admin/serial.html"
                    class="list-group-item list-group-item-action">
-                    Редактирование сериала</a>
+                    <fmt:message key="editSerial" bundle="${ rb }"/></a>
                 <a href="${pageContext.request.contextPath}/admin/genre.html"
                    class="list-group-item list-group-item-action active">
-                    Редактирование жанра</a>
+                    <fmt:message key="editGenre" bundle="${ rb }"/></a>
                 <a href="${pageContext.request.contextPath}/admin/country.html"
                    class="list-group-item list-group-item-action">
-                    Редактирование страны</a>
+                    <fmt:message key="editCountry" bundle="${ rb }"/></a>
                 <a href="${pageContext.request.contextPath}/admin/studio.html"
                    class="list-group-item list-group-item-action">
-                    Редактирование студии</a>
+                    <fmt:message key="editStudio" bundle="${ rb }"/></a>
+                <a href="${pageContext.request.contextPath}/admin/user.html"
+                   class="list-group-item list-group-item-action">
+                    <fmt:message key="editUser" bundle="${ rb }"/></a>
             </div>
         </div>
         <div class="col-9">
 
             <div class="card-body">
-                <form method="post" action="${pageContext.request.contextPath}/add_genre.html">
-                    <div class="form-group">
-                        <div class="mb-2">
-                            <label for="addGenre">Название жанра:</label>
-                            <input type="text" name="genre" class="form-control" id="addGenre"
-                                   placeholder="Название жанра">
+                <form class="was-validated mt-2" method="post"
+                      action="${pageContext.request.contextPath}/add_genre.html">
+                    <div class="mb-3">
+                        <label for="validationName"><fmt:message key="enterGenreName" bundle="${ rb }"/>:</label>
+                        <input type="text" name="genre" class="form-control is-invalid"
+                               id="validationName" placeholder="<fmt:message key="enterGenreName" bundle="${ rb }"/>">
+                        <%--                            <c:if test="${genreProblem != null}">--%>
+                        <div class="invalid-feedback">
+                            ${genreProblem}
                         </div>
-                        <button type="submit" class="btn btn-primary">Добавить</button>
+                        <%--                            </c:if>--%>
                     </div>
+                    <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                 </form>
             </div>
 
@@ -41,8 +51,8 @@
                     <thead>
                     <tr>
                         <th scope="col">id</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Изменение</th>
+                        <th scope="col"><fmt:message key="title" bundle="${ rb }"/></th>
+                        <th scope="col"><fmt:message key="editing" bundle="${ rb }"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -55,7 +65,7 @@
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#exampleModalLong${g.id}">
-                                    Изменить
+                                    <fmt:message key="edit" bundle="${ rb }"/>
                                 </button>
 
                                 <!-- Modal -->
@@ -65,8 +75,9 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal
-                                                    title</h5>
+                                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                                    <fmt:message key="edit" bundle="${ rb }"/>
+                                                </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -77,20 +88,22 @@
                                                       action="${pageContext.request.contextPath}/change_genre.html?id=${g.id}">
                                                     <div class="form-group mt-3">
                                                         <div class="mb-2">
-                                                            <label for="changeGenre">Введите новое
-                                                                название для жанра - ${g.name} </label>
+                                                            <label for="changeGenre"><fmt:message key="newGenreName"
+                                                                                                  bundle="${ rb }"/>
+                                                                - ${g.name} </label>
                                                             <input type="text" name="genre"
                                                                    class="form-control" id="changeGenre"
-                                                                   placeholder="Название жанра"
+                                                                   placeholder="<fmt:message key="enterGenreName" bundle="${ rb }"/>"
                                                                    value="${g.name}">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Close
+                                                                data-dismiss="modal"><fmt:message key="cancel"
+                                                                                                  bundle="${ rb }"/>
                                                         </button>
                                                         <button type="submit" class="btn btn-primary">
-                                                            Save changes
+                                                            <fmt:message key="confrim" bundle="${ rb }"/>
                                                         </button>
                                                     </div>
                                                 </form>
@@ -102,7 +115,7 @@
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal"
                                         data-target="#delete${g.id}">
-                                    Удалить
+                                    <fmt:message key="delete" bundle="${ rb }"/>
                                 </button>
 
                                 <!-- Modal -->
@@ -112,8 +125,9 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Modal
-                                                    title</h5>
+                                                <h5 class="modal-title">
+                                                    <fmt:message key="delete" bundle="${ rb }"/>
+                                                </h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -122,13 +136,15 @@
                                             <div class="modal-body">
                                                 <form method="post"
                                                       action="${pageContext.request.contextPath}/delete_genre.html?id=${g.id}">
-                                                    <p>Вы уверены, что хотите удалить жанр - ${g.name}? </p>
+                                                    <p><fmt:message key="confirmDeleteGenre" bundle="${ rb }"/>
+                                                        - ${g.name}? </p>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Отмена
+                                                                data-dismiss="modal"><fmt:message key="cancel"
+                                                                                                  bundle="${ rb }"/>
                                                         </button>
                                                         <button type="submit" class="btn btn-primary">
-                                                            Удалить
+                                                            <fmt:message key="delete" bundle="${ rb }"/>
                                                         </button>
                                                     </div>
                                                 </form>

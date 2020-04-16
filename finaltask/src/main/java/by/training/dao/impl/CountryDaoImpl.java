@@ -8,7 +8,6 @@ import by.training.dao.impl.jdbc.ResultSetHandler;
 import by.training.dao.impl.jdbc.ResultSetHandlerFactory;
 import by.training.model.Country;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -69,18 +68,18 @@ public class CountryDaoImpl implements CountryDao {
     private static final String DELETE_COUNTRY_BY_ID = "DELETE FROM country WHERE id = ?";
     @Override
     public boolean delete(String id) throws DaoException {
-        return JDBCUtil.delete(transaction.getConnection(), DELETE_COUNTRY_BY_ID, id);
+        return JDBCUtil.execute(transaction.getConnection(), DELETE_COUNTRY_BY_ID, id);
     }
 
     private static final String CREATE_COUNTRY = "INSERT INTO country VALUES (DEFAULT, ?)";
     @Override
     public boolean create(Country entity) throws DaoException {
-        return JDBCUtil.create(transaction.getConnection(), CREATE_COUNTRY, entity.getName());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_COUNTRY, entity.getName());
     }
 
     private static final String UPDATE_COUNTRY = "UPDATE country SET name = ? WHERE id = ?";
     @Override
     public boolean update(Country entity) throws DaoException {
-        return JDBCUtil.update(transaction.getConnection(), UPDATE_COUNTRY, entity.getName(), entity.getId());
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_COUNTRY, entity.getName(), entity.getId());
     }
 }

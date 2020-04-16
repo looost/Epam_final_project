@@ -7,7 +7,6 @@ import by.training.model.*;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 
-import java.sql.Connection;
 import java.util.List;
 
 public class TransactionHandlerFactory {
@@ -27,24 +26,9 @@ public class TransactionHandlerFactory {
 
                 Studio studio = DaoFactory.getInstance().getStudioDao(t).findById(String.valueOf(entity.getStudio().getId()));
                 entity.getStudio().setName(studio.getName());
-                //List <Comment> commentSet = DaoFactory.getInstance().getCommentDao(c).findAllCommentForSerial(String.valueOf(entity.getId()));
+
                 List<Comment> commentSet = ServiceFactory.getInstance().getCommentService().findAllCommentForSerial(String.valueOf(entity.getId()));
                 entity.setComments(commentSet);
-                return entity;
-            } catch (DaoException e) {
-                throw new ServiceException(e);
-            }
-        }
-    };
-
-    public static final TransactionHandler<Serial> CREATE_SERIAL_WITH_GENRE = new TransactionHandler<Serial>() {
-        @Override
-        public Serial transaction(Transaction t, Serial entity) throws ServiceException {
-            try {
-                int index = DaoFactory.getInstance().getSerialDao(t).createAndReturnIndex(entity);
-//                Serial serial = ServiceFactory.getInstance().getSerialService().findSerialByName(entity.getName());
-//                serial.setGenres(entity.getGenres());
-                DaoFactory.getInstance().getSerialDao(t).createSerialGenre(index, entity.getGenres());
                 return entity;
             } catch (DaoException e) {
                 throw new ServiceException(e);
@@ -71,11 +55,7 @@ public class TransactionHandlerFactory {
         return new TransactionHandler<T>() {
             @Override
             public T transaction(Transaction t, T entity) throws ServiceException {
-                //c.setAutoCommit(false);
-                T result = handler.transaction(t, entity);
-                //c.commit();
-                //ConnectionPool.getInstance().close(c); //TODO close and finally problem (exception in finally block)
-                return result;
+                return handler.transaction(t, entity);
             }
         };
     }
@@ -84,13 +64,10 @@ public class TransactionHandlerFactory {
         return new TransactionHandler<List<T>>() {
             @Override
             public List<T> transaction(Transaction t, List<T> entity) throws ServiceException {
-                //c.setAutoCommit(false);
                 for (T e : entity
                 ) {
                     handler.transaction(t, e);
                 }
-                // c.commit();
-                //  ConnectionPool.getInstance().close(c);
                 return entity;
             }
         };
