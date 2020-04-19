@@ -7,6 +7,7 @@ import by.training.model.Studio;
 import by.training.service.StudioService;
 import by.training.service.exception.ServiceException;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class StudioServiceImpl implements StudioService {
@@ -17,7 +18,7 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -28,7 +29,7 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -39,7 +40,7 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -55,7 +56,7 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -66,7 +67,7 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -77,7 +78,7 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

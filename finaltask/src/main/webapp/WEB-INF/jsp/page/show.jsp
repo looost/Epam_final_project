@@ -32,20 +32,61 @@
                             </div>
                         </div>
 
-                        <div class="col-4 card p-0 border-light" >
-                            <div class="card p-0 border-light" >
+                        <div class="col-4 card p-0 border-light">
+                            <div class="card p-0 border-light">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <fmt:message key="releaseDates" bundle="${ rb }"/>: <fmt:formatDate
-                                            value="${show.releaseDate}"
-                                            pattern="dd-MM-yyyy"/></li>
-                                    <li class="list-group-item"><fmt:message key="country"
-                                                                             bundle="${ rb }"/>: ${show.country.name}</li>
-                                    <li class="list-group-item"><fmt:message key="studio"
-                                                                             bundle="${ rb }"/>: ${show.studio.name}</li>
-                                    <li class="list-group-item"><fmt:message key="genres" bundle="${ rb }"/>:<c:forEach
-                                            items="${show.genres}"
-                                            var="genre"> ${genre.name} </c:forEach></li>
+                                    <div class="container">
+                                        <li class="list-group-item">
+
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <i class="far fa-calendar-alt fa-2x"></i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <fmt:message key="releaseDates" bundle="${ rb }"/>: <fmt:formatDate
+                                                        value="${show.releaseDate}"
+                                                        pattern="dd-MM-yyyy"/>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <i class="fas fa-globe-americas fa-2x">
+                                                    </i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <fmt:message key="country"
+                                                                 bundle="${ rb }"/>: ${show.country.name}
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <i class="fas fa-video fa-2x"></i>
+                                                    </i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <fmt:message key="studio"
+                                                                 bundle="${ rb }"/>: ${show.studio.name}
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-2">
+                                                    <i class="fas fa-layer-group fa-2x"></i>
+                                                    </i>
+                                                </div>
+                                                <div class="col-10">
+                                                    <fmt:message key="genres" bundle="${ rb }"/>:<c:forEach
+                                                        items="${show.genres}"
+                                                        var="genre"> ${genre.name} </c:forEach>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </div>
                                     <c:if test="${sessionScope.user != null}">
                                         <c:choose>
                                             <c:when test="${watchStatus == false}">
@@ -265,14 +306,113 @@
                         <div class="card-header text-left">
                                 ${comment.user.login}
                         </div>
-                        <div class="card-body">
-                            <p class="card-text text-left">${comment.comment}</p>
+                        <div class="card-body pl-0">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-1">
+                                        <c:choose>
+                                            <c:when test="${sessionScope.user.equals(comment.user.login)}">
+                                                <i class="fas fa-comment fa-2x"></i>
+                                            </c:when>
+                                            <c:when test="${!sessionScope.user.equals(comment.user.login)}">
+                                                <i class="far fa-comment fa-2x"></i>
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="card-text text-left">
+                                                ${comment.comment}
+                                        </p>
+                                    </div>
+                                    <c:if test="${sessionScope.user.equals(comment.user.login)}">
+                                        <div class="col-1">
+
+                                            <a href="" data-toggle="modal"
+                                               data-target="#change${comment.id}"> <i class="far fa-edit"></i></a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="change${comment.id}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="exampleModalLongTitle"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Изменить комменатрий</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post"
+                                                                  action="${pageContext.request.contextPath}/change_comment.html?id=${comment.id}">
+                                                                <div class="form-group mt-3">
+                                                                    <input type="text" name="newComment"
+                                                                           class="form-control"
+                                                                           value="${comment.comment}">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-primary">Save
+                                                                        changes
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <a href="" data-toggle="modal"
+                                               data-target="#delete${comment.id}"> <i class="fas fa-trash-alt"></i></a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="delete${comment.id}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="exampleModalLongTitle"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Вы уверены что хотите удалить
+                                                                комменатрий?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post"
+                                                                  action="${pageContext.request.contextPath}/delete_comment.html?id=${comment.id}">
+                                                                <p>Вы уверены, что хотите удалить комментарий? </p>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Отмена
+                                                                    </button>
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        Удалить
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </c:if>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer text-muted">
+
                             <fmt:parseDate value="${comment.publicationDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="time"
                                            type="date"/>
                             <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/>
-                                <%--                                ${comment.publicationDate}--%>
+
                         </div>
                     </div>
                 </c:forEach>

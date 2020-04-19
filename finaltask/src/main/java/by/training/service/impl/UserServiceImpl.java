@@ -8,6 +8,9 @@ import by.training.service.UserService;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.Validation;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+
 
 public class UserServiceImpl implements UserService {
 
@@ -18,7 +21,7 @@ public class UserServiceImpl implements UserService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -29,7 +32,7 @@ public class UserServiceImpl implements UserService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -44,7 +47,7 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -69,7 +72,7 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -80,7 +83,7 @@ public class UserServiceImpl implements UserService {
             transaction.commit();
             return true;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

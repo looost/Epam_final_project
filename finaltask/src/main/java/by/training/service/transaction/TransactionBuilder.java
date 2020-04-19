@@ -4,6 +4,6 @@ import by.training.dao.Transaction;
 import by.training.service.exception.ServiceException;
 
 @FunctionalInterface
-public interface TransactionHandler<T> {
+public interface TransactionBuilder<T> {
     T transaction(Transaction transaction, T entity) throws ServiceException;
 }

@@ -15,30 +15,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.*;
+
 public class LoginPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/index.html";
-    private static final String ROUTING_LOGIN_PAGE = "/final/login.html";
-    private static final String ROUTING_ERROR_PAGE = "error.jsp";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+        String login = req.getParameter(PARAMETER_LOGIN);
+        String password = req.getParameter(PARAMETER_PASSWORD);
         User user = null;
         try {
             user = ServiceFactory.getInstance()
                     .getUserService().findByLogin(login);
         } catch (ServiceException e) {
-            req.setAttribute("error", e.getMessage());
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
+            req.setAttribute(ATTRIBUTE_ERROR, e.getMessage());
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
         }
 
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             HttpSession session = req.getSession();
-            session.setAttribute("user", user.getLogin());
-            session.setAttribute("userId", String.valueOf(user.getId()));
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            session.setAttribute(ATTRIBUTE_USER, user.getLogin());
+            session.setAttribute(ATTRIBUTE_USER_ID, String.valueOf(user.getId()));
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
         } else {
             String errorMessage = ResourceManager.INSTANCE
                     .changeResource(req)

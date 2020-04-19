@@ -6,26 +6,34 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Comment;
 import by.training.service.CommentService;
 import by.training.service.exception.ServiceException;
-import by.training.service.transaction.TransactionHandler;
-import by.training.service.transaction.TransactionHandlerFactory;
+import by.training.service.transaction.TransactionBuilder;
+import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
+import static by.training.utils.ConstantName.DEBUG_LOGGER;
+import static by.training.utils.ConstantName.ERROR_LOGGER;
 
 public class CommentServiceImpl implements CommentService {
 
-    private static final TransactionHandler<Comment> COMMENT_TRANSACTION_HANDLER = TransactionHandlerFactory.COMMENT_TRANSACTION_HANDLER;
+    private static final TransactionBuilder<Comment> COMMENT_TRANSACTION_HANDLER = TransactionBuilderFactory.COMMENT_TRANSACTION_BUILDER;
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     @Override
     public List<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             List<Comment> commentList = DaoFactory.getInstance().getCommentDao(transaction).findAllCommentForSerial(serialId);
             List<Comment> result = TransactionUtil
-                    .select(transaction, TransactionHandlerFactory.getListTransactionHandler(COMMENT_TRANSACTION_HANDLER), commentList);
+                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(COMMENT_TRANSACTION_HANDLER), commentList);
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -34,11 +42,12 @@ public class CommentServiceImpl implements CommentService {
         try (Transaction transaction = new Transaction()) {
             Comment comment = DaoFactory.getInstance().getCommentDao(transaction).findById(id);
             Comment result = TransactionUtil
-                    .select(transaction, TransactionHandlerFactory.getSingleTransactionHandler(COMMENT_TRANSACTION_HANDLER), comment);
+                    .select(transaction, TransactionBuilderFactory.getSingleTransactionBuilder(COMMENT_TRANSACTION_HANDLER), comment);
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -49,7 +58,8 @@ public class CommentServiceImpl implements CommentService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -60,7 +70,8 @@ public class CommentServiceImpl implements CommentService {
             transaction.commit();
             return res;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,7 +82,8 @@ public class CommentServiceImpl implements CommentService {
             transaction.commit();
             return res;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 

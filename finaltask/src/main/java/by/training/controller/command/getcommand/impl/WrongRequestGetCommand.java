@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
+
 public class WrongRequestGetCommand implements Command {
 
-    private static final String ROUTING_PAGE = "error.jsp";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("error", "К сожалению такой страницы не существует :(");
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
-        //RoutingUtils.forwardToPage("error.jsp", req, resp);
+        // req.setAttribute("error", "К сожалению такой страницы не существует :(");
+        req.setAttribute("statusCode", HttpServletResponse.SC_NOT_FOUND);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

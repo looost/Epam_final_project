@@ -7,14 +7,15 @@ import by.training.model.*;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class TransactionHandlerFactory {
+public class TransactionBuilderFactory {
 
-    private TransactionHandlerFactory() {
+    private TransactionBuilderFactory() {
     }
 
-    public static final TransactionHandler<Serial> SERIAL_TRANSACTION_HANDLER = new TransactionHandler<Serial>() {
+    public static final TransactionBuilder<Serial> SERIAL_TRANSACTION_BUILDER = new TransactionBuilder<Serial>() {
         @Override
         public Serial transaction(Transaction t, Serial entity) throws ServiceException {
             try {
@@ -31,12 +32,12 @@ public class TransactionHandlerFactory {
                 entity.setComments(commentSet);
                 return entity;
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }
     };
 
-    public static final TransactionHandler<Comment> COMMENT_TRANSACTION_HANDLER = new TransactionHandler<Comment>() {
+    public static final TransactionBuilder<Comment> COMMENT_TRANSACTION_BUILDER = new TransactionBuilder<Comment>() {
         @Override
         public Comment transaction(Transaction t, Comment entity) throws ServiceException {
             try {
@@ -46,27 +47,27 @@ public class TransactionHandlerFactory {
                 entity.setSerial(serial);
                 return entity;
             } catch (DaoException e) {
-                throw new ServiceException(e);
+                throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             }
         }
     };
 
-    public static <T> TransactionHandler<T> getSingleTransactionHandler(final TransactionHandler<T> handler) {
-        return new TransactionHandler<T>() {
+    public static <T> TransactionBuilder<T> getSingleTransactionBuilder(final TransactionBuilder<T> builder) {
+        return new TransactionBuilder<T>() {
             @Override
             public T transaction(Transaction t, T entity) throws ServiceException {
-                return handler.transaction(t, entity);
+                return builder.transaction(t, entity);
             }
         };
     }
 
-    public static <T> TransactionHandler<List<T>> getListTransactionHandler(final TransactionHandler<T> handler) {
-        return new TransactionHandler<List<T>>() {
+    public static <T> TransactionBuilder<List<T>> getListTransactionBuilder(final TransactionBuilder<T> builder) {
+        return new TransactionBuilder<List<T>>() {
             @Override
             public List<T> transaction(Transaction t, List<T> entity) throws ServiceException {
                 for (T e : entity
                 ) {
-                    handler.transaction(t, e);
+                    builder.transaction(t, e);
                 }
                 return entity;
             }

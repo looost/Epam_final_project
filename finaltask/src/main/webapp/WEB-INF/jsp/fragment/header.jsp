@@ -121,7 +121,7 @@
         <li class="nav-item dropdown">
             <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                ${cookie.language.value}
+                <i class="fas fa-globe fa-1x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item"

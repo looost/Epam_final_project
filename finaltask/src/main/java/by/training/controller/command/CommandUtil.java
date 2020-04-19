@@ -2,7 +2,11 @@ package by.training.controller.command;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+
+import static by.training.utils.ConstantName.ATTRIBUTE_STATUS_CODE;
+import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
 
 public class CommandUtil {
 
@@ -21,7 +25,7 @@ public class CommandUtil {
     }
 
     public static void transferSingleAttribute(String attName, HttpServletRequest req) {
-        String att = (String) req.getSession().getAttribute(attName);
+        Object att = req.getSession().getAttribute(attName);
         if (att != null) {
             req.setAttribute(attName, att);
             req.getSession().removeAttribute(attName);
@@ -36,5 +40,10 @@ public class CommandUtil {
             }
         }
         return null;
+    }
+
+    public static CommandResponse routingErrorPage(HttpServletRequest req, HttpServletResponse resp, int code) {
+        req.setAttribute(ATTRIBUTE_STATUS_CODE, code);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

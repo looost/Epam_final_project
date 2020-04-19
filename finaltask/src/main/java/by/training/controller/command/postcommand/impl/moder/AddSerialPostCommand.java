@@ -16,9 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static by.training.utils.ConstantName.ROUTING_SERIAL_PAGE;
+
 public class AddSerialPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/admin/serial.html";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,11 +28,11 @@ public class AddSerialPostCommand implements Command {
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
             MultiFilesResponse multiFilesResponse = MultiFilesHandler.handler(multiFiles, req);
             if (multiFilesResponse.isHaveProblem()) {
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SERIAL_PAGE, req, resp);
                 //RoutingUtils.redirectToPage("/final/admin/serial.html", resp);
             } else {
                 ServiceFactory.getInstance().getSerialService().create(multiFilesResponse.getSerial());
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SERIAL_PAGE, req, resp);
                 // resp.sendRedirect(req.getHeader("referer"));
             }
         } catch (Exception e) {

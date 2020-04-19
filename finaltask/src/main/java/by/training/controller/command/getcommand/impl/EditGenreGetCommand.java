@@ -7,7 +7,6 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,27 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class EditGenreGetCommand implements Command {
+import static by.training.utils.ConstantName.*;
 
-    private static final String ROUTING_PAGE = "/admin/genre.jsp";
+public class EditGenreGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            CommandUtil.transferSingleAttribute("genreProblem", req);
-            int page = 1;
-            if (req.getParameter("page") != null) {
-                page = Integer.parseInt(req.getParameter("page"));
+            CommandUtil.transferSingleAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
+            int page = DEFAULT_PAGE_NUMBER;
+            if (req.getParameter(PARAMETER_PAGE) != null) {
+                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
             }
             int countAllGenre = ServiceFactory.getInstance().getGenreService().countAllGenres();
-            List<Genre> genres = ServiceFactory.getInstance().getGenreService().findGenrePageByPage(page, Constant.COUNT_GENRE_IN_ADMIN_PAGE);
-            req.setAttribute("genres", genres);
-            req.setAttribute("countAllGenre", countAllGenre);
-            req.setAttribute("itemsOnPage", Constant.COUNT_GENRE_IN_ADMIN_PAGE);
+            List<Genre> genres = ServiceFactory.getInstance().getGenreService().findGenrePageByPage(page, COUNT_GENRE_IN_ADMIN_PAGE);
+            req.setAttribute(PARAMETER_GENRES, genres);
+            req.setAttribute(PARAMETER_COUNT_ALL_GENRES, countAllGenre);
+            req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_GENRE_IN_ADMIN_PAGE);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_GENRE_JSP, req, resp);
         //RoutingUtils.forwardToPage("/admin/genre.jsp", req, resp);
     }
 }

@@ -11,23 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.*;
+
 public class StopWatchSerialGetCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/show.html?id=";
-    private static final String ROUTING_ERROR_PAGE = "error.jsp";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String serialId = req.getParameter("id");
-        String userId = (String) req.getSession().getAttribute("userId");
+        String serialId = req.getParameter(PARAMETER_ID);
+        String userId = (String) req.getSession().getAttribute(ATTRIBUTE_USER_ID);
         if (userId != null) {
             try {
                 ServiceFactory.getInstance().getSerialService().stopWatchSerial(userId, serialId);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE + serialId, req, resp);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

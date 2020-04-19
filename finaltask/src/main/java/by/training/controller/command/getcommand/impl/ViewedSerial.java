@@ -13,22 +13,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import static by.training.utils.ConstantName.*;
+
 public class ViewedSerial implements Command {
 
-    private static final String ROUTING_PAGE = "my-shows.jsp";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = req.getSession().getAttribute("userId").toString();
+        String userId = req.getSession().getAttribute(ATTRIBUTE_USER_ID).toString();
         if (userId != null) {
             try {
                 List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialsThatIWatch(userId);
-                req.setAttribute("shows", serialList);
+                req.setAttribute(ATTRIBUTE_SHOWS, serialList);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_MY_SHOW_JSP, req, resp);
         //RoutingUtils.forwardToPage("search.jsp", req, resp);
     }
 }

@@ -9,14 +9,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<div class="container">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-    <div class="alert alert-danger m-2 text-center" role="alert">
-        <h4 class="alert-heading">УПС!</h4>
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
+<div class="container-fluid">
+
+    <%--    <div class="alert alert-danger m-2 text-center" role="alert">--%>
+    <%--        <h4 class="alert-heading">УПС!</h4>--%>
+    <%--        <hr>--%>
+    <%--        <c:if test="${error != null}">--%>
+    <%--            <p class="mb-0">${error}</p>--%>
+    <%--        </c:if>--%>
+    <%--    </div>--%>
+
+    <div class="alert alert-danger m-2 " role="alert">
+        <h4 class="alert-heading">Code: ${statusCode }</h4>
         <hr>
-        <c:if test="${error != null}">
-            <p class="mb-0">${error}</p>
-        </c:if>
+        <c:choose>
+            <c:when test="${statusCode == 403}"><fmt:message key="accessError" bundle="${ rb }"/></c:when>
+            <c:when test="${statusCode == 404}"><fmt:message key="pageNotFound" bundle="${ rb }"/></c:when>
+            <c:when test="${statusCode == 500}"><fmt:message key="errorProcessingReq" bundle="${ rb }"/></c:when>
+            <c:otherwise><fmt:message key="cantProcessReq" bundle="${ rb }"/></c:otherwise>
+        </c:choose>
     </div>
 
 </div>

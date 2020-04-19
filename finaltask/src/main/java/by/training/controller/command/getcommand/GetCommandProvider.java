@@ -31,6 +31,7 @@ public class GetCommandProvider {
         repository.put(CommandName.WATCH_SERIAL, new WatchSerialGetCommand());
         repository.put(CommandName.STOP_WATCH_SERIAL, new StopWatchSerialGetCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestGetCommand());
+        repository.put(CommandName.ERROR, new ErrorGetCommand());
     }
 
     public static GetCommandProvider getInstance() {

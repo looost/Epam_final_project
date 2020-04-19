@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.*;
+
 public class AddStudioPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/admin/studio.html";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String studioName = req.getParameter("studio");
+        String studioName = req.getParameter(PARAMETER_STUDIO);
         Studio studio = new Studio(studioName);
         try {
             ServiceFactory.getInstance().getStudioService().create(studio);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
             //RoutingUtils.redirectToPage("/final/admin/studio.html", resp);
         } catch (ServiceException e) {
             e.printStackTrace();

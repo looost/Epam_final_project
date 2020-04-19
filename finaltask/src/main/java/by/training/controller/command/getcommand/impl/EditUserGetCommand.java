@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class EditUserGetCommand implements Command {
+import static by.training.utils.ConstantName.ROUTING_ADMIN_USER_JSP;
 
-    private static final String ROUTING_PAGE = "/admin/user.jsp";
+public class EditUserGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_USER_JSP, req, resp);
     }
 }

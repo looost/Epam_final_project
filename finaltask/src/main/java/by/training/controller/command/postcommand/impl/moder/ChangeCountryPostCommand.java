@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.*;
+
 public class ChangeCountryPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/admin/country.html";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("country");
-        String id = req.getParameter("id");
+        String name = req.getParameter(PARAMETER_COUNTRY);
+        String id = req.getParameter(PARAMETER_ID);
         Country country = new Country(Integer.parseInt(id), name);
         try {
             ServiceFactory.getInstance().getCountryService().update(country);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
             //RoutingUtils.redirectToPage("/final/admin/country.html", resp);
         } catch (ServiceException e) {
             e.printStackTrace();

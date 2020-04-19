@@ -38,4 +38,8 @@ public class UserServiceImplTest {
     @Test
     public void testUpdate() {
     }
+
+    @Test
+    public void testTestFindByLogin() {
+    }
 }

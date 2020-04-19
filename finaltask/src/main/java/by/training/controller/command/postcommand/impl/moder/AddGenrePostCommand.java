@@ -2,6 +2,7 @@ package by.training.controller.command.postcommand.impl.moder;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.utils.ConstantName;
 import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
@@ -13,28 +14,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AddGenrePostCommand implements Command {
+import static by.training.utils.ConstantName.*;
 
-    private static final String ROUTING_PAGE = "/final/admin/genre.html";
-    private static final String ROUTING_ERROR_PAGE = "error.jsp";
+public class AddGenrePostCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String genreName = req.getParameter("genre");
+        String genreName = req.getParameter(PARAMETER_GENRE);
         if (genreName.equals("")) {
             String errorMessage = ResourceManager.INSTANCE
                     .changeResource(req)
                     .getString("incorrectGenreName");
-            req.getSession().setAttribute("genreProblem", errorMessage);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, errorMessage);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         }
         Genre genre = new Genre(genreName);
         try {
             ServiceFactory.getInstance().getGenreService().create(genre);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         } catch (ServiceException e) {
-            req.setAttribute("error", e.getMessage());
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
+            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
+                req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, e.getMessage());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
+            } else {
+                req.getSession().setAttribute(ConstantName.ATTRIBUTE_STATUS_CODE, e.getCode());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_ERROR_JSP, req, resp);
+            }
         }
     }
 }

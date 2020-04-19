@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LoginGetCommand implements Command {
+import static by.training.utils.ConstantName.ROUTING_SIGN_UP_JSP;
 
-    private static final String ROUTING_PAGE = "signup2.jsp";
+public class LoginGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute("incorrectLoginOrPassword", req);
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_SIGN_UP_JSP, req, resp);
     }
 }

@@ -9,6 +9,7 @@ import by.training.service.exception.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class GenreServiceImpl implements GenreService {
@@ -22,7 +23,7 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -33,7 +34,7 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -44,7 +45,7 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -55,7 +56,7 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -71,7 +72,7 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -79,14 +80,13 @@ public class GenreServiceImpl implements GenreService {
     public boolean create(Genre entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             if (findByName(entity.getName()) != null) {
-                //throw new ValidationException("A genre with the same name already exists");
-                throw new ServiceException("A genre with the same name already exists");
+                throw new ServiceException("A genre with the same name already exists", HttpServletResponse.SC_BAD_REQUEST);
             }
             boolean result = DaoFactory.getInstance().getGenreDao(transaction).create(entity);
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -97,7 +97,7 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

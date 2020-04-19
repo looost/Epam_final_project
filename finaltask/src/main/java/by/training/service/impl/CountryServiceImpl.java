@@ -6,10 +6,17 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Country;
 import by.training.service.CountryService;
 import by.training.service.exception.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+import static by.training.utils.ConstantName.ERROR_LOGGER;
+
 public class CountryServiceImpl implements CountryService {
+
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     @Override
     public List<Country> findAll() throws ServiceException {
@@ -18,7 +25,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -29,7 +37,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -40,7 +49,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -56,7 +66,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -67,7 +78,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -78,7 +90,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }

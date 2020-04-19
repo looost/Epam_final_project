@@ -14,6 +14,11 @@ import java.io.IOException;
 public class SecurityFilter implements Filter {
 
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
@@ -43,7 +48,7 @@ public class SecurityFilter implements Filter {
                         filterChain.doFilter(servletRequest, servletResponse);
                         return;
                     } else {
-                        req.setAttribute("error", "НЕТ ДОСТУПА");
+                        req.setAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
                         RoutingUtils.forwardToPage("error.jsp", req, resp);
                         return;
                     }
@@ -55,11 +60,6 @@ public class SecurityFilter implements Filter {
             return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override

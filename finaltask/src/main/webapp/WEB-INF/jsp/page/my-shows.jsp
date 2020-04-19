@@ -19,10 +19,10 @@
                 <div class="list-group">
                     <a href="${pageContext.request.contextPath}/profile.html"
                        class="list-group-item list-group-item-action">
-                        <fmt:message key="profile" bundle="${ rb }"/></a>
+                        <i class="fas fa-user-edit"></i> <fmt:message key="profile" bundle="${ rb }"/></a>
                     <a href="${pageContext.request.contextPath}/my_serial.html"
                        class="list-group-item list-group-item-action active">
-                        <fmt:message key="myShows" bundle="${ rb }"/></a>
+                        <i class="fas fa-eye"></i> <fmt:message key="myShows" bundle="${ rb }"/></a>
                 </div>
             </div>
 

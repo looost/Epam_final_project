@@ -7,6 +7,7 @@ public class User extends AbstractEntity {
     private String login;
     private String password;
     private int role;
+    private String avatar;
 
     public User() {
     }
@@ -50,6 +51,14 @@ public class User extends AbstractEntity {
         this.role = role;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,7 +69,8 @@ public class User extends AbstractEntity {
 
         if (role != user.role) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        return password != null ? password.equals(user.password) : user.password == null;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        return avatar != null ? avatar.equals(user.avatar) : user.avatar == null;
     }
 
     @Override
@@ -69,14 +79,18 @@ public class User extends AbstractEntity {
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + role;
+        result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", avatar='" + avatar + '\'' +
+                ", id=" + id +
                 '}';
     }
 }

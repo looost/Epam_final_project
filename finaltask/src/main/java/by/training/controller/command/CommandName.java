@@ -1,6 +1,7 @@
 package by.training.controller.command;
 
 public enum CommandName {
+
     INDEX,
     SHOW,
     REGISTRATION,
@@ -36,4 +37,6 @@ public enum CommandName {
     WATCH_SERIAL,
     STOP_WATCH_SERIAL,
     PROFILEPOST,
+    ERROR,
+
 }

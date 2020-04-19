@@ -11,19 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.PARAMETER_ID;
+import static by.training.utils.ConstantName.ROUTING_STUDIO_PAGE;
+
 public class DeleteStudioPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/admin/studio.html";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
+        String id = req.getParameter(PARAMETER_ID);
         try {
             ServiceFactory.getInstance().getStudioService().delete(id);
             // RoutingUtils.redirectToPage("/final/admin/studio.html", resp);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-        return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
     }
 }

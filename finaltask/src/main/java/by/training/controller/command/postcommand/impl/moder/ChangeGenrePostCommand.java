@@ -12,18 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.*;
+
 public class ChangeGenrePostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/admin/genre.html";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("genre");
-        String id = req.getParameter("id");
-        Genre genre = new Genre(Integer.valueOf(id), name);
+        String name = req.getParameter(PARAMETER_GENRE);
+        String id = req.getParameter(PARAMETER_ID);
+        Genre genre = new Genre(Integer.parseInt(id), name);
         try {
             ServiceFactory.getInstance().getGenreService().update(genre);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
             //RoutingUtils.redirectToPage("/final/admin/genre.html", resp);
         } catch (ServiceException e) {
             e.printStackTrace();

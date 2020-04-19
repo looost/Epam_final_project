@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ProfileGetCommand implements Command {
+import static by.training.utils.ConstantName.ROUTING_PROFILE_JSP;
 
-    private static final String ROUTING_PAGE = "profile.jsp";
+public class ProfileGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute("invalidPassword", req);
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_PROFILE_JSP, req, resp);
     }
 }

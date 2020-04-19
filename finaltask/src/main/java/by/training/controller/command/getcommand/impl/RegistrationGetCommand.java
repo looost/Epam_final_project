@@ -11,12 +11,13 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
+import static by.training.utils.ConstantName.ATTRIBUTE_ERROR;
+import static by.training.utils.ConstantName.ROUTING_REGISTRATION_JSP;
+
 public class RegistrationGetCommand implements Command {
 
-    private static final String ROUTING_PAGE = "registration.jsp";
-
     private void init(HttpServletRequest req) {
-        Map<String, String> error = (Map<String, String>) req.getSession().getAttribute("error");
+        Map<String, String> error = (Map<String, String>) req.getSession().getAttribute(ATTRIBUTE_ERROR);
         if (error != null) {
             Iterator<Map.Entry<String, String>> iterator1 = error.entrySet().iterator();
             while (iterator1.hasNext()) {
@@ -35,7 +36,7 @@ public class RegistrationGetCommand implements Command {
 //            req.setAttribute("incorrect2", str);
 //        }
         init(req);
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_PAGE, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_REGISTRATION_JSP, req, resp);
         //RoutingUtils.forwardToPage("registration.jsp", req, resp);
     }
 }

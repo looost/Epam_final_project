@@ -15,16 +15,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static by.training.utils.ConstantName.*;
+
 public class RegistrPostCommand implements Command {
 
-    private static final String ROUTING_PAGE = "/final/registration.html";
-    private static final String ROUTING_LOGIN_PAGE = "/final/login.html";
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String login = req.getParameter("login");
-        String password = BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt());
+        String login = req.getParameter(PARAMETER_LOGIN);
+        String password = BCrypt.hashpw(req.getParameter(PARAMETER_PASSWORD), BCrypt.gensalt());
 
         User user = new User(login, password);
 
@@ -35,9 +35,9 @@ public class RegistrPostCommand implements Command {
             } else {
                 Map<String, String> error = new HashMap<>();
                 error.put("incorrect", "Пользователь с таким логином уже существует!");
-                req.getSession().setAttribute("error", error);
+                req.getSession().setAttribute(ATTRIBUTE_ERROR, error);
                 //req.getSession().setAttribute("incorrect", "Пользователь с таким логином уже существует!");
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PAGE, req, resp);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_REGISTRATION_PAGE, req, resp);
                 //RoutingUtils.redirectToPage("/final/registration.html", resp);
             }
         } catch (ServiceException e) {
