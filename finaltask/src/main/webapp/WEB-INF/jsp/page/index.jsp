@@ -14,21 +14,22 @@
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
 
+
 <!-- portfolio -->
 <div class="portfolio">
+
     <%--    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>--%>
-    <div class="jumbotron jumbotron-fluid bg-white">
+    <div class="jumbotron jumbotron-fluid bg-light">
         <div class="container">
-            <h1 class="display-4"><fmt:message key="serials" bundle="${ rb }"/></h1>
+            <h1 class="display-4 text-style"><em><fmt:message key="serials" bundle="${ rb }"/></em></h1>
             <hr class="my-4">
-            <p class="lead"><fmt:message key="welcome" bundle="${ rb }"/></p>
+            <p class="lead text-style"><em><fmt:message key="welcome" bundle="${ rb }"/></em></p>
         </div>
     </div>
 
     <div class="container-fluid">
 
         <div class="row">
-
 
             <div class="col-2 mb-2 p-0">
                 <jsp:useBean id="genres" scope="request" type="java.util.List"/>
@@ -46,41 +47,42 @@
             <%--                </c:forEach>--%>
             <%--            </div>--%>
 
-            <div class="col-8 mb-3">
-                <div class="container-fluid">
+            <div class="col-8 ">
+                <div class="container">
                     <div class="row">
 
                         <div class="row row-cols-1 row-cols-md-3">
                             <jsp:useBean id="shows" scope="request" type="java.util.List"/>
-                        <c:forEach items="${shows}" var="s">
-                            <div class="col mb-4">
-                                <div class="card h-100">
-                                    <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
-                                    <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
-                                </a>
+                            <c:forEach items="${shows}" var="s">
+                                <div class="col mb-4">
+                                    <div class="card h-100">
+                                        <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
+                                            <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
+                                        </a>
 
-                                    <div class="card-header" style="max-height: 3rem;">
-                                    <a class="card-title" href="${pageContext.request.contextPath}/show.html?id=${s.id}"
-                                       style="font-family: segoe print">
-                                        <h5 class="text-center">${s.name}</h5>
-                                    </a>
+                                        <div class="card-header">
+                                            <a class="card-title"
+                                               href="${pageContext.request.contextPath}/show.html?id=${s.id}">
+                                                <h5 class="text-center text-style">${s.name}</h5>
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text text-justify"><em>${fn:substring(s.description, 0, 100)}...</em>
+                                            </p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <small class="text-muted text-style">${s.studio.name}</small>
+                                        </div>
+                                    </div>
                                 </div>
-                                    <div class="card-body">
-                                    <p class="card-text"><em>${fn:substring(s.description, 0, 100)}...</em></p>
-                                </div>
-                                    <div class="card-footer">
-                                    <small class="text-muted">${s.studio.name}</small>
-                                </div>
-                            </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
                         </div>
 
                     </div>
                 </div>
             </div>
 
-            <div class="card col-2 mb-3 p-0">
+            <div class="col-2 mb-3 p-0">
                 <jsp:useBean id="last" scope="request" type="java.util.List"/>
                 <customTag:last-serials last="${last}"/>
             </div>

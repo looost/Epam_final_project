@@ -2,6 +2,7 @@ package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
 import by.training.model.Country;
 import by.training.service.exception.ServiceException;
@@ -19,6 +20,7 @@ public class EditCountryGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_COUNTRY_PROBLEM, req);
         try {
             int page = 1;
             if (req.getParameter(PARAMETER_PAGE) != null) {

@@ -24,7 +24,7 @@ public class LoginPostCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter(PARAMETER_LOGIN);
         String password = req.getParameter(PARAMETER_PASSWORD);
-        User user = null;
+        User user;
         try {
             user = ServiceFactory.getInstance()
                     .getUserService().findByLogin(login);
@@ -36,7 +36,8 @@ public class LoginPostCommand implements Command {
         if (user != null && BCrypt.checkpw(password, user.getPassword())) {
             HttpSession session = req.getSession();
             session.setAttribute(ATTRIBUTE_USER, user.getLogin());
-            session.setAttribute(ATTRIBUTE_USER_ID, String.valueOf(user.getId()));
+            session.setAttribute(ATTRIBUTE_USER_ROLE, user.getRole());
+            session.setAttribute(ATTRIBUTE_USER_ID, user.getId());
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
         } else {
             String errorMessage = ResourceManager.INSTANCE

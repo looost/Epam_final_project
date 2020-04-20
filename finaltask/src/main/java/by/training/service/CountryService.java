@@ -11,4 +11,6 @@ public interface CountryService extends AbstractService<String, Country> {
     List<Country> findCountryPageByPage(int page, int limit) throws ServiceException;
 
     int countAllCountry() throws ServiceException;
+
+    boolean save(Country country) throws ServiceException;
 }

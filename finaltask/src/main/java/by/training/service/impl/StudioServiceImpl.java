@@ -81,4 +81,21 @@ public class StudioServiceImpl implements StudioService {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public boolean save(Studio studio) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (studio.getId() == 0) {
+                result = DaoFactory.getInstance().getStudioDao(transaction).create(studio);
+            } else {
+                result = DaoFactory.getInstance().getStudioDao(transaction).update(studio);
+            }
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

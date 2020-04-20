@@ -3,6 +3,7 @@ package by.training.service.impl;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
+import by.training.model.Comment;
 import by.training.model.User;
 import by.training.service.UserService;
 import by.training.service.exception.ServiceException;
@@ -86,4 +87,5 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
 }

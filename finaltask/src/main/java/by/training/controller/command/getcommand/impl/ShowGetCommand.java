@@ -15,9 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static by.training.utils.ConstantName.*;
 
@@ -27,11 +25,11 @@ public class ShowGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_COMMENT_PROBLEM, req);
         String id = req.getParameter(PARAMETER_ID);
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
-            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAll();
-            List<Serial> last = serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
+            List<Serial> last = ServiceFactory.getInstance().getSerialService().latestSerial(COUNT_LATEST_SHOWS);
             List<Genre> genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();
@@ -40,13 +38,13 @@ public class ShowGetCommand implements Command {
             if (req.getSession().getAttribute(ATTRIBUTE_USER_ID) != null) {
                 boolean watchStatus = ServiceFactory.getInstance()
                         .getSerialService()
-                        .userWatchThisSerial((String) req.getSession().getAttribute(ATTRIBUTE_USER_ID), id);
+                        .userWatchThisSerial(String.valueOf(req.getSession().getAttribute(ATTRIBUTE_USER_ID)), id);
                 req.setAttribute(ATTRIBUTE_WATCH_STATUS, watchStatus);
             }
 
             req.setAttribute(ATTRIBUTE_GENRES, genres);
             req.setAttribute(ATTRIBUTE_SHOW, serial);
-            req.setAttribute("last", last);
+            req.setAttribute(PARAMETER_LAST_SHOWS, last);
             req.setAttribute(ATTRIBUTE_COUNTRY, country);
             req.setAttribute(ATTRIBUTE_STUDIO, studio);
 

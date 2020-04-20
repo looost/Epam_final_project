@@ -15,20 +15,16 @@ import static by.training.utils.ConstantName.*;
 
 public class WatchSerialGetCommand implements Command {
 
-
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String serialId = req.getParameter(PARAMETER_ID);
-        String userId = (String) req.getSession().getAttribute(ATTRIBUTE_USER_ID);
-        if (userId != null) {
+        int userId = (Integer) req.getSession().getAttribute(ATTRIBUTE_USER_ID);
             try {
-                ServiceFactory.getInstance().getSerialService().toWatchSerial(userId, serialId);
+                ServiceFactory.getInstance().getSerialService().toWatchSerial(String.valueOf(userId), serialId);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
-                //RoutingUtils.redirectToPage("/final/show.html?id=" + serialId, resp);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
-        }
         return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

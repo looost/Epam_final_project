@@ -68,9 +68,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-                            <h3 class="display-5">Добро пожаловать</h3>
-                            <p class="text-muted mb-4">Введите логин и пароль что бы войти</p>
-                            <form method="post" action="${pageContext.request.contextPath}/registr.html">
+                            <h3 class="display-5 text-style pb-2"><fmt:message key="justWelcome" bundle="${ rb }"/></h3>
+                            <form method="post" action="${pageContext.request.contextPath}/registration.html">
                                 <div class="form-group mb-3">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -81,9 +80,9 @@
                                                 <input id="inputLogin" type="text" name="login"
                                                        placeholder="<fmt:message key="login" bundle="${ rb }"/>"
                                                        required="" autofocus=""
-                                                       class="form-control rounded-pill border-0 shadow-sm px-4 ${incorrect != null ? 'is-invalid' : ''}">
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 ${incorrect != null ? 'is-invalid' : ''}">
                                                 <c:if test="${not empty incorrect}">
-                                                    <div class="invalid-feedback">${incorrect}</div>
+                                                    <div class="invalid-feedback text-style">${incorrect}</div>
                                                 </c:if>
                                             </div>
                                         </div>
@@ -95,7 +94,7 @@
                                                 <input id="inputPassword" type="password" name="replayPassword"
                                                        placeholder="<fmt:message key="password" bundle="${ rb }"/>"
                                                        required=""
-                                                       class="form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -106,7 +105,7 @@
                                                 <input id="replayInputPassword" type="password" name="password"
                                                        placeholder="<fmt:message key="confirmPassword" bundle="${ rb }" />"
                                                        required=""
-                                                       class="form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
                                             </div>
                                         </div>
                                     </div>
@@ -115,8 +114,10 @@
                                         class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
                                         onclick="return validateForm()">
                                     <em><fmt:message key="registr" bundle="${ rb }"/></em></button>
-                                <em><p class="message text-center">Уже зарегистрированы?
-                                    <a href="${pageContext.request.contextPath}/login.html">Войти</a></p></em>
+                                <em><p class="message text-center text-style"><fmt:message key="alredyRegistr"
+                                                                                           bundle="${ rb }"/>?
+                                    <a href="${pageContext.request.contextPath}/login.html"
+                                       class="text-style"><fmt:message key="signIn" bundle="${ rb }"/></a></p></em>
                             </form>
                         </div>
 

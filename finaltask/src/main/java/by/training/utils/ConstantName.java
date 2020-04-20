@@ -21,16 +21,22 @@ public class ConstantName {
     public static final String PARAMETER_STUDIO = "studio";
     public static final String PARAMETER_COUNT_ALL_STUDIOS = "countAllStudio";
     public static final String PARAMETER_COMMENT = "comment";
+    public static final String PARAMETER_LAST_SHOWS = "last";
     public static final String PARAMETER_PAGE = "page";
     public static final String PARAMETER_ITEM_ON_PAGE = "itemsOnPage";
+    public static final String PARAMETER_COMMENT_ID = "commentId";
 
     public static final String ATTRIBUTE_ERROR = "error";
     public static final String ATTRIBUTE_USER = "user";
     public static final String ATTRIBUTE_GENRES = PARAMETER_GENRES;
     public static final String ATTRIBUTE_GENRE_PROBLEM = "genreProblem";
+    public static final String ATTRIBUTE_COMMENT_PROBLEM = "commentProblem";
+    public static final String ATTRIBUTE_COUNTRY_PROBLEM = "countryProblem";
+    public static final String ATTRIBUTE_STUDIO_PROBLEM = "studioProblem";
     public static final String ATTRIBUTE_COUNTRY = PARAMETER_COUNTRY;
     public static final String ATTRIBUTE_STUDIO = PARAMETER_STUDIO;
     public static final String ATTRIBUTE_USER_ID = "userId";
+    public static final String ATTRIBUTE_USER_ROLE = "role";
     public static final String ATTRIBUTE_SHOW = "show";
     public static final String ATTRIBUTE_SHOWS = "shows";
     public static final String ATTRIBUTE_STATUS_CODE = "statusCode";
@@ -44,6 +50,8 @@ public class ConstantName {
     public static final int COUNT_COUNTY_IN_ADMIN_PAGE = 6;
     public static final int COUNT_STUDIO_IN_ADMIN_PAGE = 6;
     public static final int DEFAULT_PAGE_NUMBER = 1;
+    public static final int COUNT_LATEST_SHOWS = 4;
+    public static final int MAX_COMMENT_LENGTH = 512;
     /*
     forward jsp pages
      */
@@ -60,6 +68,7 @@ public class ConstantName {
     public static final String ROUTING_ADMIN_STUDIO_JSP = "/admin/studio.jsp";
     public static final String ROUTING_ADMIN_USER_JSP = "/admin/user.jsp";
     public static final String ROUTING_ERROR_JSP = "error.jsp";
+    public static final String ROUTING_NOT_FOUND_JSP = "not-found.jsp";
     /*
     redirect pages
      */
@@ -73,6 +82,7 @@ public class ConstantName {
     public static final String ROUTING_COUNTRY_PAGE = "/final/admin/country.html";
     public static final String ROUTING_STUDIO_PAGE = "/final/admin/studio.html";
     public static final String ROUTING_USER_PAGE = "/final/admin/user.html";
+    public static final String ROUTING_ERROR_PAGE = "/final/error.html";
     /*
     logger name
      */

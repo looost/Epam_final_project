@@ -3,6 +3,7 @@ package by.training.service.impl;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
+import by.training.model.Country;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;
@@ -12,9 +13,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+import static by.training.utils.ConstantName.DEBUG_LOGGER;
+
 public class GenreServiceImpl implements GenreService {
 
-    private static final Logger logger = LogManager.getLogger("debug");
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     @Override
     public Genre findByName(String name) throws ServiceException {
@@ -97,6 +100,23 @@ public class GenreServiceImpl implements GenreService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean save(Genre genre) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (genre.getId() == 0) {
+                result = DaoFactory.getInstance().getGenreDao(transaction).create(genre);
+            } else {
+                result = DaoFactory.getInstance().getGenreDao(transaction).update(genre);
+            }
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

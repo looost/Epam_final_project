@@ -94,4 +94,21 @@ public class CountryServiceImpl implements CountryService {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public boolean save(Country country) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (country.getId() == 0) {
+                result = DaoFactory.getInstance().getCountryDao(transaction).create(country);
+            } else {
+                result = DaoFactory.getInstance().getCountryDao(transaction).update(country);
+            }
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

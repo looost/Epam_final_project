@@ -11,7 +11,7 @@
 <div class="ml-2">
     <form method="get" action="${pageContext.request.contextPath}/search.html">
 
-        <input class="form-control mr-sm-2 mb-3" type="search"
+        <input class="form-control mr-sm-2 mb-3 text-style" type="search"
                placeholder="<fmt:message key="enterSerialName" bundle="${ rb }"/>"
                aria-label="Поиск" name="query" value="${searchForm.query}">
         <div class="mt-2">
@@ -20,7 +20,7 @@
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="customCheck${g.id}" value="${g.id}"
                            name="genre" ${searchForm.genres.contains(g.id) ? 'checked' : ''}  >
-                    <label class="custom-control-label" for="customCheck${g.id}">${g.name}</label>
+                    <label class="custom-control-label text-style" for="customCheck${g.id}">${g.name}</label>
                 </div>
             </c:forEach>
         </div>
@@ -30,7 +30,7 @@
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="customCountryCheck${c.id}" value="${c.id}"
                            name="country" ${searchForm.country.contains(c.id) ? 'checked' : ''}>
-                    <label class="custom-control-label" for="customCountryCheck${c.id}">${c.name}</label>
+                    <label class="custom-control-label text-style" for="customCountryCheck${c.id}">${c.name}</label>
                 </div>
             </c:forEach>
         </div>
@@ -40,11 +40,11 @@
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="customStudioCheck${s.id}" value="${s.id}"
                            name="studio" ${searchForm.studio.contains(s.id) ? 'checked' : ''}>
-                    <label class="custom-control-label" for="customStudioCheck${s.id}">${s.name}</label>
+                    <label class="custom-control-label text-style" for="customStudioCheck${s.id}">${s.name}</label>
                 </div>
             </c:forEach>
         </div>
-        <button type="submit" class="btn btn-secondary btn-lg btn-block mt-3">
+        <button type="submit" class="btn btn-secondary btn-lg btn-block mt-3 text-style">
             <fmt:message key="search" bundle="${ rb }"/>
         </button>
     </form>

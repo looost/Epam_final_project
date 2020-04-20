@@ -74,6 +74,6 @@ public class CommentDaoImpl implements CommentDao {
     private static final String UPDATE_COMMENT = "UPDATE comment SET comment = ? WHERE id = ?";
     @Override
     public boolean update(Comment entity) throws DaoException {
-        return JDBCUtil.execute(transaction.getConnection(), UPDATE_COMMENT, entity.getComment());
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_COMMENT, entity.getComment(), entity.getId());
     }
 }

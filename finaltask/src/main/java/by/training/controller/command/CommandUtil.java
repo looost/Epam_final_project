@@ -5,8 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
-import static by.training.utils.ConstantName.ATTRIBUTE_STATUS_CODE;
-import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
+import static by.training.utils.ConstantName.*;
 
 public class CommandUtil {
 
@@ -43,6 +42,9 @@ public class CommandUtil {
     }
 
     public static CommandResponse routingErrorPage(HttpServletRequest req, HttpServletResponse resp, int code) {
+        if (code == 404) {
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_NOT_FOUND_JSP, req, resp);
+        }
         req.setAttribute(ATTRIBUTE_STATUS_CODE, code);
         return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }

@@ -30,7 +30,7 @@
 
             <div class="card-body">
                 <form class="was-validated mt-2" method="post"
-                      action="${pageContext.request.contextPath}/add_country.html">
+                      action="${pageContext.request.contextPath}/save_country.html">
                     <div class="mb-3">
                         <label for="validationName"><fmt:message key="enterCountryName" bundle="${ rb }"/>:</label>
                         <input type="text" name="country" class="form-control is-invalid"
@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form method="post"
-                                                      action="${pageContext.request.contextPath}/change_country.html?id=${c.id}">
+                                                      action="${pageContext.request.contextPath}/save_country.html?id=${c.id}">
                                                     <div class="form-group mt-3">
                                                         <div class="mb-2">
                                                             <label for="changeCountry"><fmt:message key="newCountryName"

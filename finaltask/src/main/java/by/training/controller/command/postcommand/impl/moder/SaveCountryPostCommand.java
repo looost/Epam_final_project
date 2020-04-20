@@ -1,33 +1,38 @@
 package by.training.controller.command.postcommand.impl.moder;
 
-import by.training.controller.command.*;
+import by.training.controller.command.Command;
+import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
+import by.training.controller.command.RoutingType;
 import by.training.model.Country;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.training.utils.ConstantName.PARAMETER_COUNTRY;
-import static by.training.utils.ConstantName.ROUTING_COUNTRY_PAGE;
+import static by.training.utils.ConstantName.*;
 
-public class AddCountryPostCommand implements Command {
+public class SaveCountryPostCommand implements Command {
 
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String countryName = req.getParameter(PARAMETER_COUNTRY);
-        if (countryName == null) {
-            req.getSession().setAttribute("countryProblem", "Введите название страны");
+        String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
+        if (countryName.equals("")) {
+            req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, "Введите название страны");
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
         }
-        Country country = new Country(countryName);
+        Country country = new Country(Integer.parseInt(id), countryName);
         try {
-            ServiceFactory.getInstance().getCountryService().create(country);
+            ServiceFactory.getInstance().getCountryService().save(country);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
-            //RoutingUtils.redirectToPage("/final/admin/country.html", resp);
         } catch (ServiceException e) {
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }

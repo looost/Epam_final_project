@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.ATTRIBUTE_STATUS_CODE;
 import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
 
 public class ErrorGetCommand implements Command {
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute("statusCode", req);
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_STATUS_CODE, req);
         return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

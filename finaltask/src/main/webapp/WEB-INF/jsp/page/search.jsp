@@ -65,7 +65,7 @@
                                             <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                         </a>
 
-                                        <div class="card-header" style="max-height: 3rem">
+                                        <div class="card-header">
                                         <a class="card-title"
                                            href="${pageContext.request.contextPath}/show.html?id=${s.id}"
                                            style="font-family: segoe print">

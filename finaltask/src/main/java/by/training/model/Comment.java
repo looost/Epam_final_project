@@ -1,7 +1,6 @@
 package by.training.model;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Comment extends AbstractEntity {
     private static final long serialVersionUID = -4451328805432622998L;
@@ -17,19 +16,16 @@ public class Comment extends AbstractEntity {
         super(id);
     }
 
-    public Comment(User user, Serial serial, String comment, LocalDateTime publicationDate) {
+    public Comment(int id, User user, Serial serial, String comment) {
+        this.id = id;
         this.user = user;
         this.serial = serial;
         this.comment = comment;
-        this.publicationDate = publicationDate;
     }
 
-    public Comment(int id, User user, Serial serial, String comment, LocalDateTime publicationDate) {
+    public Comment(int id, String comment) {
         super(id);
-        this.user = user;
-        this.serial = serial;
         this.comment = comment;
-        this.publicationDate = publicationDate;
     }
 
     public Comment(User user, Serial serial, String comment) {
@@ -63,7 +59,6 @@ public class Comment extends AbstractEntity {
     }
 
     public LocalDateTime getPublicationDate() {
-        //publicationDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss"));
         return publicationDate;
     }
 

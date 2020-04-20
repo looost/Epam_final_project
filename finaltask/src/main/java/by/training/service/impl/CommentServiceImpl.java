@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-import static by.training.utils.ConstantName.DEBUG_LOGGER;
-import static by.training.utils.ConstantName.ERROR_LOGGER;
+import static by.training.utils.ConstantName.*;
 
 public class CommentServiceImpl implements CommentService {
 
@@ -66,6 +65,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public boolean create(Comment entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
+            if (entity.getComment().length() > MAX_COMMENT_LENGTH) {
+                throw new ServiceException("Сomment length is too long", HttpServletResponse.SC_BAD_REQUEST);
+            }
             boolean res = DaoFactory.getInstance().getCommentDao(transaction).create(entity);
             transaction.commit();
             return res;
@@ -81,6 +83,26 @@ public class CommentServiceImpl implements CommentService {
             boolean res = DaoFactory.getInstance().getCommentDao(transaction).update(entity);
             transaction.commit();
             return res;
+        } catch (DaoException e) {
+            logger.error(e);
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean save(Comment comment) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (comment.getId() == 0) {
+                if (comment.getComment().length() > MAX_COMMENT_LENGTH) {
+                    throw new ServiceException("Сomment length is too long", HttpServletResponse.SC_BAD_REQUEST);
+                }
+                result = DaoFactory.getInstance().getCommentDao(transaction).create(comment);
+            } else {
+                result = DaoFactory.getInstance().getCommentDao(transaction).update(comment);
+            }
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

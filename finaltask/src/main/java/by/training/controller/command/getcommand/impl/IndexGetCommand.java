@@ -11,10 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import static by.training.utils.ConstantName.*;
 
 public class IndexGetCommand implements Command {
@@ -31,11 +28,11 @@ public class IndexGetCommand implements Command {
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();
-            List<Serial> last = serialList.stream().sorted(Comparator.comparing(Serial::getId).reversed()).limit(4).collect(Collectors.toList());
+            List<Serial> last = ServiceFactory.getInstance().getSerialService().latestSerial(COUNT_LATEST_SHOWS);
             req.setAttribute(ATTRIBUTE_SHOWS, serialList);
             req.setAttribute(PARAMETER_COUNT_ALL_SERIALS, countAllSerial);
             req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_SERIAL_IN_MAIN_PAGE);
-            req.setAttribute("last", last);
+            req.setAttribute(PARAMETER_LAST_SHOWS, last);
             req.setAttribute(PARAMETER_GENRES, genres);
             req.setAttribute(PARAMETER_COUNTRY, country);
             req.setAttribute(PARAMETER_STUDIO, studio);

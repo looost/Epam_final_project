@@ -8,4 +8,6 @@ import java.util.List;
 public interface CommentService extends AbstractService<String, Comment> {
 
     List<Comment> findAllCommentForSerial(String serialId) throws ServiceException;
+
+    boolean save(Comment comment) throws ServiceException;
 }

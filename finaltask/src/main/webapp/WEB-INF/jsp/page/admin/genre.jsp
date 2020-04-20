@@ -30,11 +30,12 @@
 
             <div class="card-body">
                 <form class="was-validated mt-2" method="post"
-                      action="${pageContext.request.contextPath}/add_genre.html">
+                      action="${pageContext.request.contextPath}/save_genre.html">
                     <div class="mb-3">
                         <label for="validationName"><fmt:message key="enterGenreName" bundle="${ rb }"/>:</label>
                         <input type="text" name="genre" class="form-control is-invalid"
-                               id="validationName" placeholder="<fmt:message key="enterGenreName" bundle="${ rb }"/>">
+                               id="validationName" placeholder="<fmt:message key="enterGenreName" bundle="${ rb }"/>"
+                               required>
                         <%--                            <c:if test="${genreProblem != null}">--%>
                         <div class="invalid-feedback">
                             ${genreProblem}
@@ -85,7 +86,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form method="post"
-                                                      action="${pageContext.request.contextPath}/change_genre.html?id=${g.id}">
+                                                      action="${pageContext.request.contextPath}/save_genre.html?id=${g.id}">
                                                     <div class="form-group mt-3">
                                                         <div class="mb-2">
                                                             <label for="changeGenre"><fmt:message key="newGenreName"

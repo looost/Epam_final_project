@@ -40,7 +40,7 @@ create table serial
     `id`           INTEGER       NOT NULL AUTO_INCREMENT,
     `name`         VARCHAR(45)   NOT NULL UNIQUE,
     `description`  VARCHAR(1024) NOT NULL,
-    `logo`         VARCHAR(100), -- TODO как буду хранить карттинки?
+    `logo`         VARCHAR(100),
     `full_logo`    VARCHAR(100),
     `release_date` DATE          NOT NULL,
     `count_like`   INTEGER DEFAULT 0,

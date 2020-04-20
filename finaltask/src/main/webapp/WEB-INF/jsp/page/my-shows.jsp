@@ -8,7 +8,7 @@
 <fmt:setBundle basename="property.text" var="rb"/>
 <!-- portfolio -->
 <div class="portfolio">
-    <h1 class="text-center m-3" style="font-family: segoe print"><fmt:message key="myShows" bundle="${ rb }"/></h1>
+    <h1 class="text-center m-3 text-style"><fmt:message key="myShows" bundle="${ rb }"/></h1>
 
 
     <div class="container-fluid">
@@ -18,10 +18,10 @@
             <div class="col-2 m-2">
                 <div class="list-group">
                     <a href="${pageContext.request.contextPath}/profile.html"
-                       class="list-group-item list-group-item-action">
+                       class="list-group-item list-group-item-action text-style">
                         <i class="fas fa-user-edit"></i> <fmt:message key="profile" bundle="${ rb }"/></a>
                     <a href="${pageContext.request.contextPath}/my_serial.html"
-                       class="list-group-item list-group-item-action active">
+                       class="list-group-item list-group-item-action text-style active">
                         <i class="fas fa-eye"></i> <fmt:message key="myShows" bundle="${ rb }"/></a>
                 </div>
             </div>
@@ -50,18 +50,17 @@
                                         <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
                                     </a>
 
-                                    <div class="card-header" style="max-height: 3rem">
+                                    <div class="card-header">
                                         <a class="card-title"
-                                           href="${pageContext.request.contextPath}/show.html?id=${s.id}"
-                                           style="font-family: segoe print">
-                                            <h5 class="text-center">${s.name}</h5>
+                                           href="${pageContext.request.contextPath}/show.html?id=${s.id}">
+                                            <h5 class="text-center text-style">${s.name}</h5>
                                         </a>
                                     </div>
                                     <div class="card-body">
                                         <p class="card-text"><em>${fn:substring(s.description, 0, 100)}...</em></p>
                                     </div>
                                     <div class="card-footer">
-                                        <small class="text-muted">${s.studio.name}</small>
+                                        <small class="text-muted text-style">${s.studio.name}</small>
                                     </div>
                                 </div>
                             </div>

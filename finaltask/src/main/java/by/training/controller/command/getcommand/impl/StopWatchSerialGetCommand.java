@@ -19,15 +19,15 @@ public class StopWatchSerialGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String serialId = req.getParameter(PARAMETER_ID);
-        String userId = (String) req.getSession().getAttribute(ATTRIBUTE_USER_ID);
-        if (userId != null) {
+        int userId = (Integer) req.getSession().getAttribute(ATTRIBUTE_USER_ID);
+
             try {
-                ServiceFactory.getInstance().getSerialService().stopWatchSerial(userId, serialId);
+                ServiceFactory.getInstance().getSerialService().stopWatchSerial(String.valueOf(userId), serialId);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
             } catch (ServiceException e) {
                 e.printStackTrace();
             }
-        }
+
         return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

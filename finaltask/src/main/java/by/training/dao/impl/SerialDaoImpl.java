@@ -79,6 +79,15 @@ public class SerialDaoImpl implements SerialDao {
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit, offset);
     }
 
+    private static final String LATEST_SERIAL = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s ORDER BY s.id DESC LIMIT ?";
+
+    @Override
+    public List<Serial> latestSerial(int limit) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), LATEST_SERIAL,
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit);
+    }
+
     private static final String COUNT_ALL_SERIAL = "SELECT COUNT(*) FROM serial";
     @Override
     public int countAllSerials() throws DaoException {

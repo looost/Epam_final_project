@@ -6,10 +6,10 @@
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
 
-<div class="card text-white bg-dark mb-3" style="max-height: 3rem;">
+<div class="card text-black bg-dark mb-3" style="max-height: 3rem;">
     <div class="card-header">
         <h6 class="text-center" style="font-family: segoe print">
-            <fmt:message key="newShows" bundle="${ rb }"/>
+            <em><fmt:message key="newShows" bundle="${ rb }"/></em>
         </h6>
     </div>
 </div>
@@ -21,8 +21,8 @@
             <img class="card-img-top" src="${l.logo}" alt="Card image cap">
         </a>
         <div class="card-body">
-            <h5 class="card-title">${l.name}</h5>
-            <p class="card-text"><small class="text-muted">
+            <h5 class="card-title text-style">${l.name}</h5>
+            <p class="card-text text-style"><small class="text-muted">
                 <fmt:formatDate value="${l.releaseDate}" pattern="dd-MM-yyyy"/> </small>
             </p>
         </div>

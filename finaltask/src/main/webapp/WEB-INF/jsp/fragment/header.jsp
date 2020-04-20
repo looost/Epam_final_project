@@ -21,7 +21,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/index.html">
+                <a class="nav-link text-style" href="${pageContext.request.contextPath}/index.html">
                     <fmt:message key="home" bundle="${ rb }"/>
                     <span class="sr-only">(current)</span></a>
             </li>
@@ -30,33 +30,34 @@
             <%--            </li>--%>
             <c:if test="${sessionScope.user != null}">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/profile.html">
+                    <a class="nav-link text-style" href="${pageContext.request.contextPath}/profile.html">
                         <fmt:message key="profile" bundle="${ rb }"/>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/my_serial.html">
+                    <a class="nav-link text-style" href="${pageContext.request.contextPath}/my_serial.html">
                         <fmt:message key="myShows" bundle="${ rb }"/>
                     </a>
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link" href="${pageContext.request.contextPath}/admin/serial.html">
+                <a class="nav-link text-style" href="${pageContext.request.contextPath}/admin/serial.html">
                     Админка
                 </a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="${pageContext.request.contextPath}/search.html">
-            <input class="form-control mr-sm-2" type="search"
+            <input class="form-control mr-sm-2 text-style" type="search"
                    placeholder="<fmt:message key="enterSerialName" bundle="${ rb }"/>" aria-label="Поиск" name="query">
-            <button class="btn btn-outline-success my-2 my-sm-0 mr-3" type="submit">
+            <button class="btn btn-outline-success my-2 my-sm-0 mr-3 text-style" type="submit">
                 <fmt:message key="search" bundle="${ rb }"/>
             </button>
         </form>
     </div>
     <c:if test="${sessionScope.user == null}">
         <div>
-            <a href="${pageContext.request.contextPath}/login.html" class="btn btn-dark btn-lg active" role="button"
+            <a href="${pageContext.request.contextPath}/login.html" class="btn btn-dark btn-lg active text-style"
+               role="button"
                aria-pressed="true">
                 <fmt:message key="signIn" bundle="${ rb }"/>
             </a>
@@ -64,17 +65,18 @@
     </c:if>
     <c:if test="${sessionScope.user != null}">
         <div class="dropdown">
-            <a class="btn btn-dark btn-lg active" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+            <a class="btn btn-dark btn-lg active text-style" href="#" role="button" id="dropdownMenuLink"
+               data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                     ${sessionScope.user}
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/profile.html">
+                <a class="dropdown-item text-style" href="${pageContext.request.contextPath}/profile.html">
                     <fmt:message key="profile" bundle="${ rb }"/>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.html">
+                <a class="dropdown-item text-style" href="${pageContext.request.contextPath}/logout.html">
                     <fmt:message key="logOut" bundle="${ rb }"/>
                 </a>
             </div>
@@ -121,14 +123,15 @@
         <li class="nav-item dropdown">
             <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-globe fa-1x"></i>
+                <i class="fas fa-globe fa-2x"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item"
+                <a class="dropdown-item text-style"
                    href="${pageContext.request.contextPath}/language.html?language=ru_RU">Русский</a>
-                <a class="dropdown-item"
+                <a class="dropdown-item text-style"
                    href="${pageContext.request.contextPath}/language.html?language=en_EU">English</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/language.html?language=be_BY">Беларускі</a>
+                <a class="dropdown-item text-style"
+                   href="${pageContext.request.contextPath}/language.html?language=be_BY">Беларускі</a>
             </div>
         </li>
     </ul>

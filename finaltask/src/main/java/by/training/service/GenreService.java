@@ -11,5 +11,8 @@ public interface GenreService extends AbstractService<String, Genre> {
     List<Genre> findGenrePageByPage(int page, int limit) throws ServiceException;
 
     int countAllGenres() throws ServiceException;
+
     Genre findByName(String name) throws ServiceException;
+
+    boolean save(Genre genre) throws ServiceException;
 }

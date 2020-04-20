@@ -57,6 +57,19 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
+    public List<Serial> latestSerial(int limit) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).latestSerial(limit);
+            serialList = TransactionUtil
+                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public int countAllSerial() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerials();

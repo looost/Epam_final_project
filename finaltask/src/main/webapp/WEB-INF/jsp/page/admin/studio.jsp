@@ -29,7 +29,7 @@
         <div class="col-9">
 
             <div class="card-body">
-                <form method="post" action="${pageContext.request.contextPath}/add_studio.html">
+                <form method="post" action="${pageContext.request.contextPath}/save_studio.html">
                     <div class="form-group">
                         <div class="mb-2">
                             <label for="addStudio"><fmt:message key="enterStudioName" bundle="${ rb }"/>:</label>
@@ -80,7 +80,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form method="post"
-                                                      action="${pageContext.request.contextPath}/change_studio.html?id=${s.id}">
+                                                      action="${pageContext.request.contextPath}/save_studio.html?id=${s.id}">
                                                     <div class="form-group mt-3">
                                                         <div class="mb-2">
                                                             <label for="changeStudio"><fmt:message key="newStudioName"
