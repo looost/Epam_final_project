@@ -2,22 +2,22 @@ use `serials_db`;
 
 create table country
 (
-    `id`   INTEGER      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL UNIQUE,
+    `id`   INTEGER     NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(32) NOT NULL UNIQUE,
     CONSTRAINT pk_country PRIMARY KEY (`id`)
 );
 
 create table genre
 (
-    `id`   INTEGER      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL UNIQUE,
+    `id`   INTEGER     NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(32) NOT NULL UNIQUE,
     CONSTRAINT pk_genre PRIMARY KEY (`id`)
 );
 
 create table studio
 (
-    `id`   INTEGER      NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL UNIQUE,
+    `id`   INTEGER     NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(32) NOT NULL UNIQUE,
     CONSTRAINT pk_studio PRIMARY KEY (`id`)
 );
 
@@ -25,7 +25,7 @@ create table user
 (
     `id`       INTEGER           NOT NULL AUTO_INCREMENT,
     `login`    VARCHAR(12)       NOT NULL UNIQUE,
-    `password` CHAR(56)          NOT NULL,
+    `password` CHAR(60)          NOT NULL,
     /*
      * 0 - администратор (Role.ADMINISTRATOR)
      * 1 - модератор (Role.MODERATOR)
@@ -40,7 +40,7 @@ create table serial
     `id`           INTEGER       NOT NULL AUTO_INCREMENT,
     `name`         VARCHAR(45)   NOT NULL UNIQUE,
     `description`  VARCHAR(1024) NOT NULL,
-    `logo`         VARCHAR(100),
+    `logo`         VARCHAR(100), -- TODO как буду хранить карттинки?
     `full_logo`    VARCHAR(100),
     `release_date` DATE          NOT NULL,
     `count_like`   INTEGER DEFAULT 0,

@@ -1,17 +1,16 @@
 package by.training.dao.impl;
 
+import by.training.dao.CountryDao;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.pool.ConnectionPool;
+import by.training.model.Country;
 import by.training.model.Genre;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,19 +24,18 @@ import static by.training.utils.ConstantName.PATH_TO_PROPERTY_FILE;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
-
-public class GenreDaoImplTest {
+public class CountryDaoImplTest {
 
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     @Mock
     private Transaction transaction;
     private ConnectionPool connectionPool;
-    private GenreDaoImpl dao;
+    private CountryDao dao;
 
-    public GenreDaoImplTest() {
+    public CountryDaoImplTest() {
         MockitoAnnotations.initMocks(this);
-        dao = new GenreDaoImpl(transaction);
+        dao = new CountryDaoImpl(transaction);
     }
 
     @BeforeTest
@@ -57,64 +55,21 @@ public class GenreDaoImplTest {
         }
     }
 
-    @DataProvider(name = "dataForFindById")
-    public Object[][] createPositiveDataForFindById() {
-        return new Object[][]{
-                {"1", new Genre(1, "Драма")},
-                {"2", new Genre(2, "Мистика")},
-                {"3", new Genre(3, "Научная фантастика")},
-                {"0", null},
-                {"10", null},
-                {null, null},
-        };
-    }
-
-    @Test(dataProvider = "dataForFindById")
-    public void testFindById(String id, Genre expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        Genre actual = dao.findById(id);
-        assertEquals(actual, expected);
-        connection.close();
-    }
-
-    @DataProvider(name = "dataForFindByName")
-    public Object[][] createPositiveDataForFindByName() {
-        return new Object[][]{
-                {"Драма", new Genre(1, "Драма")},
-                {"Мистика", new Genre(2, "Мистика")},
-                {"Научная фантастика", new Genre(3, "Научная фантастика")},
-                {"0", null},
-                {"Экшенн", null},
-                {"Драмa", null},
-                {null, null},
-        };
-    }
-
-    @Test(dataProvider = "dataForFindByName")
-    public void testFindByName(String name, Genre expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        Genre actual = dao.findByName(name);
-        assertEquals(actual, expected);
-        connection.close();
-    }
-
     @DataProvider(name = "dataForFindAll")
     public Object[] createPositiveDataForFindAll() {
         return new Object[]{
-                Arrays.asList(new Genre(1, "Драма"), new Genre(2, "Мистика"),
-                        new Genre(3, "Научная фантастика"))
+                Arrays.asList(new Country(1, "США"),
+                        new Country(2, "Великобритания"), new Country(3, "Испания"))
         };
     }
 
     @Test(dataProvider = "dataForFindAll")
-    public void testFindAll(List<Genre> expected) throws DaoException, SQLException {
+    public void testFindAll(List<Country> expected) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        List<Genre> actual = dao.findAll();
-        actual.sort(Comparator.comparing(Genre::getId));
-        expected.sort(Comparator.comparing(Genre::getId));
+        List<Country> actual = dao.findAll();
+        actual.sort(Comparator.comparing(Country::getId));
+        expected.sort(Comparator.comparing(Country::getId));
         assertEquals(actual, expected);
         connection.close();
     }
@@ -122,46 +77,46 @@ public class GenreDaoImplTest {
     @DataProvider(name = "negativeDataForFindAll")
     public Object[] createNegativeDataForFindAll() {
         return new Object[]{
-                Arrays.asList(new Genre(1, "Драма"), new Genre(2, "Мистика"),
-                        new Genre(3, "Научная фантастика"), new Genre(4, "Криминал")),
+                Arrays.asList(new Country(1, "США"),
+                        new Country(2, "Великобритания"), new Country(3, "Испания")),
                 null,
-                new ArrayList<Genre>(),
+                new ArrayList<Country>(),
                 new ArrayList<Integer>()
         };
     }
 
     @Test(dataProvider = "negativeDataForFindAll")
-    public void testFindAllNegative(List<Genre> expected) throws DaoException, SQLException {
+    public void testFindAllNegative(List<Country> expected) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
         assertNotEquals(dao.findAll(), expected);
         connection.close();
     }
 
-    @DataProvider(name = "dataForFindGenrePageByPage")
-    public Object[] createPositiveDataForFindGenrePageByPage() {
+    @DataProvider(name = "dataForFindCountryPageByPage")
+    public Object[] createPositiveDataForFindCountryPageByPage() {
         return new Object[][]{
-                {1, 1, Collections.singletonList(new Genre(1, "Драма"))},
-                {1, 2, Collections.singletonList(new Genre(2, "Мистика"))},
-                {2, 2, Collections.singletonList(new Genre(3, "Научная фантастика"))},
+                {1, 1, Collections.singletonList(new Country(2, "Великобритания"))},
+                {1, 2, Collections.singletonList(new Country(3, "Испания"))},
+                {2, 2, Collections.singletonList(new Country(1, "США"))},
                 {0, 2, Collections.emptyList()},
                 {0, 0, Collections.emptyList()},
-                {3, 1, Arrays.asList(new Genre(1, "Драма"),
-                        new Genre(2, "Мистика"), new Genre(3, "Научная фантастика"))}
+                {3, 1, Arrays.asList(new Country(2, "Великобритания"), new Country(3, "Испания"),
+                        new Country(1, "США"))}
         };
     }
 
-    @Test(dataProvider = "dataForFindGenrePageByPage")
-    public void testFindGenrePageByPage(int limit, int page, List<Genre> expected) throws DaoException, SQLException {
+    @Test(dataProvider = "dataForFindCountryPageByPage")
+    public void testFindCountryPageByPage(int limit, int page, List<Genre> expected) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        List<Genre> actual = dao.findGenrePageByPage(page, limit);
+        List<Country> actual = dao.findCountryPageByPage(page, limit);
         assertEquals(actual, expected);
         connection.close();
     }
 
-    @DataProvider(name = "negativeDataForFindGenrePageByPage")
-    public Object[] createNegativeDataForFindGenrePageByPage() {
+    @DataProvider(name = "negativeDataForFindCountryPageByPage")
+    public Object[] createNegativeDataForFindCountryPageByPage() {
         return new Object[][]{
                 {-1, 1},
                 {2, -12},
@@ -171,57 +126,56 @@ public class GenreDaoImplTest {
         };
     }
 
-    @Test(dataProvider = "negativeDataForFindGenrePageByPage", expectedExceptions = DaoException.class)
-    public void testFindGenrePageByPageWithNegativeValue(int limit, int page) throws DaoException, SQLException {
+    @Test(dataProvider = "negativeDataForFindCountryPageByPage", expectedExceptions = DaoException.class)
+    public void testFindCountryPageByPageWithNegativeValue(int limit, int page) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        dao.findGenrePageByPage(page, limit);
+        dao.findCountryPageByPage(page, limit);
         connection.close();
     }
 
-    private static final int COUNT_ALL_GENRE = 3;
+    private static final int COUNT_ALL_COUNTRY = 3;
 
     @Test
-    public void testCountAllGenres() throws DaoException, SQLException {
+    public void testCountAllCountry() throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        assertEquals(dao.countAllGenres(), COUNT_ALL_GENRE);
+        assertEquals(dao.countAllCountry(), COUNT_ALL_COUNTRY);
         connection.close();
     }
 
-    @DataProvider(name = "negativeDataForCountAllGenres")
-    public Object[] createNegativeDataForCountAllGenres() {
+    @DataProvider(name = "negativeDataForCountAllCountry")
+    public Object[] createNegativeDataForCountAllCountry() {
         return new Object[]{
                 1, 0, -1, Integer.MAX_VALUE, Integer.MIN_VALUE
         };
     }
 
-    @Test(dataProvider = "negativeDataForCountAllGenres")
-    public void testCountAllGenresWithNegativeValue(int expected) throws DaoException, SQLException {
+    @Test(dataProvider = "negativeDataForCountAllCountry")
+    public void testCountAllCountryWithNegativeValue(int expected) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        assertNotEquals(dao.countAllGenres(), expected);
+        assertNotEquals(dao.countAllCountry(), expected);
         connection.close();
     }
 
-    @DataProvider(name = "positiveFindGenreBySerialId")
-    public Object[] createDataForFindGenreBySerialId() {
+    @DataProvider(name = "dataForFindById")
+    public Object[][] createPositiveDataForFindById() {
         return new Object[][]{
-                {"1", Arrays.asList(new Genre(1, "Драма"), new Genre(2, "Мистика"))},
-                {"2", Arrays.asList(new Genre(1, "Драма"), new Genre(3, "Научная фантастика"))},
-                {"3", Collections.singletonList(new Genre(2, "Мистика"))},
-                {"4", Collections.emptyList()},
-                {"0", Collections.emptyList()},
-                {String.valueOf(Integer.MIN_VALUE), Collections.emptyList()},
-                {String.valueOf(Integer.MAX_VALUE), Collections.emptyList()},
+                {"1", new Country(1, "США")},
+                {"2", new Country(2, "Великобритания")},
+                {"3", new Country(3, "Испания")},
+                {"0", null},
+                {"10", null},
+                {null, null},
         };
     }
 
-    @Test(dataProvider = "positiveFindGenreBySerialId")
-    public void testFindGenreBySerialId(String serialId, List<Genre> expected) throws DaoException, SQLException {
+    @Test(dataProvider = "dataForFindById")
+    public void testFindById(String id, Country expected) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        List<Genre> actual = dao.findGenreBySerialId(serialId);
+        Country actual = dao.findById(id);
         assertEquals(actual, expected);
         connection.close();
     }
@@ -276,19 +230,19 @@ public class GenreDaoImplTest {
     @DataProvider(name = "positiveCreate")
     public Object[] createPositiveDataForCreate() {
         return new Object[]{
-                new Genre(4, "TestName"),
-                new Genre(5, "AnyName"),
-                new Genre(Integer.MAX_VALUE, "MaxValue"),
-                new Genre(Integer.MIN_VALUE, "MinValue")
+                new Country(4, "TestName"),
+                new Country(5, "AnyName"),
+                new Country(Integer.MAX_VALUE, "MaxValue"),
+                new Country(Integer.MIN_VALUE, "MinValue")
         };
     }
 
     @Test(dataProvider = "positiveCreate")
-    public void testCreate(Genre genre) throws DaoException, SQLException {
+    public void testCreate(Country country) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
         connection.setAutoCommit(false);
-        assertTrue(dao.create(genre));
+        assertTrue(dao.create(country));
         connection.rollback();
         connection.close();
     }
@@ -296,37 +250,37 @@ public class GenreDaoImplTest {
     @DataProvider(name = "negativeCreate")
     public Object[] createNegativeDataForCreate() {
         return new Object[]{
-                new Genre(4, "Драма"),
-                new Genre(1, "Научная фантастика"),
-                new Genre(Integer.MIN_VALUE, "Мистика"),
-                new Genre(1, null),
-                new Genre(1, "33char33char33char33char33char33c")
+                new Country(4, "Испания"),
+                new Country(1, "Великобритания"),
+                new Country(Integer.MIN_VALUE, "США"),
+                new Country(1, null),
+                new Country(1, "33char33char33char33char33char33c")
         };
     }
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
-    public void testNegativeCreate(Genre genre) throws DaoException, SQLException {
+    public void testNegativeCreate(Country country) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        dao.create(genre);
+        dao.create(country);
         connection.close();
     }
 
     @DataProvider(name = "positiveUpdate")
     public Object[] createPositiveDataForUpdate() {
         return new Object[]{
-                new Genre(1, "NewName"),
-                new Genre(3, "AnyName"),
-                new Genre(2, ""),
+                new Country(1, "NewName"),
+                new Country(3, "AnyName"),
+                new Country(2, ""),
         };
     }
 
     @Test(dataProvider = "positiveUpdate")
-    public void testUpdate(Genre genre) throws DaoException, SQLException {
+    public void testUpdate(Country country) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
         connection.setAutoCommit(false);
-        assertTrue(dao.update(genre));
+        assertTrue(dao.update(country));
         connection.rollback();
         connection.close();
     }
@@ -334,18 +288,18 @@ public class GenreDaoImplTest {
     @DataProvider(name = "negativeUpdate")
     public Object[] createNegativeDataForUpdate() {
         return new Object[]{
-                new Genre(1, null),
-                new Genre(3, "Драма"),
-                new Genre(2, "Научная фантастика"),
-                new Genre(1, "33char33char33char33char33char33c")
+                new Country(1, null),
+                new Country(3, "США"),
+                new Country(2, "Испания"),
+                new Country(1, "33char33char33char33char33char33c")
         };
     }
 
     @Test(dataProvider = "negativeUpdate", expectedExceptions = DaoException.class)
-    public void testNegativeUpdate(Genre genre) throws DaoException, SQLException {
+    public void testNegativeUpdate(Country country) throws DaoException, SQLException {
         Connection connection = connectionPool.getConnection();
         when(transaction.getConnection()).thenReturn(connection);
-        dao.update(genre);
+        dao.update(country);
         connection.close();
     }
 

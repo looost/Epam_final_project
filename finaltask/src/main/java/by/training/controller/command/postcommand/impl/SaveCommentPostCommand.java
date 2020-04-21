@@ -52,7 +52,7 @@ public class SaveCommentPostCommand implements Command {
         } catch (NumberFormatException e) {
             logger.error("Cannot cast value to int - " + commentId, e);
             req.getSession().setAttribute(ATTRIBUTE_STATUS_CODE, HttpServletResponse.SC_BAD_REQUEST);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_ERROR_PAGE, req, resp);
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
             //return CommandUtil.routingErrorPage(req, resp, HttpServletResponse.SC_BAD_REQUEST);
         }
     }

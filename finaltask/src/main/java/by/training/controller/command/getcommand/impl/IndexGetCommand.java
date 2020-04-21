@@ -3,6 +3,8 @@ package by.training.controller.command.getcommand.impl;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
+import by.training.dao.Transaction;
+import by.training.dao.impl.GenreDaoImpl;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;

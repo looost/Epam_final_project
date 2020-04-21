@@ -89,4 +89,8 @@ public class ConstantName {
     public static final String DEBUG_LOGGER = "debug";
     public static final String INFO_LOGGER = "info";
     public static final String ERROR_LOGGER = "error";
+    /*
+    for test
+     */
+    public static final String PATH_TO_PROPERTY_FILE = "src\\test\\resources\\pool.properties";
 }

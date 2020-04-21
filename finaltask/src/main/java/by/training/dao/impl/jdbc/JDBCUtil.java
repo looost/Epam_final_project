@@ -28,8 +28,8 @@ public class JDBCUtil {
     public static boolean execute(Connection c, String sql, Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
-            ps.executeUpdate();
-            return true;
+            int res = ps.executeUpdate();
+            return res == 1;
         } catch (SQLException e) {
             throw new DaoException(e);
         }
