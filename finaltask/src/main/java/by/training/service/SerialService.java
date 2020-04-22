@@ -10,7 +10,7 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     List<Serial> findAll() throws ServiceException;
 
-    Serial findSerialByName(String name) throws ServiceException;
+    //Serial findSerialByName(String name) throws ServiceException;
 
     List<Serial> findAllSerial2(int page, int limit) throws ServiceException;
 
@@ -20,7 +20,7 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     List<Serial> findSerialBySearchForm(SearchForm searchForm) throws ServiceException;
 
-    List<Serial> findSerialByGenre(String genreId) throws ServiceException;
+    //List<Serial> findSerialByGenre(String genreId) throws ServiceException;
 
     boolean userWatchThisSerial(String userId, String serialId) throws ServiceException;
 

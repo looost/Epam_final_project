@@ -7,7 +7,6 @@ public class User extends AbstractEntity {
     private String login;
     private String password;
     private int role;
-    private String avatar;
 
     public User() {
     }
@@ -25,6 +24,13 @@ public class User extends AbstractEntity {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public User(int id, String login, String password, int role) {
+        super(id);
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 
     public String getLogin() {
@@ -51,14 +57,6 @@ public class User extends AbstractEntity {
         this.role = role;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -69,8 +67,7 @@ public class User extends AbstractEntity {
 
         if (role != user.role) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return avatar != null ? avatar.equals(user.avatar) : user.avatar == null;
+        return password != null ? password.equals(user.password) : user.password == null;
     }
 
     @Override
@@ -79,7 +76,6 @@ public class User extends AbstractEntity {
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + role;
-        result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         return result;
     }
 
@@ -89,7 +85,6 @@ public class User extends AbstractEntity {
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", avatar='" + avatar + '\'' +
                 ", id=" + id +
                 '}';
     }

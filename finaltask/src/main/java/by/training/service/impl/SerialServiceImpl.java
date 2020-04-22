@@ -18,18 +18,18 @@ public class SerialServiceImpl implements SerialService {
 
     private static final TransactionBuilder<Serial> SERIAL_TRANSACTION_HANDLER = TransactionBuilderFactory.SERIAL_TRANSACTION_BUILDER;
 
-    @Override
-    public Serial findSerialByName(String name) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            Serial serial = DaoFactory.getInstance().getSerialDao(transaction).findSerialByName(name);
-            Serial result = TransactionUtil
-                    .select(transaction, TransactionBuilderFactory.getSingleTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serial);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @Override
+//    public Serial findSerialByName(String name) throws ServiceException {
+//        try (Transaction transaction = new Transaction()) {
+//            Serial serial = DaoFactory.getInstance().getSerialDao(transaction).findSerialByName(name);
+//            Serial result = TransactionUtil
+//                    .select(transaction, TransactionBuilderFactory.getSingleTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serial);
+//            transaction.commit();
+//            return result;
+//        } catch (DaoException e) {
+//            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @Override
     public List<Serial> findAll() throws ServiceException {
@@ -96,18 +96,18 @@ public class SerialServiceImpl implements SerialService {
         }
     }
 
-    @Override
-    public List<Serial> findSerialByGenre(String genreId) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialByGenre(genreId);
-            serialList = TransactionUtil
-                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
-            transaction.commit();
-            return serialList;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @Override
+//    public List<Serial> findSerialByGenre(String genreId) throws ServiceException {
+//        try (Transaction transaction = new Transaction()) {
+//            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialByGenre(genreId);
+//            serialList = TransactionUtil
+//                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
+//            transaction.commit();
+//            return serialList;
+//        } catch (DaoException e) {
+//            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
     @Override
     public List<Serial> findSerialsThatIWatch(String userId) throws ServiceException {

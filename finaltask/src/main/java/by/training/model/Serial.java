@@ -51,32 +51,31 @@ public class Serial extends AbstractEntity {
 //        this.genres = genres;
 //    }
 //
-//    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
-//        super(id);
-//        this.name = name;
-//        this.description = description;
-//        this.logo = logo;
-//        this.fullLogo = fullLogo;
-//        this.releaseDate = releaseDate;
-//        this.countLike = countLike;
-//        this.country = country;
-//        this.studio = studio;
-//        this.genres = genres;
-//        this.comments = comments;
-//    }
-//
-//    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres) {
-//        super(id);
-//        this.name = name;
-//        this.description = description;
-//        this.logo = logo;
-//        this.fullLogo = fullLogo;
-//        this.releaseDate = releaseDate;
-//        this.countLike = countLike;
-//        this.country = country;
-//        this.studio = studio;
-//        this.genres = genres;
-//    }
+public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio) {
+    super(id);
+    this.name = name;
+    this.description = description;
+    this.logo = logo;
+    this.fullLogo = fullLogo;
+    this.releaseDate = releaseDate;
+    this.countLike = countLike;
+    this.country = country;
+    this.studio = studio;
+}
+
+    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.logo = logo;
+        this.fullLogo = fullLogo;
+        this.releaseDate = releaseDate;
+        this.countLike = countLike;
+        this.country = country;
+        this.studio = studio;
+        this.genres = genres;
+        this.comments = comments;
+    }
 
     public String getName() {
         return name;

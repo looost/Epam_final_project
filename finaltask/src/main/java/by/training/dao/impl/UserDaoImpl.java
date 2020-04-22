@@ -8,10 +8,8 @@ import by.training.dao.impl.jdbc.ResultSetHandler;
 import by.training.dao.impl.jdbc.ResultSetHandlerFactory;
 import by.training.model.User;
 
-import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 
 public class UserDaoImpl implements UserDao {
 
@@ -42,13 +40,6 @@ public class UserDaoImpl implements UserDao {
     public User findByLogin(String login) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_LOGIN,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), login);
-    }
-
-    private static final String FIND_USER_BY_LOGIN_AND_PASSWORD = "SELECT id, login, password, role FROM user WHERE login = ? and password = ?";
-    @Override
-    public User findByLoginAndPassword(String login, String password) throws DaoException {
-        return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_LOGIN_AND_PASSWORD,
-                ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), login, password);
     }
 
     private static final String FIND_USER_BY_ID = "SELECT id, login, password, role FROM user WHERE id = ?";

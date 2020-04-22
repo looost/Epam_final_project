@@ -71,11 +71,11 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "dataForFindById")
     public void testFindById(String id, Genre expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        Genre actual = dao.findById(id);
-        assertEquals(actual, expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            Genre actual = dao.findById(id);
+            assertEquals(actual, expected);
+        }
     }
 
     @DataProvider(name = "dataForFindByName")
@@ -93,11 +93,11 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "dataForFindByName")
     public void testFindByName(String name, Genre expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        Genre actual = dao.findByName(name);
-        assertEquals(actual, expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            Genre actual = dao.findByName(name);
+            assertEquals(actual, expected);
+        }
     }
 
     @DataProvider(name = "dataForFindAll")
@@ -110,13 +110,13 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "dataForFindAll")
     public void testFindAll(List<Genre> expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        List<Genre> actual = dao.findAll();
-        actual.sort(Comparator.comparing(Genre::getId));
-        expected.sort(Comparator.comparing(Genre::getId));
-        assertEquals(actual, expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            List<Genre> actual = dao.findAll();
+            actual.sort(Comparator.comparing(Genre::getId));
+            expected.sort(Comparator.comparing(Genre::getId));
+            assertEquals(actual, expected);
+        }
     }
 
     @DataProvider(name = "negativeDataForFindAll")
@@ -132,10 +132,10 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeDataForFindAll")
     public void testFindAllNegative(List<Genre> expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        assertNotEquals(dao.findAll(), expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            assertNotEquals(dao.findAll(), expected);
+        }
     }
 
     @DataProvider(name = "dataForFindGenrePageByPage")
@@ -153,11 +153,11 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "dataForFindGenrePageByPage")
     public void testFindGenrePageByPage(int limit, int page, List<Genre> expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        List<Genre> actual = dao.findGenrePageByPage(page, limit);
-        assertEquals(actual, expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            List<Genre> actual = dao.findGenrePageByPage(page, limit);
+            assertEquals(actual, expected);
+        }
     }
 
     @DataProvider(name = "negativeDataForFindGenrePageByPage")
@@ -173,20 +173,20 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeDataForFindGenrePageByPage", expectedExceptions = DaoException.class)
     public void testFindGenrePageByPageWithNegativeValue(int limit, int page) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        dao.findGenrePageByPage(page, limit);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            dao.findGenrePageByPage(page, limit);
+        }
     }
 
     private static final int COUNT_ALL_GENRE = 3;
 
     @Test
     public void testCountAllGenres() throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        assertEquals(dao.countAllGenres(), COUNT_ALL_GENRE);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            assertEquals(dao.countAllGenres(), COUNT_ALL_GENRE);
+        }
     }
 
     @DataProvider(name = "negativeDataForCountAllGenres")
@@ -198,10 +198,10 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeDataForCountAllGenres")
     public void testCountAllGenresWithNegativeValue(int expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        assertNotEquals(dao.countAllGenres(), expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            assertNotEquals(dao.countAllGenres(), expected);
+        }
     }
 
     @DataProvider(name = "positiveFindGenreBySerialId")
@@ -219,11 +219,11 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "positiveFindGenreBySerialId")
     public void testFindGenreBySerialId(String serialId, List<Genre> expected) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        List<Genre> actual = dao.findGenreBySerialId(serialId);
-        assertEquals(actual, expected);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            List<Genre> actual = dao.findGenreBySerialId(serialId);
+            assertEquals(actual, expected);
+        }
     }
 
     @DataProvider(name = "positiveDelete")
@@ -235,12 +235,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "positiveDelete")
     public void testDelete(String id) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        connection.setAutoCommit(false);
-        assertTrue(dao.delete(id));
-        connection.rollback();
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            assertTrue(dao.delete(id));
+            connection.rollback();
+        }
     }
 
     @DataProvider(name = "negativeDelete")
@@ -252,10 +252,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeDelete")
     public void testNegativeDelete(String id) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        assertFalse(dao.delete(id));
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            assertFalse(dao.delete(id));
+            connection.rollback();
+        }
     }
 
     @DataProvider(name = "negativeDeleteWithException")
@@ -267,10 +269,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeDeleteWithException", expectedExceptions = DaoException.class)
     public void testNegativeDeleteWithException(String id) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        assertFalse(dao.delete(id));
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            assertFalse(dao.delete(id));
+            connection.rollback();
+        }
     }
 
     @DataProvider(name = "positiveCreate")
@@ -285,12 +289,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "positiveCreate")
     public void testCreate(Genre genre) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        connection.setAutoCommit(false);
-        assertTrue(dao.create(genre));
-        connection.rollback();
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            assertTrue(dao.create(genre));
+            connection.rollback();
+        }
     }
 
     @DataProvider(name = "negativeCreate")
@@ -306,10 +310,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
     public void testNegativeCreate(Genre genre) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        dao.create(genre);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            dao.create(genre);
+            connection.rollback();
+        }
     }
 
     @DataProvider(name = "positiveUpdate")
@@ -323,12 +329,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "positiveUpdate")
     public void testUpdate(Genre genre) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        connection.setAutoCommit(false);
-        assertTrue(dao.update(genre));
-        connection.rollback();
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            assertTrue(dao.update(genre));
+            connection.rollback();
+        }
     }
 
     @DataProvider(name = "negativeUpdate")
@@ -343,10 +349,12 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeUpdate", expectedExceptions = DaoException.class)
     public void testNegativeUpdate(Genre genre) throws DaoException, SQLException {
-        Connection connection = connectionPool.getConnection();
-        when(transaction.getConnection()).thenReturn(connection);
-        dao.update(genre);
-        connection.close();
+        try (Connection connection = connectionPool.getConnection()) {
+            when(transaction.getConnection()).thenReturn(connection);
+            connection.setAutoCommit(false);
+            dao.update(genre);
+            connection.rollback();
+        }
     }
 
     @AfterTest

@@ -1,10 +1,10 @@
 package by.training.dao.impl;
 
-import by.training.dao.CountryDao;
+import by.training.dao.StudioDao;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.pool.ConnectionPool;
-import by.training.model.Country;
+import by.training.model.Studio;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mockito.Mock;
@@ -26,18 +26,18 @@ import static by.training.utils.ConstantName.PATH_TO_PROPERTY_FILE;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.*;
 
-public class CountryDaoImplTest {
+public class StudioDaoImplTest {
 
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     @Mock
     private Transaction transaction;
     private ConnectionPool connectionPool;
-    private CountryDao dao;
+    private StudioDao dao;
 
-    public CountryDaoImplTest() {
+    public StudioDaoImplTest() {
         MockitoAnnotations.initMocks(this);
-        dao = new CountryDaoImpl(transaction);
+        dao = new StudioDaoImpl(transaction);
     }
 
     @BeforeTest
@@ -60,18 +60,16 @@ public class CountryDaoImplTest {
     @DataProvider(name = "dataForFindAll")
     public Object[] createPositiveDataForFindAll() {
         return new Object[]{
-                Arrays.asList(new Country(1, "США"),
-                        new Country(2, "Великобритания"), new Country(3, "Испания"))
+                Arrays.asList(new Studio(2, "Antena 3"),
+                        new Studio(3, "BBC Two"), new Studio(1, "HBO"))
         };
     }
 
     @Test(dataProvider = "dataForFindAll")
-    public void testFindAll(List<Country> expected) throws DaoException, SQLException {
+    public void testFindAll(List<Studio> expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
-            List<Country> actual = dao.findAll();
-            actual.sort(Comparator.comparing(Country::getId));
-            expected.sort(Comparator.comparing(Country::getId));
+            List<Studio> actual = dao.findAll();
             assertEquals(actual, expected);
         }
     }
@@ -79,93 +77,94 @@ public class CountryDaoImplTest {
     @DataProvider(name = "negativeDataForFindAll")
     public Object[] createNegativeDataForFindAll() {
         return new Object[]{
-                Arrays.asList(new Country(1, "США"),
-                        new Country(2, "Великобритания"), new Country(3, "Испания")),
+                Arrays.asList(new Studio(1, "HBO"), new Studio(2, "Antena 3"),
+                        new Studio(3, "BBC Two")),
                 null,
-                new ArrayList<Country>(),
+                new ArrayList<Studio>(),
                 new ArrayList<Integer>()
         };
     }
 
     @Test(dataProvider = "negativeDataForFindAll")
-    public void testFindAllNegative(List<Country> expected) throws DaoException, SQLException {
+    public void testFindAllNegative(List<Studio> expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
             assertNotEquals(dao.findAll(), expected);
         }
     }
 
-    @DataProvider(name = "dataForFindCountryPageByPage")
-    public Object[] createPositiveDataForFindCountryPageByPage() {
+    @DataProvider(name = "dataForFindStudioPageByPage")
+    public Object[] createPositiveDataForFindStudioPageByPage() {
         return new Object[][]{
-                {1, 1, Collections.singletonList(new Country(2, "Великобритания"))},
-                {1, 2, Collections.singletonList(new Country(3, "Испания"))},
-                {2, 2, Collections.singletonList(new Country(1, "США"))},
+                {1, 1, Collections.singletonList(new Studio(2, "Antena 3"))},
+                {1, 2, Collections.singletonList(new Studio(3, "BBC Two"))},
+                {2, 2, Collections.singletonList(new Studio(1, "HBO"))},
                 {0, 2, Collections.emptyList()},
                 {0, 0, Collections.emptyList()},
-                {3, 1, Arrays.asList(new Country(2, "Великобритания"), new Country(3, "Испания"),
-                        new Country(1, "США"))}
+                {3, 1, Arrays.asList(new Studio(2, "Antena 3"), new Studio(3, "BBC Two"),
+                        new Studio(1, "HBO"))}
         };
     }
 
-    @Test(dataProvider = "dataForFindCountryPageByPage")
-    public void testFindCountryPageByPage(int limit, int page, List<Country> expected) throws DaoException, SQLException {
+    @Test(dataProvider = "dataForFindStudioPageByPage")
+    public void testFindStudioPageByPage(int limit, int page, List<Studio> expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
-            List<Country> actual = dao.findCountryPageByPage(page, limit);
+            List<Studio> actual = dao.findStudioPageByPage(page, limit);
             assertEquals(actual, expected);
         }
     }
 
-    @DataProvider(name = "negativeDataForFindCountryPageByPage")
-    public Object[] createNegativeDataForFindCountryPageByPage() {
+    @DataProvider(name = "negativeDataForFindStudioPageByPage")
+    public Object[] createNegativeDataForFindStudioPageByPage() {
         return new Object[][]{
-                {-8, 0},
-                {6, -4},
-                {-7, -12},
+                {-4, 6},
+                {5, -7},
+                {-13, -19},
                 {Integer.MIN_VALUE, Integer.MAX_VALUE},
-                {Integer.MAX_VALUE, -2}
+                {Integer.MAX_VALUE, -8}
         };
     }
 
-    @Test(dataProvider = "negativeDataForFindCountryPageByPage", expectedExceptions = DaoException.class)
-    public void testFindCountryPageByPageWithNegativeValue(int limit, int page) throws DaoException, SQLException {
+    @Test(dataProvider = "negativeDataForFindStudioPageByPage", expectedExceptions = DaoException.class)
+    public void testFindStudioPageByPageWithNegativeValue(int limit, int page) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
-            dao.findCountryPageByPage(page, limit);
+            dao.findStudioPageByPage(page, limit);
         }
     }
 
-    private static final int COUNT_ALL_COUNTRY = 3;
+    private static final int COUNT_ALL_STUDIO = 3;
+
     @Test
-    public void testCountAllCountry() throws DaoException, SQLException {
+    public void testCountAllStudio() throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
-            assertEquals(dao.countAllCountry(), COUNT_ALL_COUNTRY);
+            assertEquals(dao.countAllStudio(), COUNT_ALL_STUDIO);
         }
     }
 
-    @DataProvider(name = "negativeDataForCountAllCountry")
-    public Object[] createNegativeDataForCountAllCountry() {
+    @DataProvider(name = "negativeDataForCountAllStudio")
+    public Object[] createNegativeDataForCountAllStudio() {
         return new Object[]{
                 1, 0, -1, Integer.MAX_VALUE, Integer.MIN_VALUE
         };
     }
 
-    @Test(dataProvider = "negativeDataForCountAllCountry")
-    public void testCountAllCountryWithNegativeValue(int expected) throws DaoException, SQLException {
+    @Test(dataProvider = "negativeDataForCountAllStudio")
+    public void testCountAllStudioWithNegativeValue(int expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
-            assertNotEquals(dao.countAllCountry(), expected);
+            assertNotEquals(dao.countAllStudio(), expected);
         }
     }
 
     @DataProvider(name = "dataForFindById")
     public Object[][] createPositiveDataForFindById() {
         return new Object[][]{
-                {"1", new Country(1, "США")},
-                {"2", new Country(2, "Великобритания")},
-                {"3", new Country(3, "Испания")},
+                {"1", new Studio(1, "HBO")},
+                {"2", new Studio(2, "Antena 3")},
+                {"3", new Studio(3, "BBC Two")},
                 {"0", null},
                 {"10", null},
                 {null, null},
@@ -173,10 +172,10 @@ public class CountryDaoImplTest {
     }
 
     @Test(dataProvider = "dataForFindById")
-    public void testFindById(String id, Country expected) throws DaoException, SQLException {
+    public void testFindById(String id, Studio expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
-            Country actual = dao.findById(id);
+            Studio actual = dao.findById(id);
             assertEquals(actual, expected);
         }
     }
@@ -235,19 +234,19 @@ public class CountryDaoImplTest {
     @DataProvider(name = "positiveCreate")
     public Object[] createPositiveDataForCreate() {
         return new Object[]{
-                new Country(4, "TestName"),
-                new Country(5, "AnyName"),
-                new Country(Integer.MAX_VALUE, "MaxValue"),
-                new Country(Integer.MIN_VALUE, "MinValue")
+                new Studio(4, "TestName"),
+                new Studio(5, "AnyName"),
+                new Studio(Integer.MAX_VALUE, "MaxValue"),
+                new Studio(Integer.MIN_VALUE, "MinValue")
         };
     }
 
     @Test(dataProvider = "positiveCreate")
-    public void testCreate(Country country) throws DaoException, SQLException {
+    public void testCreate(Studio expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
-            assertTrue(dao.create(country));
+            assertTrue(dao.create(expected));
             connection.rollback();
         }
     }
@@ -255,20 +254,20 @@ public class CountryDaoImplTest {
     @DataProvider(name = "negativeCreate")
     public Object[] createNegativeDataForCreate() {
         return new Object[]{
-                new Country(4, "Испания"),
-                new Country(1, "Великобритания"),
-                new Country(Integer.MIN_VALUE, "США"),
-                new Country(1, null),
-                new Country(1, "33char33char33char33char33char33c")
+                new Studio(4, "HBO"),
+                new Studio(1, "BBC Two"),
+                new Studio(Integer.MIN_VALUE, "HBO"),
+                new Studio(1, null),
+                new Studio(1, "33char33char33char33char33char33c")
         };
     }
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
-    public void testNegativeCreate(Country country) throws DaoException, SQLException {
+    public void testNegativeCreate(Studio expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
-            dao.create(country);
+            dao.create(expected);
             connection.rollback();
         }
     }
@@ -276,18 +275,18 @@ public class CountryDaoImplTest {
     @DataProvider(name = "positiveUpdate")
     public Object[] createPositiveDataForUpdate() {
         return new Object[]{
-                new Country(1, "NewName"),
-                new Country(3, "AnyName"),
-                new Country(2, ""),
+                new Studio(1, "NewName"),
+                new Studio(3, "AnyName"),
+                new Studio(2, ""),
         };
     }
 
     @Test(dataProvider = "positiveUpdate")
-    public void testUpdate(Country country) throws DaoException, SQLException {
+    public void testUpdate(Studio expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
-            assertTrue(dao.update(country));
+            assertTrue(dao.update(expected));
             connection.rollback();
         }
     }
@@ -295,19 +294,19 @@ public class CountryDaoImplTest {
     @DataProvider(name = "negativeUpdate")
     public Object[] createNegativeDataForUpdate() {
         return new Object[]{
-                new Country(1, null),
-                new Country(3, "США"),
-                new Country(2, "Испания"),
-                new Country(1, "33char33char33char33char33char33c")
+                new Studio(1, null),
+                new Studio(3, "HBO"),
+                new Studio(2, "BBC Two"),
+                new Studio(1, "33char33char33char33char33char33c")
         };
     }
 
     @Test(dataProvider = "negativeUpdate", expectedExceptions = DaoException.class)
-    public void testNegativeUpdate(Country country) throws DaoException, SQLException {
+    public void testNegativeUpdate(Studio expected) throws DaoException, SQLException {
         try (Connection connection = connectionPool.getConnection()) {
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
-            dao.update(country);
+            dao.update(expected);
             connection.rollback();
         }
     }

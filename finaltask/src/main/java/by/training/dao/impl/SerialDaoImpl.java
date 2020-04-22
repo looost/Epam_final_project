@@ -54,13 +54,13 @@ public class SerialDaoImpl implements SerialDao {
         this.transaction = transaction;
     }
 
-    private static final String FIND_SERIAL_BY_NAME = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.name = ?";
-    @Override
-    public Serial findSerialByName(String name) throws DaoException {
-        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_NAME,
-                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), name);
-    }
+//    private static final String FIND_SERIAL_BY_NAME = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+//            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.name = ?";
+//    @Override
+//    public Serial findSerialByName(String name) throws DaoException {
+//        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_NAME,
+//                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), name);
+//    }
 
     private static final String FIND_ALL_SERIAL = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
             " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s";
@@ -114,13 +114,13 @@ public class SerialDaoImpl implements SerialDao {
         return new SearchQuery(sql, param);
     }
 
-    private static final String FIND_SERIAL_BY_GENRE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE sg.genre_id = ?";
-    @Override
-    public List<Serial> findSerialByGenre(String genreId) throws DaoException {
-        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_GENRE,
-                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), genreId);
-    }
+//    private static final String FIND_SERIAL_BY_GENRE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+//            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE sg.genre_id = ?";
+//    @Override
+//    public List<Serial> findSerialByGenre(String genreId) throws DaoException {
+//        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_GENRE,
+//                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), genreId);
+//    }
 
     private static final String FIND_SERIAL_BY_ID = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
             " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.id = ?";

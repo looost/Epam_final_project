@@ -3,14 +3,12 @@ package by.training.service.impl;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.Comment;
 import by.training.model.User;
 import by.training.service.UserService;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.Validation;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.InputStream;
 
 
 public class UserServiceImpl implements UserService {
@@ -19,17 +17,6 @@ public class UserServiceImpl implements UserService {
     public User findByLogin(String login) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             User result = DaoFactory.getInstance().getUserDao(transaction).findByLogin(login);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public User findByLoginAndPassword(String login, String password) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            User result = DaoFactory.getInstance().getUserDao(transaction).findByLoginAndPassword(login, password);
             transaction.commit();
             return result;
         } catch (DaoException e) {

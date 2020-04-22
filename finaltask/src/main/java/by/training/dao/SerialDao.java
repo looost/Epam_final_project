@@ -12,7 +12,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     List<Serial> findAll() throws DaoException;
 
-    Serial findSerialByName(String name) throws DaoException;
+    //Serial findSerialByName(String name) throws DaoException;
 
     List<Serial> findAllSerial2(int page, int limit) throws DaoException;
 
@@ -22,7 +22,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     List<Serial> findSerialBySearchForm(SearchForm searchForm) throws DaoException;
 
-    List<Serial> findSerialByGenre(String genreId) throws DaoException;
+    //List<Serial> findSerialByGenre(String genreId) throws DaoException;
 
     boolean createSerialGenre(int serialId, List<Genre> genres) throws DaoException;
 

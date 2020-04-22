@@ -12,10 +12,10 @@ public class Studio extends AbstractEntity {
         this.name = name;
     }
 
-//    public Studio(int id) {
-//        super(id);
-//    }
-//
+    public Studio(int id) {
+        super(id);
+    }
+
 public Studio(int id, String name) {
     super(id);
     this.name = name;
