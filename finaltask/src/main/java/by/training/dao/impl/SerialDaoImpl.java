@@ -12,7 +12,6 @@ import by.training.model.Serial;
 import by.training.model.Studio;
 import by.training.model.form.SearchForm;
 import by.training.model.form.SearchQuery;
-import by.training.service.validation.Validation;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,12 +69,12 @@ public class SerialDaoImpl implements SerialDao {
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER));
     }
 
-    private static final String FIND_ALL_SERIAL_2 = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+    private static final String FIND_SERIAL_PAGE_BY_PAGE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
             " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s LIMIT ? OFFSET ?";
     @Override
-    public List<Serial> findAllSerial2(int page, int limit) throws DaoException {
+    public List<Serial> findSerialPageByPage(int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
-        return JDBCUtil.select(transaction.getConnection(), FIND_ALL_SERIAL_2,
+        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_PAGE_BY_PAGE,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit, offset);
     }
 
@@ -179,10 +178,7 @@ public class SerialDaoImpl implements SerialDao {
     private static final String WATCH_SERIAL = "INSERT INTO viewed VALUES (?, ?)";
     @Override
     public boolean toWatchSerial(String userId, String serialId) throws DaoException {
-        if (Validation.serialIsWatch(transaction, serialId, userId)) {
-            return JDBCUtil.execute(transaction.getConnection(), WATCH_SERIAL, userId, serialId);
-        }
-        return false;
+        return JDBCUtil.execute(transaction.getConnection(), WATCH_SERIAL, userId, serialId);
     }
 
     private static final String STOP_WATCH_SERIAL = "DELETE FROM viewed WHERE (user_id = ? and serial_id = ?)";
@@ -193,7 +189,6 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String SERIAL_IS_WATCH_STATUS = "SELECT s.id, s.name, s.description, s.logo, s.full_logo, " +
             "s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ? and v.serial_id = ?";
-
     @Override
     public Serial userWatchThisSerial(String serialId, String userId) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), SERIAL_IS_WATCH_STATUS,

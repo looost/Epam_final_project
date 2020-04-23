@@ -10,6 +10,7 @@ import by.training.dao.Transaction;
 import by.training.service.transaction.TransactionBuilder;
 import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
+import by.training.service.validation.Validation;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -44,9 +45,9 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public List<Serial> findAllSerial2(int page, int limit) throws ServiceException {
+    public List<Serial> findSerialPageByPage(int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findAllSerial2(page, limit);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialPageByPage(page, limit);
             serialList = TransactionUtil
                     .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
@@ -125,7 +126,10 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public boolean toWatchSerial(String userId, String serialId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
+            boolean result = false;
+            if (Validation.serialIsWatch(transaction, serialId, userId)) {
+                result = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
+            }
             transaction.commit();
             return result;
         } catch (DaoException e) {

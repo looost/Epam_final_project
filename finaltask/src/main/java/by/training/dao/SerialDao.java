@@ -14,7 +14,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     //Serial findSerialByName(String name) throws DaoException;
 
-    List<Serial> findAllSerial2(int page, int limit) throws DaoException;
+    List<Serial> findSerialPageByPage(int page, int limit) throws DaoException;
 
     List<Serial> latestSerial(int limit) throws DaoException;
 

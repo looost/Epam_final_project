@@ -12,7 +12,7 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     //Serial findSerialByName(String name) throws ServiceException;
 
-    List<Serial> findAllSerial2(int page, int limit) throws ServiceException;
+    List<Serial> findSerialPageByPage(int page, int limit) throws ServiceException;
 
     List<Serial> latestSerial(int limit) throws ServiceException;
 

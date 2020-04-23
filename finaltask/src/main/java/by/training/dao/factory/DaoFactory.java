@@ -3,8 +3,6 @@ package by.training.dao.factory;
 import by.training.dao.*;
 import by.training.dao.impl.*;
 
-import java.sql.Connection;
-
 public class DaoFactory {
     private static final DaoFactory instance = new DaoFactory();
 
@@ -15,7 +13,7 @@ public class DaoFactory {
         return instance;
     }
 
-    public UserDao getUserDao(Transaction transaction) { // TODO как сделать фабрику?
+    public UserDao getUserDao(Transaction transaction) {
         return new UserDaoImpl(transaction);
     }
 
@@ -30,10 +28,6 @@ public class DaoFactory {
     public CountryDaoImpl getCountryDao(Transaction transaction) {
         return new CountryDaoImpl(transaction);
     }
-
-//    public CountryDaoImpl getCountryDao() {
-//        return new CountryDaoImpl();
-//    }
 
     public StudioDaoImpl getStudioDao(Transaction transaction) {
         return new StudioDaoImpl(transaction);

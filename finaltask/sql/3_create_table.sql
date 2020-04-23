@@ -95,6 +95,7 @@ create table serial_genre
 (
     `serial_id` INTEGER NOT NULL,
     `genre_id`  INTEGER NOT NULL,
+    UNIQUE (`serial_id`, `genre_id`),
     CONSTRAINT fk_serial_genre_serial FOREIGN KEY (`serial_id`)
         REFERENCES serial (`id`)
         ON DELETE CASCADE

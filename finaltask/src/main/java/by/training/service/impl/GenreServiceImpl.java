@@ -3,7 +3,6 @@ package by.training.service.impl;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.model.Country;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;

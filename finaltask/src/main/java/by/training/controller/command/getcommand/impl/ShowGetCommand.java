@@ -34,7 +34,6 @@ public class ShowGetCommand implements Command {
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();
 
-
             if (req.getSession().getAttribute(ATTRIBUTE_USER_ID) != null) {
                 boolean watchStatus = ServiceFactory.getInstance()
                         .getSerialService()

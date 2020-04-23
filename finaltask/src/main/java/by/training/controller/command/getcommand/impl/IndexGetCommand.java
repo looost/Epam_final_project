@@ -3,8 +3,6 @@ package by.training.controller.command.getcommand.impl;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
-import by.training.dao.Transaction;
-import by.training.dao.impl.GenreDaoImpl;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
@@ -26,7 +24,7 @@ public class IndexGetCommand implements Command {
                 page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
             }
             int countAllSerial = ServiceFactory.getInstance().getSerialService().countAllSerial();
-            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findAllSerial2(page, COUNT_SERIAL_IN_MAIN_PAGE);
+            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialPageByPage(page, COUNT_SERIAL_IN_MAIN_PAGE);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();

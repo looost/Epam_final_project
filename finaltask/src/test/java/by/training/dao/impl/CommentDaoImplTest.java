@@ -37,6 +37,19 @@ public class CommentDaoImplTest {
 
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
+    private static final Comment COMMENT_WITH_ID_1 = new Comment(1, new User(1),
+            new Serial(1),
+            "Коммннтарий1",
+            LocalDateTime.of(2020, Month.APRIL, 22, 23, 50, 43));
+    private static final Comment COMMENT_WITH_ID_2 = new Comment(2, new User(3),
+            new Serial(2),
+            "Коммннтарий2",
+            LocalDateTime.of(2020, Month.APRIL, 22, 23, 50, 43));
+    private static final Comment COMMENT_WITH_ID_3 = new Comment(3, new User(2),
+            new Serial(1),
+            "Коммннтарий3",
+            LocalDateTime.of(2020, Month.APRIL, 22, 23, 50, 43));
+
     @Mock
     private Transaction transaction;
     private ConnectionPool connectionPool;
@@ -67,21 +80,8 @@ public class CommentDaoImplTest {
     @DataProvider(name = "positiveDataForFindAllCommentForSerial")
     public Object[][] createPositiveDataForFindAllCommentForSerial() {
         return new Object[][]{
-                {"1", Arrays.asList(
-                        new Comment(1, new User(1),
-                                new Serial(1),
-                                "Коммннтарий1",
-                                LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12)),
-
-                        new Comment(3, new User(2),
-                                new Serial(1),
-                                "Коммннтарий3",
-                                LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12)))},
-                {"2", Collections.singletonList(
-                        new Comment(2, new User(3),
-                                new Serial(2),
-                                "Коммннтарий2",
-                                LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12)))},
+                {"1", Arrays.asList(COMMENT_WITH_ID_1, COMMENT_WITH_ID_3)},
+                {"2", Collections.singletonList(COMMENT_WITH_ID_2)},
                 {"3", Collections.emptyList()},
 
         };
@@ -99,21 +99,8 @@ public class CommentDaoImplTest {
     @DataProvider(name = "negativeDataForFindAllCommentForSerial")
     public Object[][] createNegativeDataForFindAllCommentForSerial() {
         return new Object[][]{
-                {"1", Arrays.asList(
-                        new Comment(1, new User(1),
-                                new Serial(1),
-                                "Коммннтарий1",
-                                LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12)),
-
-                        new Comment(3, new User(1),
-                                new Serial(1),
-                                "Коммннтарий3",
-                                LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12)))},
-                {"2", Collections.singletonList(
-                        new Comment(2, new User(3),
-                                new Serial(6),
-                                "Коммннтарий2",
-                                LocalDateTime.of(2021, Month.APRIL, 22, 15, 8, 12)))}
+                {"1", Arrays.asList(COMMENT_WITH_ID_2, COMMENT_WITH_ID_3)},
+                {"2", Collections.singletonList(COMMENT_WITH_ID_1)}
 
         };
     }
@@ -130,18 +117,9 @@ public class CommentDaoImplTest {
     @DataProvider(name = "dataForFindById")
     public Object[][] createPositiveDataForFindById() {
         return new Object[][]{
-                {"1", new Comment(1, new User(1),
-                        new Serial(1),
-                        "Коммннтарий1",
-                        LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12))},
-                {"2", new Comment(2, new User(3),
-                        new Serial(2),
-                        "Коммннтарий2",
-                        LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12))},
-                {"3", new Comment(3, new User(2),
-                        new Serial(1),
-                        "Коммннтарий3",
-                        LocalDateTime.of(2020, Month.APRIL, 22, 15, 8, 12))},
+                {"1", COMMENT_WITH_ID_1},
+                {"2", COMMENT_WITH_ID_2},
+                {"3", COMMENT_WITH_ID_3},
                 {"0", null},
                 {"10", null},
                 {null, null},

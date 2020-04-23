@@ -13,7 +13,7 @@ class SecurityConfig {
 
 
     static {
-        //securityPage.add(CommandName.PROFILE);
+        securityPage.add(CommandName.SAVE_COMMENT);
     }
 
     static boolean isSecurityPage(CommandName commandName) {
@@ -28,7 +28,7 @@ class SecurityConfig {
         mapConfig.put(RoleEnum.ADMIN, urlAdminPattern);
 
         List<CommandName> urlUserPattern = new ArrayList<>();
-        urlUserPattern.add(CommandName.INDEX);
+        urlUserPattern.add(CommandName.SAVE_COMMENT);
         mapConfig.put(RoleEnum.USER, urlUserPattern);
     }
 
