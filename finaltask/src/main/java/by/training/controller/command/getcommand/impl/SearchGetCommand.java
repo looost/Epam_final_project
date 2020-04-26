@@ -7,6 +7,8 @@ import by.training.model.Serial;
 import by.training.model.form.SearchForm;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,8 @@ import static by.training.utils.ConstantName.*;
 
 public class SearchGetCommand implements Command {
 
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
+
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -25,7 +29,8 @@ public class SearchGetCommand implements Command {
             SearchForm searchForm = new SearchForm(req.getParameter(PARAMETER_QUERY), req.getParameterValues(PARAMETER_GENRE),
                     req.getParameterValues(PARAMETER_COUNTRY), req.getParameterValues(PARAMETER_STUDIO));
 
-            List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialBySearchForm(searchForm);
+            List<Serial> serialList = ServiceFactory.getInstance()
+                    .getSerialService().findSerialBySearchForm(searchForm);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();

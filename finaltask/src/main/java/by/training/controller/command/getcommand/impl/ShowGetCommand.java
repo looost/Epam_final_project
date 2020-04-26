@@ -39,6 +39,10 @@ public class ShowGetCommand implements Command {
                         .getSerialService()
                         .userWatchThisSerial(String.valueOf(req.getSession().getAttribute(ATTRIBUTE_USER_ID)), id);
                 req.setAttribute(ATTRIBUTE_WATCH_STATUS, watchStatus);
+                boolean likedStatus = ServiceFactory.getInstance()
+                        .getSerialService()
+                        .userLikedThisSerial(String.valueOf(req.getSession().getAttribute(ATTRIBUTE_USER_ID)), id);
+                req.setAttribute(ATTRIBUTE_LIKED_STATUS, likedStatus);
             }
 
             req.setAttribute(ATTRIBUTE_GENRES, genres);
@@ -47,9 +51,10 @@ public class ShowGetCommand implements Command {
             req.setAttribute(ATTRIBUTE_COUNTRY, country);
             req.setAttribute(ATTRIBUTE_STUDIO, studio);
 
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_SHOW_JSP, req, resp);
         } catch (ServiceException e) {
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_SHOW_JSP, req, resp);
+
     }
 }

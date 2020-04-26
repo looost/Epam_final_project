@@ -18,11 +18,10 @@ public class PostCommandProvider {
         repository.put(CommandName.LOGIN, new LoginPostCommand());
         repository.put(CommandName.SAVE_GENRE, new SaveGenrePostCommand());
         repository.put(CommandName.DELETE_GENRE, new DeleteGenrePostCommand());
-        repository.put(CommandName.ADD_SERIAL, new AddSerialPostCommand());
+        repository.put(CommandName.SAVE_SERIAL, new SaveSerialPostCommand());
         repository.put(CommandName.ADD_USER, new AddUserPostCommand());
         repository.put(CommandName.SAVE_COUNTRY, new SaveCountryPostCommand());
         repository.put(CommandName.SAVE_STUDIO, new SaveStudioPostCommand());
-        repository.put(CommandName.CHANGE_SERIAL, new ChangeSerialPostCommand());
         repository.put(CommandName.CHANGE_PASSWORD, new ChangePasswordPostCommand());
         repository.put(CommandName.SAVE_COMMENT, new SaveCommentPostCommand());
         repository.put(CommandName.DELETE_COUNTRY, new DeleteCountryPostCommand());

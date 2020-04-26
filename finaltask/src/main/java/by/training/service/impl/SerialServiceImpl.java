@@ -10,13 +10,14 @@ import by.training.dao.Transaction;
 import by.training.service.transaction.TransactionBuilder;
 import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
-import by.training.service.validation.Validation;
+import by.training.service.validation.SerialValidation;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class SerialServiceImpl implements SerialService {
 
+    private SerialValidation validation = new SerialValidation();
     private static final TransactionBuilder<Serial> SERIAL_TRANSACTION_HANDLER = TransactionBuilderFactory.SERIAL_TRANSACTION_BUILDER;
 
 //    @Override
@@ -48,6 +49,19 @@ public class SerialServiceImpl implements SerialService {
     public List<Serial> findSerialPageByPage(int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialPageByPage(page, limit);
+            serialList = TransactionUtil
+                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<Serial> findMostLikedSerial(int page, int limit) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findMostLikedSerial(page, limit);
             serialList = TransactionUtil
                     .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
@@ -97,23 +111,10 @@ public class SerialServiceImpl implements SerialService {
         }
     }
 
-//    @Override
-//    public List<Serial> findSerialByGenre(String genreId) throws ServiceException {
-//        try (Transaction transaction = new Transaction()) {
-//            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialByGenre(genreId);
-//            serialList = TransactionUtil
-//                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
-//            transaction.commit();
-//            return serialList;
-//        } catch (DaoException e) {
-//            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
     @Override
-    public List<Serial> findSerialsThatIWatch(String userId) throws ServiceException {
+    public List<Serial> findSerialsThatIWatch(String userId, int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatIWatch(userId);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatIWatch(userId, page, limit);
             serialList = TransactionUtil
                     .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
@@ -124,12 +125,9 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public boolean toWatchSerial(String userId, String serialId) throws ServiceException {
+    public int countAllSerialsThatIWatch(String userId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean result = false;
-            if (Validation.serialIsWatch(transaction, serialId, userId)) {
-                result = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
-            }
+            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsThatIWatch(userId);
             transaction.commit();
             return result;
         } catch (DaoException e) {
@@ -138,11 +136,55 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public boolean stopWatchSerial(String userId, String serialId) throws ServiceException {
+    public List<Serial> findSerialsThatILiked(String userId, int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getSerialDao(transaction).stopWatchSerial(userId, serialId);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatILiked(userId, page, limit);
+            serialList = TransactionUtil
+                    .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
+            transaction.commit();
+            return serialList;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public int countAllSerialsThatILiked(String userId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsThatILiked(userId);
             transaction.commit();
             return result;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean toWatchSerial(String userId, String serialId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (!DaoFactory.getInstance().getSerialDao(transaction).userWatchThisSerial(serialId, userId)) {
+                result = DaoFactory.getInstance().getSerialDao(transaction).toWatchSerial(userId, serialId);
+                transaction.commit();
+                return result;
+            } else {
+                throw new ServiceException(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean stopWatchSerial(String userId, String serialId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            if (DaoFactory.getInstance().getSerialDao(transaction).userWatchThisSerial(serialId, userId)) {
+                boolean result = DaoFactory.getInstance().getSerialDao(transaction).stopWatchSerial(userId, serialId);
+                transaction.commit();
+                return result;
+            } else {
+                throw new ServiceException(HttpServletResponse.SC_BAD_REQUEST);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
@@ -152,9 +194,53 @@ public class SerialServiceImpl implements SerialService {
     public boolean userWatchThisSerial(String userId, String serialId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result = DaoFactory.getInstance().getSerialDao(transaction)
-                    .userWatchThisSerial(serialId, userId) != null;
+                    .userWatchThisSerial(serialId, userId);
             transaction.commit();
             return result;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean userLikedThisSerial(String userId, String serialId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction)
+                    .userLikedThisSerial(userId, serialId);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean likeSerial(String userId, String serialId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            if (!DaoFactory.getInstance().getSerialDao(transaction).userLikedThisSerial(userId, serialId)) {
+                boolean result = DaoFactory.getInstance().getSerialDao(transaction)
+                        .likeSerial(userId, serialId);
+                transaction.commit();
+                return result;
+            } else {
+                throw new ServiceException(HttpServletResponse.SC_BAD_REQUEST);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean dislikeSerial(String userId, String serialId) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            if (DaoFactory.getInstance().getSerialDao(transaction).userLikedThisSerial(userId, serialId)) {
+                boolean result = DaoFactory.getInstance().getSerialDao(transaction)
+                        .dislikeSerial(userId, serialId);
+                transaction.commit();
+                return result;
+            } else {
+                throw new ServiceException(HttpServletResponse.SC_BAD_REQUEST);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
@@ -190,10 +276,9 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public boolean create(Serial entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            int index = DaoFactory.getInstance().getSerialDao(transaction).createAndReturnIndex(entity);
-            DaoFactory.getInstance().getSerialDao(transaction).createSerialGenre(index, entity.getGenres());
+            boolean result = DaoFactory.getInstance().getSerialDao(transaction).create(entity);
             transaction.commit();
-            return true;
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
@@ -206,6 +291,26 @@ public class SerialServiceImpl implements SerialService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public boolean save(Serial serial) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (!validation.isValidSerial(transaction, serial)) {
+                throw new ServiceException("Serial field not valid", HttpServletResponse.SC_BAD_REQUEST);
+            }
+            if (serial.getId() == 0) {
+                result = DaoFactory.getInstance().getSerialDao(transaction).create(serial);
+            } else {
+                result = DaoFactory.getInstance().getSerialDao(transaction).update(serial);
+            }
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

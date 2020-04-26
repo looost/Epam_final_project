@@ -14,7 +14,7 @@ public class Validation {
         return DaoFactory.getInstance().getUserDao(t).findByLogin(user.getLogin()) == null;
     }
 
-    public static boolean serialIsWatch(Transaction t, String serialId, String userID) throws DaoException {
-        return DaoFactory.getInstance().getSerialDao(t).userWatchThisSerial(serialId, userID) == null;
-    }
+//    public static boolean serialIsWatch(Transaction t, String serialId, String userID) throws DaoException {
+//        return DaoFactory.getInstance().getSerialDao(t).userWatchThisSerial(serialId, userID) == null;
+//    }
 }

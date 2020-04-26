@@ -7,6 +7,7 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Country;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import by.training.utils.ResourceManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +27,8 @@ public class SaveCountryPostCommand implements Command {
         String countryName = req.getParameter(PARAMETER_COUNTRY);
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
         if (countryName.equals("")) {
-            req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, "Введите название страны");
+            String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
+            req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, errorMessage);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
         }
         Country country = new Country(Integer.parseInt(id), countryName);

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.*;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.ENCODING_UTF_8;
 import static by.training.utils.ConstantName.INFO_LOGGER;
 
 public class EncodingFilter implements Filter {
@@ -19,7 +20,7 @@ public class EncodingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        servletRequest.setCharacterEncoding("UTF-8");
+        servletRequest.setCharacterEncoding(ENCODING_UTF_8);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

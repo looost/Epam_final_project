@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static by.training.utils.ConstantName.ROUTING_NOT_FOUND_JSP;
+import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
+import static by.training.utils.ConstantName.ROUTING_ERROR_PAGE;
 
 public class WrongRequestGetCommand implements Command {
 
@@ -17,6 +18,6 @@ public class WrongRequestGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("statusCode", HttpServletResponse.SC_NOT_FOUND);
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_NOT_FOUND_JSP, req, resp);
+        return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

@@ -57,7 +57,7 @@
     <div class="row no-gutter">
         <!-- The image half -->
         <div class="col-md-6 d-none d-md-flex bg-image">
-            <img src="${pageContext.request.contextPath}/img/siginLogo.png" alt="Sign In">
+            <img src="<c:url value="/img/siginLogo.png"/>" alt="Sign In">
         </div>
 
 

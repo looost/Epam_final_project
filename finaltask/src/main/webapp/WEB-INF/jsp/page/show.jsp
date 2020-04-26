@@ -31,9 +31,81 @@
                                 <img class="card-img-top border " src="${show.fullLogo}" alt="Card image cap">
                                 <div class="card-body">
                                     <p class="card-text text-style text-justify">${show.description}</p>
+                                    <c:if test="${sessionScope.user != null}">
+                                        <div class="container">
+                                            <div class="row">
+                                                <c:choose>
+                                                    <c:when test="${likedStatus == false}">
+                                                        <div class="col-6">
+                                                            <div class="text-center">
+                                                                <a href="${pageContext.request.contextPath}/like.html?id=${show.id}"
+                                                                   class="btn btn-outline-danger btn-lg btn-iconed btn-rounded "
+                                                                   role="button"
+                                                                   aria-pressed="true">
+                                                                    <i class="fa fa-heart"></i> <span
+                                                                        class="spn"><fmt:message key="like"
+                                                                                                 bundle="${ rb }"/></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:when test="${likedStatus == true}">
+                                                        <div class="col-6">
+                                                            <div class="text-center">
+                                                                <a href="${pageContext.request.contextPath}/dislike.html?id=${show.id}"
+                                                                   class="btn btn-outline-danger btn-lg btn-iconed btn-rounded "
+                                                                   role="button"
+                                                                   aria-pressed="true">
+                                                                    <i class="fas fa-heart-broken"></i> <span
+                                                                        class="spn"><fmt:message key="dislike"
+                                                                                                 bundle="${ rb }"/></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </c:when>
+                                                </c:choose>
+
+
+                                                <c:choose>
+                                                    <c:when test="${watchStatus == false}">
+                                                        <div class="col-6">
+                                                            <div class="text-center">
+                                                                <a href="${pageContext.request.contextPath}/watch_serial.html?id=${show.id}"
+                                                                   class="btn btn-outline-info btn-lg btn-iconed btn-rounded"
+                                                                   role="button"
+                                                                   aria-pressed="true">
+                                                                    <i class="far fa-eye"></i> <span
+                                                                        class="spn"><fmt:message key="look"
+                                                                                                 bundle="${ rb }"/></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </c:when>
+
+                                                    <c:when test="${watchStatus == true}">
+                                                        <div class="col-6">
+                                                            <div class="text-center">
+                                                                <a href="${pageContext.request.contextPath}/stop_watch_serial.html?id=${show.id}"
+                                                                   class="btn btn-outline-info btn-lg btn-iconed btn-rounded"
+                                                                   role="button"
+                                                                   aria-pressed="true">
+                                                                    <i class="fas fa-ban"></i> <span
+                                                                        class="spn"><fmt:message key="dontWatch"
+                                                                                                 bundle="${ rb }"/></span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </c:when>
+                                                </c:choose>
+
+
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="col-4 card p-0 border-light">
                             <div class="p-0 border-light">
@@ -89,28 +161,19 @@
                                                 </div>
                                             </div>
                                         </li>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-2 text-style">
+                                                    <i class="fa fa-heart fa-2x"></i>
+                                                    </i>
+                                                </div>
+                                                <div class="col-10 text-style">
+                                                    <fmt:message key="numberIfLikes" bundle="${ rb }"/>
+                                                    - ${show.countLike}
+                                                </div>
+                                            </div>
+                                        </li>
                                     </div>
-                                    <c:if test="${sessionScope.user != null}">
-                                        <c:choose>
-                                            <c:when test="${watchStatus == false}">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/watch_serial.html?id=${show.id}"
-                                                       class="btn btn-primary btn-lg btn-block text-style" role="button"
-                                                       aria-pressed="true">
-                                                        Смотреть</a>
-                                                </li>
-                                            </c:when>
-
-                                            <c:when test="${watchStatus == true}">
-                                                <li>
-                                                    <a href="${pageContext.request.contextPath}/stop_watch_serial.html?id=${show.id}"
-                                                       class="btn btn-primary btn-lg btn-block text-style" role="button"
-                                                       aria-pressed="true">
-                                                        Перестать смотреть</a>
-                                                </li>
-                                            </c:when>
-                                        </c:choose>
-                                    </c:if>
                                 </ul>
                             </div>
                         </div>
@@ -144,7 +207,7 @@
                                             <div class="modal-body">
 
                                                 <form method="post" enctype="multipart/form-data"
-                                                      action="${pageContext.request.contextPath}/change_serial.html?id=${show.id}">
+                                                      action="${pageContext.request.contextPath}/save_serial.html?id=${show.id}">
                                                     <div class="form-group mt-3">
                                                         <label for="exampleFormControlInput1">Название сериала:</label>
                                                         <input type="text" name="name" class="form-control"
@@ -357,8 +420,8 @@
                                                             ${comment.comment}
                                                     </p>
                                                 </div>
-                                                <c:if test="${sessionScope.user.equals(comment.user.login)}">
-                                                    <div class="col-1">
+                                                <div class="col-1">
+                                                    <c:if test="${sessionScope.user.equals(comment.user.login)}">
 
                                                         <a href="" data-toggle="modal"
                                                            data-target="#change${comment.id}"> <i
@@ -371,8 +434,7 @@
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Изменить
-                                                                            комменатрий</h5>
+                                                                        <h5 class="modal-title"><fmt:message key="edit" bundle="${ rb }"/></h5>
                                                                         <button type="button" class="close"
                                                                                 data-dismiss="modal"
                                                                                 aria-label="Close">
@@ -383,28 +445,28 @@
                                                                         <form method="post"
                                                                               action="${pageContext.request.contextPath}/save_comment.html?commentId=${comment.id}&id=${show.id}">
                                                                             <div class="form-group mt-3">
-                                                                                <input type="text" name="comment"
-                                                                                       class="form-control"
-                                                                                       value="${comment.comment}">
+
+                                                                                <textarea class="form-control"
+                                                                                          rows="5" name="comment"
+                                                                                          required>${comment.comment}</textarea>
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button"
                                                                                         class="btn btn-secondary"
                                                                                         data-dismiss="modal">
-                                                                                    Close
+                                                                                    <fmt:message key="cancel" bundle="${ rb }"/>
                                                                                 </button>
                                                                                 <button type="submit"
-                                                                                        class="btn btn-primary">Save
-                                                                                    changes
-                                                                                </button>
+                                                                                        class="btn btn-primary"><fmt:message key="confrim" bundle="${ rb }"/></button>
                                                                             </div>
                                                                         </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </c:if>
 
-
+                                                    <c:if test="${sessionScope.user.equals(comment.user.login) || sessionScope.role == 1}">
                                                         <a href="" data-toggle="modal"
                                                            data-target="#delete${comment.id}"> <i
                                                                 class="fas fa-trash-alt"></i></a>
@@ -416,9 +478,7 @@
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title">Вы уверены что хотите
-                                                                            удалить
-                                                                            комменатрий?</h5>
+                                                                        <h5 class="modal-title"><fmt:message key="delete" bundle="${ rb }"/></h5>
                                                                         <button type="button" class="close"
                                                                                 data-dismiss="modal"
                                                                                 aria-label="Close">
@@ -433,11 +493,11 @@
                                                                             <div class="modal-footer">
                                                                                 <button type="button"
                                                                                         class="btn btn-secondary"
-                                                                                        data-dismiss="modal">Отмена
+                                                                                        data-dismiss="modal"><fmt:message key="cancel" bundle="${ rb }"/>
                                                                                 </button>
                                                                                 <button type="submit"
                                                                                         class="btn btn-primary">
-                                                                                    Удалить
+                                                                                    <fmt:message key="delete" bundle="${ rb }"/>
                                                                                 </button>
                                                                             </div>
                                                                         </form>
@@ -445,20 +505,18 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                    </div>
-                                                </c:if>
+                                                    </c:if>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer text-muted">
-
+                                        <i class="far fa-clock"></i>
                                         <fmt:parseDate value="${comment.publicationDate}"
-                                                       pattern="yyyy-MM-dd'T'HH:mm:ss"
+                                                       pattern="yyyy-MM-dd'T'HH:mm"
                                                        var="time"
                                                        type="date"/>
                                         <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/>
-
                                     </div>
                                 </div>
                             </div>

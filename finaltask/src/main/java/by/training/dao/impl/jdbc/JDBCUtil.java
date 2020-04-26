@@ -76,7 +76,7 @@ public class JDBCUtil {
         }
     }
 
-    public static void populateSqlAndParams(StringBuilder sql, List<String> params, List<Integer> list, String expression) {
+    public static void populateSqlAndParams(StringBuilder sql, List<Object> params, List<Integer> list, String expression) {
         if (list != null && !list.isEmpty()) {
             sql.append(" AND (");
             for (int i = 0; i < list.size(); i++) {

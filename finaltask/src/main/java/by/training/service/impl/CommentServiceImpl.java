@@ -93,10 +93,10 @@ public class CommentServiceImpl implements CommentService {
     public boolean save(Comment comment) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
+            if (comment.getComment().length() > MAX_COMMENT_LENGTH) {
+                throw new ServiceException("Сomment length is too long", HttpServletResponse.SC_BAD_REQUEST);
+            }
             if (comment.getId() == 0) {
-                if (comment.getComment().length() > MAX_COMMENT_LENGTH) {
-                    throw new ServiceException("Сomment length is too long", HttpServletResponse.SC_BAD_REQUEST);
-                }
                 result = DaoFactory.getInstance().getCommentDao(transaction).create(comment);
             } else {
                 result = DaoFactory.getInstance().getCommentDao(transaction).update(comment);

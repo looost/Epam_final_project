@@ -14,6 +14,8 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     List<Serial> findSerialPageByPage(int page, int limit) throws ServiceException;
 
+    List<Serial> findMostLikedSerial(int page, int limit) throws ServiceException;
+
     List<Serial> latestSerial(int limit) throws ServiceException;
 
     int countAllSerial() throws ServiceException;
@@ -28,6 +30,20 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     boolean stopWatchSerial(String userId, String serialId) throws ServiceException;
 
-    List<Serial> findSerialsThatIWatch(String userId) throws ServiceException;
+    List<Serial> findSerialsThatIWatch(String userId, int page, int limit) throws ServiceException;
+
+    int countAllSerialsThatIWatch(String userId) throws ServiceException;
+
+    List<Serial> findSerialsThatILiked(String userId, int page, int limit) throws ServiceException;
+
+    int countAllSerialsThatILiked(String userId) throws ServiceException;
+
+    boolean save(Serial serial) throws ServiceException;
+
+    boolean userLikedThisSerial(String userId, String serialId) throws ServiceException;
+
+    boolean likeSerial(String userId, String serialId) throws ServiceException;
+
+    boolean dislikeSerial(String userId, String serialId) throws ServiceException;
 
 }

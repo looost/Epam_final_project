@@ -39,6 +39,7 @@
             </div>
 
 
+
             <%--            <div class="col-1 mb-3 p-0">--%>
             <%--                <jsp:useBean id="genres" scope="request" type="java.util.List"/>--%>
             <%--                <c:forEach var="g" items="${genres}">--%>
@@ -57,7 +58,8 @@
                                 <div class="col mb-4">
                                     <div class="card h-100">
                                         <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
-                                            <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
+                                            <img class="card-img-top"
+                                                 src="<c:url value="${s.logo}"/>" alt="Card image cap">
                                         </a>
 
                                         <div class="card-header">
@@ -114,10 +116,6 @@
 </div>
 
 <script>
-
-    // function pageClick5(pageNumber) {
-    //     $("#page-number-5").text(pageNumber);
-    // }
 
     $(document).ready(function () {
         var itemsCount = ${countAllSerial};

@@ -21,7 +21,6 @@
             <div class="col-10 mb-3">
                 <div class="container-fluid">
                     <div class="row">
-
                         <%--                        <c:forEach items="${shows}" var="s">--%>
                         <%--                            <div class="col-3 card p-0 mb-2">--%>
                         <%--                                <a href="/final/show.html?id=${s.id}">--%>

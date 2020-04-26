@@ -42,9 +42,6 @@ public class CommandUtil {
     }
 
     public static CommandResponse routingErrorPage(HttpServletRequest req, HttpServletResponse resp, int code) {
-        if (code == 404) {
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_NOT_FOUND_JSP, req, resp);
-        }
         req.setAttribute(ATTRIBUTE_STATUS_CODE, code);
         return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }

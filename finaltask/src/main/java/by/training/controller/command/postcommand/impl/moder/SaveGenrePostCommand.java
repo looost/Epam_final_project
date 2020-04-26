@@ -7,6 +7,7 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import by.training.utils.ResourceManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +23,8 @@ public class SaveGenrePostCommand implements Command {
         String genreName = req.getParameter(PARAMETER_GENRE);
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
         if (genreName.equals("")) {
-            req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, "Введите название жанра");
+            String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
+            req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, errorMessage);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         }
         Genre genre = new Genre(Integer.parseInt(id), genreName);
@@ -30,6 +32,10 @@ public class SaveGenrePostCommand implements Command {
             ServiceFactory.getInstance().getGenreService().save(genre);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         } catch (ServiceException e) {
+            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
+                req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, e.getMessage());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
+            }
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
     }

@@ -52,6 +52,9 @@
                     <c:when test="${statusCode == 500}"><p class="text-style"><fmt:message key="errorProcessingReq"
                                                                                            bundle="${ rb }"/></p>
                     </c:when>
+                    <c:when test="${statusCode == 404}"><p class="text-style"><fmt:message key="pageNotFound"
+                                                                                           bundle="${ rb }"/></p>
+                    </c:when>
                     <c:otherwise><p class="text-style"><fmt:message key="cantProcessReq" bundle="${ rb }"/></p>
                     </c:otherwise>
                 </c:choose>

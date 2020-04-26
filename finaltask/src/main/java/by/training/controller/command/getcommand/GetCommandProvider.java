@@ -21,6 +21,8 @@ public class GetCommandProvider {
         repository.put(CommandName.LOGOUT, new LogOutGetCommand());
         repository.put(CommandName.SEARCH, new SearchGetCommand());
         repository.put(CommandName.MY_SERIAL, new ViewedSerial());
+        repository.put(CommandName.LIKED, new LikedSerialGetCommand());
+        repository.put(CommandName.RATING, new MostLikedSerialGetCommand());
         repository.put(CommandName.PROFILE, new ProfileGetCommand());
         repository.put(CommandName.LANGUAGE, new LanguageGetCommand());
         repository.put(CommandName.ADMIN_SERIAL, new EditSerialGetCommand());
@@ -30,6 +32,8 @@ public class GetCommandProvider {
         repository.put(CommandName.ADMIN_USER, new EditUserGetCommand());
         repository.put(CommandName.WATCH_SERIAL, new WatchSerialGetCommand());
         repository.put(CommandName.STOP_WATCH_SERIAL, new StopWatchSerialGetCommand());
+        repository.put(CommandName.LIKE, new LikeSerialGetCommand());
+        repository.put(CommandName.DISLIKE, new DislikeSerialGetCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestGetCommand());
         repository.put(CommandName.ERROR, new ErrorGetCommand());
     }

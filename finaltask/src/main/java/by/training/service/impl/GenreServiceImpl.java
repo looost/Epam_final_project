@@ -107,6 +107,9 @@ public class GenreServiceImpl implements GenreService {
     public boolean save(Genre genre) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
+            if (findByName(genre.getName()) != null) {
+                throw new ServiceException("A genre with the same name already exists", HttpServletResponse.SC_BAD_REQUEST);
+            }
             if (genre.getId() == 0) {
                 result = DaoFactory.getInstance().getGenreDao(transaction).create(genre);
             } else {

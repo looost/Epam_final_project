@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static by.training.utils.ConstantName.*;
+import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
 
-public class WatchSerialGetCommand implements Command {
-
+public class DislikeSerialGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String serialId = req.getParameter(PARAMETER_ID);
         int userId = (Integer) req.getSession().getAttribute(ATTRIBUTE_USER_ID);
-            try {
-                ServiceFactory.getInstance().getSerialService().toWatchSerial(String.valueOf(userId), serialId);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
-            } catch (ServiceException e) {
-                return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
-            }
+        try {
+            ServiceFactory.getInstance().getSerialService().dislikeSerial(String.valueOf(userId), serialId);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
+        } catch (ServiceException e) {
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
+        }
     }
 }

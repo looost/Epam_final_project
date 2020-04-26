@@ -21,6 +21,9 @@
                 <a href="${pageContext.request.contextPath}/my_serial.html"
                    class="list-group-item list-group-item-action text-style">
                     <i class="fas fa-eye"></i> <fmt:message key="myShows" bundle="${ rb }"/></a>
+                <a href="${pageContext.request.contextPath}/liked.html"
+                   class="list-group-item list-group-item-action text-style">
+                    <i class="fas fa-heart"></i> <fmt:message key="liked" bundle="${ rb }"/></a>
             </div>
         </div>
         <div class="col-9">

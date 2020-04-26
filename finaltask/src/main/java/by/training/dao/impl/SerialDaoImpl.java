@@ -12,13 +12,19 @@ import by.training.model.Serial;
 import by.training.model.Studio;
 import by.training.model.form.SearchForm;
 import by.training.model.form.SearchQuery;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static by.training.utils.ConstantName.DEBUG_LOGGER;
+
 public class SerialDaoImpl implements SerialDao {
+
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     private Transaction transaction;
 
@@ -53,24 +59,24 @@ public class SerialDaoImpl implements SerialDao {
         this.transaction = transaction;
     }
 
-//    private static final String FIND_SERIAL_BY_NAME = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-//            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.name = ?";
-//    @Override
-//    public Serial findSerialByName(String name) throws DaoException {
-//        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_NAME,
-//                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), name);
-//    }
-
-    private static final String FIND_ALL_SERIAL = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
+    private static final String SELECT_ALL_SERIAL_FIELD = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
             " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s";
+
+    private static final String FIND_SERIAL_BY_NAME = SELECT_ALL_SERIAL_FIELD + " WHERE s.name = ?";
+    @Override
+    public Serial findSerialByName(String name) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_NAME,
+                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), name);
+    }
+
+    private static final String FIND_ALL_SERIAL = SELECT_ALL_SERIAL_FIELD;
     @Override
     public List<Serial> findAll() throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_ALL_SERIAL,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER));
     }
 
-    private static final String FIND_SERIAL_PAGE_BY_PAGE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s LIMIT ? OFFSET ?";
+    private static final String FIND_SERIAL_PAGE_BY_PAGE = SELECT_ALL_SERIAL_FIELD + " LIMIT ? OFFSET ?";
     @Override
     public List<Serial> findSerialPageByPage(int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
@@ -78,9 +84,15 @@ public class SerialDaoImpl implements SerialDao {
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit, offset);
     }
 
-    private static final String LATEST_SERIAL = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s ORDER BY s.id DESC LIMIT ?";
+    private static final String FIND_MOST_LIKED_SERIAL = SELECT_ALL_SERIAL_FIELD + " ORDER BY s.count_like DESC LIMIT ? OFFSET ?";
+    @Override
+    public List<Serial> findMostLikedSerial(int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        return JDBCUtil.select(transaction.getConnection(), FIND_MOST_LIKED_SERIAL,
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit, offset);
+    }
 
+    private static final String LATEST_SERIAL = SELECT_ALL_SERIAL_FIELD + " ORDER BY s.id DESC LIMIT ?";
     @Override
     public List<Serial> latestSerial(int limit) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), LATEST_SERIAL,
@@ -103,7 +115,7 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
     private SearchQuery buildSearchQuery(SearchForm searchForm) {
-        List<String> param = new ArrayList<>();
+        List<Object> param = new ArrayList<>();
         StringBuilder sql = new StringBuilder(FIND_SERIAL_BY_SEARCH_FORM_2);
         param.add("%" + searchForm.getQuery() + "%");
         param.add("%" + searchForm.getQuery() + "%");
@@ -113,16 +125,7 @@ public class SerialDaoImpl implements SerialDao {
         return new SearchQuery(sql, param);
     }
 
-//    private static final String FIND_SERIAL_BY_GENRE = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-//            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE sg.genre_id = ?";
-//    @Override
-//    public List<Serial> findSerialByGenre(String genreId) throws DaoException {
-//        return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_GENRE,
-//                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), genreId);
-//    }
-
-    private static final String FIND_SERIAL_BY_ID = "SELECT s.id, s.name, s.description, s.logo, s.full_logo," +
-            " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s WHERE s.id = ?";
+    private static final String FIND_SERIAL_BY_ID = SELECT_ALL_SERIAL_FIELD + " WHERE s.id = ?";
     @Override
     public Serial findById(String id) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_ID,
@@ -136,25 +139,14 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String CREATE_SERIAL = "INSERT INTO serial VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT, ?, ?)";
-    @Override
-    public boolean create(Serial entity) throws DaoException {
-        return JDBCUtil.execute(transaction.getConnection(), CREATE_SERIAL,
-                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(), entity.getReleaseDate(),
-                entity.getCountry().getId(), entity.getStudio().getId());
-    }
-
-    @Override
-    public int createAndReturnIndex(Serial serial) throws DaoException {
-        return JDBCUtil.executeAndReturnIndex(transaction.getConnection(), CREATE_SERIAL,
-                serial.getName(), serial.getDescription(), serial.getLogo(), serial.getFullLogo(), serial.getReleaseDate(),
-                serial.getCountry().getId(), serial.getStudio().getId());
-    }
-
     private static final String SERIAL_GENRE_VALUES = "INSERT INTO serial_genre VALUES (?, ?)";
     @Override
-    public boolean createSerialGenre(int serialId, List<Genre> genres) throws DaoException {
-        return JDBCUtil
-                .executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES, refactorToParamList(serialId, genres));
+    public boolean create(Serial serial) throws DaoException {
+        int serialId = JDBCUtil.executeAndReturnIndex(transaction.getConnection(), CREATE_SERIAL,
+                serial.getName(), serial.getDescription(), serial.getLogo(), serial.getFullLogo(), serial.getReleaseDate(),
+                serial.getCountry().getId(), serial.getStudio().getId());
+        return JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
+                        refactorToParamList(serialId, serial.getGenres()));
     }
 
     private List<Object[]> refactorToParamList(int serialId, List<Genre> genres) {
@@ -168,11 +160,15 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?," +
             "  country_id = ?, studio_id = ? WHERE id = ?";
+    private static final String DELETE_SERIAL_GENRE = "DELETE FROM serial_genre WHERE serial_id = ?";
     @Override
     public boolean update(Serial entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_SERIAL,
                 entity.getName(), entity.getDescription(),
-                entity.getCountry().getId(), entity.getStudio().getId(), entity.getId());
+                entity.getCountry().getId(), entity.getStudio().getId(), entity.getId()) &
+                JDBCUtil.execute(transaction.getConnection(), DELETE_SERIAL_GENRE, entity.getId()) &
+                JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
+                                refactorToParamList(entity.getId(), entity.getGenres()));
     }
 
     private static final String WATCH_SERIAL = "INSERT INTO viewed VALUES (?, ?)";
@@ -187,19 +183,63 @@ public class SerialDaoImpl implements SerialDao {
         return JDBCUtil.execute(transaction.getConnection(), STOP_WATCH_SERIAL, userId, serialId);
     }
 
-    private static final String SERIAL_IS_WATCH_STATUS = "SELECT s.id, s.name, s.description, s.logo, s.full_logo, " +
-            "s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ? and v.serial_id = ?";
+    private static final String SERIAL_IS_WATCH_STATUS = SELECT_ALL_SERIAL_FIELD + " JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ? and v.serial_id = ?";
     @Override
-    public Serial userWatchThisSerial(String serialId, String userId) throws DaoException {
+    public boolean userWatchThisSerial(String serialId, String userId) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), SERIAL_IS_WATCH_STATUS,
-                ResultSetHandlerFactory.getSingleResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId, serialId);
+                ResultSetHandlerFactory.getCountResultSetHandler(), userId, serialId) != 0;
     }
 
-    private static final String FIND_SERIALS_THAT_I_WATCH = "SELECT s.id, s.name, s.description, s.logo, s.full_logo, " +
-            "s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ?";
+    private static final String FIND_SERIALS_THAT_I_WATCH = SELECT_ALL_SERIAL_FIELD + " JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ? LIMIT ? OFFSET ?";
     @Override
-    public List<Serial> findSerialsThatIWatch(String userId) throws DaoException {
+    public List<Serial> findSerialsThatIWatch(String userId, int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
         return JDBCUtil.select(transaction.getConnection(), FIND_SERIALS_THAT_I_WATCH,
-                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId);
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId, limit, offset);
+    }
+
+    private static final String COUNT_ALL_SERIALS_THAT_I_WATCH = "SELECT COUNT(*) FROM viewed WHERE user_id = ?";
+    @Override
+    public int countAllSerialsThatIWatch(String userId) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_SERIALS_THAT_I_WATCH,
+                ResultSetHandlerFactory.getCountResultSetHandler(), userId);
+    }
+
+    private static final String FIND_SERIALS_THAT_I_LIKED = SELECT_ALL_SERIAL_FIELD + " JOIN liked l on s.id = l.serial_id WHERE l.user_id = ? LIMIT ? OFFSET ?";
+    @Override
+    public List<Serial> findSerialsThatILiked(String userId, int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        return JDBCUtil.select(transaction.getConnection(), FIND_SERIALS_THAT_I_LIKED,
+                ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId, limit, offset);
+    }
+
+    private static final String COUNT_ALL_SERIALS_THAT_I_LIKED = "SELECT COUNT(*) FROM liked WHERE user_id = ?";
+    @Override
+    public int countAllSerialsThatILiked(String userId) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_SERIALS_THAT_I_LIKED,
+                ResultSetHandlerFactory.getCountResultSetHandler(), userId);
+    }
+
+    private static final String LIKE_SERIAL = "UPDATE serial SET count_like = count_like + 1 WHERE id = ?";
+    private static final String ADD_IN_LIKED = "INSERT INTO liked VALUES (?, ?)";
+    @Override
+    public boolean likeSerial(String userId, String serialId) throws DaoException {
+        return JDBCUtil.execute(transaction.getConnection(), LIKE_SERIAL, serialId) &&
+                JDBCUtil.execute(transaction.getConnection(), ADD_IN_LIKED, userId, serialId);
+    }
+
+    private static final String DISLIKE_SERIAL = "UPDATE serial SET count_like = count_like - 1 WHERE id = ?";
+    private static final String REMOVE_IN_LIKED = "DELETE FROM liked WHERE (user_id = ? and serial_id = ?)";
+    @Override
+    public boolean dislikeSerial(String userId, String serialId) throws DaoException {
+        return JDBCUtil.execute(transaction.getConnection(), DISLIKE_SERIAL, serialId) &&
+                JDBCUtil.execute(transaction.getConnection(), REMOVE_IN_LIKED, userId, serialId);
+    }
+
+    private static final String SERIAL_IS_LIKED_STATUS = SELECT_ALL_SERIAL_FIELD + " JOIN liked l on s.id = l.serial_id WHERE l.user_id = ? and l.serial_id = ?";
+    @Override
+    public boolean userLikedThisSerial(String userId, String serialId) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), SERIAL_IS_LIKED_STATUS,
+                ResultSetHandlerFactory.getCountResultSetHandler(), userId, serialId) != 0;
     }
 }

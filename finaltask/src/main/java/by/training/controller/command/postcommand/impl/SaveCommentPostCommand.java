@@ -9,6 +9,7 @@ import by.training.model.Serial;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import by.training.utils.ResourceManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,6 +32,11 @@ public class SaveCommentPostCommand implements Command {
         String commentId = req.getParameter(PARAMETER_COMMENT_ID) != null ? req.getParameter(PARAMETER_COMMENT_ID) : String.valueOf(0);
         String text = req.getParameter(PARAMETER_COMMENT);
         try {
+            if (text.equals("")) {
+                String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
+                req.getSession().setAttribute(ATTRIBUTE_COMMENT_PROBLEM, errorMessage);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
+            }
             User user = ServiceFactory.getInstance().getUserService()
                     .findByLogin(session.getAttribute(ATTRIBUTE_USER).toString());
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(serialId);
@@ -52,8 +58,7 @@ public class SaveCommentPostCommand implements Command {
         } catch (NumberFormatException e) {
             logger.error("Cannot cast value to int - " + commentId, e);
             req.getSession().setAttribute(ATTRIBUTE_STATUS_CODE, HttpServletResponse.SC_BAD_REQUEST);
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
-            //return CommandUtil.routingErrorPage(req, resp, HttpServletResponse.SC_BAD_REQUEST);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_ERROR_PAGE, req, resp);
         }
     }
 }

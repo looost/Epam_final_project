@@ -33,7 +33,7 @@
                      aria-labelledby="pills-serial-tab">
 
                     <form class="was-validated mt-2" method="post" enctype="multipart/form-data"
-                          action="${pageContext.request.contextPath}/add_serial.html">
+                          action="${pageContext.request.contextPath}/save_serial.html">
 
                         <div class="mb-3">
                             <label for="validationName"><fmt:message key="enterSerialName" bundle="${ rb }"/>:</label>
@@ -64,27 +64,17 @@
                             <input type="file" class="custom-file-input" id="validatedLogo" name="logo">
                             <label class="custom-file-label" for="validatedLogo"><fmt:message key="loadSerialLogo"
                                                                                               bundle="${ rb }"/></label>
-                            <c:if test="${logoProblem != null}">
-                                <div class="invalid-feedback mb-4">
-                                        ${logoProblem}
-                                </div>
-                            </c:if>
                         </div>
 
                         <div class="custom-file mb-3">
                             <input type="file" class="custom-file-input" id="validatedFullLogo" name="full_logo">
                             <label class="custom-file-label" for="validatedFullLogo"><fmt:message
                                     key="loadSerialFullLogo" bundle="${ rb }"/></label>
-                            <c:if test="${fullLogoProblem != null}">
-                                <div class="invalid-feedback mb-4">
-                                        ${fullLogoProblem}
-                                </div>
-                            </c:if>
                         </div>
 
                         <div class="form-group">
                             <label for="date"><fmt:message key="enterSerialReleaseDate" bundle="${ rb }"/>:</label>
-                            <input type="date" class="form-control" name="release_date" id="date">
+                            <input type="date" class="form-control" name="release_date" id="date" required>
                             <c:if test="${releaseDateProblem != null}">
                                 <div class="invalid-feedback">
                                         ${releaseDateProblem}

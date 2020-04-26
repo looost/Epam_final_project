@@ -182,13 +182,13 @@ public class SerialDaoImplTest {
         };
     }
 
-    @Test(dataProvider = "positiveDataForFindSerialBySearchForm")
-    public void testFindSerialBySearchForm(SearchForm searchForm, List<Serial> expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
-            when(transaction.getConnection()).thenReturn(connection);
-            assertEquals(dao.findSerialBySearchForm(searchForm), expected);
-        }
-    }
+//    @Test(dataProvider = "positiveDataForFindSerialBySearchForm")
+//    public void testFindSerialBySearchForm(SearchForm searchForm, List<Serial> expected) throws DaoException, SQLException {
+//        try (Connection connection = connectionPool.getConnection()) {
+//            when(transaction.getConnection()).thenReturn(connection);
+//            assertEquals(dao.findSerialBySearchForm(searchForm), expected);
+//        }
+//    }
 
     @DataProvider(name = "dataForFindById")
     public Object[][] createPositiveDataForFindById() {
@@ -337,97 +337,6 @@ public class SerialDaoImplTest {
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             dao.create(expected);
-            connection.rollback();
-        }
-    }
-
-    @DataProvider(name = "positiveCreateAndReturnIndex")
-    public Object[] createPositiveDataForCreateAndReturnIndex() {
-        return new Object[]{
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MIN_VALUE, "TEST23423", "1", null, "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MIN_VALUE, "", "1", null, "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MIN_VALUE, "TEST23423", "", null, "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", null, Date.valueOf(LocalDate.now()),
-                        0, new Country(3), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", null, null, Date.valueOf(LocalDate.now()),
-                        0, new Country(3), new Studio(3),
-                        Collections.emptyList(), Collections.emptyList())
-        };
-    }
-
-    @Test(dataProvider = "positiveCreateAndReturnIndex")
-    public void testCreateAndReturnIndex(Serial serial) throws DaoException, SQLException {
-
-    }
-
-    @DataProvider(name = "positiveCreateSerialGenre")
-    public Object[] createPositiveDataForCreateSerialGenre() {
-        return new Object[][]{
-                {1, Collections.singletonList(
-                        new Genre(3)
-                )},
-                {2, Collections.singletonList(
-                        new Genre(2)
-                )},
-                {3, Arrays.asList(
-                        new Genre(3), new Genre(1)
-                )},
-                {4, Collections.emptyList()}
-        };
-    }
-
-    @Test(dataProvider = "positiveCreateSerialGenre")
-    public void testPositiveCreateSerialGenre(int serialId, List<Genre> genres) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
-            connection.setAutoCommit(false);
-            when(transaction.getConnection()).thenReturn(connection);
-            assertTrue(dao.createSerialGenre(serialId, genres));
-            connection.rollback();
-        }
-    }
-
-    @DataProvider(name = "negativeCreateSerialGenre")
-    public Object[] createNegativeDataForCreateSerialGenre() {
-        return new Object[][]{
-                {4, Arrays.asList(
-                        new Genre(1),
-                        new Genre(2),
-                        new Genre(3)
-                )},
-                {Integer.MIN_VALUE, Arrays.asList(
-                        new Genre(2),
-                        new Genre(3)
-                )},
-                {0, Collections.singletonList(
-                        new Genre(3)
-                )},
-                {2, Collections.singletonList(
-                        new Genre(-2))},
-                {1, Collections.singletonList(
-                        new Genre()
-                )},
-                {2, Collections.singletonList(
-                        new Genre(Integer.MAX_VALUE)
-                )},
-        };
-    }
-
-    @Test(dataProvider = "negativeCreateSerialGenre", expectedExceptions = DaoException.class)
-    public void testNegativeCreateSerialGenre(int serialId, List<Genre> genres) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
-            connection.setAutoCommit(false);
-            when(transaction.getConnection()).thenReturn(connection);
-            dao.createSerialGenre(serialId, genres);
             connection.rollback();
         }
     }
@@ -651,15 +560,15 @@ public class SerialDaoImplTest {
         };
     }
 
-    @Test(dataProvider = "createPositiveFindSerialsThatIWatch")
-    public void testFindSerialsThatIWatch(String userId, List<Serial> expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
-            when(transaction.getConnection()).thenReturn(connection);
-            connection.setAutoCommit(false);
-            assertEquals(dao.findSerialsThatIWatch(userId), expected);
-            connection.rollback();
-        }
-    }
+//    @Test(dataProvider = "createPositiveFindSerialsThatIWatch")
+//    public void testFindSerialsThatIWatch(String userId, List<Serial> expected) throws DaoException, SQLException {
+//        try (Connection connection = connectionPool.getConnection()) {
+//            when(transaction.getConnection()).thenReturn(connection);
+//            connection.setAutoCommit(false);
+//            assertEquals(dao.findSerialsThatIWatch(userId), expected);
+//            connection.rollback();
+//        }
+//    }
 
     @AfterTest
     public void destroyConnectionPool() {

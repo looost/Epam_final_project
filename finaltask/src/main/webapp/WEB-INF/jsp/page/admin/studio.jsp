@@ -29,12 +29,15 @@
         <div class="col-9">
 
             <div class="card-body">
-                <form method="post" action="${pageContext.request.contextPath}/save_studio.html">
+                <form method="post" action="${pageContext.request.contextPath}/save_studio.html" class="was-validated">
                     <div class="form-group">
                         <div class="mb-2">
                             <label for="addStudio"><fmt:message key="enterStudioName" bundle="${ rb }"/>:</label>
                             <input type="text" name="studio" class="form-control" id="addStudio"
-                                   placeholder="<fmt:message key="enterStudioName" bundle="${ rb }"/>">
+                                   placeholder="<fmt:message key="enterStudioName" bundle="${ rb }"/>" required>
+                            <div class="invalid-feedback">
+                                ${studioProblem}
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                     </div>

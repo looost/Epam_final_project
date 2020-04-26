@@ -15,7 +15,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <a class="navbar-brand" href="${pageContext.request.contextPath}/index.html">
-        <img src="${pageContext.request.contextPath}/img/logo.png" width="123" height="27"
+
+        <img src=" <c:url value="/img/logo.png"/>" width="123" height="27"
              class="d-inline-block align-top" alt="">
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,6 +25,10 @@
                 <a class="nav-link text-style" href="${pageContext.request.contextPath}/index.html">
                     <fmt:message key="home" bundle="${ rb }"/>
                     <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-style" href="${pageContext.request.contextPath}/rating.html">
+                    <fmt:message key="rating" bundle="${ rb }"/></a>
             </li>
             <%--            <li class="nav-item">--%>
             <%--                <a class="nav-link" href="/final/index.html">Сериалы</a>--%>

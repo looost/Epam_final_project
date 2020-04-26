@@ -8,7 +8,7 @@
 <fmt:setBundle basename="property.text" var="rb"/>
 <!-- portfolio -->
 <div class="portfolio">
-    <h1 class="text-center m-3 text-style"><fmt:message key="myShows" bundle="${ rb }"/></h1>
+    <h1 class="text-center m-3 text-style"><fmt:message key="liked" bundle="${ rb }"/></h1>
 
 
     <div class="container-fluid">
@@ -21,10 +21,10 @@
                        class="list-group-item list-group-item-action text-style">
                         <i class="fas fa-user-edit"></i> <fmt:message key="profile" bundle="${ rb }"/></a>
                     <a href="${pageContext.request.contextPath}/my_serial.html"
-                       class="list-group-item list-group-item-action text-style active">
+                       class="list-group-item list-group-item-action text-style">
                         <i class="fas fa-eye"></i> <fmt:message key="myShows" bundle="${ rb }"/></a>
                     <a href="${pageContext.request.contextPath}/liked.html"
-                       class="list-group-item list-group-item-action text-style">
+                       class="list-group-item list-group-item-action text-style active">
                         <i class="fas fa-heart"></i> <fmt:message key="liked" bundle="${ rb }"/></a>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                                 <div class="alert alert-info m-2 text-center" role="alert">
                                     <h4 class="alert-heading">УПС!</h4>
                                     <hr>
-                                    <p class="mb-0">Вы пока не смотритите никаких сериалов!</p>
+                                    <p class="mb-0">У вас пока нету понравившехся сериалов!</p>
                                 </div>
                             </div>
                         </c:if>

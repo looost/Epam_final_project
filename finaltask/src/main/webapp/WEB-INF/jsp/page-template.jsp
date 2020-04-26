@@ -53,7 +53,8 @@
     <title>Shows</title>
 </head>
 
-<body>
+<body class="d-flex flex-column">
+<div class="flex-grow-1 flex-shrink-0">
 
 <header>
     <jsp:include page="/WEB-INF/jsp/fragment/header.jsp"/>
@@ -61,9 +62,9 @@
 <main>
     <jsp:include page="${currentPage}"/>
 </main>
-
+</div>
 </body>
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+<footer id="sticky-footer" class="py-4 bg-dark text-white-50 flex-shrink-0">
     <jsp:include page="/WEB-INF/jsp/fragment/footer.jsp"/>
 </footer>
 
