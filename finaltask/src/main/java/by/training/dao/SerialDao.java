@@ -22,7 +22,9 @@ public interface SerialDao extends AbstractDao<String, Serial> {
 
     int countAllSerials() throws DaoException;
 
-    List<Serial> findSerialBySearchForm(SearchForm searchForm) throws DaoException;
+    List<Serial> findSerialBySearchForm(SearchForm searchForm, int page, int limit) throws DaoException;
+
+    int countAllSerialsBySearchForm(SearchForm searchForm) throws DaoException;
 
     //List<Serial> findSerialByGenre(String genreId) throws DaoException;
 

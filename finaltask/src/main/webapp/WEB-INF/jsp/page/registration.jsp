@@ -80,9 +80,9 @@
                                                 <input id="inputLogin" type="text" name="login"
                                                        placeholder="<fmt:message key="login" bundle="${ rb }"/>"
                                                        required="" autofocus=""
-                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 ${incorrect != null ? 'is-invalid' : ''}">
-                                                <c:if test="${not empty incorrect}">
-                                                    <div class="invalid-feedback text-style">${incorrect}</div>
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 ${incorrectLogin != null ? 'is-invalid' : ''}">
+                                                <c:if test="${not empty incorrectLogin}">
+                                                    <div class="invalid-feedback text-style">${incorrectLogin}</div>
                                                 </c:if>
                                             </div>
                                         </div>

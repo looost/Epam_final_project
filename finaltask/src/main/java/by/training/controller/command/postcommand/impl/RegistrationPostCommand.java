@@ -17,7 +17,7 @@ import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
-public class RegistrPostCommand implements Command {
+public class RegistrationPostCommand implements Command {
 
 
     @Override
@@ -29,16 +29,12 @@ public class RegistrPostCommand implements Command {
         User user = new User(login, password);
 
         try {
-            if (ServiceFactory.getInstance().getUserService().create(user)) {
+            if (ServiceFactory.getInstance().getUserService().save(user)) {
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
-                //RoutingUtils.redirectToPage("/final/login.html", resp);
             } else {
-                Map<String, String> error = new HashMap<>();
-                error.put("incorrect", "Пользователь с таким логином уже существует!");
-                req.getSession().setAttribute(ATTRIBUTE_ERROR, error);
-                //req.getSession().setAttribute("incorrect", "Пользователь с таким логином уже существует!");
+                req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN,
+                        "Пользователь с таким логином уже существует!");
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_REGISTRATION_PAGE, req, resp);
-                //RoutingUtils.redirectToPage("/final/registration.html", resp);
             }
         } catch (ServiceException e) {
             e.printStackTrace();

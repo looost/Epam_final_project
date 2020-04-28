@@ -26,15 +26,21 @@ public class SearchGetCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
+            int page = 1;
+            if (req.getParameter(PARAMETER_PAGE) != null) {
+                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
+            }
             SearchForm searchForm = new SearchForm(req.getParameter(PARAMETER_QUERY), req.getParameterValues(PARAMETER_GENRE),
                     req.getParameterValues(PARAMETER_COUNTRY), req.getParameterValues(PARAMETER_STUDIO));
 
+            int countAllSerial = ServiceFactory.getInstance().getSerialService().countAllSerialsBySearchForm(searchForm);
             List<Serial> serialList = ServiceFactory.getInstance()
-                    .getSerialService().findSerialBySearchForm(searchForm);
+                    .getSerialService().findSerialBySearchForm(searchForm, page, COUNT_SERIAL_IN_SEARCH_PAGE);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
             List country = ServiceFactory.getInstance().getCountryService().findAll();
             List studio = ServiceFactory.getInstance().getStudioService().findAll();
-
+            req.setAttribute(PARAMETER_COUNT_ALL_SERIALS, countAllSerial);
+            req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_SERIAL_IN_SEARCH_PAGE);
             req.setAttribute(ATTRIBUTE_SHOWS, serialList);
             req.setAttribute(ATTRIBUTE_GENRES, genres);
             req.setAttribute(ATTRIBUTE_COUNTRY, country);

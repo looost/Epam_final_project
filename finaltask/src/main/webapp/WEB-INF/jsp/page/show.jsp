@@ -165,7 +165,6 @@
                                             <div class="row">
                                                 <div class="col-2 text-style">
                                                     <i class="fa fa-heart fa-2x"></i>
-                                                    </i>
                                                 </div>
                                                 <div class="col-10 text-style">
                                                     <fmt:message key="numberIfLikes" bundle="${ rb }"/>

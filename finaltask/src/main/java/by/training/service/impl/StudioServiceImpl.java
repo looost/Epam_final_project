@@ -94,7 +94,6 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

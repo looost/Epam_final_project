@@ -31,8 +31,8 @@ public class ChangePasswordPostCommand implements Command {
             String newPassword = BCrypt.hashpw(req.getParameter(PARAMETER_NEW_PASSWORD), BCrypt.gensalt());
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);
             if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-                user = new User(login, newPassword);
-                ServiceFactory.getInstance().getUserService().update(user);
+                user.setPassword(newPassword);
+                ServiceFactory.getInstance().getUserService().save(user);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
             } else {
                 String errorMessage = ResourceManager.INSTANCE

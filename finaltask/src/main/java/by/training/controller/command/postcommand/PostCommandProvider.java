@@ -14,7 +14,7 @@ public class PostCommandProvider {
     private final Map<CommandName, Command> repository = new EnumMap<>(CommandName.class);
 
     private PostCommandProvider() {
-        repository.put(CommandName.REGISTRATION, new RegistrPostCommand());
+        repository.put(CommandName.REGISTRATION, new RegistrationPostCommand());
         repository.put(CommandName.LOGIN, new LoginPostCommand());
         repository.put(CommandName.SAVE_GENRE, new SaveGenrePostCommand());
         repository.put(CommandName.DELETE_GENRE, new DeleteGenrePostCommand());

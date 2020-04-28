@@ -68,4 +68,26 @@ public class Genre extends AbstractEntity {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public static class Builder {
+        private Genre newGenre;
+
+        public Builder() {
+            newGenre = new Genre();
+        }
+
+        public Builder withId(int id) {
+            newGenre.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            newGenre.name = name;
+            return this;
+        }
+
+        public Genre build() {
+            return newGenre;
+        }
+    }
 }

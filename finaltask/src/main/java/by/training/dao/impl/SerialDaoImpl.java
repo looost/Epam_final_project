@@ -107,22 +107,36 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     @Override
-    public List<Serial> findSerialBySearchForm(SearchForm searchForm) throws DaoException {
-        SearchQuery query = buildSearchQuery(searchForm);
+    public List<Serial> findSerialBySearchForm(SearchForm searchForm, int page, int limit) throws DaoException {
+        int offset = (page - 1) * limit;
+        SearchQuery query = buildSearchQuery(searchForm, FIND_SERIAL_BY_SEARCH_FORM_2);
+        query.getSql().append(" LIMIT ? OFFSET ?");
+        query.getParams().add(limit);
+        query.getParams().add(offset);
         return JDBCUtil.select(transaction.getConnection(), query.getSql().toString(),
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), query.getParams().toArray());
     }
 
     private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
-    private SearchQuery buildSearchQuery(SearchForm searchForm) {
+
+    private SearchQuery buildSearchQuery(SearchForm searchForm, String temp) {
         List<Object> param = new ArrayList<>();
-        StringBuilder sql = new StringBuilder(FIND_SERIAL_BY_SEARCH_FORM_2);
+        StringBuilder sql = new StringBuilder(temp);
         param.add("%" + searchForm.getQuery() + "%");
         param.add("%" + searchForm.getQuery() + "%");
         JDBCUtil.populateSqlAndParams(sql, param, searchForm.getGenres(), "sg.genre_id = ?");
         JDBCUtil.populateSqlAndParams(sql, param, searchForm.getCountry(), "s.country_id = ?");
         JDBCUtil.populateSqlAndParams(sql, param, searchForm.getStudio(), "s.studio_id = ?");
         return new SearchQuery(sql, param);
+    }
+
+    private static final String COUNT_ALL_SERIAL_BY_SEARCH_FORM = "SELECT COUNT(DISTINCT s.id) FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
+
+    @Override
+    public int countAllSerialsBySearchForm(SearchForm searchForm) throws DaoException {
+        SearchQuery query = buildSearchQuery(searchForm, COUNT_ALL_SERIAL_BY_SEARCH_FORM);
+        return JDBCUtil.select(transaction.getConnection(), query.getSql().toString(),
+                ResultSetHandlerFactory.getCountResultSetHandler(), query.getParams().toArray());
     }
 
     private static final String FIND_SERIAL_BY_ID = SELECT_ALL_SERIAL_FIELD + " WHERE s.id = ?";
@@ -159,12 +173,12 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?," +
-            "  country_id = ?, studio_id = ? WHERE id = ?";
+            " release_date = ?, country_id = ?, studio_id = ? WHERE id = ?";
     private static final String DELETE_SERIAL_GENRE = "DELETE FROM serial_genre WHERE serial_id = ?";
     @Override
     public boolean update(Serial entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_SERIAL,
-                entity.getName(), entity.getDescription(),
+                entity.getName(), entity.getDescription(), entity.getReleaseDate(),
                 entity.getCountry().getId(), entity.getStudio().getId(), entity.getId()) &
                 JDBCUtil.execute(transaction.getConnection(), DELETE_SERIAL_GENRE, entity.getId()) &
                 JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,

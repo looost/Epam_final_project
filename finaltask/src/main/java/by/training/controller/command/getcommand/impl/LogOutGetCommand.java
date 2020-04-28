@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static by.training.utils.ConstantName.ATTRIBUTE_USER;
-import static by.training.utils.ConstantName.ROUTING_INDEX_PAGE;
+import static by.training.utils.ConstantName.*;
 
 public class LogOutGetCommand implements Command {
 
@@ -19,7 +18,8 @@ public class LogOutGetCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.removeAttribute(ATTRIBUTE_USER);
+        session.removeAttribute(ATTRIBUTE_USER_ROLE);
+        session.removeAttribute(ATTRIBUTE_USER_ID);
         return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
-        //RoutingUtils.redirectToPage("/final/index.html", resp);
     }
 }

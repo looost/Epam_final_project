@@ -4,7 +4,28 @@
 
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
-<div class="container-fluid">
+
+<div class="position-absolute w-100 d-flex flex-column p-4">
+
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <div class="toast" style="position: fixed; bottom: 5%; right: 2%; z-index: 1000;" data-autohide="false">
+            <div class="toast-header">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message. Все круто добавилось
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="container-fluid text-style">
 
     <div class="row">
         <div class="col-2 m-2">
@@ -32,6 +53,16 @@
                 <form class="was-validated mt-2" method="post"
                       action="${pageContext.request.contextPath}/save_genre.html">
                     <div class="mb-3">
+                        <c:if test="${not empty genreProblem}">
+                            <div class="alert alert-danger text-style" role="alert">
+                                <p><strong>Данные не корректны, проверьте вводимые данные:</strong></p>
+                                <ul>
+                                    <li>Название не может повторяться</li>
+                                    <li>Название не может быть пустое</li>
+                                    <li>Длинна название не должна превышать 32 символа</li>
+                                </ul>
+                            </div>
+                        </c:if>
                         <label for="validationName"><fmt:message key="enterGenreName" bundle="${ rb }"/>:</label>
                         <input type="text" name="genre" class="form-control is-invalid"
                                id="validationName" placeholder="<fmt:message key="enterGenreName" bundle="${ rb }"/>"
@@ -169,6 +200,15 @@
 <div id="content">
     <div id="pagination-5" class="pagination pagination-lg justify-content-center "></div>
 </div>
+
+<script>
+    (function () {
+        if (${empty genreProblem}) {
+            $('.toast').toast('show');
+        }
+    })();
+
+</script>
 
 <script>
 

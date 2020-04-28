@@ -96,16 +96,27 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public List<Serial> findSerialBySearchForm(SearchForm searchForm) throws ServiceException {
+    public List<Serial> findSerialBySearchForm(SearchForm searchForm, int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             if (searchForm.getQuery() == null) {
                 searchForm.setQuery("");
             }
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialBySearchForm(searchForm);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialBySearchForm(searchForm, page, limit);
             serialList = TransactionUtil
                     .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
             return serialList;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public int countAllSerialsBySearchForm(SearchForm searchForm) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsBySearchForm(searchForm);
+            transaction.commit();
+            return result;
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
@@ -310,7 +321,6 @@ public class SerialServiceImpl implements SerialService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

@@ -51,31 +51,31 @@ public class Serial extends AbstractEntity {
 //        this.genres = genres;
 //    }
 //
-public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio) {
-    super(id);
-    this.name = name;
-    this.description = description;
-    this.logo = logo;
-    this.fullLogo = fullLogo;
-    this.releaseDate = releaseDate;
-    this.countLike = countLike;
-    this.country = country;
-    this.studio = studio;
-}
-
-    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
-        super(id);
-        this.name = name;
-        this.description = description;
-        this.logo = logo;
-        this.fullLogo = fullLogo;
-        this.releaseDate = releaseDate;
-        this.countLike = countLike;
-        this.country = country;
-        this.studio = studio;
-        this.genres = genres;
-        this.comments = comments;
-    }
+//public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio) {
+//    super(id);
+//    this.name = name;
+//    this.description = description;
+//    this.logo = logo;
+//    this.fullLogo = fullLogo;
+//    this.releaseDate = releaseDate;
+//    this.countLike = countLike;
+//    this.country = country;
+//    this.studio = studio;
+//}
+//
+//    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
+//        super(id);
+//        this.name = name;
+//        this.description = description;
+//        this.logo = logo;
+//        this.fullLogo = fullLogo;
+//        this.releaseDate = releaseDate;
+//        this.countLike = countLike;
+//        this.country = country;
+//        this.studio = studio;
+//        this.genres = genres;
+//        this.comments = comments;
+//    }
 
     public String getName() {
         return name;
@@ -204,5 +204,72 @@ public Serial(int id, String name, String description, String logo, String fullL
                 ", genres=" + genres +
                 ", comments=" + comments +
                 '}';
+    }
+
+    public static class Builder {
+        private Serial newSerial;
+
+        public Builder() {
+            newSerial = new Serial();
+        }
+
+        public Builder withId(int id) {
+            newSerial.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            newSerial.name = name;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            newSerial.description = description;
+            return this;
+        }
+
+        public Builder withLogo(String logo) {
+            newSerial.logo = logo;
+            return this;
+        }
+
+        public Builder withFullLogo(String fullLogo) {
+            newSerial.fullLogo = fullLogo;
+            return this;
+        }
+
+        public Builder withReleaseDate(Date releaseDate) {
+            newSerial.releaseDate = releaseDate;
+            return this;
+        }
+
+        public Builder withCountLike(int countLike) {
+            newSerial.countLike = countLike;
+            return this;
+        }
+
+        public Builder withCountry(Country country) {
+            newSerial.country = country;
+            return this;
+        }
+
+        public Builder withStudio(Studio studio) {
+            newSerial.studio = studio;
+            return this;
+        }
+
+        public Builder withGenres(List<Genre> genres) {
+            newSerial.genres = genres;
+            return this;
+        }
+
+        public Builder withComments(List<Comment> comments) {
+            newSerial.comments = comments;
+            return this;
+        }
+
+        public Serial build() {
+            return newSerial;
+        }
     }
 }

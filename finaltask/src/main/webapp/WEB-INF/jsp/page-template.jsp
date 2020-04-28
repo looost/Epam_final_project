@@ -16,21 +16,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap.min.css"/>"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 
     <!-- Google fonts - Popppins for copy-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
-    <style>
-        <%@ include file="../../css/orionicons.css" %>
-    </style>
-    <style>
-        <%@ include file="../../css/style.sea.css" %>
-    </style>
-    <style>
-        <%@ include file="../../css/custom.css" %>
-    </style>
+
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/orionicons.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.sea.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/css/custom.css"/>"/>
 
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -45,9 +39,8 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <script type="text/javascript">
-        <%@ include file="../../js/dist/pagination.js" %>
-    </script>
+    <script type="text/javascript" src="<c:url value="/js/dist/pagination.js"/>"></script>
+
 
     <%--    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--%>
     <title>Shows</title>

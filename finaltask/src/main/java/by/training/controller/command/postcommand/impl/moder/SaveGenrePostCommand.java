@@ -22,11 +22,11 @@ public class SaveGenrePostCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String genreName = req.getParameter(PARAMETER_GENRE);
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
-        if (genreName.equals("")) {
-            String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
-            req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, errorMessage);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
-        }
+//        if (genreName.equals("")) {
+//            String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
+//            req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, errorMessage);
+//            return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
+//        }
         Genre genre = new Genre(Integer.parseInt(id), genreName);
         try {
             ServiceFactory.getInstance().getGenreService().save(genre);

@@ -1,15 +1,10 @@
 package by.training.service.impl;
 
-import by.training.dao.GenreDao;
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
-import by.training.dao.impl.GenreDaoImpl;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.*;

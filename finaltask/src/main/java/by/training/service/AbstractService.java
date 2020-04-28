@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public interface AbstractService<KEY, ENTITY extends AbstractEntity> {
-    Logger logger = LogManager.getLogger("exception");
 
     ENTITY findById(KEY id) throws ServiceException;
 

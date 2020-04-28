@@ -22,10 +22,8 @@ public class SecurityFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-//        String requestURI = req.getRequestURI()
-//                .substring(req.getRequestURI().lastIndexOf('/') + 1, req.getRequestURI().lastIndexOf('.'));
         String requestURI2 = req.getServletPath()
-                .substring(1, req.getServletPath().lastIndexOf(".")).replaceAll("/", "-");
+                .substring(1, req.getServletPath().lastIndexOf(".")).replaceAll("/", "_");
         try {
             CommandName commandName = CommandName.valueOf(requestURI2.toUpperCase());
             if (SecurityConfig.isSecurityPage(commandName)) {

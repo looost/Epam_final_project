@@ -6,6 +6,8 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;
+import by.training.service.validation.GenreValidation;
+import by.training.service.validation.Validation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +19,7 @@ import static by.training.utils.ConstantName.DEBUG_LOGGER;
 public class GenreServiceImpl implements GenreService {
 
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
+    private static final Validation<Genre> validation = new GenreValidation();
 
     @Override
     public Genre findByName(String name) throws ServiceException {
@@ -81,8 +84,8 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public boolean create(Genre entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            if (findByName(entity.getName()) != null) {
-                throw new ServiceException("A genre with the same name already exists", HttpServletResponse.SC_BAD_REQUEST);
+            if (validation.isValid(transaction, entity)) {
+                throw new ServiceException("Not valid data", HttpServletResponse.SC_BAD_REQUEST);
             }
             boolean result = DaoFactory.getInstance().getGenreDao(transaction).create(entity);
             transaction.commit();
@@ -107,16 +110,18 @@ public class GenreServiceImpl implements GenreService {
     public boolean save(Genre genre) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (findByName(genre.getName()) != null) {
-                throw new ServiceException("A genre with the same name already exists", HttpServletResponse.SC_BAD_REQUEST);
-            }
-            if (genre.getId() == 0) {
-                result = DaoFactory.getInstance().getGenreDao(transaction).create(genre);
+            if (validation.isValid(transaction, genre)) {
+                if (genre.getId() == 0) {
+                    result = DaoFactory.getInstance().getGenreDao(transaction).create(genre);
+                } else {
+                    result = DaoFactory.getInstance().getGenreDao(transaction).update(genre);
+                }
+                transaction.commit();
+                return result;
             } else {
-                result = DaoFactory.getInstance().getGenreDao(transaction).update(genre);
+                throw new ServiceException("Not valid data", HttpServletResponse.SC_BAD_REQUEST);
             }
-            transaction.commit();
-            return result;
+
         } catch (DaoException e) {
             logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

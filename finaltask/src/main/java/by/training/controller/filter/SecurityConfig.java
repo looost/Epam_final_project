@@ -14,6 +14,7 @@ class SecurityConfig {
 
     static {
         securityPage.add(CommandName.SAVE_COMMENT);
+        securityPage.add(CommandName.ADMIN_USER);
     }
 
     static boolean isSecurityPage(CommandName commandName) {
@@ -23,9 +24,14 @@ class SecurityConfig {
         List<CommandName> urlAdminPattern = new ArrayList<>();
         urlAdminPattern.add(CommandName.INDEX);
         urlAdminPattern.add(CommandName.PROFILE);
+        urlAdminPattern.add(CommandName.ADMIN_USER);
         urlAdminPattern.add(CommandName.SAVE_GENRE);
         urlAdminPattern.add(CommandName.DELETE_GENRE);
         mapConfig.put(RoleEnum.ADMIN, urlAdminPattern);
+
+        List<CommandName> urlModerPattern = new ArrayList<>();
+        urlAdminPattern.add(CommandName.INDEX);
+        mapConfig.put(RoleEnum.MODER, urlModerPattern);
 
         List<CommandName> urlUserPattern = new ArrayList<>();
         urlUserPattern.add(CommandName.SAVE_COMMENT);

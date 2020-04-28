@@ -7,4 +7,6 @@ public interface UserService extends AbstractService<String, User> {
     User findByLogin(String login) throws ServiceException;
 
     boolean createUserWithRole(User user) throws ServiceException;
+
+    boolean save(User user) throws ServiceException;
 }

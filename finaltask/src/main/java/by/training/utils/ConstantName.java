@@ -42,6 +42,7 @@ public class ConstantName {
     public static final String ATTRIBUTE_DESCRIPTION_PROBLEM = "descriptionProblem";
     public static final String ATTRIBUTE_LOGO_PROBLEM = "logoProblem";
     public static final String ATTRIBUTE_FULL_LOGO_PROBLEM = "fullLogoProblem";
+    public static final String ATTRIBUTE_INVALID_LOGIN = "incorrectLogin";
     public static final String ATTRIBUTE_INVALID_PASSWORD = "invalidPassword";
     public static final String ATTRIBUTE_RELEASE_DATE_PROBLEM = "releaseDateProblem";
     public static final String ATTRIBUTE_COUNTRY = PARAMETER_COUNTRY;
@@ -63,11 +64,13 @@ public class ConstantName {
     public static final int COUNT_STUDIO_IN_ADMIN_PAGE = 6;
     public static final int COUNT_SERIAL_IN_MY_SHOWS_PAGE = 6;
     public static final int COUNT_SERIAL_IN_LIKED_PAGE = 6;
+    public static final int COUNT_SERIAL_IN_SEARCH_PAGE = 6;
     public static final int COUNT_SERIAL_RATING_PAGE = 25;
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int COUNT_LATEST_SHOWS = 3;
     public static final int MAX_COMMENT_LENGTH = 512;
     public static final int MAX_SERIAL_DESCRIPTION_LENGTH = 1024;
+    public static final int MAX_GENRE_NAME_LENGTH = 32;
     /*
     forward jsp pages
      */

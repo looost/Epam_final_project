@@ -112,3 +112,45 @@
     </div>
 
 </div>
+
+<div id="content">
+    <div id="pagination-5" class="pagination pagination-lg justify-content-center "></div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var itemsCount = ${countAllSerial};
+        var itemsOnPage = ${itemsOnPage};
+
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        const getClickUrl = () => {
+            const queryString = "${pageContext.request.queryString}";
+            const param = queryString.split('&').filter((param) => !param.includes('page')).join('&');
+            return (!param) ? "" : "&" + param;
+        };
+
+        var pagination5 = new Pagination({
+            container: $("#pagination-5"),
+            pageClickUrl: "?page={{page}}" + getClickUrl(),
+            // pageClickUrl: function(num) { return "?page=" + num; },
+            // pageClickCallback: pageClick5,
+            callPageClickCallbackOnInit: true,
+            // showInput: true,
+            // showSlider: true,
+            // enhancedMode: true,
+            maxVisibleElements: 20,
+            inputTitle: "Go to page"
+        });
+        pagination5.make(itemsCount, itemsOnPage, getParameterByName("page"));
+    });
+</script>

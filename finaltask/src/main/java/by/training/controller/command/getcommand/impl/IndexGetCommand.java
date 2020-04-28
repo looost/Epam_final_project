@@ -37,9 +37,9 @@ public class IndexGetCommand implements Command {
             req.setAttribute(PARAMETER_COUNT_ALL_SERIALS, countAllSerial);
             req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_SERIAL_IN_MAIN_PAGE);
             req.setAttribute(PARAMETER_LAST_SHOWS, last);
-            req.setAttribute(PARAMETER_GENRES, genres);
             req.setAttribute(PARAMETER_COUNTRY, country);
             req.setAttribute(PARAMETER_STUDIO, studio);
+            req.setAttribute(PARAMETER_GENRES, genres);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

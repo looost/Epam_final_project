@@ -5,7 +5,6 @@
   Time: 00:04
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -134,7 +133,7 @@
         var pagination5 = new Pagination({
             container: $("#pagination-5"),
             pageClickUrl: "?page={{page}}",
-            //pageClickUrl: function(num) { return "?page=" + num; },
+            // pageClickUrl: function(num) { return "?page=" + num; },
             // pageClickCallback: pageClick5,
             callPageClickCallbackOnInit: true,
             // showInput: true,

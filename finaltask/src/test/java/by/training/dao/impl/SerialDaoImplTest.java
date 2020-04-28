@@ -5,7 +5,6 @@ import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.pool.ConnectionPool;
 import by.training.model.Country;
-import by.training.model.Genre;
 import by.training.model.Serial;
 import by.training.model.Studio;
 import by.training.model.form.SearchForm;
@@ -25,10 +24,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import static by.training.utils.ConstantName.DEBUG_LOGGER;
 import static by.training.utils.ConstantName.PATH_TO_PROPERTY_FILE;
@@ -39,21 +35,55 @@ public class SerialDaoImplTest {
 
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
-    private static final Serial SERIAL_WITH_ID_1 = new Serial(1, "Мир Дикого Запада", "В футуристическом парке развлечений «Мир Дикого Запада» специально сконструированные андроиды выполняют любые прихоти посетителей,\n" +
-            "чтобы те чувствовали безнаказанность и полную свободу действий.", "img/wworld.jpg", "img/ww_full.jpg", Date.valueOf(LocalDate.of(2016, 10, 2)),
-            0, new Country(1), new Studio(1), Collections.emptyList(), Collections.emptyList());
-    private static final Serial SERIAL_WITH_ID_2 = new Serial(2, "Бумажный домик", "История о преступниках, решивших ограбить Королевский монетный двор Испании и украсть 2,4 млрд евро.",
-            "img/papel.jpg", "img/lcdp_full.jpg", Date.valueOf(LocalDate.of(2017, 5, 2)),
-            0, new Country(3), new Studio(2), Collections.emptyList(), Collections.emptyList());
-    private static final Serial SERIAL_WITH_ID_3 = new Serial(3, "Острые козырьки", "Британский сериал о криминальном мире Бирмингема 20-х годов прошлого века, в котором многолюдная семья Шелби стала одной из самых жестоких и влиятельных гангстерских банд послевоенного времени.\n" +
-            "       Фирменным знаком группировки, промышлявшей грабежами и азартными играми, стали зашитые в козырьки лезвия.",
-            "img/breb.jpg", "img/pb_full.jpg", Date.valueOf(LocalDate.of(2013, 9, 12)),
-            0, new Country(2), new Studio(3), Collections.emptyList(), Collections.emptyList());
+    private static final Serial SERIAL_WITH_ID_1 = new Serial.Builder()
+            .withId(1)
+            .withName("Мир Дикого Запада")
+            .withDescription("В футуристическом парке развлечений «Мир Дикого Запада» специально сконструированные андроиды выполняют любые прихоти посетителей,\n" +
+                    "чтобы те чувствовали безнаказанность и полную свободу действий.")
+            .withLogo("img/wworld.jpg")
+            .withFullLogo("img/ww_full.jpg")
+            .withReleaseDate(Date.valueOf(LocalDate.of(2016, 10, 2)))
+            .withCountLike(0)
+            .withCountry(new Country(3))
+            .withStudio(new Studio(1))
+            .withGenres(Collections.emptyList())
+            .withComments(Collections.emptyList())
+            .build();
+
+    private static final Serial SERIAL_WITH_ID_2 = new Serial.Builder()
+            .withId(2)
+            .withName("Бумажный домик")
+            .withDescription("История о преступниках, решивших ограбить Королевский монетный двор Испании и украсть 2,4 млрд евро.")
+            .withLogo("img/papel.jpg")
+            .withFullLogo("img/lcdp_full.jpg")
+            .withReleaseDate(Date.valueOf(LocalDate.of(2017, 5, 2)))
+            .withCountLike(0)
+            .withCountry(new Country(3))
+            .withStudio(new Studio(2))
+            .withGenres(Collections.emptyList())
+            .withComments(Collections.emptyList())
+            .build();
+
+    private static final Serial SERIAL_WITH_ID_3 = new Serial.Builder()
+            .withId(3)
+            .withName("Острые козырьки")
+            .withDescription("Британский сериал о криминальном мире Бирмингема 20-х годов прошлого века, в котором многолюдная семья Шелби стала одной из самых жестоких и влиятельных гангстерских банд послевоенного времени.\n" +
+                    "       Фирменным знаком группировки, промышлявшей грабежами и азартными играми, стали зашитые в козырьки лезвия.")
+            .withLogo("img/breb.jpg")
+            .withFullLogo("img/pb_full.jpg")
+            .withReleaseDate(Date.valueOf(LocalDate.of(2013, 9, 12)))
+            .withCountLike(0)
+            .withCountry(new Country(2))
+            .withStudio(new Studio(3))
+            .withGenres(Collections.emptyList())
+            .withComments(Collections.emptyList())
+            .build();
 
     @Mock
     private Transaction transaction;
     private ConnectionPool connectionPool;
     private SerialDao dao;
+
 
     public SerialDaoImplTest() {
         MockitoAnnotations.initMocks(this);
@@ -98,7 +128,7 @@ public class SerialDaoImplTest {
     }
 
     @DataProvider(name = "negativeDataForFindSerialPageByPage")
-    public Object[] createNegativeDataForFindSerialPageByPage() {
+    public Object[][] createNegativeDataForFindSerialPageByPage() {
         return new Object[][]{
                 {-4, 6},
                 {5, -7},
@@ -263,24 +293,84 @@ public class SerialDaoImplTest {
     @DataProvider(name = "positiveCreate")
     public Object[] createPositiveDataForCreate() {
         return new Object[]{
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MIN_VALUE, "TEST23423", "1", null, "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MIN_VALUE, "", "1", null, "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MIN_VALUE, "TEST23423", "", null, "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", null, Date.valueOf(LocalDate.now()),
-                        0, new Country(3), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", null, null, Date.valueOf(LocalDate.now()),
-                        0, new Country(3), new Studio(3),
-                        Collections.emptyList(), Collections.emptyList())
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(2))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MIN_VALUE)
+                        .withName("TEST23423")
+                        .withDescription("1")
+                        .withLogo(null)
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MIN_VALUE)
+                        .withName("")
+                        .withDescription("1")
+                        .withLogo(null)
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MIN_VALUE)
+                        .withName("TEST23423")
+                        .withDescription("")
+                        .withLogo(null)
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MIN_VALUE)
+                        .withName("TEST23423")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo(null)
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(3))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("descr")
+                        .withLogo(null)
+                        .withFullLogo(null)
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(3))
+                        .withStudio(new Studio(3))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build()
         };
     }
 
@@ -297,36 +387,136 @@ public class SerialDaoImplTest {
     @DataProvider(name = "negativeCreate")
     public Object[] createNegativeDataForCreate() {
         return new Object[]{
-                new Serial(Integer.MAX_VALUE, null, "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", null, "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(2), new Studio(1),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, null, null, "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(3), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "Мир Дикого Запада", "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(Integer.MIN_VALUE), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(99),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "46char46char46char46char46char46char46char46ch", "descr", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025charr1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025charr1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025cha", "logo", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "101char101char101char101char101char101char101char101char101char101char101char101char101char101ch101ch", "full_logo", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "TEST", "descr", "logo", "101char101char101char101char101char101char101char101char101char101char101char101char101char101ch101ch", Date.valueOf(LocalDate.now()),
-                        0, new Country(1), new Studio(2),
-                        Collections.emptyList(), Collections.emptyList()),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName(null)
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(2))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription(null)
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName(null)
+                        .withDescription(null)
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(3))
+                        .withStudio(new Studio(2))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(2))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(Integer.MIN_VALUE))
+                        .withStudio(new Studio(2))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(99))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("46char46char46char46char46char46char46char46ch")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(99))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025charr1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025charr1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025char1025cha")
+                        .withLogo("logo")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(99))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("descr")
+                        .withLogo("101char101char101char101char101char101char101char101char101char101char101char101char101char101ch101ch")
+                        .withFullLogo("full_logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(99))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("TEST")
+                        .withDescription("descr")
+                        .withLogo("logo")
+                        .withFullLogo("101char101char101char101char101char101char101char101char101char101char101char101char101char101ch101ch")
+                        .withReleaseDate(Date.valueOf(LocalDate.now()))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(99))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
                 SERIAL_WITH_ID_1
         };
     }
@@ -344,12 +534,32 @@ public class SerialDaoImplTest {
     @DataProvider(name = "positiveUpdate")
     public Object[] createPositiveDataForUpdate() {
         return new Object[]{
-                new Serial(1, "New NAme", "New desc", "new logo", "new FUll logo",
-                        Date.valueOf(LocalDate.of(2000, 12, 31)),
-                        0, new Country(2), new Studio(3), Collections.emptyList(), Collections.emptyList()),
-                new Serial(3, "Мир Дикого Запада2", "new DESC", "img/wworld.jpg", "img/ww_full.jpg",
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(1), new Studio(1), Collections.emptyList(), Collections.emptyList())
+                new Serial.Builder()
+                        .withId(1)
+                        .withName("New NAme")
+                        .withDescription("New desc")
+                        .withLogo("new logo")
+                        .withFullLogo("new FUll logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(3))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(3)
+                        .withName("Мир Дикого Запада2")
+                        .withDescription("new DESC")
+                        .withLogo("img/wworld.jpg")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2016, 10, 2)))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build()
         };
     }
 
@@ -366,15 +576,45 @@ public class SerialDaoImplTest {
     @DataProvider(name = "negativeUpdate")
     public Object[] createNegativeDataForUpdate() {
         return new Object[]{
-                new Serial(Integer.MIN_VALUE, "New NAme", "New desc", "new logo", "new FUll logo",
-                        Date.valueOf(LocalDate.of(2000, 12, 31)),
-                        0, new Country(2), new Studio(3), Collections.emptyList(), Collections.emptyList()),
-                new Serial(Integer.MAX_VALUE, "Мир Дикого Запада", "new DESC", "img/wworld.jpg", "img/ww_full.jpg",
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(1), new Studio(1), Collections.emptyList(), Collections.emptyList()),
-                new Serial(0, "Мир Дикого Запада", "new DESC", "img/wworld.jpg", "img/ww_full.jpg",
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(1), new Studio(1), Collections.emptyList(), Collections.emptyList()),
+                new Serial.Builder()
+                        .withId(Integer.MIN_VALUE)
+                        .withName("New NAme")
+                        .withDescription("New desc")
+                        .withLogo("new logo")
+                        .withFullLogo("new FUll logo")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(3))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(Integer.MAX_VALUE)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("new DESC")
+                        .withLogo("img/wworld.jpg")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2016, 10, 2)))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(0)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("new DESC")
+                        .withLogo("img/wworld.jpg")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2016, 10, 2)))
+                        .withCountLike(0)
+                        .withCountry(new Country(1))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build()
         };
     }
 
@@ -391,27 +631,97 @@ public class SerialDaoImplTest {
     @DataProvider(name = "negativeUpdateWithException")
     public Object[] createNegativeDataForUpdateWithException() {
         return new Object[]{
-                new Serial(1, null, "New desc", "new logo", "new FUll logo",
-                        Date.valueOf(LocalDate.of(2000, 12, 31)),
-                        0, new Country(2), new Studio(3), Collections.emptyList(), Collections.emptyList()),
-                new Serial(3, "Мир Дикого Запада", null, "img/wworld.jpg", "img/ww_full.jpg",
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(2), new Studio(3), Collections.emptyList(), Collections.emptyList()),
-                new Serial(3, "Мир Дикого Запада", "new DESC", "img/wworld.jpg", null,
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(1), new Studio(1), Collections.emptyList(), Collections.emptyList()),
-                new Serial(1, "New NAme", "New desc", "new logo", "new FUll logo",
-                        Date.valueOf(LocalDate.of(2000, 12, 31)),
-                        0, new Country(2), new Studio(), Collections.emptyList(), Collections.emptyList()),
-                new Serial(3, "Мир Дикого Запада", "new DESC", "img/wworld.jpg", "img/ww_full.jpg",
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(Integer.MAX_VALUE), new Studio(1), Collections.emptyList(), Collections.emptyList()),
-                new Serial(1, "New NAme", "New desc", "new logo", "new FUll logo",
-                        Date.valueOf(LocalDate.of(2000, 12, 31)),
-                        0, new Country(2), new Studio(Integer.MIN_VALUE), Collections.emptyList(), Collections.emptyList()),
-                new Serial(3, "Мир Дикого Запада", "new DESC", "img/wworld.jpg", "img/ww_full.jpg",
-                        Date.valueOf(LocalDate.of(2016, 10, 2)),
-                        0, new Country(), new Studio(1), Collections.emptyList(), Collections.emptyList())
+                new Serial.Builder()
+                        .withId(1)
+                        .withName(null)
+                        .withDescription("New desc")
+                        .withLogo("img/wworld.jpg")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(3))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(3)
+                        .withName("Мир Дикого Запада")
+                        .withDescription(null)
+                        .withLogo("img/wworld.jpg")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(3))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(3)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("new DESC")
+                        .withLogo(null)
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(3))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(1)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("new DESC")
+                        .withLogo("new logo")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio())
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(3)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("new DESC")
+                        .withLogo("new logo")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(Integer.MAX_VALUE))
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(1)
+                        .withName("New NAme")
+                        .withDescription("new DESC")
+                        .withLogo("new logo")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country(2))
+                        .withStudio(new Studio(Integer.MIN_VALUE))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build(),
+                new Serial.Builder()
+                        .withId(3)
+                        .withName("Мир Дикого Запада")
+                        .withDescription("new DESC")
+                        .withLogo("new logo")
+                        .withFullLogo("img/ww_full.jpg")
+                        .withReleaseDate(Date.valueOf(LocalDate.of(2000, 12, 31)))
+                        .withCountLike(0)
+                        .withCountry(new Country())
+                        .withStudio(new Studio(1))
+                        .withGenres(Collections.emptyList())
+                        .withComments(Collections.emptyList())
+                        .build()
         };
     }
 

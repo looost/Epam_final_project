@@ -18,6 +18,7 @@ public class JDBCUtil {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
             ResultSet rs = ps.executeQuery();
+
             return resultSetHandler.handle(rs);
         } catch (SQLException e) {
             throw new DaoException(e);

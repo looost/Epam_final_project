@@ -6,12 +6,15 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.User;
 import by.training.service.UserService;
 import by.training.service.exception.ServiceException;
+import by.training.service.validation.UserValidation;
 import by.training.service.validation.Validation;
 
 import javax.servlet.http.HttpServletResponse;
 
 
 public class UserServiceImpl implements UserService {
+
+    private static final Validation<User> validation = new UserValidation();
 
     @Override
     public User findByLogin(String login) throws ServiceException {
@@ -27,7 +30,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean createUserWithRole(User user) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            if (Validation.isCorrectUserLogin(transaction, user)) {
+            if (validation.isValid(transaction, user)) {
                 DaoFactory.getInstance().getUserDao(transaction).createUserWithRole(user);
                 transaction.commit();
                 return true;
@@ -52,7 +55,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean create(User entity) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            if (Validation.isCorrectUserLogin(transaction, entity)) {
+            if (validation.isValid(transaction, entity)) {
                 DaoFactory.getInstance().getUserDao(transaction).create(entity);
                 transaction.commit();
                 return true;
@@ -75,4 +78,24 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public boolean save(User user) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            boolean result;
+            if (validation.isValid(transaction, user)) {
+                if (user.getId() == 0) {
+                    result = DaoFactory.getInstance().getUserDao(transaction).create(user);
+                } else {
+                    result = DaoFactory.getInstance().getUserDao(transaction).update(user);
+                }
+                transaction.commit();
+                return result;
+            } else {
+                throw new ServiceException("Not valid data", HttpServletResponse.SC_BAD_REQUEST);
+            }
+
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

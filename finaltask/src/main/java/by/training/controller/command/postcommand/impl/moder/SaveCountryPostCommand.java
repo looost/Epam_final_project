@@ -36,6 +36,7 @@ public class SaveCountryPostCommand implements Command {
             ServiceFactory.getInstance().getCountryService().save(country);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
         } catch (ServiceException e) {
+            logger.error(e);
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
     }

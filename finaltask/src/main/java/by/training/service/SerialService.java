@@ -20,7 +20,9 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     int countAllSerial() throws ServiceException;
 
-    List<Serial> findSerialBySearchForm(SearchForm searchForm) throws ServiceException;
+    List<Serial> findSerialBySearchForm(SearchForm searchForm, int page, int limit) throws ServiceException;
+
+    int countAllSerialsBySearchForm(SearchForm searchForm) throws ServiceException;
 
     //List<Serial> findSerialByGenre(String genreId) throws ServiceException;
 
