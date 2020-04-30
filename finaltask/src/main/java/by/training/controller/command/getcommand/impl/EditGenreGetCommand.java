@@ -23,10 +23,8 @@ public class EditGenreGetCommand implements Command {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
         try {
             CommandUtil.transferSingleAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
-            int page = DEFAULT_PAGE_NUMBER;
-            if (req.getParameter(PARAMETER_PAGE) != null) {
-                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
-            }
+            CommandUtil.transferSingleAttribute("ok", req);
+            int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllGenre = ServiceFactory.getInstance().getGenreService().countAllGenres();
             List<Genre> genres = ServiceFactory.getInstance().getGenreService().findGenrePageByPage(page, COUNT_GENRE_IN_ADMIN_PAGE);
             req.setAttribute(PARAMETER_GENRES, genres);

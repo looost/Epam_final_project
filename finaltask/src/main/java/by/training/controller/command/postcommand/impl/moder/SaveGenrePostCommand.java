@@ -7,7 +7,6 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.ResourceManager;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +29,7 @@ public class SaveGenrePostCommand implements Command {
         Genre genre = new Genre(Integer.parseInt(id), genreName);
         try {
             ServiceFactory.getInstance().getGenreService().save(genre);
+            req.getSession().setAttribute("ok", "ok");
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         } catch (ServiceException e) {
             if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {

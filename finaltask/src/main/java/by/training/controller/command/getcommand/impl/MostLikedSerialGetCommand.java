@@ -14,17 +14,13 @@ import java.io.IOException;
 import java.util.List;
 
 import static by.training.utils.ConstantName.*;
-import static by.training.utils.ConstantName.ROUTING_INDEX_JSP;
 
 public class MostLikedSerialGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            int page = 1;
-            if (req.getParameter(PARAMETER_PAGE) != null) {
-                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
-            }
+            int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllSerial = ServiceFactory.getInstance().getSerialService().countAllSerial();
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findMostLikedSerial(page, COUNT_SERIAL_RATING_PAGE);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();

@@ -2,6 +2,7 @@ package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
@@ -23,10 +24,7 @@ public class IndexGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            int page = 1;
-            if (req.getParameter(PARAMETER_PAGE) != null) {
-                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
-            }
+            int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllSerial = ServiceFactory.getInstance().getSerialService().countAllSerial();
             List<Serial> serialList = ServiceFactory.getInstance().getSerialService().findSerialPageByPage(page, COUNT_SERIAL_IN_MAIN_PAGE);
             List genres = ServiceFactory.getInstance().getGenreService().findAll();
@@ -40,9 +38,10 @@ public class IndexGetCommand implements Command {
             req.setAttribute(PARAMETER_COUNTRY, country);
             req.setAttribute(PARAMETER_STUDIO, studio);
             req.setAttribute(PARAMETER_GENRES, genres);
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_INDEX_JSP, req, resp);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.debug(e);
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_INDEX_JSP, req, resp);
     }
 }

@@ -28,7 +28,7 @@ public class RevenueTableTag extends TagSupport {
     public int doStartTag() throws JspTagException {
 
         try {
-            List<Serial> last = ServiceFactory.getInstance().getSerialService().latestSerial(4);
+            List<Serial> last = ServiceFactory.getInstance().getSerialService().findSerialPageByPage(1, 3);
             JspWriter out = pageContext.getOut();
             for (Serial s : last
             ) {

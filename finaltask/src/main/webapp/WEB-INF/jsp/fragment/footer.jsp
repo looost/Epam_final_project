@@ -12,16 +12,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-    VendorMap map = new VendorMap();
-    request.setAttribute("rw", map);
-%>
+<%--<%--%>
+<%--    VendorMap map = new VendorMap();--%>
+<%--    request.setAttribute("rw", map);--%>
+<%--%>--%>
 
 
 <div class="container text-center">
 
-    <ctg:table-revenue rows="${rw.size}" head="Revenue">
-        ${rw.revenue}
-    </ctg:table-revenue>
+    <%--    <ctg:table-revenue rows="${rw.size}" head="Revenue">--%>
+    <%--        ${rw.revenue}--%>
+    <%--    </ctg:table-revenue>--%>
     <small>Copyright &copy; Shows</small>
 </div>

@@ -21,12 +21,8 @@ public class EditStudioGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_STUDIO_PROBLEM, req);
-
         try {
-            int page = 1;
-            if (req.getParameter(PARAMETER_PAGE) != null) {
-                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
-            }
+            int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllStudio = ServiceFactory.getInstance().getStudioService().countAllStudio();
             List<Studio> studios = ServiceFactory.getInstance()
                     .getStudioService().findStudioPageByPage(page, COUNT_STUDIO_IN_ADMIN_PAGE);

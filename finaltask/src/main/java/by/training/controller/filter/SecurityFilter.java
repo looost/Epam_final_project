@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.*;
+
 public class SecurityFilter implements Filter {
 
     @Override
@@ -28,10 +30,10 @@ public class SecurityFilter implements Filter {
             CommandName commandName = CommandName.valueOf(requestURI2.toUpperCase());
             if (SecurityConfig.isSecurityPage(commandName)) {
                 try {
-                    String userLogin = (String) req.getSession().getAttribute("user");
+                    String userLogin = (String) req.getSession().getAttribute(ATTRIBUTE_USER);
                     User user = ServiceFactory.getInstance().getUserService().findByLogin(userLogin);
                     if (user == null) {
-                        RoutingUtils.redirectToPage("/final/login.html", resp);
+                        RoutingUtils.redirectToPage(ROUTING_LOGIN_PAGE, resp);
                         return;
                     }
                     RoleEnum userRole = null;
@@ -46,8 +48,8 @@ public class SecurityFilter implements Filter {
                         filterChain.doFilter(servletRequest, servletResponse);
                         return;
                     } else {
-                        req.setAttribute("statusCode", HttpServletResponse.SC_FORBIDDEN);
-                        RoutingUtils.forwardToPage("error.jsp", req, resp);
+                        req.setAttribute(ATTRIBUTE_STATUS_CODE, HttpServletResponse.SC_FORBIDDEN);
+                        RoutingUtils.forwardToPage(ROUTING_ERROR_JSP, req, resp);
                         return;
                     }
                 } catch (ServiceException e) {

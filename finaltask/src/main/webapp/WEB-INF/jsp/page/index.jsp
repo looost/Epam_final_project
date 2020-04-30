@@ -1,4 +1,4 @@
-<%--
+<%@ page import="by.training.tag.VendorMap" %><%--
   Created by IntelliJ IDEA.
   User: Misha
   Date: 09.02.2020

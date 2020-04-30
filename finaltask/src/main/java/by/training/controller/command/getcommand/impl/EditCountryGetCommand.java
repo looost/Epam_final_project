@@ -22,10 +22,7 @@ public class EditCountryGetCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_COUNTRY_PROBLEM, req);
         try {
-            int page = 1;
-            if (req.getParameter(PARAMETER_PAGE) != null) {
-                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
-            }
+            int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllCountry = ServiceFactory.getInstance().getCountryService().countAllCountry();
             List<Country> countries = ServiceFactory.getInstance()
                     .getCountryService().findCountryPageByPage(page, COUNT_COUNTY_IN_ADMIN_PAGE);

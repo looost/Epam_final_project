@@ -17,7 +17,7 @@
                 </button>
             </div>
             <div class="toast-body">
-                Hello, world! This is a toast message. Все круто добавилось
+                Данные успешно изменены!
             </div>
         </div>
     </div>
@@ -203,7 +203,7 @@
 
 <script>
     (function () {
-        if (${empty genreProblem}) {
+        if (${not empty ok}) {
             $('.toast').toast('show');
         }
     })();

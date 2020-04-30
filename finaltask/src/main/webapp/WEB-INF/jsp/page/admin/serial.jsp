@@ -4,7 +4,7 @@
 
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
-<div class="container-fluid">
+<div class="container-fluid text-style">
 
     <div class="row">
         <div class="col-2 m-2">

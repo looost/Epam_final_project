@@ -2,6 +2,7 @@ package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
 import by.training.model.Serial;
 import by.training.model.form.SearchForm;
@@ -26,10 +27,9 @@ public class SearchGetCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         try {
-            int page = 1;
-            if (req.getParameter(PARAMETER_PAGE) != null) {
-                page = Integer.parseInt(req.getParameter(PARAMETER_PAGE));
-            }
+            int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
+
+
             SearchForm searchForm = new SearchForm(req.getParameter(PARAMETER_QUERY), req.getParameterValues(PARAMETER_GENRE),
                     req.getParameterValues(PARAMETER_COUNTRY), req.getParameterValues(PARAMETER_STUDIO));
 
@@ -46,15 +46,11 @@ public class SearchGetCommand implements Command {
             req.setAttribute(ATTRIBUTE_COUNTRY, country);
             req.setAttribute(ATTRIBUTE_STUDIO, studio);
             req.setAttribute(ATTRIBUTE_SEARCH_FORM, searchForm);
-
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_SEARCH_JSP, req, resp);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         } catch (NumberFormatException e) {
-            req.setAttribute(ATTRIBUTE_ERROR, "К сожалению такой страницы не существует :(");
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
-            //RoutingUtils.forwardToPage("error.jsp", req, resp);
+            return CommandUtil.routingErrorPage(req, resp, HttpServletResponse.SC_NOT_FOUND);
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_SEARCH_JSP, req, resp);
-        //RoutingUtils.forwardToPage("search.jsp", req, resp);
     }
 }

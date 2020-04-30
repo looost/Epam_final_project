@@ -53,6 +53,7 @@ public class ShowGetCommand implements Command {
 
             return new CommandResponse(RoutingType.FORWARD, ROUTING_SHOW_JSP, req, resp);
         } catch (ServiceException e) {
+            logger.debug(e);
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
 

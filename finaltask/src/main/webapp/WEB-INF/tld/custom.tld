@@ -41,9 +41,10 @@
         <tag-class>by.training.tag.Test</tag-class>
         <body-content>scriptless</body-content>
         <attribute>
-            <name>bundle</name>
-            <required>false</required>
+            <name>searchForm</name>
+            <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
+
 </taglib>
