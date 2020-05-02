@@ -27,6 +27,29 @@
             </div>
         </div>
         <div class="col-9">
+
+
+            <div class="row mt-3">
+                <div class="col-md-2">
+                    <img src="<c:url value="/img/avatar/${avatar}"/>"
+                         class="img img-rounded img-fluid" alt=""/>
+                </div>
+
+                <div class="col-md-10">
+                    <form class="was-validated mt-2" method="post" enctype="multipart/form-data"
+                          action="${pageContext.request.contextPath}/change_avatar.html">
+                        <div class="custom-file mb-3">
+                            <input type="file" class="custom-file-input" id="validatedAvatar" name="avatar">
+                            <label class="custom-file-label" for="validatedAvatar">Загрузите новый аватар</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <fmt:message key="edit" bundle="${ rb }"/>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+
             <form class="m-2" method="post" action="${pageContext.request.contextPath}/change_password.html">
                 <div class="form-group row">
                     <label for="staticLogin" class="col-sm-2 col-form-label text-style"> <fmt:message key="login"

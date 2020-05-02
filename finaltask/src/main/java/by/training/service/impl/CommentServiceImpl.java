@@ -9,6 +9,8 @@ import by.training.service.exception.ServiceException;
 import by.training.service.transaction.TransactionBuilder;
 import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
+import by.training.service.validation.Validation;
+import by.training.service.validation.impl.CommentValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +22,7 @@ import static by.training.utils.ConstantName.*;
 public class CommentServiceImpl implements CommentService {
 
     private static final TransactionBuilder<Comment> COMMENT_TRANSACTION_HANDLER = TransactionBuilderFactory.COMMENT_TRANSACTION_BUILDER;
-    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
+    private static final Validation<Comment> validator = new CommentValidation();
 
     @Override
     public List<Comment> findAllCommentForSerial(String serialId) throws ServiceException {
@@ -31,7 +33,6 @@ public class CommentServiceImpl implements CommentService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -45,7 +46,6 @@ public class CommentServiceImpl implements CommentService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -57,34 +57,6 @@ public class CommentServiceImpl implements CommentService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean create(Comment entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            if (entity.getComment().length() > MAX_COMMENT_LENGTH) {
-                throw new ServiceException("Сomment length is too long", HttpServletResponse.SC_BAD_REQUEST);
-            }
-            boolean res = DaoFactory.getInstance().getCommentDao(transaction).create(entity);
-            transaction.commit();
-            return res;
-        } catch (DaoException e) {
-            logger.error(e);
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean update(Comment entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean res = DaoFactory.getInstance().getCommentDao(transaction).update(entity);
-            transaction.commit();
-            return res;
-        } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -93,18 +65,18 @@ public class CommentServiceImpl implements CommentService {
     public boolean save(Comment comment) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (comment.getComment().length() > MAX_COMMENT_LENGTH) {
-                throw new ServiceException("Сomment length is too long", HttpServletResponse.SC_BAD_REQUEST);
-            }
-            if (comment.getId() == 0) {
-                result = DaoFactory.getInstance().getCommentDao(transaction).create(comment);
+            if (validator.isValid(transaction, comment)) {
+                if (comment.getId() == 0) {
+                    result = DaoFactory.getInstance().getCommentDao(transaction).create(comment);
+                } else {
+                    result = DaoFactory.getInstance().getCommentDao(transaction).update(comment);
+                }
+                transaction.commit();
+                return result;
             } else {
-                result = DaoFactory.getInstance().getCommentDao(transaction).update(comment);
+                throw new ServiceException("Not valid comment", HttpServletResponse.SC_BAD_REQUEST);
             }
-            transaction.commit();
-            return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

@@ -23,6 +23,7 @@ public class UserDaoImpl implements UserDao {
                 user.setId(rs.getInt("id"));
                 user.setLogin(rs.getString("login"));
                 user.setPassword(rs.getString("password"));
+                user.setAvatar(rs.getString("avatar"));
                 user.setRole(rs.getInt("role"));
                 return user;
             } catch (SQLException e) {
@@ -35,14 +36,14 @@ public class UserDaoImpl implements UserDao {
         this.transaction = transaction;
     }
 
-    private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, role FROM user WHERE login = ?";
+    private static final String FIND_USER_BY_LOGIN = "SELECT id, login, password, avatar, role FROM user WHERE login = ?";
     @Override
     public User findByLogin(String login) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_LOGIN,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), login);
     }
 
-    private static final String FIND_USER_BY_ID = "SELECT id, login, password, role FROM user WHERE id = ?";
+    private static final String FIND_USER_BY_ID = "SELECT id, login, password, avatar, role FROM user WHERE id = ?";
     @Override
     public User findById(String id) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_ID,
@@ -55,21 +56,23 @@ public class UserDaoImpl implements UserDao {
         return JDBCUtil.execute(transaction.getConnection(), DELETE_USER_BY_ID, id);
     }
 
-    private static final String CREATE_USER = "INSERT INTO user VALUES (DEFAULT, ?, ?, DEFAULT)";
+    private static final String CREATE_USER = "INSERT INTO user VALUES (DEFAULT, ?, ?, ?, DEFAULT)";
     @Override
     public boolean create(User entity) throws DaoException {
-        return JDBCUtil.execute(transaction.getConnection(), CREATE_USER, entity.getLogin(), entity.getPassword());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_USER, entity.getLogin(), entity.getPassword(), entity.getAvatar());
     }
 
-    private static final String UPDATE_USER = "UPDATE user SET password = ? WHERE login = ?";
+    private static final String UPDATE_USER = "UPDATE user SET password = ?, avatar = ? WHERE login = ?";
     @Override
     public boolean update(User entity) throws DaoException {
-        return JDBCUtil.execute(transaction.getConnection(), UPDATE_USER, entity.getPassword(), entity.getLogin());
+        return JDBCUtil.execute(transaction.getConnection(), UPDATE_USER, entity.getPassword(),
+                entity.getAvatar(), entity.getLogin());
     }
 
-    private static final String CREATE_USER_WITH_ROLE = "INSERT INTO user VALUES (DEFAULT, ?, ?, ?)";
+    private static final String CREATE_USER_WITH_ROLE = "INSERT INTO user VALUES (DEFAULT, ?, ?, ?, ?)";
     @Override
     public boolean createUserWithRole(User user) throws DaoException {
-        return JDBCUtil.execute(transaction.getConnection(), CREATE_USER_WITH_ROLE, user.getLogin(), user.getPassword(), user.getRole());
+        return JDBCUtil.execute(transaction.getConnection(), CREATE_USER_WITH_ROLE, user.getLogin(),
+                user.getPassword(), user.getAvatar(), user.getRole());
     }
 }

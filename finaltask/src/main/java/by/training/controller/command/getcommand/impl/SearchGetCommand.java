@@ -29,7 +29,6 @@ public class SearchGetCommand implements Command {
         try {
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
 
-
             SearchForm searchForm = new SearchForm(req.getParameter(PARAMETER_QUERY), req.getParameterValues(PARAMETER_GENRE),
                     req.getParameterValues(PARAMETER_COUNTRY), req.getParameterValues(PARAMETER_STUDIO));
 

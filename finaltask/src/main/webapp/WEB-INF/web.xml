@@ -19,6 +19,11 @@
         <param-value>..\webapps\final\img\</param-value>
     </context-param>
 
+    <context-param>
+        <param-name>uploadAvatarPath</param-name>
+        <param-value>..\webapps\final\img\avatar\</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>test</servlet-name>
         <servlet-class>by.training.controller.servlet.IndexServlet</servlet-class>

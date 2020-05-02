@@ -38,6 +38,14 @@ public class StudioDaoImpl implements StudioDao {
         this.transaction = transaction;
     }
 
+    private static final String FIND_STUDIO_BY_NAME = "SELECT id, name FROM studio WHERE name = ?";
+
+    @Override
+    public Studio findByName(String studioName) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), FIND_STUDIO_BY_NAME,
+                ResultSetHandlerFactory.getSingleResultSetHandler(STUDIO_RESULT_SET_HANDLER), studioName);
+    }
+
     private static final String FIND_ALL_STUDIO = "SELECT id, name FROM studio";
     @Override
     public List<Studio> findAll() throws DaoException {

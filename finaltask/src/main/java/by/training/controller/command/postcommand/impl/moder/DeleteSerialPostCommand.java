@@ -2,30 +2,60 @@ package by.training.controller.command.postcommand.impl.moder;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
+import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
-import static by.training.utils.ConstantName.PARAMETER_ID;
-import static by.training.utils.ConstantName.ROUTING_INDEX_PAGE;
+import static by.training.utils.ConstantName.*;
 
 public class DeleteSerialPostCommand implements Command {
 
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter(PARAMETER_ID);
         try {
+            Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
             ServiceFactory.getInstance().getSerialService().delete(id);
-            //RoutingUtils.redirectToPage("/final/index.html", resp);
+            File logo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
+                    + serial.getLogo());
+            File fullLogo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
+                    + serial.getFullLogo());
+            if (logo.exists() && !logo.getName().equals(DEFAULT_IMG_NAME)) {
+                Files.delete(logo.toPath());
+            }
+            if (fullLogo.exists() && !fullLogo.getName().equals(DEFAULT_IMG_NAME)) {
+                Files.delete(fullLogo.toPath());
+            }
+
+            File logoCopy = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\"
+                    + serial.getLogo());
+            File fullCopy = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\"
+                    + serial.getFullLogo());
+            if (logoCopy.exists() && !logoCopy.getName().equals(DEFAULT_IMG_NAME)) {
+                Files.delete(logoCopy.toPath());
+            }
+            if (fullCopy.exists() && !fullCopy.getName().equals(DEFAULT_IMG_NAME)) {
+                Files.delete(fullCopy.toPath());
+            }
+
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e);
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
+
     }
 }

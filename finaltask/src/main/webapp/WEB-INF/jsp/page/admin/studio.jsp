@@ -31,13 +31,20 @@
             <div class="card-body">
                 <form method="post" action="${pageContext.request.contextPath}/save_studio.html" class="was-validated">
                     <div class="form-group">
+                        <c:if test="${not empty studioProblem}">
+                            <div class="alert alert-danger text-style" role="alert">
+                                <p><strong><fmt:message key="incorrectData" bundle="${ rb }"/>:</strong></p>
+                                <ul>
+                                    <li><fmt:message key="incorrectName" bundle="${ rb }"/></li>
+                                    <li><fmt:message key="incorrectField" bundle="${ rb }"/></li>
+                                    <li><fmt:message key="incorrectNameLength" bundle="${ rb }"/></li>
+                                </ul>
+                            </div>
+                        </c:if>
                         <div class="mb-2">
                             <label for="addStudio"><fmt:message key="enterStudioName" bundle="${ rb }"/>:</label>
                             <input type="text" name="studio" class="form-control" id="addStudio"
                                    placeholder="<fmt:message key="enterStudioName" bundle="${ rb }"/>" required>
-                            <div class="invalid-feedback">
-                                ${studioProblem}
-                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                     </div>

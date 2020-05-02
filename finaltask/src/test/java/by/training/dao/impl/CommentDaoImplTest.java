@@ -11,10 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -60,7 +57,7 @@ public class CommentDaoImplTest {
         dao = new CommentDaoImpl(transaction);
     }
 
-    @BeforeTest
+    @BeforeClass
     public void init() throws DaoException {
         try {
             Properties property = new Properties();
@@ -361,7 +358,7 @@ public class CommentDaoImplTest {
         }
     }
 
-    @AfterTest
+    @AfterClass
     public void destroyConnectionPool() {
         connectionPool.destroy();
     }

@@ -34,21 +34,18 @@ public class ConstantName {
     public static final String ATTRIBUTE_ERROR = "error";
     public static final String ATTRIBUTE_USER = "user";
     public static final String ATTRIBUTE_GENRES = PARAMETER_GENRES;
+    public static final String ATTRIBUTE_SERIAL_PROBLEM = "serialProblem";
     public static final String ATTRIBUTE_GENRE_PROBLEM = "genreProblem";
     public static final String ATTRIBUTE_COMMENT_PROBLEM = "commentProblem";
     public static final String ATTRIBUTE_COUNTRY_PROBLEM = "countryProblem";
     public static final String ATTRIBUTE_STUDIO_PROBLEM = "studioProblem";
-    public static final String ATTRIBUTE_NAME_PROBLEM = "nameProblem";
-    public static final String ATTRIBUTE_DESCRIPTION_PROBLEM = "descriptionProblem";
-    public static final String ATTRIBUTE_LOGO_PROBLEM = "logoProblem";
-    public static final String ATTRIBUTE_FULL_LOGO_PROBLEM = "fullLogoProblem";
     public static final String ATTRIBUTE_INVALID_LOGIN = "incorrectLogin";
     public static final String ATTRIBUTE_INVALID_PASSWORD = "invalidPassword";
-    public static final String ATTRIBUTE_RELEASE_DATE_PROBLEM = "releaseDateProblem";
     public static final String ATTRIBUTE_COUNTRY = PARAMETER_COUNTRY;
     public static final String ATTRIBUTE_STUDIO = PARAMETER_STUDIO;
     public static final String ATTRIBUTE_USER_ID = "userId";
     public static final String ATTRIBUTE_USER_ROLE = "role";
+    public static final String ATTRIBUTE_USER_AVATAR = "avatar";
     public static final String ATTRIBUTE_SHOW = "show";
     public static final String ATTRIBUTE_SHOWS = "shows";
     public static final String ATTRIBUTE_STATUS_CODE = "statusCode";
@@ -69,8 +66,14 @@ public class ConstantName {
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int COUNT_LATEST_SHOWS = 3;
     public static final int MAX_COMMENT_LENGTH = 512;
+    public static final int MAX_SERIAL_NAME_LENGTH = 45;
     public static final int MAX_SERIAL_DESCRIPTION_LENGTH = 1024;
+    public static final int MAX_SERIAL_LOGO_LENGTH = 100;
+    public static final int MAX_SERIAL_FULL_LOGO_LENGTH = 100;
     public static final int MAX_GENRE_NAME_LENGTH = 32;
+    public static final int MAX_COUNTRY_NAME_LENGTH = 32;
+    public static final int MAX_STUDIO_NAME_LENGTH = 32;
+    public static final int MAX_USER_LOGIN_LENGTH = 12;
     /*
     forward jsp pages
      */
@@ -117,7 +120,9 @@ public class ConstantName {
     path
      */
     public static final String PATH_TO_UPLOAD_FILE_DIR = "uploadFilesPath";
-    public static final String PATH_TO_DEFAULT_IMG = "img\\noFoto.png";
+    public static final String PATH_TO_UPLOAD_AVATAR_DIR = "uploadAvatarPath";
+    public static final String DEFAULT_IMG_NAME = "noFoto.png";
+    public static final String DEFAULT_AVATAR_NAME = "noAvatar.png";
 
     public static final String ENCODING_UTF_8 = "UTF-8";
 

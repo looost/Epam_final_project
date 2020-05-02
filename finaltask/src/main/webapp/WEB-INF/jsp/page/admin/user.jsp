@@ -60,6 +60,8 @@
                     <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                 </form>
             </div>
+
+
         </div>
     </div>
 </div>

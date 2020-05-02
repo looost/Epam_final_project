@@ -31,16 +31,21 @@
             <div class="card-body">
                 <form class="was-validated mt-2" method="post"
                       action="${pageContext.request.contextPath}/save_country.html">
+                    <c:if test="${not empty countryProblem}">
+                        <div class="alert alert-danger text-style" role="alert">
+                            <p><strong><fmt:message key="incorrectData" bundle="${ rb }"/>:</strong></p>
+                            <ul>
+                                <li><fmt:message key="incorrectName" bundle="${ rb }"/></li>
+                                <li><fmt:message key="incorrectField" bundle="${ rb }"/></li>
+                                <li><fmt:message key="incorrectNameLength" bundle="${ rb }"/></li>
+                            </ul>
+                        </div>
+                    </c:if>
                     <div class="mb-3">
                         <label for="validationName"><fmt:message key="enterCountryName" bundle="${ rb }"/>:</label>
                         <input type="text" name="country" class="form-control is-invalid"
                                id="validationName" placeholder="<fmt:message key="enterCountryName" bundle="${ rb }"/>"
                                required>
-                        <c:if test="${countryProblem != null}">
-                            <div class="invalid-feedback">
-                                    ${countryProblem}
-                            </div>
-                        </c:if>
                     </div>
                     <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                 </form>

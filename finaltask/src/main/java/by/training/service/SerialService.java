@@ -6,11 +6,11 @@ import by.training.service.exception.ServiceException;
 
 import java.util.List;
 
-public interface SerialService extends AbstractService<String, Serial> {
+public interface SerialService {
 
     List<Serial> findAll() throws ServiceException;
 
-    //Serial findSerialByName(String name) throws ServiceException;
+    Serial findById(String id) throws ServiceException;
 
     List<Serial> findSerialPageByPage(int page, int limit) throws ServiceException;
 
@@ -40,12 +40,14 @@ public interface SerialService extends AbstractService<String, Serial> {
 
     int countAllSerialsThatILiked(String userId) throws ServiceException;
 
-    boolean save(Serial serial) throws ServiceException;
-
     boolean userLikedThisSerial(String userId, String serialId) throws ServiceException;
 
     boolean likeSerial(String userId, String serialId) throws ServiceException;
 
     boolean dislikeSerial(String userId, String serialId) throws ServiceException;
+
+    boolean delete(String id) throws ServiceException;
+
+    boolean save(Serial serial) throws ServiceException;
 
 }

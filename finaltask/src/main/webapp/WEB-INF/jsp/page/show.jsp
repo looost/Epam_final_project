@@ -28,7 +28,8 @@
 
                         <div class="card col-8 p-0">
                             <div class="p-0 border-light">
-                                <img class="card-img-top border " src="${show.fullLogo}" alt="Card image cap">
+                                <img class="card-img-top border " src="<c:url value="/img/${show.fullLogo}"/>"
+                                     alt="Card image cap">
                                 <div class="card-body">
                                     <p class="card-text text-style text-justify">${show.description}</p>
                                     <c:if test="${sessionScope.user != null}">
@@ -351,6 +352,18 @@
                                         <form class="was-validated"
                                               action="${pageContext.request.contextPath}/save_comment.html?id=${show.id}"
                                               method="post">
+                                            <c:if test="${not empty commentProblem}">
+                                                <div class="alert alert-danger text-style" role="alert">
+                                                    <p><strong><fmt:message key="incorrectData"
+                                                                            bundle="${ rb }"/>:</strong></p>
+                                                    <ul>
+                                                        <li><fmt:message key="incorrectField" bundle="${ rb }"/></li>
+                                                        <li><fmt:message key="maxNumberCharacters" bundle="${ rb }"/> -
+                                                            512
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </c:if>
                                             <div class="form-group mt-3">
                                                 <label for="exampleFormControlTextarea1"><fmt:message key="enterComment"
                                                                                                       bundle="${ rb }"/>:</label>
@@ -359,9 +372,6 @@
                                                           rows="5"
                                                           placeholder="<fmt:message key="maxNumberCharacters" bundle="${ rb }" /> - 512"
                                                           required></textarea>
-                                                <div class="invalid-feedback">
-                                                        ${commentProblem}
-                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-danger mb-2"><fmt:message key="send"
                                                                                                            bundle="${ rb }"/></button>
@@ -393,135 +403,260 @@
                     </div>
                 </div>
 
+                <%--                <div class="container">--%>
+                <%--                    <c:forEach items="${show.comments}" var="comment">--%>
+                <%--                        <div class="row">--%>
+                <%--                            <div class="col-12">--%>
+                <%--                                <div class="card text-center mt-3">--%>
+                <%--                                    <div class="card-header text-left">--%>
+                <%--                                            ${comment.user.login}--%>
+                <%--                                    </div>--%>
+                <%--                                    <div class="card-body pl-0">--%>
+                <%--                                        <div class="container">--%>
+                <%--                                            <div class="row">--%>
+                <%--                                                <div class="col-1">--%>
+                <%--                                                    <c:choose>--%>
+                <%--                                                        <c:when test="${sessionScope.user.equals(comment.user.login)}">--%>
+                <%--                                                            <i class="fas fa-comment fa-2x"></i>--%>
+                <%--                                                        </c:when>--%>
+                <%--                                                        <c:when test="${!sessionScope.user.equals(comment.user.login)}">--%>
+                <%--                                                            <i class="far fa-comment fa-2x"></i>--%>
+                <%--                                                        </c:when>--%>
+                <%--                                                    </c:choose>--%>
+                <%--                                                </div>--%>
+                <%--                                                <div class="col-10">--%>
+                <%--                                                    <p class="card-text text-left">--%>
+                <%--                                                            ${comment.comment}--%>
+                <%--                                                    </p>--%>
+                <%--                                                </div>--%>
+                <%--                                                <div class="col-1">--%>
+                <%--                                                    <c:if test="${sessionScope.user.equals(comment.user.login)}">--%>
+
+                <%--                                                        <a href="" data-toggle="modal"--%>
+                <%--                                                           data-target="#change${comment.id}"> <i--%>
+                <%--                                                                class="far fa-edit"></i></a>--%>
+
+                <%--                                                        <!-- Modal -->--%>
+                <%--                                                        <div class="modal fade" id="change${comment.id}" tabindex="-1"--%>
+                <%--                                                             role="dialog" aria-labelledby="exampleModalLongTitle"--%>
+                <%--                                                             aria-hidden="true">--%>
+                <%--                                                            <div class="modal-dialog" role="document">--%>
+                <%--                                                                <div class="modal-content">--%>
+                <%--                                                                    <div class="modal-header">--%>
+                <%--                                                                        <h5 class="modal-title"><fmt:message key="edit"--%>
+                <%--                                                                                                             bundle="${ rb }"/></h5>--%>
+                <%--                                                                        <button type="button" class="close"--%>
+                <%--                                                                                data-dismiss="modal"--%>
+                <%--                                                                                aria-label="Close">--%>
+                <%--                                                                            <span aria-hidden="true">&times;</span>--%>
+                <%--                                                                        </button>--%>
+                <%--                                                                    </div>--%>
+                <%--                                                                    <div class="modal-body">--%>
+                <%--                                                                        <form method="post"--%>
+                <%--                                                                              action="${pageContext.request.contextPath}/save_comment.html?commentId=${comment.id}&id=${show.id}">--%>
+                <%--                                                                            <div class="form-group mt-3">--%>
+
+                <%--                                                                                <textarea class="form-control"--%>
+                <%--                                                                                          rows="5" name="comment"--%>
+                <%--                                                                                          required>${comment.comment}</textarea>--%>
+                <%--                                                                            </div>--%>
+                <%--                                                                            <div class="modal-footer">--%>
+                <%--                                                                                <button type="button"--%>
+                <%--                                                                                        class="btn btn-secondary"--%>
+                <%--                                                                                        data-dismiss="modal">--%>
+                <%--                                                                                    <fmt:message key="cancel"--%>
+                <%--                                                                                                 bundle="${ rb }"/>--%>
+                <%--                                                                                </button>--%>
+                <%--                                                                                <button type="submit"--%>
+                <%--                                                                                        class="btn btn-primary">--%>
+                <%--                                                                                    <fmt:message key="confrim"--%>
+                <%--                                                                                                 bundle="${ rb }"/></button>--%>
+                <%--                                                                            </div>--%>
+                <%--                                                                        </form>--%>
+                <%--                                                                    </div>--%>
+                <%--                                                                </div>--%>
+                <%--                                                            </div>--%>
+                <%--                                                        </div>--%>
+                <%--                                                    </c:if>--%>
+                <%--                                                    <c:if test="${sessionScope.user.equals(comment.user.login) || sessionScope.role == 1}">--%>
+                <%--                                                        <a href="" data-toggle="modal"--%>
+                <%--                                                           data-target="#delete${comment.id}"> <i--%>
+                <%--                                                                class="fas fa-trash-alt"></i></a>--%>
+
+                <%--                                                        <!-- Modal -->--%>
+                <%--                                                        <div class="modal fade" id="delete${comment.id}" tabindex="-1"--%>
+                <%--                                                             role="dialog" aria-labelledby="exampleModalLongTitle"--%>
+                <%--                                                             aria-hidden="true">--%>
+                <%--                                                            <div class="modal-dialog" role="document">--%>
+                <%--                                                                <div class="modal-content">--%>
+                <%--                                                                    <div class="modal-header">--%>
+                <%--                                                                        <h5 class="modal-title"><fmt:message--%>
+                <%--                                                                                key="delete" bundle="${ rb }"/></h5>--%>
+                <%--                                                                        <button type="button" class="close"--%>
+                <%--                                                                                data-dismiss="modal"--%>
+                <%--                                                                                aria-label="Close">--%>
+                <%--                                                                            <span aria-hidden="true">&times;</span>--%>
+                <%--                                                                        </button>--%>
+                <%--                                                                    </div>--%>
+                <%--                                                                    <div class="modal-body">--%>
+                <%--                                                                        <form method="post"--%>
+                <%--                                                                              action="${pageContext.request.contextPath}/delete_comment.html?id=${comment.id}">--%>
+                <%--                                                                            <p>Вы уверены, что хотите удалить--%>
+                <%--                                                                                комментарий? </p>--%>
+                <%--                                                                            <div class="modal-footer">--%>
+                <%--                                                                                <button type="button"--%>
+                <%--                                                                                        class="btn btn-secondary"--%>
+                <%--                                                                                        data-dismiss="modal">--%>
+                <%--                                                                                    <fmt:message key="cancel"--%>
+                <%--                                                                                                 bundle="${ rb }"/>--%>
+                <%--                                                                                </button>--%>
+                <%--                                                                                <button type="submit"--%>
+                <%--                                                                                        class="btn btn-primary">--%>
+                <%--                                                                                    <fmt:message key="delete"--%>
+                <%--                                                                                                 bundle="${ rb }"/>--%>
+                <%--                                                                                </button>--%>
+                <%--                                                                            </div>--%>
+                <%--                                                                        </form>--%>
+                <%--                                                                    </div>--%>
+                <%--                                                                </div>--%>
+                <%--                                                            </div>--%>
+                <%--                                                        </div>--%>
+                <%--                                                    </c:if>--%>
+                <%--                                                </div>--%>
+                <%--                                            </div>--%>
+                <%--                                        </div>--%>
+                <%--                                    </div>--%>
+                <%--                                    <div class="card-footer text-muted">--%>
+                <%--                                        <i class="far fa-clock"></i>--%>
+                <%--                                        <fmt:parseDate value="${comment.publicationDate}"--%>
+                <%--                                                       pattern="yyyy-MM-dd'T'HH:mm"--%>
+                <%--                                                       var="time"--%>
+                <%--                                                       type="date"/>--%>
+                <%--                                        <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/>--%>
+                <%--                                    </div>--%>
+                <%--                                </div>--%>
+                <%--                            </div>--%>
+                <%--                        </div>--%>
+                <%--                    </c:forEach>--%>
+                <%--                </div>--%>
+
+
                 <div class="container">
                     <c:forEach items="${show.comments}" var="comment">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card text-center mt-3">
-                                    <div class="card-header text-left">
-                                            ${comment.user.login}
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="<c:url value="/img/avatar/${comment.user.avatar}"/>"
+                                             class="img img-rounded img-fluid" alt=""/>
                                     </div>
-                                    <div class="card-body pl-0">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-1">
-                                                    <c:choose>
-                                                        <c:when test="${sessionScope.user.equals(comment.user.login)}">
-                                                            <i class="fas fa-comment fa-2x"></i>
-                                                        </c:when>
-                                                        <c:when test="${!sessionScope.user.equals(comment.user.login)}">
-                                                            <i class="far fa-comment fa-2x"></i>
-                                                        </c:when>
-                                                    </c:choose>
-                                                </div>
-                                                <div class="col-10">
-                                                    <p class="card-text text-left">
-                                                            ${comment.comment}
-                                                    </p>
-                                                </div>
-                                                <div class="col-1">
-                                                    <c:if test="${sessionScope.user.equals(comment.user.login)}">
+                                    <div class="col-md-10">
+                                        <p class="text-style">
+                                            <strong>${comment.user.login}</strong>
+                                        </p>
+                                        <div class="clearfix"></div>
+                                        <p class="text-style">${comment.comment}</p>
+                                        <c:if test="${sessionScope.user.equals(comment.user.login)}">
+                                            <a href="" data-toggle="modal"
+                                               data-target="#change${comment.id}"> <i
+                                                    class="far fa-edit"></i></a>
 
-                                                        <a href="" data-toggle="modal"
-                                                           data-target="#change${comment.id}"> <i
-                                                                class="far fa-edit"></i></a>
-
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="change${comment.id}" tabindex="-1"
-                                                             role="dialog" aria-labelledby="exampleModalLongTitle"
-                                                             aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"><fmt:message key="edit" bundle="${ rb }"/></h5>
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form method="post"
-                                                                              action="${pageContext.request.contextPath}/save_comment.html?commentId=${comment.id}&id=${show.id}">
-                                                                            <div class="form-group mt-3">
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="change${comment.id}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="exampleModalLongTitle"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"><fmt:message key="edit"
+                                                                                                 bundle="${ rb }"/></h5>
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post"
+                                                                  action="${pageContext.request.contextPath}/save_comment.html?commentId=${comment.id}&id=${show.id}">
+                                                                <div class="form-group mt-3">
 
                                                                                 <textarea class="form-control"
                                                                                           rows="5" name="comment"
                                                                                           required>${comment.comment}</textarea>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                        class="btn btn-secondary"
-                                                                                        data-dismiss="modal">
-                                                                                    <fmt:message key="cancel" bundle="${ rb }"/>
-                                                                                </button>
-                                                                                <button type="submit"
-                                                                                        class="btn btn-primary"><fmt:message key="confrim" bundle="${ rb }"/></button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </c:if>
-
-                                                    <c:if test="${sessionScope.user.equals(comment.user.login) || sessionScope.role == 1}">
-                                                        <a href="" data-toggle="modal"
-                                                           data-target="#delete${comment.id}"> <i
-                                                                class="fas fa-trash-alt"></i></a>
-
-                                                        <!-- Modal -->
-                                                        <div class="modal fade" id="delete${comment.id}" tabindex="-1"
-                                                             role="dialog" aria-labelledby="exampleModalLongTitle"
-                                                             aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"><fmt:message key="delete" bundle="${ rb }"/></h5>
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form method="post"
-                                                                              action="${pageContext.request.contextPath}/delete_comment.html?id=${comment.id}">
-                                                                            <p>Вы уверены, что хотите удалить
-                                                                                комментарий? </p>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button"
-                                                                                        class="btn btn-secondary"
-                                                                                        data-dismiss="modal"><fmt:message key="cancel" bundle="${ rb }"/>
-                                                                                </button>
-                                                                                <button type="submit"
-                                                                                        class="btn btn-primary">
-                                                                                    <fmt:message key="delete" bundle="${ rb }"/>
-                                                                                </button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-secondary"
+                                                                            data-dismiss="modal">
+                                                                        <fmt:message key="cancel" bundle="${ rb }"/>
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-primary"><fmt:message
+                                                                            key="confrim" bundle="${ rb }"/></button>
                                                                 </div>
-                                                            </div>
+                                                            </form>
                                                         </div>
-                                                    </c:if>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer text-muted">
-                                        <i class="far fa-clock"></i>
-                                        <fmt:parseDate value="${comment.publicationDate}"
-                                                       pattern="yyyy-MM-dd'T'HH:mm"
-                                                       var="time"
-                                                       type="date"/>
-                                        <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/>
+                                        </c:if>
+
+                                        <c:if test="${sessionScope.user.equals(comment.user.login) || sessionScope.role == 1}">
+                                            <a href="" data-toggle="modal"
+                                               data-target="#delete${comment.id}"> <i
+                                                    class="fas fa-trash-alt"></i></a>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="delete${comment.id}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="exampleModalLongTitle"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"><fmt:message key="delete"
+                                                                                                 bundle="${ rb }"/></h5>
+                                                            <button type="button" class="close"
+                                                                    data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="post"
+                                                                  action="${pageContext.request.contextPath}/delete_comment.html?id=${comment.id}">
+                                                                <p>Вы уверены, что хотите удалить
+                                                                    комментарий? </p>
+                                                                <div class="modal-footer">
+                                                                    <button type="button"
+                                                                            class="btn btn-secondary"
+                                                                            data-dismiss="modal"><fmt:message
+                                                                            key="cancel" bundle="${ rb }"/>
+                                                                    </button>
+                                                                    <button type="submit"
+                                                                            class="btn btn-primary">
+                                                                        <fmt:message key="delete" bundle="${ rb }"/>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
+                                <p class="text-secondary text-right"><i class="far fa-clock"></i>
+                                    <fmt:parseDate value="${comment.publicationDate}"
+                                                   pattern="yyyy-MM-dd'T'HH:mm"
+                                                   var="time"
+                                                   type="date"/>
+                                    <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/></p>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
+
 
             </div>
 

@@ -118,7 +118,6 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
-
     private SearchQuery buildSearchQuery(SearchForm searchForm, String temp) {
         List<Object> param = new ArrayList<>();
         StringBuilder sql = new StringBuilder(temp);

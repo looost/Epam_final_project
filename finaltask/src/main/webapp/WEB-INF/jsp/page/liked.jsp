@@ -50,7 +50,8 @@
                             <div class="col-4 mb-4">
                                 <div class="card h-100">
                                     <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
-                                        <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
+                                        <img class="card-img-top" src="<c:url value="/img/${s.logo}"/>"
+                                             alt="Card image cap" height="168" width="269">
                                     </a>
 
                                     <div class="card-header">

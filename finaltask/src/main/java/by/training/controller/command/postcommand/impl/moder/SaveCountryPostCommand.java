@@ -26,18 +26,18 @@ public class SaveCountryPostCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String countryName = req.getParameter(PARAMETER_COUNTRY);
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
-        if (countryName.equals("")) {
-            String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
-            req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, errorMessage);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
-        }
         Country country = new Country(Integer.parseInt(id), countryName);
         try {
             ServiceFactory.getInstance().getCountryService().save(country);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
         } catch (ServiceException e) {
-            logger.error(e);
-            return CommandUtil.routingErrorPage(req, resp, e.getCode());
+            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
+                req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, true);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
+            } else {
+                logger.error(e);
+                return CommandUtil.routingErrorPage(req, resp, e.getCode());
+            }
         }
     }
 }

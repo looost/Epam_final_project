@@ -35,16 +35,22 @@
                     <form class="was-validated mt-2" method="post" enctype="multipart/form-data"
                           action="${pageContext.request.contextPath}/save_serial.html">
 
+                        <c:if test="${not empty serialProblem}">
+                            <div class="alert alert-danger text-style" role="alert">
+                                <p><strong><fmt:message key="incorrectData" bundle="${ rb }"/>:</strong></p>
+                                <ul>
+                                    <li><fmt:message key="incorrectName" bundle="${ rb }"/></li>
+                                    <li><fmt:message key="incorrectField" bundle="${ rb }"/></li>
+                                    <li><fmt:message key="incorrectNameLength" bundle="${ rb }"/></li>
+                                </ul>
+                            </div>
+                        </c:if>
+
                         <div class="mb-3">
                             <label for="validationName"><fmt:message key="enterSerialName" bundle="${ rb }"/>:</label>
                             <input type="text" name="name" class="form-control is-invalid"
                                    id="validationName"
                                    placeholder="<fmt:message key="enterSerialName" bundle="${ rb }"/>">
-                            <c:if test="${nameProblem != null}">
-                                <div class="invalid-feedback">
-                                        ${nameProblem}
-                                </div>
-                            </c:if>
                         </div>
 
                         <div class="mb-3">
@@ -53,11 +59,6 @@
                             <textarea class="form-control is-invalid" id="validationDescription"
                                       placeholder="<fmt:message key="enterSerialDescription" bundle="${ rb }"/>"
                                       name="description" rows="5"></textarea>
-                            <c:if test="${descriptionProblem != null}">
-                                <div class="invalid-feedback">
-                                        ${descriptionProblem}
-                                </div>
-                            </c:if>
                         </div>
 
                         <div class="custom-file mb-3">
@@ -75,11 +76,6 @@
                         <div class="form-group">
                             <label for="date"><fmt:message key="enterSerialReleaseDate" bundle="${ rb }"/>:</label>
                             <input type="date" class="form-control" name="release_date" id="date" required>
-                            <c:if test="${releaseDateProblem != null}">
-                                <div class="invalid-feedback">
-                                        ${releaseDateProblem}
-                                </div>
-                            </c:if>
                         </div>
 
                         <div class="mb-2">

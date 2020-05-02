@@ -7,7 +7,8 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Studio;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.ResourceManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,21 +19,24 @@ import static by.training.utils.ConstantName.*;
 
 public class SaveStudioPostCommand implements Command {
 
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
+
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String studioName = req.getParameter(PARAMETER_STUDIO);
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
-        if (studioName.equals("")) {
-            String errorMessage = ResourceManager.INSTANCE.changeResource(req).getString("fillOutField");
-            req.getSession().setAttribute(ATTRIBUTE_STUDIO_PROBLEM, errorMessage);
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
-        }
         Studio studio = new Studio(Integer.parseInt(id), studioName);
         try {
             ServiceFactory.getInstance().getStudioService().save(studio);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
         } catch (ServiceException e) {
-            return CommandUtil.routingErrorPage(req, resp, e.getCode());
+            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
+                req.getSession().setAttribute(ATTRIBUTE_STUDIO_PROBLEM, e.getMessage());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
+            } else {
+                logger.error(e);
+                return CommandUtil.routingErrorPage(req, resp, e.getCode());
+            }
         }
     }
 }

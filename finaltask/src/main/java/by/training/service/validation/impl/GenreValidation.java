@@ -1,10 +1,11 @@
-package by.training.service.validation;
+package by.training.service.validation.impl;
 
 import by.training.dao.Transaction;
 import by.training.dao.exception.DaoException;
 import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
+import by.training.service.validation.Validation;
 
 import javax.servlet.http.HttpServletResponse;
 

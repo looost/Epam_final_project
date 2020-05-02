@@ -91,6 +91,22 @@ create table viewed
 
 );
 
+create table liked
+(
+    `user_id`   INTEGER NOT NULL,
+    `serial_id` INTEGER NOT NULL,
+    UNIQUE (`user_id`, `serial_id`),
+    CONSTRAINT fk_liked_user FOREIGN KEY (`user_id`)
+        REFERENCES user (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_liked_serial FOREIGN KEY (`serial_id`)
+        REFERENCES serial (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+
+);
+
 create table serial_genre
 (
     `serial_id` INTEGER NOT NULL,

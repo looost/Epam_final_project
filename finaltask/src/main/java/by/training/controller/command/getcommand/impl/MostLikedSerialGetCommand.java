@@ -6,6 +6,8 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +18,11 @@ import java.util.List;
 import static by.training.utils.ConstantName.*;
 
 public class MostLikedSerialGetCommand implements Command {
+
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
+
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         try {
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllSerial = ServiceFactory.getInstance().getSerialService().countAllSerial();
@@ -36,6 +40,7 @@ public class MostLikedSerialGetCommand implements Command {
             req.setAttribute(PARAMETER_STUDIO, studio);
             return new CommandResponse(RoutingType.FORWARD, ROUTING_RATING_JSP, req, resp);
         } catch (ServiceException e) {
+            logger.error(e);
             return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
         }
     }

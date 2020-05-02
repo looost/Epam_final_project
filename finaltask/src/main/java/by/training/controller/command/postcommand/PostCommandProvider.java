@@ -28,6 +28,7 @@ public class PostCommandProvider {
         repository.put(CommandName.DELETE_STUDIO, new DeleteStudioPostCommand());
         repository.put(CommandName.DELETE_SERIAL, new DeleteSerialPostCommand());
         repository.put(CommandName.DELETE_COMMENT, new DeleteCommentPostCommand());
+        repository.put(CommandName.CHANGE_AVATAR, new ChangeUserAvatarPostCommand());
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestPostCommand());
     }
 

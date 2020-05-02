@@ -26,6 +26,7 @@ create table user
     `id`       INTEGER           NOT NULL AUTO_INCREMENT,
     `login`    VARCHAR(12)       NOT NULL UNIQUE,
     `password` CHAR(60)          NOT NULL,
+    `avatar`   VARCHAR(100),
     /*
      * 0 - администратор (Role.ADMINISTRATOR)
      * 1 - модератор (Role.MODERATOR)
@@ -40,7 +41,7 @@ create table serial
     `id`           INTEGER       NOT NULL AUTO_INCREMENT,
     `name`         VARCHAR(45)   NOT NULL UNIQUE,
     `description`  VARCHAR(1024) NOT NULL,
-    `logo`         VARCHAR(100), -- TODO как буду хранить карттинки?
+    `logo`         VARCHAR(100),
     `full_logo`    VARCHAR(100),
     `release_date` DATE          NOT NULL,
     `count_like`   INTEGER DEFAULT 0,
@@ -85,6 +86,22 @@ create table viewed
         ON DELETE CASCADE
         ON UPDATE CASCADE,
     CONSTRAINT fk_viewed_serial FOREIGN KEY (`serial_id`)
+        REFERENCES serial (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+
+);
+
+create table liked
+(
+    `user_id`   INTEGER NOT NULL,
+    `serial_id` INTEGER NOT NULL,
+    UNIQUE (`user_id`, `serial_id`),
+    CONSTRAINT fk_liked_user FOREIGN KEY (`user_id`)
+        REFERENCES user (`id`)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT fk_liked_serial FOREIGN KEY (`serial_id`)
         REFERENCES serial (`id`)
         ON DELETE CASCADE
         ON UPDATE CASCADE

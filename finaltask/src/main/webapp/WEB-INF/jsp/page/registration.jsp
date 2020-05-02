@@ -91,7 +91,7 @@
                                                 <i class="fas fa-key fa-2x"></i>
                                             </div>
                                             <div class="col-10">
-                                                <input id="inputPassword" type="password" name="replayPassword"
+                                                <input id="inputPassword" type="password" name="password"
                                                        placeholder="<fmt:message key="password" bundle="${ rb }"/>"
                                                        required=""
                                                        class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
@@ -102,7 +102,7 @@
                                                 <i class="fas fa-key fa-2x"></i>
                                             </div>
                                             <div class="col-10">
-                                                <input id="replayInputPassword" type="password" name="password"
+                                                <input id="password-check" type="password" name="replayPassword"
                                                        placeholder="<fmt:message key="confirmPassword" bundle="${ rb }" />"
                                                        required=""
                                                        class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
@@ -112,7 +112,8 @@
                                 </div>
                                 <button type="submit"
                                         class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
-                                        onclick="return validateForm()">
+                                <%--                                        onclick="return validateForm()"--%>
+                                >
                                     <em><fmt:message key="registr" bundle="${ rb }"/></em></button>
                                 <em><p class="message text-center text-style"><fmt:message key="alredyRegistr"
                                                                                            bundle="${ rb }"/>?
@@ -131,13 +132,32 @@
     </div><!-- End -->
 </div>
 
-<script type="text/javascript">
-    function validateForm() {
-        var password1 = document.getElementById('inputPassword');
-        var password2 = document.getElementById('replayInputPassword');
-        if (password1.value !== password2.value) {
-            alert('<fmt:message key="passwordDoNotMatch" bundle="${ rb }" />');
-            return false;
-        }
+<%--<script type="text/javascript">--%>
+<%--    function validateForm() {--%>
+<%--        var password1 = document.getElementById('inputPassword');--%>
+<%--        var password2 = document.getElementById('password-check');--%>
+<%--        if (password1.value !== password2.value) {--%>
+<%--            alert('<fmt:message key="passwordDoNotMatch" bundle="${ rb }" />');--%>
+<%--            return false;--%>
+<%--        }--%>
+<%--    }--%>
+<%--</script>--%>
+
+<style>
+    input[type=password]:invalid {
+        border: solid 2px red;
     }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var pass1 = document.querySelector('#inputPassword'),
+            pass2 = document.querySelector('#password-check')
+        pass1.addEventListener('input', function () {
+            this.value != pass2.value ? pass2.setCustomValidity('<fmt:message key="passwordDoNotMatch" bundle="${ rb }" />') : pass2.setCustomValidity('')
+        })
+        pass2.addEventListener('input', function (e) {
+            this.value != pass1.value ? this.setCustomValidity('<fmt:message key="passwordDoNotMatch" bundle="${ rb }" />') : this.setCustomValidity('')
+        })
+    })
 </script>

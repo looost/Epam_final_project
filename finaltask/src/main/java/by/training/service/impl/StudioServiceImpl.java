@@ -6,11 +6,16 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Studio;
 import by.training.service.StudioService;
 import by.training.service.exception.ServiceException;
+import by.training.service.validation.Validation;
+import by.training.service.validation.impl.StudioValidation;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class StudioServiceImpl implements StudioService {
+
+    private static final Validation<Studio> validator = new StudioValidation();
+
     @Override
     public List<Studio> findAll() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
@@ -45,8 +50,14 @@ public class StudioServiceImpl implements StudioService {
     }
 
     @Override
-    public Studio findById(String id) throws ServiceException {
-        return null;
+    public Studio findByName(String studioName) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            Studio result = DaoFactory.getInstance().getStudioDao(transaction).findByName(studioName);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -61,38 +72,21 @@ public class StudioServiceImpl implements StudioService {
     }
 
     @Override
-    public boolean create(Studio entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getStudioDao(transaction).create(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean update(Studio entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getStudioDao(transaction).update(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
     public boolean save(Studio studio) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (studio.getId() == 0) {
-                result = DaoFactory.getInstance().getStudioDao(transaction).create(studio);
+            if (validator.isValid(transaction, studio)) {
+                if (studio.getId() == 0) {
+                    result = DaoFactory.getInstance().getStudioDao(transaction).create(studio);
+                } else {
+                    result = DaoFactory.getInstance().getStudioDao(transaction).update(studio);
+                }
+                transaction.commit();
+                return result;
             } else {
-                result = DaoFactory.getInstance().getStudioDao(transaction).update(studio);
+                transaction.rollback();
+                throw new ServiceException("Not valid studio", HttpServletResponse.SC_BAD_REQUEST);
             }
-            transaction.commit();
-            return result;
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

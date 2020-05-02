@@ -22,23 +22,23 @@ import static by.training.utils.ConstantName.*;
 
 public class EditSerialGetCommand implements Command {
 
-    private static final Logger logger = LogManager.getLogger("debug");
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_SERIAL_PROBLEM, req);
         try {
-            CommandUtil.transferMapAttribute(req);
             List<Country> countryList = ServiceFactory.getInstance().getCountryService().findAll();
             List<Studio> studios = ServiceFactory.getInstance().getStudioService().findAll();
             List<Genre> genres = ServiceFactory.getInstance().getGenreService().findAll();
             req.setAttribute(PARAMETER_GENRES, genres);
             req.setAttribute(PARAMETER_STUDIO, studios);
             req.setAttribute(PARAMETER_COUNTRY, countryList);
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_SERIAL_JSP, req, resp);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e);
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_SERIAL_JSP, req, resp);
-        //RoutingUtils.forwardToPage("/admin/serial.jsp", req, resp);
     }
 }
 

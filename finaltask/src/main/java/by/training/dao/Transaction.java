@@ -30,14 +30,29 @@ public class Transaction implements AutoCloseable {
         }
     }
 
+    public void rollback() throws DaoException {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot rollback", e);
+        }
+    }
+
     @Override
     public void close() throws DaoException {
         try {
             if (connection != null) {
+                connection.rollback();
                 connection.close();
             }
         } catch (SQLException e) {
             throw new DaoException("Cannot close connection", e);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new DaoException(e);
+            }
         }
     }
 

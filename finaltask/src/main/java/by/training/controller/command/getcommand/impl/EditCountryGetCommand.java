@@ -7,6 +7,8 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Country;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,8 @@ import java.util.List;
 import static by.training.utils.ConstantName.*;
 
 public class EditCountryGetCommand implements Command {
+
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,11 +33,11 @@ public class EditCountryGetCommand implements Command {
             req.setAttribute(PARAMETER_COUNTRY, countries);
             req.setAttribute(PARAMETER_COUNT_ALL_COUNTRY, countAllCountry);
             req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_COUNTY_IN_ADMIN_PAGE);
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_COUNTRY_JSP, req, resp);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e);
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_COUNTRY_JSP, req, resp);
-        //RoutingUtils.forwardToPage("/admin/country.jsp", req, resp);
     }
 }
 

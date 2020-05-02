@@ -13,6 +13,7 @@ import by.training.service.factory.ServiceFactory;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -58,32 +59,31 @@ public class SaveSerialPostCommand implements Command {
             String serialId = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
-            Serial serial = new Serial();
-            serial.setId(Integer.parseInt(serialId));
-            serial.setGenres(new ArrayList<>());
-            serial.setStudio(new Studio());
-            serial.setCountry(new Country());
-            Map<String, String> errors = new HashMap<>();
-            for (FileItem item: multiFiles
-                 ) {
+            Serial serial = new Serial.Builder()
+                    .withId(Integer.parseInt(serialId))
+                    .withGenres(new ArrayList<>())
+                    .withCountry(new Country())
+                    .withStudio(new Studio())
+                    .build();
+
+            Serial newSero = serialId.equals("0") ? serial : ServiceFactory.getInstance().getSerialService().findById(serialId);
+
+            for (FileItem item : multiFiles
+            ) {
                 if (item.isFormField()) {
-                    processFormField(item, serial, errors);
+                    processFormField(item, serial);
                 } else {
                     processUploadedFile(item, serial, req);
                 }
             }
-            if (errors.isEmpty()) {
-                ServiceFactory.getInstance().getSerialService().save(serial);
-                return new CommandResponse(RoutingType.REDIRECT, req.getHeader(HEADER_REFERER), req, resp);
-            } else {
-                req.getSession().setAttribute(ATTRIBUTE_ERROR, errors);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SERIAL_PAGE, req, resp);
-            }
+            ServiceFactory.getInstance().getSerialService().save(serial);
+            return new CommandResponse(RoutingType.REDIRECT, req.getHeader(HEADER_REFERER), req, resp);
         } catch (ServiceException e) {
-            logger.debug(e);
             if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
+                req.getSession().setAttribute(ATTRIBUTE_SERIAL_PROBLEM, true);
                 return new CommandResponse(RoutingType.REDIRECT, req.getHeader(HEADER_REFERER), req, resp);
             } else {
+                logger.debug(e);
                 return CommandUtil.routingErrorPage(req, resp, e.getCode());
             }
         } catch (Exception e) {
@@ -92,31 +92,20 @@ public class SaveSerialPostCommand implements Command {
         }
     }
 
-    private void processFormField(FileItem item, Serial serial, Map<String, String> errors) throws UnsupportedEncodingException {
+    private void processFormField(FileItem item, Serial serial) throws UnsupportedEncodingException, ServiceException {
         switch (item.getFieldName()) {
             case PARAMETER_NAME:
-                if (item.getString(ENCODING_UTF_8).equals("")) {
-                    errors.put(ATTRIBUTE_NAME_PROBLEM, "Введите название!");
-                    break;
-                } else {
-                    serial.setName(item.getString(ENCODING_UTF_8));
-                    break;
-                }
+                serial.setName(item.getString(ENCODING_UTF_8));
+                break;
             case PARAMETER_DESCRIPTION:
-                if (item.getString(ENCODING_UTF_8).equals("")) {
-                    errors.put(ATTRIBUTE_DESCRIPTION_PROBLEM, "Введите описание!");
-                    break;
-                } else {
-                    serial.setDescription(item.getString(ENCODING_UTF_8));
-                    break;
-                }
+                serial.setDescription(item.getString(ENCODING_UTF_8));
+                break;
             case PARAMETER_RELEASE_DATE:
                 try {
                     serial.setReleaseDate(Date.valueOf(item.getString()));
                     break;
                 } catch (IllegalArgumentException e) {
-                    errors.put(ATTRIBUTE_RELEASE_DATE_PROBLEM, "Неверно введена дата!");
-                    break;
+                    throw new ServiceException(e, HttpServletResponse.SC_BAD_REQUEST);
                 }
             case PARAMETER_GENRE:
                 Genre genre = new Genre();
@@ -136,30 +125,34 @@ public class SaveSerialPostCommand implements Command {
     }
 
     private void processUploadedFile(FileItem item, Serial serial, HttpServletRequest req) throws Exception {
+        String fileName = UUID.randomUUID().toString() + item.getName();
         switch (item.getFieldName()) {
             case PARAMETER_LOGO:
                 if (item.getName().equals("")) {
-                    serial.setLogo(PATH_TO_DEFAULT_IMG);
+                    serial.setLogo(DEFAULT_IMG_NAME);
                     break;
                 } else {
-                    String fileName = UUID.randomUUID().toString() + item.getName();
                     String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
                             + fileName;
                     File logo = new File(filePath);
                     item.write(logo);
-                    serial.setLogo("img\\" + logo.getName());
+                    File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" + fileName);
+                    FileUtils.copyFile(logo, copyFile);
+                    serial.setLogo(logo.getName());
                     break;
                 }
             case PARAMETER_FULL_LOGO:
                 if (item.getName().equals("")) {
-                    serial.setFullLogo(PATH_TO_DEFAULT_IMG);
+                    serial.setFullLogo(DEFAULT_IMG_NAME);
                     break;
                 } else {
                     String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
-                            + UUID.randomUUID().toString() + item.getName();
+                            + fileName;
                     File fullLogo = new File(filePath);
                     item.write(fullLogo);
-                    serial.setFullLogo("img\\" + fullLogo.getName());
+                    File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" + fileName);
+                    FileUtils.copyFile(fullLogo, copyFile);
+                    serial.setFullLogo(fullLogo.getName());
                     break;
                 }
             default:

@@ -6,7 +6,7 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;
-import by.training.service.validation.GenreValidation;
+import by.training.service.validation.impl.GenreValidation;
 import by.training.service.validation.Validation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +18,6 @@ import static by.training.utils.ConstantName.DEBUG_LOGGER;
 
 public class GenreServiceImpl implements GenreService {
 
-    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
     private static final Validation<Genre> validation = new GenreValidation();
 
     @Override
@@ -43,6 +42,7 @@ public class GenreServiceImpl implements GenreService {
         }
     }
 
+
     @Override
     public List<Genre> findGenrePageByPage(int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
@@ -66,11 +66,6 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Genre findById(String id) throws ServiceException {
-        return null;
-    }
-
-    @Override
     public boolean delete(String id) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result = DaoFactory.getInstance().getGenreDao(transaction).delete(id);
@@ -81,30 +76,6 @@ public class GenreServiceImpl implements GenreService {
         }
     }
 
-    @Override
-    public boolean create(Genre entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            if (validation.isValid(transaction, entity)) {
-                throw new ServiceException("Not valid data", HttpServletResponse.SC_BAD_REQUEST);
-            }
-            boolean result = DaoFactory.getInstance().getGenreDao(transaction).create(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean update(Genre entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getGenreDao(transaction).update(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
 
     @Override
     public boolean save(Genre genre) throws ServiceException {
@@ -119,11 +90,10 @@ public class GenreServiceImpl implements GenreService {
                 transaction.commit();
                 return result;
             } else {
-                throw new ServiceException("Not valid data", HttpServletResponse.SC_BAD_REQUEST);
+                transaction.rollback();
+                throw new ServiceException("Not valid genre", HttpServletResponse.SC_BAD_REQUEST);
             }
-
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

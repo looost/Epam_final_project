@@ -6,6 +6,8 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Country;
 import by.training.service.CountryService;
 import by.training.service.exception.ServiceException;
+import by.training.service.validation.Validation;
+import by.training.service.validation.impl.CountryValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +18,18 @@ import static by.training.utils.ConstantName.ERROR_LOGGER;
 
 public class CountryServiceImpl implements CountryService {
 
-    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
+    private static final Validation<Country> validator = new CountryValidation();
+
+    @Override
+    public Country findByName(String countryName) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            Country result = DaoFactory.getInstance().getCountryDao(transaction).findByName(countryName);
+            transaction.commit();
+            return result;
+        } catch (DaoException e) {
+            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @Override
     public List<Country> findAll() throws ServiceException {
@@ -25,7 +38,6 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -37,7 +49,6 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -49,14 +60,8 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @Override
-    public Country findById(String id) throws ServiceException {
-        return null;
     }
 
     @Override
@@ -66,31 +71,6 @@ public class CountryServiceImpl implements CountryService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            logger.error(e);
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean create(Country entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getCountryDao(transaction).create(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            logger.error(e);
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean update(Country entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getCountryDao(transaction).update(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -99,15 +79,19 @@ public class CountryServiceImpl implements CountryService {
     public boolean save(Country country) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (country.getId() == 0) {
-                result = DaoFactory.getInstance().getCountryDao(transaction).create(country);
+            if (validator.isValid(transaction, country)) {
+                if (country.getId() == 0) {
+                    result = DaoFactory.getInstance().getCountryDao(transaction).create(country);
+                } else {
+                    result = DaoFactory.getInstance().getCountryDao(transaction).update(country);
+                }
+                transaction.commit();
+                return result;
             } else {
-                result = DaoFactory.getInstance().getCountryDao(transaction).update(country);
+                transaction.rollback();
+                throw new ServiceException("Not valid country", HttpServletResponse.SC_BAD_REQUEST);
             }
-            transaction.commit();
-            return result;
         } catch (DaoException e) {
-            logger.error(e);
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

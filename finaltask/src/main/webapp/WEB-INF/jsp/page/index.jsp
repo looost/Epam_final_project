@@ -15,14 +15,14 @@
 
 
 <!-- portfolio -->
-<div class="portfolio">
+<div class="portfolio text-style">
 
     <%--    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>--%>
     <div class="jumbotron jumbotron-fluid bg-light">
         <div class="container">
             <h1 class="display-4 text-style"><em><fmt:message key="serials" bundle="${ rb }"/></em></h1>
             <hr class="my-4">
-            <p class="lead text-style"><em><fmt:message key="welcome" bundle="${ rb }"/></em></p>
+            <p class="lead"><em><fmt:message key="welcome" bundle="${ rb }"/></em></p>
         </div>
     </div>
 
@@ -57,8 +57,8 @@
                                 <div class="col mb-4">
                                     <div class="card h-100">
                                         <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
-                                            <img class="card-img-top"
-                                                 src="<c:url value="${s.logo}"/>" alt="Card image cap">
+                                            <img class="card-img-top" height="168" width="269"
+                                                 src="<c:url value="/img/${s.logo}"/>" alt="Card image cap">
                                         </a>
 
                                         <div class="card-header">
@@ -72,7 +72,7 @@
                                             </p>
                                         </div>
                                         <div class="card-footer">
-                                            <small class="text-muted text-style">${s.studio.name}</small>
+                                            <small class="text-muted">${s.studio.name}</small>
                                         </div>
                                     </div>
                                 </div>

@@ -34,6 +34,14 @@ public class CountryDaoImpl implements CountryDao {
         this.transaction = transaction;
     }
 
+    private static final String FIND_COUNTRY_BY_NAME = "SELECT id, name FROM country WHERE name = ?";
+
+    @Override
+    public Country findByName(String countryName) throws DaoException {
+        return JDBCUtil.select(transaction.getConnection(), FIND_COUNTRY_BY_NAME,
+                ResultSetHandlerFactory.getSingleResultSetHandler(COUNTRY_RESULT_SET_HANDLER), countryName);
+    }
+
     private static final String FIND_ALL_COUNTRY = "SELECT id, name FROM country";
     @Override
     public List<Country> findAll() throws DaoException {

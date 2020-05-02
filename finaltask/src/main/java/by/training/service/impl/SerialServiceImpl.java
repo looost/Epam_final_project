@@ -10,14 +10,16 @@ import by.training.dao.Transaction;
 import by.training.service.transaction.TransactionBuilder;
 import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
-import by.training.service.validation.SerialValidation;
+import by.training.service.validation.Validation;
+import by.training.service.validation.impl.SerialValidation;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 public class SerialServiceImpl implements SerialService {
 
-    private SerialValidation validation = new SerialValidation();
+    private Validation<Serial> validation = new SerialValidation();
     private static final TransactionBuilder<Serial> SERIAL_TRANSACTION_HANDLER = TransactionBuilderFactory.SERIAL_TRANSACTION_BUILDER;
 
 //    @Override
@@ -285,41 +287,20 @@ public class SerialServiceImpl implements SerialService {
     }
 
     @Override
-    public boolean create(Serial entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getSerialDao(transaction).create(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
-    public boolean update(Serial entity) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            boolean result = DaoFactory.getInstance().getSerialDao(transaction).update(entity);
-            transaction.commit();
-            return result;
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
     public boolean save(Serial serial) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (!validation.isValidSerial(transaction, serial)) {
+            if (validation.isValid(transaction, serial)) {
+                if (serial.getId() == 0) {
+                    result = DaoFactory.getInstance().getSerialDao(transaction).create(serial);
+                } else {
+                    result = DaoFactory.getInstance().getSerialDao(transaction).update(serial);
+                }
+                transaction.commit();
+                return result;
+            } else {
                 throw new ServiceException("Serial field not valid", HttpServletResponse.SC_BAD_REQUEST);
             }
-            if (serial.getId() == 0) {
-                result = DaoFactory.getInstance().getSerialDao(transaction).create(serial);
-            } else {
-                result = DaoFactory.getInstance().getSerialDao(transaction).update(serial);
-            }
-            transaction.commit();
-            return result;
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

@@ -27,7 +27,7 @@ public class AddUserPostCommand implements Command {
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_USER_PAGE, req, resp);
         }
         try {
-            User user = new User(login, password, Integer.parseInt(role));
+            User user = new User(login, password, DEFAULT_AVATAR_NAME, Integer.parseInt(role));
             ServiceFactory.getInstance().getUserService().createUserWithRole(user);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_USER_PAGE, req, resp);
         } catch (ServiceException e) {

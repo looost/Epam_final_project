@@ -2,9 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="customTag" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${cookie.language.value}" scope="session"/>
+<fmt:setBundle basename="property.text" var="rb"/>
 <!-- portfolio -->
 <div class="portfolio">
-    <h1 class="text-center m-3" style="font-family: segoe print">Сериалы</h1>
+    <h1 class="text-center m-3"><fmt:message key="serials" bundle="${ rb }"/></h1>
 
 
     <div class="container-fluid">
@@ -61,13 +65,13 @@
                                 <div class="col-4 mb-4">
                                     <div class="card h-100">
                                         <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
-                                            <img class="card-img-top" src="/final/${s.logo}" alt="Card image cap">
+                                            <img class="card-img-top" src="<c:url value="/img/${s.logo}"/>"
+                                                 alt="Card image cap" height="168" width="269">
                                         </a>
 
                                         <div class="card-header">
                                         <a class="card-title"
-                                           href="${pageContext.request.contextPath}/show.html?id=${s.id}"
-                                           style="font-family: segoe print">
+                                           href="${pageContext.request.contextPath}/show.html?id=${s.id}">
                                             <h5 class="text-center">${s.name}</h5>
                                         </a>
                                         </div>

@@ -7,6 +7,8 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +20,12 @@ import static by.training.utils.ConstantName.*;
 
 public class EditGenreGetCommand implements Command {
 
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
+
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
         try {
-            CommandUtil.transferSingleAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
             CommandUtil.transferSingleAttribute("ok", req);
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllGenre = ServiceFactory.getInstance().getGenreService().countAllGenres();
@@ -30,9 +33,10 @@ public class EditGenreGetCommand implements Command {
             req.setAttribute(PARAMETER_GENRES, genres);
             req.setAttribute(PARAMETER_COUNT_ALL_GENRES, countAllGenre);
             req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_GENRE_IN_ADMIN_PAGE);
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_GENRE_JSP, req, resp);
         } catch (ServiceException e) {
+            logger.error(e);
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_GENRE_JSP, req, resp);
     }
 }

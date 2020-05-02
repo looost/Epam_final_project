@@ -30,6 +30,7 @@ public enum CommandName {
     DELETE_COUNTRY,
     DELETE_STUDIO,
     DELETE_COMMENT,
+    CHANGE_AVATAR,
     WATCH_SERIAL,
     STOP_WATCH_SERIAL,
     LIKE,
