@@ -26,6 +26,7 @@ public class ShowGetCommand implements Command {
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_COMMENT_PROBLEM, req);
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_SERIAL_PROBLEM, req);
         String id = req.getParameter(PARAMETER_ID);
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);

@@ -171,14 +171,14 @@ public class SerialDaoImpl implements SerialDao {
         return paramList;
     }
 
-    private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?," +
+    private static final String UPDATE_SERIAL = "UPDATE serial SET name = ?, description = ?, logo = ?, full_logo = ?," +
             " release_date = ?, country_id = ?, studio_id = ? WHERE id = ?";
     private static final String DELETE_SERIAL_GENRE = "DELETE FROM serial_genre WHERE serial_id = ?";
     @Override
     public boolean update(Serial entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_SERIAL,
-                entity.getName(), entity.getDescription(), entity.getReleaseDate(),
-                entity.getCountry().getId(), entity.getStudio().getId(), entity.getId()) &
+                entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(),
+                entity.getReleaseDate(), entity.getCountry().getId(), entity.getStudio().getId(), entity.getId()) &
                 JDBCUtil.execute(transaction.getConnection(), DELETE_SERIAL_GENRE, entity.getId()) &
                 JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
                                 refactorToParamList(entity.getId(), entity.getGenres()));

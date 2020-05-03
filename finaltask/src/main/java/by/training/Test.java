@@ -3,12 +3,13 @@ package by.training;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Test extends Thread {
     public static void main(String[] args) {
-        Integer a = null;
-        System.out.println(a + "sad");
-
+        for (int i = 0; i < 20; i++) {
+            System.out.println(UUID.randomUUID().toString().length());
+        }
     }
 }
 

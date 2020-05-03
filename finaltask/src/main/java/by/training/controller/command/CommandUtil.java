@@ -3,24 +3,12 @@ package by.training.controller.command;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
 public class CommandUtil {
 
     private CommandUtil() {
-    }
-
-    public static void transferMapAttribute(HttpServletRequest req) {
-
-        Map<String, String> error = (Map<String, String>) req.getSession().getAttribute("error");
-        if (error != null) {
-            for (Map.Entry<String, String> entry : error.entrySet()) {
-                req.setAttribute(entry.getKey(), entry.getValue());
-            }
-            req.getSession().removeAttribute("error");
-        }
     }
 
     public static void transferSingleAttribute(String attName, HttpServletRequest req) {

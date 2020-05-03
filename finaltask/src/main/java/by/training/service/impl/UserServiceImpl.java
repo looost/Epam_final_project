@@ -28,21 +28,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createUserWithRole(User user) throws ServiceException {
-        try (Transaction transaction = new Transaction()) {
-            if (validation.isValid(transaction, user)) {
-                DaoFactory.getInstance().getUserDao(transaction).createUserWithRole(user);
-                transaction.commit();
-                return true;
-            } else {
-                return false;
-            }
-        } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @Override
     public boolean save(User user) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;

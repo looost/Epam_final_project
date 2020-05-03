@@ -4,6 +4,7 @@ import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
+import by.training.model.RoleEnum;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
@@ -26,7 +27,7 @@ public class RegistrationPostCommand implements Command {
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter(PARAMETER_LOGIN);
         String password = BCrypt.hashpw(req.getParameter(PARAMETER_PASSWORD), BCrypt.gensalt());
-        User user = new User(login, password, DEFAULT_AVATAR_NAME);
+        User user = new User(login, password, DEFAULT_AVATAR_NAME, RoleEnum.USER.ordinal());
         try {
             ServiceFactory.getInstance().getUserService().save(user);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);

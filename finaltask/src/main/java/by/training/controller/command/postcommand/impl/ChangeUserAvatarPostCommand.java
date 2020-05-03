@@ -7,14 +7,12 @@ import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.ResourceManager;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

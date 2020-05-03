@@ -257,47 +257,6 @@ public class UserDaoImplTest {
         }
     }
 
-    @DataProvider(name = "positiveCreateUserWithRole")
-    public Object[] createPositiveDataForCreateUserWithRole() {
-        return new Object[]{
-                new User(1, "admin2", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0),
-                new User(2, "moderR", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", 1),
-                new User(3, "userNEW", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 2)
-        };
-    }
-
-    @Test(dataProvider = "positiveCreateUserWithRole")
-    public void testPositiveCreateUserWithRole(User expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
-            when(transaction.getConnection()).thenReturn(connection);
-            connection.setAutoCommit(false);
-            assertTrue(dao.createUserWithRole(expected));
-            connection.rollback();
-        }
-    }
-
-    @DataProvider(name = "exceptionCreateUserWithRole")
-    public Object[] createExceptionDataForCreateUserWithRole() {
-        return new Object[]{
-                new User(1, "admin2", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", Integer.MAX_VALUE),
-                new User(2, "moderR", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", Integer.MIN_VALUE),
-                new User(3, "userNEW1", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 3),
-                new User(3, "userNEW2", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", -3),
-                new User(3, "userNEW2", null, 0),
-                new User(3, null, "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 1),
-                new User(3, null, null, 2),
-        };
-    }
-
-    @Test(dataProvider = "exceptionCreateUserWithRole", expectedExceptions = DaoException.class)
-    public void testCreateExceptionDataForCreateUserWithRole(User expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
-            when(transaction.getConnection()).thenReturn(connection);
-            connection.setAutoCommit(false);
-            assertTrue(dao.createUserWithRole(expected));
-            connection.rollback();
-        }
-    }
 
     @AfterClass
     public void destroyConnectionPool() {

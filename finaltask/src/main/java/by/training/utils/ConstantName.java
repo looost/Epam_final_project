@@ -62,7 +62,7 @@ public class ConstantName {
     public static final int COUNT_SERIAL_IN_MY_SHOWS_PAGE = 6;
     public static final int COUNT_SERIAL_IN_LIKED_PAGE = 6;
     public static final int COUNT_SERIAL_IN_SEARCH_PAGE = 6;
-    public static final int COUNT_SERIAL_RATING_PAGE = 25;
+    public static final int COUNT_SERIAL_RATING_PAGE = 16;
     public static final int DEFAULT_PAGE_NUMBER = 1;
     public static final int COUNT_LATEST_SHOWS = 3;
     public static final int MAX_COMMENT_LENGTH = 512;

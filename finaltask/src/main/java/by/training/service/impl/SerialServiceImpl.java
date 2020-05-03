@@ -14,7 +14,6 @@ import by.training.service.validation.Validation;
 import by.training.service.validation.impl.SerialValidation;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.util.List;
 
 public class SerialServiceImpl implements SerialService {

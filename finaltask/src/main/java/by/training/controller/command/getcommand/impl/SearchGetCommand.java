@@ -47,8 +47,10 @@ public class SearchGetCommand implements Command {
             req.setAttribute(ATTRIBUTE_SEARCH_FORM, searchForm);
             return new CommandResponse(RoutingType.FORWARD, ROUTING_SEARCH_JSP, req, resp);
         } catch (ServiceException e) {
+            logger.error(e);
             return CommandUtil.routingErrorPage(req, resp, e.getCode());
         } catch (NumberFormatException e) {
+            logger.error(e);
             return CommandUtil.routingErrorPage(req, resp, HttpServletResponse.SC_NOT_FOUND);
         }
     }

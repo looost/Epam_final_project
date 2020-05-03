@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,27 +33,6 @@ public class SaveSerialPostCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
-//    @Override
-//    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        try {
-//            ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
-//            List<FileItem> multiFiles = fileUpload.parseRequest(req);
-//            MultiFilesResponse multiFilesResponse = MultiFilesHandler.handler(multiFiles, req);
-//            if (multiFilesResponse.isHaveProblem()) {
-//                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SERIAL_PAGE, req, resp);
-//                //RoutingUtils.redirectToPage("/final/admin/serial.html", resp);
-//            } else {
-//                ServiceFactory.getInstance().getSerialService().create(multiFilesResponse.getSerial());
-//                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SERIAL_PAGE, req, resp);
-//                // resp.sendRedirect(req.getHeader("referer"));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
-
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -66,7 +46,10 @@ public class SaveSerialPostCommand implements Command {
                     .withStudio(new Studio())
                     .build();
 
-            Serial newSero = serialId.equals("0") ? serial : ServiceFactory.getInstance().getSerialService().findById(serialId);
+            if (!serialId.equals("0")) {
+                serial = ServiceFactory.getInstance().getSerialService().findById(serialId);
+                serial.setGenres(new ArrayList<>());
+            }
 
             for (FileItem item : multiFiles
             ) {
@@ -128,8 +111,10 @@ public class SaveSerialPostCommand implements Command {
         String fileName = UUID.randomUUID().toString() + item.getName();
         switch (item.getFieldName()) {
             case PARAMETER_LOGO:
-                if (item.getName().equals("")) {
+                if (item.getName().equals("") && serial.getLogo() == null) {
                     serial.setLogo(DEFAULT_IMG_NAME);
+                    break;
+                } else if (item.getName().equals("") && serial.getLogo() != null) {
                     break;
                 } else {
                     String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
@@ -142,8 +127,10 @@ public class SaveSerialPostCommand implements Command {
                     break;
                 }
             case PARAMETER_FULL_LOGO:
-                if (item.getName().equals("")) {
+                if (item.getName().equals("") && serial.getFullLogo() == null) {
                     serial.setFullLogo(DEFAULT_IMG_NAME);
+                    break;
+                } else if (item.getName().equals("") && serial.getFullLogo() != null) {
                     break;
                 } else {
                     String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)

@@ -1,4 +1,4 @@
-package by.training.controller.filter;
+package by.training.model;
 
 public enum RoleEnum {
     ADMIN,

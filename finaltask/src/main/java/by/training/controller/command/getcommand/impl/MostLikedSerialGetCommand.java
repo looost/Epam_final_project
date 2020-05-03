@@ -2,6 +2,7 @@ package by.training.controller.command.getcommand.impl;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
+import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
 import by.training.model.Serial;
 import by.training.service.exception.ServiceException;
@@ -41,7 +42,7 @@ public class MostLikedSerialGetCommand implements Command {
             return new CommandResponse(RoutingType.FORWARD, ROUTING_RATING_JSP, req, resp);
         } catch (ServiceException e) {
             logger.error(e);
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_PAGE, req, resp);
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
     }
 }

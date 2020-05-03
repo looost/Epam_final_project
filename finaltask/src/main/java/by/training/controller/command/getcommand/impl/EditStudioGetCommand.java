@@ -7,6 +7,8 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Studio;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,8 @@ import java.util.List;
 import static by.training.utils.ConstantName.*;
 
 public class EditStudioGetCommand implements Command {
+
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,11 +33,11 @@ public class EditStudioGetCommand implements Command {
             req.setAttribute(PARAMETER_STUDIO, studios);
             req.setAttribute(PARAMETER_COUNT_ALL_STUDIOS, countAllStudio);
             req.setAttribute(PARAMETER_ITEM_ON_PAGE, COUNT_STUDIO_IN_ADMIN_PAGE);
+            return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_STUDIO_JSP, req, resp);
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e);
+            return CommandUtil.routingErrorPage(req, resp, e.getCode());
         }
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_STUDIO_JSP, req, resp);
-        //RoutingUtils.forwardToPage("/admin/studio.jsp", req, resp);
     }
 }
 

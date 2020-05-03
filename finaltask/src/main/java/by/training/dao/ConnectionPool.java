@@ -1,7 +1,5 @@
 package by.training.dao;
 
-import by.training.dao.exception.DaoException;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -42,15 +40,5 @@ public class ConnectionPool {
             e.printStackTrace();
         }
         return c;
-    }
-
-    public void close(Connection connection) throws DaoException {
-        try {
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Cannot close connection", e);
-        }
     }
 }

@@ -1,6 +1,7 @@
 package by.training.controller.filter;
 
 import by.training.controller.command.CommandName;
+import by.training.model.RoleEnum;
 
 import java.util.*;
 

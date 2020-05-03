@@ -5,7 +5,4 @@ import by.training.model.User;
 
 public interface UserDao extends AbstractDao<String, User> {
     User findByLogin(String login) throws DaoException;
-
-    boolean createUserWithRole(User user) throws DaoException;
-
 }

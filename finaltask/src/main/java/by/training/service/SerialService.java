@@ -24,8 +24,6 @@ public interface SerialService {
 
     int countAllSerialsBySearchForm(SearchForm searchForm) throws ServiceException;
 
-    //List<Serial> findSerialByGenre(String genreId) throws ServiceException;
-
     boolean userWatchThisSerial(String userId, String serialId) throws ServiceException;
 
     boolean toWatchSerial(String userId, String serialId) throws ServiceException;

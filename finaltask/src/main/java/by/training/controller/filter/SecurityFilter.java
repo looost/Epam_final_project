@@ -1,6 +1,7 @@
 package by.training.controller.filter;
 
 import by.training.controller.command.CommandName;
+import by.training.model.RoleEnum;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
