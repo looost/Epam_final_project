@@ -3,6 +3,9 @@ package by.training.model.form;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represent search form which is used to build a dynamic search query.
+ */
 public class SearchForm {
     private String query;
     private List<Integer> genres;

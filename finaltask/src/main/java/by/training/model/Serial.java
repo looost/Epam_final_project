@@ -1,17 +1,24 @@
 package by.training.model;
 
-
 import java.sql.Date;
 import java.util.List;
 
-
+/**
+ * JavaBean class that represent a Serial, extends {@link AbstractEntity} abstract class.
+ */
 public class Serial extends AbstractEntity {
 
     private static final long serialVersionUID = -8730462953097921508L;
 
     private String name;
     private String description;
+    /**
+     * Logo represents the name of the image with the extension.
+     */
     private String logo;
+    /**
+     * Full logo represents the name of the image with the extension.
+     */
     private String fullLogo;
     private Date releaseDate;
     private int countLike;
@@ -20,143 +27,207 @@ public class Serial extends AbstractEntity {
     private List<Genre> genres;
     private List<Comment> comments;
 
+    /**
+     * Instantiates a new Serial.
+     */
     public Serial() {
     }
 
+    /**
+     * Instantiates a new Serial.
+     *
+     * @param id the serial id
+     */
     public Serial(int id) {
         super(id);
     }
 
-//    public Serial(int id, String name, String description, String logo, String fullLogo, List<Genre> genres) {
-//        super(id);
-//        this.name = name;
-//        this.description = description;
-//        this.logo = logo;
-//        this.fullLogo = fullLogo;
-//        this.genres = genres;
-//    }
-//
-//    public Serial(String name, String description, String logo, String fullLogo) {
-//        this.name = name;
-//        this.description = description;
-//        this.logo = logo;
-//        this.fullLogo = fullLogo;
-//    }
-//
-//    public Serial(String name, String description, String logo, String fullLogo, List<Genre> genres) {
-//        this.name = name;
-//        this.description = description;
-//        this.logo = logo;
-//        this.fullLogo = fullLogo;
-//        this.genres = genres;
-//    }
-//
-//public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio) {
-//    super(id);
-//    this.name = name;
-//    this.description = description;
-//    this.logo = logo;
-//    this.fullLogo = fullLogo;
-//    this.releaseDate = releaseDate;
-//    this.countLike = countLike;
-//    this.country = country;
-//    this.studio = studio;
-//}
-//
-//    public Serial(int id, String name, String description, String logo, String fullLogo, Date releaseDate, int countLike, Country country, Studio studio, List<Genre> genres, List<Comment> comments) {
-//        super(id);
-//        this.name = name;
-//        this.description = description;
-//        this.logo = logo;
-//        this.fullLogo = fullLogo;
-//        this.releaseDate = releaseDate;
-//        this.countLike = countLike;
-//        this.country = country;
-//        this.studio = studio;
-//        this.genres = genres;
-//        this.comments = comments;
-//    }
-
+    /**
+     * Gets name.
+     *
+     * @return the serial name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the serial name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets description.
+     *
+     * @return the serial description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Sets description.
+     *
+     * @param description the serial description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Gets logo.
+     *
+     * @return the serial logo
+     */
     public String getLogo() {
         return logo;
     }
 
+    /**
+     * Sets logo.
+     *
+     * @param logo the serial logo
+     */
     public void setLogo(String logo) {
         this.logo = logo;
     }
 
+    /**
+     * Gets full logo.
+     *
+     * @return the serial full logo
+     */
     public String getFullLogo() {
         return fullLogo;
     }
 
+    /**
+     * Sets full logo.
+     *
+     * @param fullLogo the serial full logo
+     */
     public void setFullLogo(String fullLogo) {
         this.fullLogo = fullLogo;
     }
 
+    /**
+     * Gets genres.
+     *
+     * @return the serial genres
+     */
     public List<Genre> getGenres() {
         return genres;
     }
 
+    /**
+     * Sets genres.
+     *
+     * @param genres the serial genres
+     */
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 
+    /**
+     * Gets country.
+     *
+     * @return the serial country
+     */
     public Country getCountry() {
         return country;
     }
 
+    /**
+     * Sets country.
+     *
+     * @param country the serial country
+     */
     public void setCountry(Country country) {
         this.country = country;
     }
 
+    /**
+     * Gets studio.
+     *
+     * @return the serial studio
+     */
     public Studio getStudio() {
         return studio;
     }
 
+    /**
+     * Sets studio.
+     *
+     * @param studio the serial studio
+     */
     public void setStudio(Studio studio) {
         this.studio = studio;
     }
 
+    /**
+     * Gets comments.
+     *
+     * @return the serial comments
+     */
     public List<Comment> getComments() {
         return comments;
     }
 
+    /**
+     * Sets comments.
+     *
+     * @param comments the serial comments
+     */
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
+    /**
+     * Gets release date.
+     *
+     * @return the serial release date
+     */
     public Date getReleaseDate() {
         return releaseDate;
     }
 
+    /**
+     * Sets release date.
+     *
+     * @param releaseDate the serial release date
+     */
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
+    /**
+     * Gets count like.
+     *
+     * @return the serial count like
+     */
     public int getCountLike() {
         return countLike;
     }
 
+    /**
+     * Sets count like.
+     *
+     * @param countLike the serial count like
+     */
     public void setCountLike(int countLike) {
         this.countLike = countLike;
     }
 
+    /**
+     * This method equals two objects.
+     *
+     * @param o the object.
+     * @return true if objects are equal and false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -175,6 +246,11 @@ public class Serial extends AbstractEntity {
         return comments != null ? comments.equals(serial.comments) : serial.comments == null;
     }
 
+    /**
+     * This method calculate object's hashcode.
+     *
+     * @return hashcode of object.
+     */
     @Override
     public int hashCode() {
         int result = super.hashCode();
@@ -189,6 +265,11 @@ public class Serial extends AbstractEntity {
         return result;
     }
 
+    /**
+     * Representation of an object as a string.
+     *
+     * @return string info about object.
+     */
     @Override
     public String toString() {
         return "Serial{" +
@@ -206,12 +287,16 @@ public class Serial extends AbstractEntity {
                 '}';
     }
 
+    /**
+     * Represents an implementation of the Builder design pattern.
+     */
     public static class Builder {
         private Serial newSerial;
 
         public Builder() {
             newSerial = new Serial();
         }
+
 
         public Builder withId(int id) {
             newSerial.id = id;

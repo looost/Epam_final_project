@@ -1,46 +1,64 @@
 package by.training.model;
 
-import java.util.Set;
-
+/**
+ * JavaBean class that represent a Genre, extends {@link AbstractEntity} abstract class.
+ */
 public class Genre extends AbstractEntity {
 
     private static final long serialVersionUID = 3379973670323251459L;
 
     private String name;
-    private Set<Serial> serials;
 
+    /**
+     * Instantiates a new Genre.
+     */
     public Genre() {
     }
 
+    /**
+     * Instantiates a new Genre.
+     *
+     * @param id the genre id
+     */
     public Genre(int id) {
         super(id);
     }
 
+    /**
+     * Instantiates a new Genre.
+     *
+     * @param id   the genre id
+     * @param name the genre name
+     */
     public Genre(int id, String name) {
         super(id);
         this.name = name;
     }
 
-    public Genre(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Gets name.
+     *
+     * @return the genre name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the genre name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public Set<Serial> getSerials() {
-        return serials;
-    }
-
-    public void setSerials(Set<Serial> serials) {
-        this.serials = serials;
-    }
-
+    /**
+     * This method equals two objects.
+     *
+     * @param o the object.
+     * @return true if objects are equal and false otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,45 +67,31 @@ public class Genre extends AbstractEntity {
 
         Genre genre = (Genre) o;
 
-        if (name != null ? !name.equals(genre.name) : genre.name != null) return false;
-        return serials != null ? serials.equals(genre.serials) : genre.serials == null;
+        return name != null ? name.equals(genre.name) : genre.name == null;
     }
 
+    /**
+     * This method calculate object's hashcode.
+     *
+     * @return hashcode of object.
+     */
     @Override
     public int hashCode() {
         int result = super.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (serials != null ? serials.hashCode() : 0);
         return result;
     }
 
+    /**
+     * Representation of an object as a string.
+     *
+     * @return string info about object.
+     */
     @Override
     public String toString() {
         return "Genre{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public static class Builder {
-        private Genre newGenre;
-
-        public Builder() {
-            newGenre = new Genre();
-        }
-
-        public Builder withId(int id) {
-            newGenre.id = id;
-            return this;
-        }
-
-        public Builder withName(String name) {
-            newGenre.name = name;
-            return this;
-        }
-
-        public Genre build() {
-            return newGenre;
-        }
     }
 }

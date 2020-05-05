@@ -12,22 +12,28 @@ import by.training.model.Serial;
 import by.training.model.Studio;
 import by.training.model.form.SearchForm;
 import by.training.model.form.SearchQuery;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static by.training.utils.ConstantName.DEBUG_LOGGER;
-
+/**
+ * Implementation of {@link SerialDao} interface. Provides access to the database
+ * and provides support for working with the entity {@link Serial}.
+ *
+ * @see Transaction
+ * @see DaoException
+ */
 public class SerialDaoImpl implements SerialDao {
-
-    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     private Transaction transaction;
 
+    /**
+     * Implementation of {@link ResultSetHandler} functional interface. Needs for build {@link Serial} from result set.
+     *
+     * @see ResultSet
+     */
     private static final ResultSetHandler<Serial> SERIAL_RESULT_SET_HANDLER = new ResultSetHandler<Serial>() {
         @Override
         public Serial handle(ResultSet rs) throws DaoException {
@@ -63,6 +69,14 @@ public class SerialDaoImpl implements SerialDao {
             " s.release_date, s.count_like, s.country_id, s.studio_id FROM serial s";
 
     private static final String FIND_SERIAL_BY_NAME = SELECT_ALL_SERIAL_FIELD + " WHERE s.name = ?";
+
+    /**
+     * Find serial by serial name.
+     *
+     * @param name the name
+     * @return the {@link Serial} and null if no results are found
+     * @throws DaoException if the method failed
+     */
     @Override
     public Serial findSerialByName(String name) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_SERIAL_BY_NAME,
@@ -77,6 +91,15 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String FIND_SERIAL_PAGE_BY_PAGE = SELECT_ALL_SERIAL_FIELD + " LIMIT ? OFFSET ?";
+
+    /**
+     * Find serial page by page.
+     *
+     * @param page  the page
+     * @param limit the limit
+     * @return the list of serials and null if no results are found
+     * @throws DaoException if the method failed
+     */
     @Override
     public List<Serial> findSerialPageByPage(int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
@@ -85,6 +108,15 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String FIND_MOST_LIKED_SERIAL = SELECT_ALL_SERIAL_FIELD + " ORDER BY s.count_like DESC LIMIT ? OFFSET ?";
+
+    /**
+     * Find most liked serial.
+     *
+     * @param page  the page
+     * @param limit the limit
+     * @return the list of serials and null if no results are found
+     * @throws DaoException if the method failed
+     */
     @Override
     public List<Serial> findMostLikedSerial(int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
@@ -93,19 +125,45 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String LATEST_SERIAL = SELECT_ALL_SERIAL_FIELD + " ORDER BY s.id DESC LIMIT ?";
+
+    /**
+     * Latest serial.
+     *
+     * @param limit the limit
+     * @return the list of serials and null if no results are found
+     * @throws DaoException if the method failed
+     */
     @Override
     public List<Serial> latestSerial(int limit) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), LATEST_SERIAL,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), limit);
     }
 
+
     private static final String COUNT_ALL_SERIAL = "SELECT COUNT(*) FROM serial";
+
+    /**
+     * Count all serials.
+     *
+     * @return number of all serials
+     * @throws DaoException if the method failed
+     */
     @Override
     public int countAllSerials() throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_SERIAL,
                 ResultSetHandlerFactory.getCountResultSetHandler());
     }
 
+    /**
+     * Find serial by search form.
+     *
+     * @param searchForm the search form
+     * @param page       the page
+     * @param limit      the limit
+     * @return the list of serials and null if no results are found
+     * @throws DaoException if the method failed
+     * @see SearchForm
+     */
     @Override
     public List<Serial> findSerialBySearchForm(SearchForm searchForm, int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
@@ -118,6 +176,14 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
+
+    /**
+     * Build SQL query
+     *
+     * @param searchForm
+     * @param temp
+     * @return
+     */
     private SearchQuery buildSearchQuery(SearchForm searchForm, String temp) {
         List<Object> param = new ArrayList<>();
         StringBuilder sql = new StringBuilder(temp);
@@ -205,7 +271,7 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String FIND_SERIALS_THAT_I_WATCH = SELECT_ALL_SERIAL_FIELD + " JOIN viewed v on s.id = v.serial_id WHERE v.user_id = ? LIMIT ? OFFSET ?";
     @Override
-    public List<Serial> findSerialsThatIWatch(String userId, int page, int limit) throws DaoException {
+    public List<Serial> findSerialsThatUserWatch(String userId, int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
         return JDBCUtil.select(transaction.getConnection(), FIND_SERIALS_THAT_I_WATCH,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId, limit, offset);
@@ -213,14 +279,14 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String COUNT_ALL_SERIALS_THAT_I_WATCH = "SELECT COUNT(*) FROM viewed WHERE user_id = ?";
     @Override
-    public int countAllSerialsThatIWatch(String userId) throws DaoException {
+    public int countAllSerialsThatUserWatch(String userId) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_SERIALS_THAT_I_WATCH,
                 ResultSetHandlerFactory.getCountResultSetHandler(), userId);
     }
 
     private static final String FIND_SERIALS_THAT_I_LIKED = SELECT_ALL_SERIAL_FIELD + " JOIN liked l on s.id = l.serial_id WHERE l.user_id = ? LIMIT ? OFFSET ?";
     @Override
-    public List<Serial> findSerialsThatILiked(String userId, int page, int limit) throws DaoException {
+    public List<Serial> findSerialsThatUserLiked(String userId, int page, int limit) throws DaoException {
         int offset = (page - 1) * limit;
         return JDBCUtil.select(transaction.getConnection(), FIND_SERIALS_THAT_I_LIKED,
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), userId, limit, offset);
@@ -228,7 +294,7 @@ public class SerialDaoImpl implements SerialDao {
 
     private static final String COUNT_ALL_SERIALS_THAT_I_LIKED = "SELECT COUNT(*) FROM liked WHERE user_id = ?";
     @Override
-    public int countAllSerialsThatILiked(String userId) throws DaoException {
+    public int countAllSerialsThatUserLiked(String userId) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), COUNT_ALL_SERIALS_THAT_I_LIKED,
                 ResultSetHandlerFactory.getCountResultSetHandler(), userId);
     }

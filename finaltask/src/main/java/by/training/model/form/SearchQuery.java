@@ -2,12 +2,12 @@ package by.training.model.form;
 
 import java.util.List;
 
+/**
+ * Class is used to build a dynamic search query.
+ */
 public class SearchQuery {
     private StringBuilder sql;
     private List<Object> params;
-
-    public SearchQuery() {
-    }
 
     public SearchQuery(StringBuilder sql, List<Object> params) {
         this.sql = sql;

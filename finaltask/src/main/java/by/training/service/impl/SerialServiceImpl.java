@@ -126,7 +126,7 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public List<Serial> findSerialsThatIWatch(String userId, int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatIWatch(userId, page, limit);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatUserWatch(userId, page, limit);
             serialList = TransactionUtil
                     .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
@@ -139,7 +139,7 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public int countAllSerialsThatIWatch(String userId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsThatIWatch(userId);
+            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsThatUserWatch(userId);
             transaction.commit();
             return result;
         } catch (DaoException e) {
@@ -150,7 +150,7 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public List<Serial> findSerialsThatILiked(String userId, int page, int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatILiked(userId, page, limit);
+            List<Serial> serialList = DaoFactory.getInstance().getSerialDao(transaction).findSerialsThatUserLiked(userId, page, limit);
             serialList = TransactionUtil
                     .select(transaction, TransactionBuilderFactory.getListTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serialList);
             transaction.commit();
@@ -163,7 +163,7 @@ public class SerialServiceImpl implements SerialService {
     @Override
     public int countAllSerialsThatILiked(String userId) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
-            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsThatILiked(userId);
+            int result = DaoFactory.getInstance().getSerialDao(transaction).countAllSerialsThatUserLiked(userId);
             transaction.commit();
             return result;
         } catch (DaoException e) {
