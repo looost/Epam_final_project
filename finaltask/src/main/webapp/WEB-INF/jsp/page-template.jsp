@@ -50,15 +50,17 @@
 <div class="flex-grow-1 flex-shrink-0">
 
 <header>
-    <jsp:include page="/WEB-INF/jsp/fragment/header.jsp"/>
+    <c:import url="/WEB-INF/jsp/fragment/header.jsp"/>
+    <%--    <jsp:include page="/WEB-INF/jsp/fragment/header.jsp"/>--%>
 </header>
 <main>
-    <jsp:include page="${currentPage}"/>
+    <c:import url="${currentPage}"/>
+    <%--    <jsp:include page="${currentPage}"/>--%>
 </main>
 </div>
 </body>
 <footer id="sticky-footer" class="py-4 bg-dark text-white-50 flex-shrink-0">
-    <jsp:include page="/WEB-INF/jsp/fragment/footer.jsp"/>
+    <c:import url="/WEB-INF/jsp/fragment/footer.jsp"/>
 </footer>
 
 </html>

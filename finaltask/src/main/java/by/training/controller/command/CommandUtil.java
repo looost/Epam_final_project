@@ -2,16 +2,23 @@ package by.training.controller.command;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import static by.training.utils.ConstantName.*;
 
-public class CommandUtil {
+/**
+ * Utility class for working with {@link HttpServletRequest}.
+ */
+public final class CommandUtil {
 
     private CommandUtil() {
     }
 
-    public static void transferSingleAttribute(String attName, HttpServletRequest req) {
+    /**
+     * Transfer single attribute from session attribute to request attribute.
+     *
+     * @param attName the attribute name
+     * @param req     the {@link HttpServletRequest}
+     */
+    public static void transferSingleAttribute(final String attName, final HttpServletRequest req) {
         Object att = req.getSession().getAttribute(attName);
         if (att != null) {
             req.setAttribute(attName, att);
@@ -19,7 +26,14 @@ public class CommandUtil {
         }
     }
 
-    public static Cookie searchCookie(String cookieName, HttpServletRequest req) {
+    /**
+     * Search cookie from {@link HttpServletRequest} by cookie name.
+     *
+     * @param cookieName the cookie name
+     * @param req        the {@link HttpServletRequest}
+     * @return the {@link Cookie} or null if not found
+     */
+    public static Cookie searchCookie(final String cookieName, final HttpServletRequest req) {
         for (Cookie c : req.getCookies()
         ) {
             if (c.getName().equals(cookieName)) {
@@ -27,10 +41,5 @@ public class CommandUtil {
             }
         }
         return null;
-    }
-
-    public static CommandResponse routingErrorPage(HttpServletRequest req, HttpServletResponse resp, int code) {
-        req.setAttribute(ATTRIBUTE_STATUS_CODE, code);
-        return new CommandResponse(RoutingType.FORWARD, ROUTING_ERROR_JSP, req, resp);
     }
 }

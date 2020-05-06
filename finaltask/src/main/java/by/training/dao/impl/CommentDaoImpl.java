@@ -23,6 +23,9 @@ import java.util.List;
  */
 public class CommentDaoImpl implements CommentDao {
 
+    /**
+     * An object that provides access to a data source.
+     */
     private Transaction transaction;
 
     /**
@@ -32,7 +35,7 @@ public class CommentDaoImpl implements CommentDao {
      */
     private static final ResultSetHandler<Comment> COMMENT_RESULT_SET_HANDLER = new ResultSetHandler<Comment>() {
         @Override
-        public Comment handle(ResultSet rs) throws DaoException {
+        public Comment handle(final ResultSet rs) throws DaoException {
             Comment comment = new Comment();
             try {
                 comment.setId(rs.getInt("id"));
@@ -51,7 +54,7 @@ public class CommentDaoImpl implements CommentDao {
         }
     };
 
-    public CommentDaoImpl(Transaction transaction) {
+    public CommentDaoImpl(final Transaction transaction) {
         this.transaction = transaction;
     }
 
@@ -62,11 +65,11 @@ public class CommentDaoImpl implements CommentDao {
      * Find all comment for serial.
      *
      * @param serialId the serial id
-     * @return the list of ${@link Comment} and null if no results are found
+     * @return the list of ${@link Comment} and empty {@link List} if no results are found
      * @throws DaoException if the method failed
      */
     @Override
-    public List<Comment> findAllCommentForSerial(String serialId) throws DaoException {
+    public List<Comment> findAllCommentForSerial(final String serialId) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_ALL_COMMENT_FOR_SERIAL,
                 ResultSetHandlerFactory.getListResultSetHandler(COMMENT_RESULT_SET_HANDLER), serialId);
     }
@@ -74,14 +77,14 @@ public class CommentDaoImpl implements CommentDao {
     private static final String FIND_COMMENT_BY_ID = "SELECT id, user_id, serial_id, comment, publication_date FROM comment WHERE id = ?";
 
     /**
-     * Find all comment for serial.
+     * Find comment by id.
      *
      * @param id the comment id
      * @return the ${@link Comment} and null if no results are found
      * @throws DaoException if the method failed
      */
     @Override
-    public Comment findById(String id) throws DaoException {
+    public Comment findById(final String id) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_COMMENT_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(COMMENT_RESULT_SET_HANDLER), id);
     }
@@ -92,11 +95,11 @@ public class CommentDaoImpl implements CommentDao {
      * Delete comment by id.
      *
      * @param id the comment id
-     * @return true if comment was made deleted and false otherwise.
+     * @return true if comment was made deleted and false otherwise
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean delete(String id) throws DaoException {
+    public boolean delete(final String id) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), DELETE_COMMENT_BY_ID, id);
     }
 
@@ -106,11 +109,11 @@ public class CommentDaoImpl implements CommentDao {
      * Create comment.
      *
      * @param entity the comment
-     * @return true if comment was made created and false otherwise.
+     * @return true if comment was made created and false otherwise
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean create(Comment entity) throws DaoException {
+    public boolean create(final Comment entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), CREATE_COMMENT,
                 String.valueOf(entity.getUser().getId()), String.valueOf(entity.getSerial().getId()), entity.getComment());
     }
@@ -121,11 +124,11 @@ public class CommentDaoImpl implements CommentDao {
      * Update comment.
      *
      * @param entity the comment
-     * @return true if comment was made updated and false otherwise.
+     * @return true if comment was made updated and false otherwise
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean update(Comment entity) throws DaoException {
+    public boolean update(final Comment entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_COMMENT, entity.getComment(), entity.getId());
     }
 }

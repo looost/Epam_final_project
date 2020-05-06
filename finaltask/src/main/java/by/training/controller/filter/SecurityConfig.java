@@ -5,45 +5,66 @@ import by.training.model.RoleEnum;
 
 import java.util.*;
 
-class SecurityConfig {
-    private static final Map<RoleEnum, List<CommandName>> mapConfig = new EnumMap<>(RoleEnum.class);
-    private static final Set<CommandName> securityPage = new HashSet<>();
+/**
+ * A class that contains pages that require authentication and authorization.
+ */
+final class SecurityConfig {
+    /**
+     * A map that contains {@link RoleEnum} and {@link List} {@link CommandName} to which they are denied access.
+     */
+    private static final Map<RoleEnum, List<CommandName>> MAP_CONFIG = new EnumMap<>(RoleEnum.class);
+    /**
+     * A set which contains {@link CommandName} that need authentication.
+     */
+    private static final Set<CommandName> SECURITY_PAGE = new HashSet<>();
 
     private SecurityConfig() {
     }
 
-
     static {
-        securityPage.add(CommandName.SAVE_COMMENT);
-        securityPage.add(CommandName.ADMIN_USER);
-        securityPage.add(CommandName.MY_SERIAL);
-        securityPage.add(CommandName.LIKED);
-        securityPage.add(CommandName.WATCH_SERIAL);
-        securityPage.add(CommandName.STOP_WATCH_SERIAL);
-        securityPage.add(CommandName.LIKE);
-        securityPage.add(CommandName.DISLIKE);
+        SECURITY_PAGE.add(CommandName.SAVE_COMMENT);
+        SECURITY_PAGE.add(CommandName.ADMIN_USER);
+        SECURITY_PAGE.add(CommandName.MY_SERIAL);
+        SECURITY_PAGE.add(CommandName.LIKED);
+        SECURITY_PAGE.add(CommandName.WATCH_SERIAL);
+        SECURITY_PAGE.add(CommandName.STOP_WATCH_SERIAL);
+        SECURITY_PAGE.add(CommandName.LIKE);
+        SECURITY_PAGE.add(CommandName.DISLIKE);
     }
 
-    static boolean isSecurityPage(CommandName commandName) {
-        return securityPage.contains(commandName);
+    /**
+     * The method checks if authentication is needed for this {@link CommandName} or not.
+     *
+     * @param commandName the command name
+     * @return true if {@link CommandName} need authentication and false otherwise
+     */
+    static boolean isSecurityPage(final CommandName commandName) {
+        return SECURITY_PAGE.contains(commandName);
     }
 
     static {
         List<CommandName> urlAdminPattern = new ArrayList<>();
         urlAdminPattern.add(CommandName.SAVE_COMMENT);
-        mapConfig.put(RoleEnum.ADMIN, urlAdminPattern);
+        MAP_CONFIG.put(RoleEnum.ADMIN, urlAdminPattern);
 
         List<CommandName> urlModerPattern = new ArrayList<>();
         urlModerPattern.add(CommandName.ADMIN_USER);
-        mapConfig.put(RoleEnum.MODER, urlModerPattern);
+        MAP_CONFIG.put(RoleEnum.MODER, urlModerPattern);
 
         List<CommandName> urlUserPattern = new ArrayList<>();
         urlUserPattern.add(CommandName.ADMIN_USER);
-        mapConfig.put(RoleEnum.USER, urlUserPattern);
+        MAP_CONFIG.put(RoleEnum.USER, urlUserPattern);
     }
 
-    static boolean hasPermission(CommandName command, RoleEnum role) {
-        List<CommandName> urlPatterns = mapConfig.get(role);
+    /**
+     * The method checks if this {@link CommandName} is available for this {@link RoleEnum}.
+     *
+     * @param command {@link CommandName}
+     * @param role    {@link RoleEnum}
+     * @return true if {@link RoleEnum} have available for {@link CommandName} and false otherwise
+     */
+    static boolean hasPermission(final CommandName command, final RoleEnum role) {
+        List<CommandName> urlPatterns = MAP_CONFIG.get(role);
         return urlPatterns != null && !urlPatterns.contains(command);
     }
 }

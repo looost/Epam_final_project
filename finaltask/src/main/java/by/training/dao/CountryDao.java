@@ -38,7 +38,7 @@ public interface CountryDao extends AbstractDao<String, Country> {
     List<Country> findCountryPageByPage(int page, int limit) throws DaoException;
 
     /**
-     * Count all country.
+     * Count of all country.
      *
      * @return number of all countries
      * @throws DaoException if the method failed

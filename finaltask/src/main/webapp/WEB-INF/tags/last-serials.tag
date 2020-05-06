@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<jsp:useBean id="last" scope="request" type="java.util.List"/>
+
 <c:forEach var="l" items="${last}">
     <div class="card mb-3 text-style">
         <a href="${pageContext.request.contextPath}/show.html?id=${l.id}">

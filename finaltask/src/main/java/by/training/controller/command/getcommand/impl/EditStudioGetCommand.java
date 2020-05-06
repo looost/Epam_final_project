@@ -7,6 +7,7 @@ import by.training.controller.command.RoutingType;
 import by.training.model.Studio;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,12 +19,30 @@ import java.util.List;
 
 import static by.training.utils.ConstantName.*;
 
+/**
+ * Command for the {@link Studio} edit page.
+ *
+ * @see Command
+ * @see by.training.controller.command.getcommand.GetCommandProvider
+ */
 public class EditStudioGetCommand implements Command {
 
+    /**
+     * A Logger object is used to log messages for a application error.
+     */
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
+    /**
+     * Command for the {@link Studio} edit page.
+     * @param req  the HttpServletRequest
+     * @param resp the HttpServletResponse
+     * @return the {@link CommandResponse}
+     * @throws ServletException if the request for the GET could not be handled
+     * @throws IOException if an input or output error is  detected when the servlet handles the GET request
+     */
     @Override
-    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(final HttpServletRequest req,
+                                   final HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_STUDIO_PROBLEM, req);
         try {
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
@@ -36,7 +55,7 @@ public class EditStudioGetCommand implements Command {
             return new CommandResponse(RoutingType.FORWARD, ROUTING_ADMIN_STUDIO_JSP, req, resp);
         } catch (ServiceException e) {
             logger.error(e);
-            return CommandUtil.routingErrorPage(req, resp, e.getCode());
+            return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }
     }
 }

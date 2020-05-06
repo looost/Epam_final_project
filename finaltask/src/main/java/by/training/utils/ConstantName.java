@@ -1,6 +1,9 @@
 package by.training.utils;
 
-public class ConstantName {
+/**
+ * Class containing application constants.
+ */
+public final class ConstantName {
 
     private ConstantName() {
     }

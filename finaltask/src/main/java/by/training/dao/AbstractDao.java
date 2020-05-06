@@ -21,10 +21,10 @@ public interface AbstractDao<KEY, ENTITY extends AbstractEntity> {
     ENTITY findById(KEY id) throws DaoException;
 
     /**
-     * Delete entity by key
+     * Delete entity by key.
      *
      * @param id the entity id
-     * @return the boolean
+     * @return true if operation was made successfully and false otherwise
      * @throws DaoException if the method failed
      */
     boolean delete(KEY id) throws DaoException;
@@ -33,7 +33,7 @@ public interface AbstractDao<KEY, ENTITY extends AbstractEntity> {
      * Create entity.
      *
      * @param entity the entity object to be created
-     * @return the boolean
+     * @return true if operation was made successfully and false otherwise
      * @throws DaoException if the method failed
      */
     boolean create(ENTITY entity) throws DaoException;
@@ -42,7 +42,7 @@ public interface AbstractDao<KEY, ENTITY extends AbstractEntity> {
      * Update entity.
      *
      * @param entity the entity object to be updated
-     * @return the boolean
+     * @return true if operation was made successfully and false otherwise
      * @throws DaoException if the method failed
      */
     boolean update(ENTITY entity) throws DaoException;

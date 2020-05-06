@@ -4,10 +4,13 @@ import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
+import by.training.model.Country;
 import by.training.model.Genre;
 import by.training.model.Serial;
+import by.training.model.Studio;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
+import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,12 +22,30 @@ import java.util.List;
 
 import static by.training.utils.ConstantName.*;
 
+/**
+ * Command for the serial page.
+ *
+ * @see Command
+ * @see by.training.controller.command.getcommand.GetCommandProvider
+ */
 public class ShowGetCommand implements Command {
 
+    /**
+     * A Logger object is used to log messages for a application error.
+     */
     private static final Logger logger = LogManager.getLogger("debug");
 
+    /**
+     * Command for the serial page.
+     * @param req  the HttpServletRequest
+     * @param resp the HttpServletResponse
+     * @return the {@link CommandResponse}
+     * @throws ServletException if the request for the GET could not be handled
+     * @throws IOException if an input or output error is  detected when the servlet handles the GET request
+     */
     @Override
-    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(final HttpServletRequest req,
+                                   final HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_COMMENT_PROBLEM, req);
         CommandUtil.transferSingleAttribute(ATTRIBUTE_SERIAL_PROBLEM, req);
         String id = req.getParameter(PARAMETER_ID);
@@ -32,8 +53,8 @@ public class ShowGetCommand implements Command {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
             List<Serial> last = ServiceFactory.getInstance().getSerialService().latestSerial(COUNT_LATEST_SHOWS);
             List<Genre> genres = ServiceFactory.getInstance().getGenreService().findAll();
-            List country = ServiceFactory.getInstance().getCountryService().findAll();
-            List studio = ServiceFactory.getInstance().getStudioService().findAll();
+            List<Country> country = ServiceFactory.getInstance().getCountryService().findAll();
+            List<Studio> studio = ServiceFactory.getInstance().getStudioService().findAll();
 
             if (req.getSession().getAttribute(ATTRIBUTE_USER_ID) != null) {
                 boolean watchStatus = ServiceFactory.getInstance()
@@ -55,7 +76,7 @@ public class ShowGetCommand implements Command {
             return new CommandResponse(RoutingType.FORWARD, ROUTING_SHOW_JSP, req, resp);
         } catch (ServiceException e) {
             logger.debug(e);
-            return CommandUtil.routingErrorPage(req, resp, e.getCode());
+            return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }
 
     }

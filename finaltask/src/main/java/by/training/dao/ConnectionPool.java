@@ -7,6 +7,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * TomCat connection pool class.
+ */
 public class ConnectionPool {
     private static final ConnectionPool instance = new ConnectionPool();
 
@@ -28,7 +31,11 @@ public class ConnectionPool {
 //        }
 //    }
 
-
+    /**
+     * Method for getting connection.
+     *
+     * @return the connection from connection pool
+     */
     public Connection getConnection() {
         Context ctx;
         Connection c = null;

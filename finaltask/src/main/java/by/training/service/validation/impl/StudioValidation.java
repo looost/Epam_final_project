@@ -11,16 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.training.utils.ConstantName.MAX_STUDIO_NAME_LENGTH;
 
+/**
+ * Implementation of {@link Validation} interface.
+ * Validation for {@link Studio}.
+ */
 public class StudioValidation implements Validation<Studio> {
 
     @Override
-    public boolean isValid(Transaction transaction, Studio entity) throws ServiceException {
+    public boolean isValid(final Transaction transaction, final Studio entity) throws ServiceException {
         try {
             return DaoFactory.getInstance()
                     .getStudioDao(transaction)
-                    .findByName(entity.getName()) == null &&
-                    !entity.getName().equals("") &&
-                    entity.getName().length() <= MAX_STUDIO_NAME_LENGTH;
+                    .findByName(entity.getName()) == null
+                    && !entity.getName().equals("")
+                    && entity.getName().length() <= MAX_STUDIO_NAME_LENGTH;
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

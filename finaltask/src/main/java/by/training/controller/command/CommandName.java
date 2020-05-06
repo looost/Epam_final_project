@@ -1,5 +1,8 @@
 package by.training.controller.command;
 
+/**
+ * Enum command which the application supports.
+ */
 public enum CommandName {
     INDEX,
     SHOW,

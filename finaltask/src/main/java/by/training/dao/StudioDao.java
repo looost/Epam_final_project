@@ -20,9 +20,9 @@ public interface StudioDao extends AbstractDao<String, Studio> {
     Studio findByName(String studioName) throws DaoException;
 
     /**
-     * Find all genres.
+     * Find all studios.
      *
-     * @return the list of genres
+     * @return the list of studios
      * @throws DaoException if the method failed
      */
     List<Studio> findAll() throws DaoException;
@@ -38,7 +38,7 @@ public interface StudioDao extends AbstractDao<String, Studio> {
     List<Studio> findStudioPageByPage(int page, int limit) throws DaoException;
 
     /**
-     * Count all studio.
+     * Count of all studio.
      *
      * @return number of all studios
      * @throws DaoException if the method failed

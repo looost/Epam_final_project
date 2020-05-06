@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface GenreDao extends AbstractDao<String, Genre> {
     /**
-     * Find all genre.
+     * Find all genres.
      *
      * @return the list of genres
      * @throws DaoException if the method failed
@@ -28,7 +28,7 @@ public interface GenreDao extends AbstractDao<String, Genre> {
     List<Genre> findGenrePageByPage(int page, int limit) throws DaoException;
 
     /**
-     * Count all genres.
+     * Count of all genres.
      *
      * @return number of all genres
      * @throws DaoException if the method failed

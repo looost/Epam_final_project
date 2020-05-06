@@ -9,8 +9,15 @@ import by.training.controller.command.postcommand.impl.moder.*;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class PostCommandProvider {
-    private static final PostCommandProvider instance = new PostCommandProvider();
+/**
+ * Command provider for POST request.
+ */
+public final class PostCommandProvider {
+
+    private static final PostCommandProvider INSTANCE = new PostCommandProvider();
+    /**
+     * Map that contains {@link CommandName} and its corresponding implementation of {@link Command} interface.
+     */
     private final Map<CommandName, Command> repository = new EnumMap<>(CommandName.class);
 
     private PostCommandProvider() {
@@ -32,11 +39,22 @@ public class PostCommandProvider {
         repository.put(CommandName.WRONG_REQUEST, new WrongRequestPostCommand());
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static PostCommandProvider getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
-    public Command getCommand(String requestURI) {
+    /**
+     * Method for getting a {@link Command} by its {@link String} representation.
+     *
+     * @param requestURI the {@link String} representation request URI
+     * @return {@link Command} and wrong request {@link Command} if request URI incorrect
+     */
+    public Command getCommand(final String requestURI) {
         try {
             return repository.get(CommandName.valueOf(requestURI.toUpperCase()));
         } catch (IllegalArgumentException e) {

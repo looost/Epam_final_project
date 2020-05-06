@@ -20,6 +20,9 @@ import java.sql.SQLException;
  */
 public class UserDaoImpl implements UserDao {
 
+    /**
+     * An object that provides access to a data source.
+     */
     private Transaction transaction;
 
     /**
@@ -29,7 +32,7 @@ public class UserDaoImpl implements UserDao {
      */
     private static final ResultSetHandler<User> USER_RESULT_SET_HANDLER = new ResultSetHandler<User>() {
         @Override
-        public User handle(ResultSet rs) throws DaoException {
+        public User handle(final ResultSet rs) throws DaoException {
             User user = new User();
             try {
                 user.setId(rs.getInt("id"));
@@ -44,7 +47,7 @@ public class UserDaoImpl implements UserDao {
         }
     };
 
-    public UserDaoImpl(Transaction transaction) {
+    public UserDaoImpl(final Transaction transaction) {
         this.transaction = transaction;
     }
 
@@ -58,7 +61,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public User findByLogin(String login) throws DaoException {
+    public User findByLogin(final String login) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_LOGIN,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), login);
     }
@@ -73,7 +76,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public User findById(String id) throws DaoException {
+    public User findById(final String id) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_USER_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(USER_RESULT_SET_HANDLER), id);
     }
@@ -88,7 +91,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean delete(String id) throws DaoException {
+    public boolean delete(final String id) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), DELETE_USER_BY_ID, id);
     }
 
@@ -102,7 +105,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean create(User entity) throws DaoException {
+    public boolean create(final User entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), CREATE_USER, entity.getLogin(), entity.getPassword(),
                 entity.getAvatar(), entity.getRole());
     }
@@ -117,7 +120,7 @@ public class UserDaoImpl implements UserDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean update(User entity) throws DaoException {
+    public boolean update(final User entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_USER, entity.getPassword(),
                 entity.getAvatar(), entity.getLogin());
     }

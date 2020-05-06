@@ -29,7 +29,6 @@
         <servlet-class>by.training.controller.servlet.IndexServlet</servlet-class>
     </servlet>
 
-
     <servlet-mapping>
         <servlet-name>test</servlet-name>
         <url-pattern>*.html</url-pattern>

@@ -59,7 +59,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     List<Serial> latestSerial(int limit) throws DaoException;
 
     /**
-     * Count all serials.
+     * Count of all serials.
      *
      * @return number of all serials
      * @throws DaoException if the method failed
@@ -79,7 +79,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     List<Serial> findSerialBySearchForm(SearchForm searchForm, int page, int limit) throws DaoException;
 
     /**
-     * Count all serials by search form.
+     * Count of all serials by search form.
      *
      * @param searchForm the search form
      * @return number of all serials by search form
@@ -93,7 +93,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
      *
      * @param userId   the user id
      * @param serialId the serial id
-     * @return the boolean
+     * @return true if operation was made successfully and false otherwise
      * @throws DaoException if the method failed
      */
     boolean toWatchSerial(String userId, String serialId) throws DaoException;
@@ -103,13 +103,13 @@ public interface SerialDao extends AbstractDao<String, Serial> {
      *
      * @param userId   the user id
      * @param serialId the serial id
-     * @return the boolean
+     * @return true if operation was made successfully and false otherwise
      * @throws DaoException if the method failed
      */
     boolean stopWatchSerial(String userId, String serialId) throws DaoException;
 
     /**
-     * User watch this serial.
+     * Check if the user is watching this serial.
      *
      * @param serialId the serial id
      * @param userId   the user id
@@ -130,7 +130,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     List<Serial> findSerialsThatUserWatch(String userId, int page, int limit) throws DaoException;
 
     /**
-     * Count all serials that user watch.
+     * Count of all serials that user watch.
      *
      * @param userId the user id
      * @return number of serials that is watch user
@@ -150,7 +150,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     List<Serial> findSerialsThatUserLiked(String userId, int page, int limit) throws DaoException;
 
     /**
-     * Count all serials that user liked int.
+     * Count of all serials that user liked.
      *
      * @param userId the user id
      * @return number of serials that liked user
@@ -159,7 +159,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     int countAllSerialsThatUserLiked(String userId) throws DaoException;
 
     /**
-     * Add a serial to user liked
+     * Add a serial to user liked.
      *
      * @param userId   the user id
      * @param serialId the serial id
@@ -169,7 +169,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     boolean likeSerial(String userId, String serialId) throws DaoException;
 
     /**
-     * Remove a serial to user liked
+     * Remove a serial to user liked.
      *
      * @param userId   the user id
      * @param serialId the serial id
@@ -179,7 +179,7 @@ public interface SerialDao extends AbstractDao<String, Serial> {
     boolean dislikeSerial(String userId, String serialId) throws DaoException;
 
     /**
-     * Check whether the user likes this serial
+     * Check whether the user likes this serial.
      *
      * @param userId   the user id
      * @param serialId the serial id

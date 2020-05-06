@@ -21,6 +21,9 @@ import java.util.List;
  */
 public class StudioDaoImpl implements StudioDao {
 
+    /**
+     * An object that provides access to a data source.
+     */
     private Transaction transaction;
 
     /**
@@ -30,7 +33,7 @@ public class StudioDaoImpl implements StudioDao {
      */
     private static final ResultSetHandler<Studio> STUDIO_RESULT_SET_HANDLER = new ResultSetHandler<Studio>() {
         @Override
-        public Studio handle(ResultSet rs) throws DaoException {
+        public Studio handle(final ResultSet rs) throws DaoException {
             try {
                 Studio studio = new Studio();
                 studio.setId(rs.getInt("id"));
@@ -42,7 +45,7 @@ public class StudioDaoImpl implements StudioDao {
         }
     };
 
-    public StudioDaoImpl(Transaction transaction) {
+    public StudioDaoImpl(final Transaction transaction) {
         this.transaction = transaction;
     }
 
@@ -56,7 +59,7 @@ public class StudioDaoImpl implements StudioDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public Studio findByName(String studioName) throws DaoException {
+    public Studio findByName(final String studioName) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_STUDIO_BY_NAME,
                 ResultSetHandlerFactory.getSingleResultSetHandler(STUDIO_RESULT_SET_HANDLER), studioName);
     }
@@ -86,7 +89,7 @@ public class StudioDaoImpl implements StudioDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public List<Studio> findStudioPageByPage(int page, int limit) throws DaoException {
+    public List<Studio> findStudioPageByPage(final int page, final int limit) throws DaoException {
         int offset = (page - 1) * limit;
         return JDBCUtil.select(transaction.getConnection(), FIND_STUDIO_PAGE_BY_PAGE,
                 ResultSetHandlerFactory.getListResultSetHandler(STUDIO_RESULT_SET_HANDLER), limit, offset);
@@ -116,7 +119,7 @@ public class StudioDaoImpl implements StudioDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public Studio findById(String id) throws DaoException {
+    public Studio findById(final String id) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_STUDIO_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(STUDIO_RESULT_SET_HANDLER), id);
     }
@@ -131,7 +134,7 @@ public class StudioDaoImpl implements StudioDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean delete(String id) throws DaoException {
+    public boolean delete(final String id) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), DELETE_STUDIO_BY_ID, id);
     }
 
@@ -145,7 +148,7 @@ public class StudioDaoImpl implements StudioDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean create(Studio entity) throws DaoException {
+    public boolean create(final Studio entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), CREATE_STUDIO, entity.getName());
     }
 
@@ -159,7 +162,7 @@ public class StudioDaoImpl implements StudioDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean update(Studio entity) throws DaoException {
+    public boolean update(final Studio entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_STUDIO, entity.getName(), entity.getId());
     }
 }

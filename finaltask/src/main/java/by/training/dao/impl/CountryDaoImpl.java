@@ -28,7 +28,7 @@ public class CountryDaoImpl implements CountryDao {
      */
     private static final ResultSetHandler<Country> COUNTRY_RESULT_SET_HANDLER = new ResultSetHandler<Country>() {
         @Override
-        public Country handle(ResultSet rs) throws DaoException {
+        public Country handle(final ResultSet rs) throws DaoException {
             Country country = new Country();
             try {
                 country.setId(rs.getInt("id"));
@@ -40,9 +40,12 @@ public class CountryDaoImpl implements CountryDao {
         }
     };
 
+    /**
+     * An object that provides access to a data source.
+     */
     private Transaction transaction;
 
-    public CountryDaoImpl(Transaction transaction) {
+    public CountryDaoImpl(final Transaction transaction) {
         this.transaction = transaction;
     }
 
@@ -56,7 +59,7 @@ public class CountryDaoImpl implements CountryDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public Country findByName(String countryName) throws DaoException {
+    public Country findByName(final String countryName) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_COUNTRY_BY_NAME,
                 ResultSetHandlerFactory.getSingleResultSetHandler(COUNTRY_RESULT_SET_HANDLER), countryName);
     }
@@ -66,7 +69,7 @@ public class CountryDaoImpl implements CountryDao {
     /**
      * Find all country.
      *
-     * @return the list of countries and null if no results are found
+     * @return the list of countries and empty {@link List} if no results are found
      * @throws DaoException if the method failed
      */
     @Override
@@ -82,11 +85,11 @@ public class CountryDaoImpl implements CountryDao {
      *
      * @param page  the page
      * @param limit the limit
-     * @return the list of countries and null if no results are found
+     * @return the list of countries and and empty {@link List} if no results are found
      * @throws DaoException if the method failed
      */
     @Override
-    public List<Country> findCountryPageByPage(int page, int limit) throws DaoException {
+    public List<Country> findCountryPageByPage(final int page, final int limit) throws DaoException {
         int offset = (page - 1) * limit;
         return JDBCUtil.select(transaction.getConnection(), FIND_COUNTRY_PAGE_BY_PAGE,
                 ResultSetHandlerFactory.getListResultSetHandler(COUNTRY_RESULT_SET_HANDLER), limit, offset);
@@ -116,7 +119,7 @@ public class CountryDaoImpl implements CountryDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public Country findById(String id) throws DaoException {
+    public Country findById(final String id) throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_COUNTRY_BY_ID,
                 ResultSetHandlerFactory.getSingleResultSetHandler(COUNTRY_RESULT_SET_HANDLER), id);
     }
@@ -131,7 +134,7 @@ public class CountryDaoImpl implements CountryDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean delete(String id) throws DaoException {
+    public boolean delete(final String id) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), DELETE_COUNTRY_BY_ID, id);
     }
 
@@ -145,7 +148,7 @@ public class CountryDaoImpl implements CountryDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean create(Country entity) throws DaoException {
+    public boolean create(final Country entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), CREATE_COUNTRY, entity.getName());
     }
 
@@ -159,7 +162,7 @@ public class CountryDaoImpl implements CountryDao {
      * @throws DaoException if the method failed
      */
     @Override
-    public boolean update(Country entity) throws DaoException {
+    public boolean update(final Country entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_COUNTRY, entity.getName(), entity.getId());
     }
 }

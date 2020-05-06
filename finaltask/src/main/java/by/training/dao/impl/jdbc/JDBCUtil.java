@@ -7,14 +7,29 @@ import org.apache.logging.log4j.Logger;
 import java.sql.*;
 import java.util.List;
 
-public class JDBCUtil {
+/**
+ * Util class which help work with JDBC.
+ */
+public final class JDBCUtil {
 
     private static final Logger logger = LogManager.getLogger("debug");
 
     private JDBCUtil() {
     }
 
-    public static <T> T select(Connection c, String sql, ResultSetHandler<T> resultSetHandler, Object... param) throws DaoException {
+    /**
+     * Method for select sql queries.
+     *
+     * @param c                the connection
+     * @param sql              sql query
+     * @param resultSetHandler the ResultSetHandler
+     * @param param            array param to prepare statement
+     * @param <T>              the {@link by.training.model.AbstractEntity}
+     * @return the {@link by.training.model.AbstractEntity} or {@link List} {@link by.training.model.AbstractEntity}
+     * @throws DaoException if have SQL exception
+     */
+    public static <T> T select(final Connection c, final String sql,
+                               final ResultSetHandler<T> resultSetHandler, final Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
             ResultSet rs = ps.executeQuery();
@@ -24,8 +39,16 @@ public class JDBCUtil {
         }
     }
 
-
-    public static boolean execute(Connection c, String sql, Object... param) throws DaoException {
+    /**
+     * Method for delete, create or update sql queries.
+     *
+     * @param c     the connection
+     * @param sql   sql query
+     * @param param array param to prepare statement
+     * @return true if data in table updated and false otherwise.
+     * @throws DaoException if have SQL exception
+     */
+    public static boolean execute(final Connection c, final String sql, final Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             populatePrepareStatement(ps, param);
             int res = ps.executeUpdate();
@@ -35,21 +58,39 @@ public class JDBCUtil {
         }
     }
 
-    public static boolean executeBatch(Connection c, String sql, List<Object[]> paramList) throws DaoException {
+    /**
+     * Method for batch delete, create or update sql queries.
+     *
+     * @param c         the connection
+     * @param sql       sql query
+     * @param paramList list of arrays param to prepare statement
+     * @return true if data in table updated and false otherwise.
+     * @throws DaoException if have SQL exception
+     */
+    public static boolean executeBatch(final Connection c, final String sql, final List<Object[]> paramList) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql)) {
             for (Object[] param : paramList
             ) {
                 populatePrepareStatement(ps, param);
                 ps.addBatch();
             }
-            ps.executeBatch();
-            return true;
+            int[] res = ps.executeBatch();
+            return res.length != 0;
         } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
 
-    public static int executeAndReturnIndex(Connection c, String sql, Object... param) throws DaoException {
+    /**
+     * Method for delete, create or update sql queries.
+     *
+     * @param c     the connection
+     * @param sql   sql query
+     * @param param array param to prepare statement
+     * @return id records which updated
+     * @throws DaoException if have SQL exception
+     */
+    public static int executeAndReturnIndex(final Connection c, final String sql, final Object... param) throws DaoException {
         try (PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             populatePrepareStatement(ps, param);
             ps.executeUpdate();
@@ -64,7 +105,14 @@ public class JDBCUtil {
         }
     }
 
-    private static void populatePrepareStatement(PreparedStatement ps, Object... params) throws DaoException {
+    /**
+     * Populate prepare statement.
+     *
+     * @param ps     prepare statement
+     * @param params array param to prepare statement
+     * @throws DaoException if have SQL exception
+     */
+    private static void populatePrepareStatement(final PreparedStatement ps, final Object... params) throws DaoException {
         try {
             if (params != null) {
                 for (int i = 0; i < params.length; i++) {
@@ -76,7 +124,16 @@ public class JDBCUtil {
         }
     }
 
-    public static void populateSqlAndParams(StringBuilder sql, List<Object> params, List<Integer> list, String expression) {
+    /**
+     * Need for build dynamic search query.
+     *
+     * @param sql        template sql query
+     * @param params     list of object param
+     * @param list       list of id {@link by.training.model.AbstractEntity}
+     * @param expression name of the field to fill
+     */
+    public static void populateSqlAndParams(final StringBuilder sql, final List<Object> params,
+                                            final List<Integer> list, final String expression) {
         if (list != null && !list.isEmpty()) {
             sql.append(" AND (");
             for (int i = 0; i < list.size(); i++) {

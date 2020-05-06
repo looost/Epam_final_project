@@ -9,8 +9,14 @@ import by.training.controller.command.getcommand.impl.WatchSerialGetCommand;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class GetCommandProvider {
-    private static final GetCommandProvider instance = new GetCommandProvider();
+/**
+ * Command provider for GET request.
+ */
+public final class GetCommandProvider {
+    private static final GetCommandProvider INSTANCE = new GetCommandProvider();
+    /**
+     * Map that contains {@link CommandName} and its corresponding implementation of {@link Command} interface.
+     */
     private final Map<CommandName, Command> repository = new EnumMap<>(CommandName.class);
 
     private GetCommandProvider() {
@@ -38,22 +44,25 @@ public class GetCommandProvider {
         repository.put(CommandName.ERROR, new ErrorGetCommand());
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static GetCommandProvider getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
-    private boolean contains(String requestURI) {
+    /**
+     * Method for getting a {@link Command} by its {@link String} representation.
+     *
+     * @param requestURI the {@link String} representation request URI
+     * @return {@link Command} and wrong request {@link Command} if request URI incorrect
+     */
+    public Command getCommand(final String requestURI) {
         try {
-            return repository.get(CommandName.valueOf(requestURI.toUpperCase())) != null;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
-    public Command getCommand(String requestURI) {
-        if (contains(requestURI)) {
             return repository.get(CommandName.valueOf(requestURI.toUpperCase()));
-        } else {
+        } catch (IllegalArgumentException e) {
             return repository.get(CommandName.WRONG_REQUEST);
         }
     }

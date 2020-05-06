@@ -11,14 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import static by.training.utils.ConstantName.MAX_USER_LOGIN_LENGTH;
 
+/**
+ * Implementation of {@link Validation} interface.
+ * Validation for {@link User}.
+ */
 public class UserValidation implements Validation<User> {
 
     @Override
-    public boolean isValid(Transaction transaction, User user) throws ServiceException {
+    public boolean isValid(final Transaction transaction, final User user) throws ServiceException {
         try {
             User validUser = DaoFactory.getInstance().getUserDao(transaction).findByLogin(user.getLogin());
-            return user.getLogin().length() <= MAX_USER_LOGIN_LENGTH &&
-                    (validUser == null || validUser.getId() == user.getId());
+            return user.getLogin().length() <= MAX_USER_LOGIN_LENGTH
+                    && (validUser == null || validUser.getId() == user.getId());
         } catch (DaoException e) {
             throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

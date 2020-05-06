@@ -9,13 +9,28 @@ import by.training.service.exception.ServiceException;
 import by.training.service.validation.Validation;
 import by.training.service.validation.impl.StudioValidation;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * Implementation of {@link StudioService} interface. Provides access to {@link by.training.dao.StudioDao}
+ * and provides support for working with the entity {@link Studio}.
+ *
+ * @see Transaction
+ * @see DaoException
+ */
 public class StudioServiceImpl implements StudioService {
 
-    private static final Validation<Studio> validator = new StudioValidation();
+    /**
+     * Validator for this Service.
+     */
+    private static final Validation<Studio> VALIDATOR = new StudioValidation();
 
+    /**
+     * Find all studios.
+     *
+     * @return the {@link List} of ${@link Studio} and empty {@link List} if no results are found
+     * @throws ServiceException if there is an error on the DAO layer
+     */
     @Override
     public List<Studio> findAll() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
@@ -23,21 +38,35 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
         }
     }
 
+    /**
+     * Find studio page by page.
+     *
+     * @param page  the page
+     * @param limit the limit
+     * @return the {@link List} of ${@link Studio} and empty {@link List} if no results are found
+     * @throws ServiceException if there is an error on the DAO layer
+     */
     @Override
-    public List<Studio> findStudioPageByPage(int page, int limit) throws ServiceException {
+    public List<Studio> findStudioPageByPage(final int page, final int limit) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             List<Studio> result = DaoFactory.getInstance().getStudioDao(transaction).findStudioPageByPage(page, limit);
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
         }
     }
 
+    /**
+     * Count of all studio.
+     *
+     * @return number of all studios
+     * @throws ServiceException if there is an error on the DAO layer
+     */
     @Override
     public int countAllStudio() throws ServiceException {
         try (Transaction transaction = new Transaction()) {
@@ -45,37 +74,58 @@ public class StudioServiceImpl implements StudioService {
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
         }
     }
 
+    /**
+     * Find studio by name.
+     *
+     * @param studioName the studio name
+     * @return the studio and null if does not exist
+     * @throws ServiceException if there is an error on the DAO layer
+     */
     @Override
-    public Studio findByName(String studioName) throws ServiceException {
+    public Studio findByName(final String studioName) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             Studio result = DaoFactory.getInstance().getStudioDao(transaction).findByName(studioName);
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
         }
     }
 
+    /**
+     * Delete studio.
+     *
+     * @param id the id
+     * @return true if studio was made deleted and false otherwise.
+     * @throws ServiceException if the method failed
+     */
     @Override
-    public boolean delete(String id) throws ServiceException {
+    public boolean delete(final String id) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result = DaoFactory.getInstance().getStudioDao(transaction).delete(id);
             transaction.commit();
             return result;
         } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
         }
     }
 
+    /**
+     * Save studio.
+     *
+     * @param studio the studio
+     * @return true if studio was made saved and false otherwise.
+     * @throws ServiceException if there is an error on the DAO layer or have validation problem
+     */
     @Override
-    public boolean save(Studio studio) throws ServiceException {
+    public boolean save(final Studio studio) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (validator.isValid(transaction, studio)) {
+            if (VALIDATOR.isValid(transaction, studio)) {
                 if (studio.getId() == 0) {
                     result = DaoFactory.getInstance().getStudioDao(transaction).create(studio);
                 } else {
@@ -85,10 +135,10 @@ public class StudioServiceImpl implements StudioService {
                 return result;
             } else {
                 transaction.rollback();
-                throw new ServiceException("Not valid studio", HttpServletResponse.SC_BAD_REQUEST);
+                throw new ServiceException("Not valid studio", ServiceException.BAD_REQUEST);
             }
         } catch (DaoException e) {
-            throw new ServiceException(e, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
         }
     }
 }
