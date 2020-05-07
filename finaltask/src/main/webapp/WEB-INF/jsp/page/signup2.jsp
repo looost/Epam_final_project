@@ -70,7 +70,8 @@
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
                             <h3 class="display-5 text-style pb-2"><fmt:message key="justWelcome" bundle="${ rb }"/></h3>
-                            <form method="post" action="${pageContext.request.contextPath}/login.html">
+                            <form method="post" class="was-validated"
+                                  action="${pageContext.request.contextPath}/login.html">
                                 <div class="form-group mb-3">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -79,9 +80,9 @@
                                             </div>
                                             <div class="col-10">
                                                 <input id="inputLogin" type="text" name="login"
-                                                       placeholder="<fmt:message key="login" bundle="${ rb }"/>"
+                                                       placeholder="<fmt:message key="enterLogin" bundle="${ rb }"/>"
                                                        required="" autofocus=""
-                                                       class="text-style text-style form-control rounded-pill border-0 shadow-sm px-4 ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
+                                                       class="text-style text-style form-control rounded-pill border-0 shadow-sm px-4 is-invalid}">
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -90,11 +91,13 @@
                                             </div>
                                             <div class="col-10">
                                                 <input id="inputPassword" type="password" name="password"
-                                                       placeholder="<fmt:message key="password" bundle="${ rb }"/>"
+                                                       placeholder="<fmt:message key="enterPassword" bundle="${ rb }"/>"
                                                        required=""
-                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
-                                                <c:if test="${incorrectLoginOrPassword != null}">
-                                                    <div class="invalid-feedback text-style">${incorrectLoginOrPassword}</div>
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary is-invalid">
+                                                <c:if test="${not empty incorrectLogin}">
+                                                    <div class="invalid-feedback text-style">
+                                                        <fmt:message key="${incorrectLogin}" bundle="${ rb }"/>
+                                                    </div>
                                                 </c:if>
                                             </div>
                                         </div>

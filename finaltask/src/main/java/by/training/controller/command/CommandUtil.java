@@ -2,6 +2,7 @@ package by.training.controller.command;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 
 /**
@@ -15,7 +16,7 @@ public final class CommandUtil {
     /**
      * Transfer single attribute from session attribute to request attribute.
      *
-     * @param attName the attribute name
+     * @param attName the attribute name that is in session
      * @param req     the {@link HttpServletRequest}
      */
     public static void transferSingleAttribute(final String attName, final HttpServletRequest req) {
@@ -23,6 +24,24 @@ public final class CommandUtil {
         if (att != null) {
             req.setAttribute(attName, att);
             req.getSession().removeAttribute(attName);
+        }
+    }
+
+    /**
+     * Transfer the value from the map to the request attribute.
+     *
+     * @param mapName name of the map that is in session
+     * @param req     the {@link HttpServletRequest}
+     */
+    public static void transferMapAttribute(final String mapName, final HttpServletRequest req) {
+        Object o = req.getSession().getAttribute(mapName);
+        if (o instanceof Map) {
+            Map<?, ?> errors = (Map<?, ?>) o;
+            for (Map.Entry<?, ?> entry : errors.entrySet()
+            ) {
+                req.setAttribute((String) entry.getKey(), entry.getValue());
+            }
+            req.getSession().removeAttribute(mapName);
         }
     }
 

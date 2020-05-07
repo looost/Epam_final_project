@@ -30,7 +30,7 @@ public class RegistrationGetCommand implements Command {
     @Override
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute(ATTRIBUTE_INVALID_LOGIN, req);
+        CommandUtil.transferMapAttribute(ATTRIBUTE_INVALID_LOGIN, req);
         return new CommandResponse(RoutingType.FORWARD, ROUTING_REGISTRATION_JSP, req, resp);
     }
 }

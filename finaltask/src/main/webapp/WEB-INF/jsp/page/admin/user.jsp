@@ -36,9 +36,9 @@
                         <input type="text" name="login" class="form-control is-invalid"
                                id="validationLogin" placeholder="<fmt:message key="enterLogin" bundle="${ rb }"/>"
                                required>
-                        <c:if test="${loginProblem != null}">
-                            <div class="invalid-feedback">
-                                    ${loginProblem}
+                        <c:if test="${not empty incorrectLogin}">
+                            <div class="invalid-feedback text-style">
+                                <fmt:message key="${incorrectLogin}" bundle="${ rb }"/>
                             </div>
                         </c:if>
                     </div>

@@ -43,7 +43,7 @@ public class EditGenreGetCommand implements Command {
     @Override
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
+        CommandUtil.transferMapAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
         try {
             CommandUtil.transferSingleAttribute("ok", req);
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;

@@ -348,22 +348,10 @@
 
                             <c:choose>
                                 <c:when test="${sessionScope.user != null}">
-                                    <div class="mt-3">
+                                    <div class="mt-3 text-style">
                                         <form class="was-validated"
                                               action="${pageContext.request.contextPath}/save_comment.html?id=${show.id}"
                                               method="post">
-                                            <c:if test="${not empty commentProblem}">
-                                                <div class="alert alert-danger text-style" role="alert">
-                                                    <p><strong><fmt:message key="incorrectData"
-                                                                            bundle="${ rb }"/>:</strong></p>
-                                                    <ul>
-                                                        <li><fmt:message key="incorrectField" bundle="${ rb }"/></li>
-                                                        <li><fmt:message key="maxNumberCharacters" bundle="${ rb }"/> -
-                                                            512
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </c:if>
                                             <div class="form-group mt-3">
                                                 <label for="exampleFormControlTextarea1"><fmt:message key="enterComment"
                                                                                                       bundle="${ rb }"/>:</label>
@@ -372,6 +360,11 @@
                                                           rows="5"
                                                           placeholder="<fmt:message key="maxNumberCharacters" bundle="${ rb }" /> - 512"
                                                           required></textarea>
+                                                <c:if test="${not empty commentProblem}">
+                                                    <div class="invalid-feedback">
+                                                        <fmt:message key="${commentProblem}" bundle="${ rb }"/>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                             <button type="submit" class="btn btn-danger mb-2"><fmt:message key="send"
                                                                                                            bundle="${ rb }"/></button>

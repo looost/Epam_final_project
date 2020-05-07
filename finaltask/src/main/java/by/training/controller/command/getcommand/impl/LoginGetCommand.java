@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static by.training.utils.ConstantName.ATTRIBUTE_INVALID_LOGIN;
 import static by.training.utils.ConstantName.ROUTING_SIGN_UP_JSP;
 
 /**
@@ -31,7 +32,7 @@ public class LoginGetCommand implements Command {
     @Override
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute("incorrectLoginOrPassword", req);
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_INVALID_LOGIN, req);
         return new CommandResponse(RoutingType.FORWARD, ROUTING_SIGN_UP_JSP, req, resp);
     }
 }

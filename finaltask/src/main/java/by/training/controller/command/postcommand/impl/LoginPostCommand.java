@@ -6,7 +6,6 @@ import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.ResourceManager;
 import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -64,10 +63,7 @@ public class LoginPostCommand implements Command {
             session.setAttribute(ATTRIBUTE_USER_ID, user.getId());
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
         } else {
-            String errorMessage = ResourceManager.INSTANCE
-                    .changeResource(req)
-                    .getString("incorrectLoginOrPassword");
-            req.getSession().setAttribute("incorrectLoginOrPassword", errorMessage);
+            req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN, "incorrectLoginOrPassword");
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
         }
     }

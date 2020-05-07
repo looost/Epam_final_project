@@ -3,6 +3,8 @@ package by.training.controller.command.postcommand.impl;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
+import by.training.controller.validation.Validation;
+import by.training.controller.validation.impl.CommentValidationImpl;
 import by.training.model.Comment;
 import by.training.model.Serial;
 import by.training.model.User;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -34,12 +38,18 @@ public class SaveCommentPostCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     /**
+     * Data validator for {@link Comment}.
+     */
+    private static final Validation<Comment> VALIDATOR = new CommentValidationImpl();
+
+    /**
      * Command to save {@link Comment}. Handles both change and creation requests.
+     *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
      * @return the {@link CommandResponse}
      * @throws ServletException if the request for the POST could not be handled
-     * @throws IOException if an input or output error is  detected when the servlet handles the POST request
+     * @throws IOException      if an input or output error is  detected when the servlet handles the POST request
      * @see RoutingUtils
      */
     @Override
@@ -55,19 +65,19 @@ public class SaveCommentPostCommand implements Command {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(serialId);
             if (serial != null) {
                 Comment comment = new Comment(Integer.parseInt(commentId), user, serial, text);
+                Map<String, String> errors = new HashMap<>();
+                if (!VALIDATOR.isValid(comment, errors)) {
+                    req.getSession().setAttribute(ATTRIBUTE_COMMENT_PROBLEM, errors);
+                    return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
+                }
                 ServiceFactory.getInstance().getCommentService().save(comment);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
             } else {
                 return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_BAD_REQUEST);
             }
         } catch (ServiceException e) {
-            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
-                req.getSession().setAttribute(ATTRIBUTE_COMMENT_PROBLEM, true);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
-            } else {
-                logger.error(e);
-                return RoutingUtils.routingErrorPage(req, resp, e.getCode());
-            }
+            logger.error(e);
+            return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         } catch (NumberFormatException e) {
             logger.error("Cannot cast value to int - " + commentId, e);
             return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_BAD_REQUEST);

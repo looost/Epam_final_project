@@ -6,7 +6,6 @@ import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
-import by.training.utils.ResourceManager;
 import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -54,10 +53,7 @@ public class ChangePasswordPostCommand implements Command {
                 ServiceFactory.getInstance().getUserService().save(user);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
             } else {
-                String errorMessage = ResourceManager.INSTANCE
-                        .changeResource(req)
-                        .getString(ATTRIBUTE_INVALID_PASSWORD);
-                req.getSession().setAttribute(ATTRIBUTE_INVALID_PASSWORD, errorMessage);
+                req.getSession().setAttribute(ATTRIBUTE_INVALID_PASSWORD, "invalidPassword");
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
             }
         } catch (ServiceException e) {

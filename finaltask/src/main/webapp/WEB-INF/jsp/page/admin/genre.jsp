@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -23,7 +24,6 @@
     </div>
 
 </div>
-
 
 <div class="container-fluid text-style">
 
@@ -52,21 +52,16 @@
             <div class="card-body">
                 <form class="was-validated mt-2" method="post"
                       action="${pageContext.request.contextPath}/save_genre.html">
-                    <c:if test="${not empty genreProblem}">
-                        <div class="alert alert-danger text-style" role="alert">
-                            <p><strong><fmt:message key="incorrectData" bundle="${ rb }"/>:</strong></p>
-                            <ul>
-                                <li><fmt:message key="incorrectName" bundle="${ rb }"/></li>
-                                <li><fmt:message key="incorrectField" bundle="${ rb }"/></li>
-                                <li><fmt:message key="incorrectNameLength" bundle="${ rb }"/></li>
-                            </ul>
-                        </div>
-                    </c:if>
                     <div class="mb-3">
                         <label for="validationName"><fmt:message key="enterGenreName" bundle="${ rb }"/>:</label>
                         <input type="text" name="genre" class="form-control is-invalid"
                                id="validationName" placeholder="<fmt:message key="enterGenreName" bundle="${ rb }"/>"
                                required>
+                        <c:if test="${not empty genreProblem}">
+                            <div class="invalid-feedback text-style">
+                                <fmt:message key="${genreProblem}" bundle="${ rb }"/>
+                            </div>
+                        </c:if>
                     </div>
                     <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                 </form>

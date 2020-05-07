@@ -69,7 +69,8 @@
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
                             <h3 class="display-5 text-style pb-2"><fmt:message key="justWelcome" bundle="${ rb }"/></h3>
-                            <form method="post" action="${pageContext.request.contextPath}/registration.html">
+                            <form method="post" class="was-validated mt-2"
+                                  action="${pageContext.request.contextPath}/registration.html">
                                 <div class="form-group mb-3">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -78,11 +79,13 @@
                                             </div>
                                             <div class="col-10">
                                                 <input id="inputLogin" type="text" name="login"
-                                                       placeholder="<fmt:message key="login" bundle="${ rb }"/>"
+                                                       placeholder="<fmt:message key="enterLogin" bundle="${ rb }"/>"
                                                        required="" autofocus=""
-                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 ${incorrectLogin != null ? 'is-invalid' : ''}">
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 is-invalid">
                                                 <c:if test="${not empty incorrectLogin}">
-                                                    <div class="invalid-feedback text-style">${incorrectLogin}</div>
+                                                    <div class="invalid-feedback text-style">
+                                                        <fmt:message key="${incorrectLogin}" bundle="${ rb }"/>
+                                                    </div>
                                                 </c:if>
                                             </div>
                                         </div>
@@ -92,9 +95,9 @@
                                             </div>
                                             <div class="col-10">
                                                 <input id="inputPassword" type="password" name="password"
-                                                       placeholder="<fmt:message key="password" bundle="${ rb }"/>"
+                                                       placeholder="<fmt:message key="enterPassword" bundle="${ rb }"/>"
                                                        required=""
-                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary is-invalid">
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -105,7 +108,7 @@
                                                 <input id="password-check" type="password" name="replayPassword"
                                                        placeholder="<fmt:message key="confirmPassword" bundle="${ rb }" />"
                                                        required=""
-                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary ${incorrectLoginOrPassword != null ? "is-invalid" : ""}">
+                                                       class="text-style form-control rounded-pill border-0 shadow-sm px-4 text-primary is-invalid">
                                             </div>
                                         </div>
                                     </div>

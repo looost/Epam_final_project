@@ -50,29 +50,30 @@
             </div>
 
 
-            <form class="m-2" method="post" action="${pageContext.request.contextPath}/change_password.html">
+            <form class="was-validated m-2 text-style" method="post"
+                  action="${pageContext.request.contextPath}/change_password.html">
                 <div class="form-group row">
-                    <label for="staticLogin" class="col-sm-2 col-form-label text-style"> <fmt:message key="login"
-                                                                                                      bundle="${ rb }"/></label>
+                    <label for="staticLogin" class="col-sm-2 col-form-label "> <fmt:message key="login"
+                                                                                            bundle="${ rb }"/></label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="staticLogin"
                                value="${sessionScope.user}">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label text-style"> <fmt:message key="password"
-                                                                                                        bundle="${ rb }"/></label>
+                    <label for="inputPassword" class="col-sm-2 col-form-label"> <fmt:message key="password"
+                                                                                             bundle="${ rb }"/></label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control ${invalidPassword != null ? "is-invalid" : ""}"
+                        <input type="password" class="form-control is-invalid"
                                name="password" id="inputPassword"
                                placeholder="<fmt:message key="password" bundle="${ rb }"/>" required>
                         <c:if test="${invalidPassword != null}">
-                            <div class="invalid-feedback">${invalidPassword}</div>
+                            <div class="invalid-feedback"><fmt:message key="${invalidPassword}" bundle="${ rb }"/></div>
                         </c:if>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputNewPassword" class="col-sm-2 col-form-label text-style"> <fmt:message
+                    <label for="inputNewPassword" class="col-sm-2 col-form-label"> <fmt:message
                             key="newPassword"
                             bundle="${ rb }"/></label>
                     <div class="col-sm-10">

@@ -55,6 +55,7 @@ public final class ConstantName {
     public static final String ATTRIBUTE_SEARCH_FORM = "searchForm";
     public static final String ATTRIBUTE_WATCH_STATUS = "watchStatus";
     public static final String ATTRIBUTE_LIKED_STATUS = "likedStatus";
+    public static final String ATTRIBUTE_ERRORS = "errors";
 
     public static final String HEADER_REFERER = "referer";
 

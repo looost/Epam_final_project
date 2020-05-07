@@ -3,6 +3,8 @@ package by.training.controller.command.postcommand.impl.moder;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
+import by.training.controller.validation.Validation;
+import by.training.controller.validation.impl.StudioValidationImpl;
 import by.training.model.Studio;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
@@ -14,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -31,6 +35,11 @@ public class SaveStudioPostCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     /**
+     * Data validator for {@link Studio}.
+     */
+    private static final Validation<Studio> VALIDATOR = new StudioValidationImpl();
+
+    /**
      * Command to save {@link by.training.model.Studio}. Handles both change and creation requests.
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
@@ -46,16 +55,16 @@ public class SaveStudioPostCommand implements Command {
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
         Studio studio = new Studio(Integer.parseInt(id), studioName);
         try {
+            Map<String, String> errors = new HashMap<>();
+            if (!VALIDATOR.isValid(studio, errors)) {
+                req.getSession().setAttribute(ATTRIBUTE_STUDIO_PROBLEM, errors);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
+            }
             ServiceFactory.getInstance().getStudioService().save(studio);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
         } catch (ServiceException e) {
-            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
-                req.getSession().setAttribute(ATTRIBUTE_STUDIO_PROBLEM, e.getMessage());
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
-            } else {
                 logger.error(e);
                 return RoutingUtils.routingErrorPage(req, resp, e.getCode());
-            }
         }
     }
 }

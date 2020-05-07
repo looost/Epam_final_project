@@ -3,6 +3,8 @@ package by.training.controller.command.postcommand.impl;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
+import by.training.controller.validation.Validation;
+import by.training.controller.validation.impl.RegistrationValidationImpl;
 import by.training.model.RoleEnum;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
@@ -16,6 +18,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -33,13 +37,19 @@ public class RegistrationPostCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     /**
+     * Data validator for {@link User}.
+     */
+    private static final Validation<User> VALIDATOR = new RegistrationValidationImpl();
+
+    /**
      * The command to register a {@link User} in the application. If there are validation
      * errors redirection is going on to re-enter data.
+     *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
      * @return the {@link CommandResponse}
      * @throws ServletException if the request for the POST could not be handled
-     * @throws IOException if an input or output error is  detected when the servlet handles the POST request
+     * @throws IOException      if an input or output error is  detected when the servlet handles the POST request
      * @see RoutingUtils
      */
     @Override
@@ -47,20 +57,18 @@ public class RegistrationPostCommand implements Command {
                                    final HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter(PARAMETER_LOGIN);
         String password = BCrypt.hashpw(req.getParameter(PARAMETER_PASSWORD), BCrypt.gensalt());
-        String role = req.getParameter(PARAMETER_ROLE);
         User user = new User(login, password, DEFAULT_AVATAR_NAME, RoleEnum.USER.ordinal());
         try {
+            Map<String, String> errors = new HashMap<>();
+            if (!VALIDATOR.isValid(user, errors)) {
+                req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN, errors);
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_REGISTRATION_PAGE, req, resp);
+            }
             ServiceFactory.getInstance().getUserService().save(user);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
         } catch (ServiceException e) {
-            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
-                req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN,
-                        "Пользователь с таким логином уже существует!");
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_REGISTRATION_PAGE, req, resp);
-            } else {
-                logger.error(e);
-                return RoutingUtils.routingErrorPage(req, resp, e.getCode());
-            }
+            logger.error(e);
+            return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }
     }
 }
