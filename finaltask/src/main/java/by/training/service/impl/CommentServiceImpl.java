@@ -12,9 +12,10 @@ import by.training.service.transaction.TransactionBuilder;
 import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
 import by.training.service.validation.Validation;
-import by.training.service.validation.impl.CommentValidation;
+import by.training.service.validation.impl.CommentValidationImpl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link CommentService} interface. Provides access to {@link by.training.dao.CommentDao}
@@ -50,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
     /**
      * Validator for this Service.
      */
-    private static final Validation<Comment> VALIDATOR = new CommentValidation();
+    private static final Validation<Comment> VALIDATOR = new CommentValidationImpl();
 
     /**
      * Find all comment for serial.
@@ -121,7 +122,8 @@ public class CommentServiceImpl implements CommentService {
     public boolean save(final Comment comment) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (VALIDATOR.isValid(transaction, comment)) {
+            Map<String, String> errors = VALIDATOR.isValid(comment);
+            if (errors.isEmpty()) {
                 if (comment.getId() == 0) {
                     result = DaoFactory.getInstance().getCommentDao(transaction).create(comment);
                 } else {
@@ -130,7 +132,7 @@ public class CommentServiceImpl implements CommentService {
                 transaction.commit();
                 return result;
             } else {
-                throw new ServiceException("Not valid comment", ServiceException.BAD_REQUEST);
+                throw new ServiceException("Not valid comment", ServiceException.BAD_REQUEST, errors);
             }
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);

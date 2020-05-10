@@ -33,11 +33,12 @@ public class ChangePasswordPostCommand implements Command {
 
     /**
      * Command for change {@link User} password. Password is encrypted with {@link BCrypt}.
+     *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
      * @return the {@link CommandResponse}
      * @throws ServletException if the request for the POST could not be handled
-     * @throws IOException if an input or output error is  detected when the servlet handles the POST request
+     * @throws IOException      if an input or output error is  detected when the servlet handles the POST request
      * @see RoutingUtils
      */
     @Override
@@ -46,16 +47,15 @@ public class ChangePasswordPostCommand implements Command {
         try {
             String login = (String) req.getSession().getAttribute(ATTRIBUTE_USER);
             String password = req.getParameter(PARAMETER_PASSWORD);
-            String newPassword = BCrypt.hashpw(req.getParameter(PARAMETER_NEW_PASSWORD), BCrypt.gensalt());
+            String newPassword = req.getParameter(PARAMETER_NEW_PASSWORD);
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);
-            if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-                user.setPassword(newPassword);
-                ServiceFactory.getInstance().getUserService().save(user);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
-            } else {
+            if (user == null || !ServiceFactory.getInstance().getSecurityService().checkpw(password, user.getPassword())) {
                 req.getSession().setAttribute(ATTRIBUTE_INVALID_PASSWORD, "invalidPassword");
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
             }
+            user.setPassword(newPassword);
+            ServiceFactory.getInstance().getUserService().save(user);
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
         } catch (ServiceException e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());

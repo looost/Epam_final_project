@@ -7,9 +7,10 @@ import by.training.model.Studio;
 import by.training.service.StudioService;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.Validation;
-import by.training.service.validation.impl.StudioValidation;
+import by.training.service.validation.impl.StudioValidationImpl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link StudioService} interface. Provides access to {@link by.training.dao.StudioDao}
@@ -23,7 +24,7 @@ public class StudioServiceImpl implements StudioService {
     /**
      * Validator for this Service.
      */
-    private static final Validation<Studio> VALIDATOR = new StudioValidation();
+    private static final Validation<Studio> VALIDATOR = new StudioValidationImpl();
 
     /**
      * Find all studios.
@@ -125,7 +126,8 @@ public class StudioServiceImpl implements StudioService {
     public boolean save(final Studio studio) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (VALIDATOR.isValid(transaction, studio)) {
+            Map<String, String> errors = VALIDATOR.isValid(studio);
+            if (errors.isEmpty()) {
                 if (studio.getId() == 0) {
                     result = DaoFactory.getInstance().getStudioDao(transaction).create(studio);
                 } else {
@@ -134,8 +136,7 @@ public class StudioServiceImpl implements StudioService {
                 transaction.commit();
                 return result;
             } else {
-                transaction.rollback();
-                throw new ServiceException("Not valid studio", ServiceException.BAD_REQUEST);
+                throw new ServiceException("Not valid studio", ServiceException.BAD_REQUEST, errors);
             }
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);

@@ -15,6 +15,7 @@ public final class ServiceFactory {
     private final StudioService studioService = new StudioServiceImpl();
     private final SerialService serialService = new SerialServiceImpl();
     private final GenreService genreService = new GenreServiceImpl();
+    private final SecurityService securityService = new SecurityServiceImpl();
 
 
     private ServiceFactory() {
@@ -81,5 +82,14 @@ public final class ServiceFactory {
      */
     public StudioService getStudioService() {
         return studioService;
+    }
+
+    /**
+     * Gets security service.
+     *
+     * @return the security service
+     */
+    public SecurityService getSecurityService() {
+        return securityService;
     }
 }

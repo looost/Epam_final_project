@@ -6,10 +6,11 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.Genre;
 import by.training.service.GenreService;
 import by.training.service.exception.ServiceException;
-import by.training.service.validation.impl.GenreValidation;
 import by.training.service.validation.Validation;
+import by.training.service.validation.impl.GenreValidationImpl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link GenreService} interface. Provides access to {@link by.training.dao.GenreDao}
@@ -23,7 +24,7 @@ public class GenreServiceImpl implements GenreService {
     /**
      * Validator for this Service.
      */
-    private static final Validation<Genre> VALIDATOR = new GenreValidation();
+    private static final Validation<Genre> VALIDATOR = new GenreValidationImpl();
 
     /**
      * Find genre by name.
@@ -125,7 +126,8 @@ public class GenreServiceImpl implements GenreService {
     public boolean save(final Genre genre) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (VALIDATOR.isValid(transaction, genre)) {
+            Map<String, String> errors = VALIDATOR.isValid(genre);
+            if (errors.isEmpty()) {
                 if (genre.getId() == 0) {
                     result = DaoFactory.getInstance().getGenreDao(transaction).create(genre);
                 } else {
@@ -134,8 +136,7 @@ public class GenreServiceImpl implements GenreService {
                 transaction.commit();
                 return result;
             } else {
-                transaction.rollback();
-                throw new ServiceException("Not valid genre", ServiceException.BAD_REQUEST);
+                throw new ServiceException("Not valid genre", ServiceException.BAD_REQUEST, errors);
             }
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);

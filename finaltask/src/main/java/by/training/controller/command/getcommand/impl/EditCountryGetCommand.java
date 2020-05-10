@@ -43,7 +43,7 @@ public class EditCountryGetCommand implements Command {
     @Override
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute(ATTRIBUTE_COUNTRY_PROBLEM, req);
+        CommandUtil.transferMapAttribute(ATTRIBUTE_COUNTRY_PROBLEM, req);
         try {
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllCountry = ServiceFactory.getInstance().getCountryService().countAllCountry();

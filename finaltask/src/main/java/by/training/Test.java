@@ -1,23 +1,11 @@
 package by.training;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import by.training.model.AbstractEntity;
 
-public class Test extends Thread {
-    public static void main(String[] args) {
-        System.out.println(get("dsf"));
-        System.out.println(get("one"));
-    }
+import java.io.IOException;
+import java.util.Collections;
 
-    static String get(String value) {
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, "one");
-        map.put(2, "two");
-        map.put(3, "three");
+public class Test<T extends AbstractEntity> {
 
-        return map.values().stream().filter(s -> s.equals(value)).findFirst().orElse("");
-
-    }
 }
-

@@ -29,6 +29,15 @@ public interface SerialService {
     Serial findById(String id) throws ServiceException;
 
     /**
+     * Find serial by name.
+     *
+     * @param name the serial name
+     * @return the serial
+     * @throws ServiceException if the method failed
+     */
+    Serial findByName(String name) throws ServiceException;
+
+    /**
      * Find serial page by page.
      *
      * @param page  the page

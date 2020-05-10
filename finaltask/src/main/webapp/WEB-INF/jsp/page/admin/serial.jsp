@@ -39,7 +39,12 @@
                             <label for="validationName"><fmt:message key="enterSerialName" bundle="${ rb }"/>:</label>
                             <input type="text" name="name" class="form-control is-invalid"
                                    id="validationName"
-                                   placeholder="<fmt:message key="enterSerialName" bundle="${ rb }"/>">
+                                   placeholder="<fmt:message key="enterSerialName" bundle="${ rb }"/>" required>
+                            <c:if test="${not empty serialNameProblem}">
+                                <div class="invalid-feedback text-style">
+                                    <fmt:message key="${serialNameProblem}" bundle="${ rb }"/>
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="mb-3">
@@ -47,19 +52,34 @@
                                                                             bundle="${ rb }"/>:</label>
                             <textarea class="form-control is-invalid" id="validationDescription"
                                       placeholder="<fmt:message key="enterSerialDescription" bundle="${ rb }"/>"
-                                      name="description" rows="5"></textarea>
+                                      name="description" rows="5" required></textarea>
+                            <c:if test="${not empty serialDescriptionProblem}">
+                                <div class="invalid-feedback text-style">
+                                    <fmt:message key="${serialDescriptionProblem}" bundle="${ rb }"/>
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="custom-file mb-3">
                             <input type="file" class="custom-file-input" id="validatedLogo" name="logo">
                             <label class="custom-file-label" for="validatedLogo"><fmt:message key="loadSerialLogo"
                                                                                               bundle="${ rb }"/></label>
+                            <c:if test="${not empty serialLogoProblem}">
+                                <div class="invalid-feedback text-style">
+                                    <fmt:message key="${serialLogoProblem}" bundle="${ rb }"/>
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="custom-file mb-3">
                             <input type="file" class="custom-file-input" id="validatedFullLogo" name="full_logo">
                             <label class="custom-file-label" for="validatedFullLogo"><fmt:message
                                     key="loadSerialFullLogo" bundle="${ rb }"/></label>
+                            <c:if test="${not empty serialFullLogoProblem}">
+                                <div class="invalid-feedback text-style">
+                                    <fmt:message key="${serialFullLogoProblem}" bundle="${ rb }"/>
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="form-group">

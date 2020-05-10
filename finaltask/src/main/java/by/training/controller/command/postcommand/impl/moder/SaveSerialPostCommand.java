@@ -83,8 +83,8 @@ public class SaveSerialPostCommand implements Command {
             ServiceFactory.getInstance().getSerialService().save(serial);
             return new CommandResponse(RoutingType.REDIRECT, req.getHeader(HEADER_REFERER), req, resp);
         } catch (ServiceException e) {
-            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
-                req.getSession().setAttribute(ATTRIBUTE_SERIAL_PROBLEM, true);
+            if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {
+                req.getSession().setAttribute(ATTRIBUTE_SERIAL_PROBLEM, e.getErrors());
                 return new CommandResponse(RoutingType.REDIRECT, req.getHeader(HEADER_REFERER), req, resp);
             } else {
                 logger.error(e);

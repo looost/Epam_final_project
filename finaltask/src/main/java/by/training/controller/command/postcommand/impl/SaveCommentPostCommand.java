@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -65,17 +63,17 @@ public class SaveCommentPostCommand implements Command {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(serialId);
             if (serial != null) {
                 Comment comment = new Comment(Integer.parseInt(commentId), user, serial, text);
-                Map<String, String> errors = new HashMap<>();
-                if (!VALIDATOR.isValid(comment, errors)) {
-                    req.getSession().setAttribute(ATTRIBUTE_COMMENT_PROBLEM, errors);
-                    return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
-                }
                 ServiceFactory.getInstance().getCommentService().save(comment);
                 return new CommandResponse(RoutingType.REDIRECT, ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
             } else {
                 return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_BAD_REQUEST);
             }
         } catch (ServiceException e) {
+            if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {
+                req.getSession().setAttribute(ATTRIBUTE_COMMENT_PROBLEM, e.getErrors());
+                return new CommandResponse(RoutingType.REDIRECT,
+                        ROUTING_SHOW_PAGE + "?id=" + serialId, req, resp);
+            }
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         } catch (NumberFormatException e) {

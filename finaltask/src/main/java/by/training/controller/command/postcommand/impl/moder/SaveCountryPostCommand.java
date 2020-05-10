@@ -16,8 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -50,19 +48,19 @@ public class SaveCountryPostCommand implements Command {
      * @see RoutingUtils
      */
     @Override
-    public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public CommandResponse execute(final HttpServletRequest req,
+                                   final HttpServletResponse resp) throws ServletException, IOException {
         String countryName = req.getParameter(PARAMETER_COUNTRY);
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
         Country country = new Country(Integer.parseInt(id), countryName);
         try {
-            Map<String, String> errors = new HashMap<>();
-            if (!VALIDATOR.isValid(country, errors)) {
-                req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, errors);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
-            }
             ServiceFactory.getInstance().getCountryService().save(country);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
         } catch (ServiceException e) {
+            if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {
+                req.getSession().setAttribute(ATTRIBUTE_COUNTRY_PROBLEM, e.getErrors());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_COUNTRY_PAGE, req, resp);
+            }
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }

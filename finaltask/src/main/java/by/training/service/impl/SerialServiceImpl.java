@@ -12,9 +12,10 @@ import by.training.service.transaction.TransactionBuilder;
 import by.training.service.transaction.TransactionBuilderFactory;
 import by.training.service.transaction.TransactionUtil;
 import by.training.service.validation.Validation;
-import by.training.service.validation.impl.SerialValidation;
+import by.training.service.validation.impl.SerialValidationImpl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link Serial} interface. Provides access to {@link by.training.dao.SerialDao}
@@ -28,7 +29,7 @@ public class SerialServiceImpl implements SerialService {
     /**
      * Validator for this Service.
      */
-    private static final Validation<Serial> VALIDATOR = new SerialValidation();
+    private static final Validation<Serial> VALIDATOR = new SerialValidationImpl();
 
     /**
      * Implementation of {@link TransactionBuilder} functional interface.
@@ -431,6 +432,26 @@ public class SerialServiceImpl implements SerialService {
     }
 
     /**
+     * Find serial by name.
+     *
+     * @param name the serial name
+     * @return the serial
+     * @throws ServiceException if there is an error on the DAO layer or serial does not exist
+     */
+    @Override
+    public Serial findByName(String name) throws ServiceException {
+        try (Transaction transaction = new Transaction()) {
+            Serial serial = DaoFactory.getInstance().getSerialDao(transaction).findSerialByName(name);
+            serial = TransactionUtil
+                    .select(transaction, TransactionBuilderFactory.getSingleTransactionBuilder(SERIAL_TRANSACTION_HANDLER), serial);
+            transaction.commit();
+            return serial;
+        } catch (DaoException e) {
+            throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
+        }
+    }
+
+    /**
      * Delete serial.
      *
      * @param id the id
@@ -459,7 +480,8 @@ public class SerialServiceImpl implements SerialService {
     public boolean save(final Serial serial) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (VALIDATOR.isValid(transaction, serial)) {
+            Map<String, String> errors = VALIDATOR.isValid(serial);
+            if (errors.isEmpty()) {
                 if (serial.getId() == 0) {
                     result = DaoFactory.getInstance().getSerialDao(transaction).create(serial);
                 } else {
@@ -468,7 +490,7 @@ public class SerialServiceImpl implements SerialService {
                 transaction.commit();
                 return result;
             } else {
-                throw new ServiceException("Serial field not valid", ServiceException.BAD_REQUEST);
+                throw new ServiceException("Serial field not valid", ServiceException.BAD_REQUEST, errors);
             }
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);

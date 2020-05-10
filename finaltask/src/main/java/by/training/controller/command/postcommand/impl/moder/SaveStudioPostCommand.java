@@ -16,8 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -41,11 +39,12 @@ public class SaveStudioPostCommand implements Command {
 
     /**
      * Command to save {@link by.training.model.Studio}. Handles both change and creation requests.
+     *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
      * @return the {@link CommandResponse}
      * @throws ServletException if the request for the POST could not be handled
-     * @throws IOException if an input or output error is  detected when the servlet handles the POST request
+     * @throws IOException      if an input or output error is  detected when the servlet handles the POST request
      * @see RoutingUtils
      */
     @Override
@@ -55,16 +54,15 @@ public class SaveStudioPostCommand implements Command {
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
         Studio studio = new Studio(Integer.parseInt(id), studioName);
         try {
-            Map<String, String> errors = new HashMap<>();
-            if (!VALIDATOR.isValid(studio, errors)) {
-                req.getSession().setAttribute(ATTRIBUTE_STUDIO_PROBLEM, errors);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
-            }
             ServiceFactory.getInstance().getStudioService().save(studio);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
         } catch (ServiceException e) {
-                logger.error(e);
-                return RoutingUtils.routingErrorPage(req, resp, e.getCode());
+            if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {
+                req.getSession().setAttribute(ATTRIBUTE_STUDIO_PROBLEM, e.getErrors());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_STUDIO_PAGE, req, resp);
+            }
+            logger.error(e);
+            return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }
     }
 }

@@ -16,8 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -56,15 +54,14 @@ public class SaveGenrePostCommand implements Command {
         String id = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
         Genre genre = new Genre(Integer.parseInt(id), genreName);
         try {
-            Map<String, String> errors = new HashMap<>();
-            if (!VALIDATOR.isValid(genre, errors)) {
-                req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, errors);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
-            }
             ServiceFactory.getInstance().getGenreService().save(genre);
             req.getSession().setAttribute("ok", "ok");
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         } catch (ServiceException e) {
+            if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {
+                req.getSession().setAttribute(ATTRIBUTE_GENRE_PROBLEM, e.getErrors());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
+            }
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }

@@ -12,14 +12,11 @@ import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static by.training.utils.ConstantName.*;
 
@@ -56,17 +53,16 @@ public class RegistrationPostCommand implements Command {
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter(PARAMETER_LOGIN);
-        String password = BCrypt.hashpw(req.getParameter(PARAMETER_PASSWORD), BCrypt.gensalt());
+        String password = req.getParameter(PARAMETER_PASSWORD);
         User user = new User(login, password, DEFAULT_AVATAR_NAME, RoleEnum.USER.ordinal());
         try {
-            Map<String, String> errors = new HashMap<>();
-            if (!VALIDATOR.isValid(user, errors)) {
-                req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN, errors);
-                return new CommandResponse(RoutingType.REDIRECT, ROUTING_REGISTRATION_PAGE, req, resp);
-            }
             ServiceFactory.getInstance().getUserService().save(user);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
         } catch (ServiceException e) {
+            if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {
+                req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN, e.getErrors());
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_REGISTRATION_PAGE, req, resp);
+            }
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }

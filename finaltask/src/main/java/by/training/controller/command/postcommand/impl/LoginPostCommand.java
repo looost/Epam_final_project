@@ -9,7 +9,6 @@ import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -35,11 +34,12 @@ public class LoginPostCommand implements Command {
     /**
      * {@link User} authentication command. It also checks if there is
      * a {@link User} in the system with such a login and if there is, does his password hash match.
+     *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
      * @return the {@link CommandResponse}
      * @throws ServletException if the request for the POST could not be handled
-     * @throws IOException if an input or output error is  detected when the servlet handles the POST request
+     * @throws IOException      if an input or output error is  detected when the servlet handles the POST request
      * @see RoutingUtils
      */
     @Override
@@ -51,20 +51,19 @@ public class LoginPostCommand implements Command {
         try {
             user = ServiceFactory.getInstance()
                     .getUserService().findByLogin(login);
+            if (user == null ||
+                    !ServiceFactory.getInstance().getSecurityService().checkpw(password, user.getPassword())) {
+                req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN, "incorrectLoginOrPassword");
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
+            }
         } catch (ServiceException e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }
-
-        if (user != null && BCrypt.checkpw(password, user.getPassword())) {
-            HttpSession session = req.getSession();
-            session.setAttribute(ATTRIBUTE_USER, user.getLogin());
-            session.setAttribute(ATTRIBUTE_USER_ROLE, user.getRole());
-            session.setAttribute(ATTRIBUTE_USER_ID, user.getId());
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
-        } else {
-            req.getSession().setAttribute(ATTRIBUTE_INVALID_LOGIN, "incorrectLoginOrPassword");
-            return new CommandResponse(RoutingType.REDIRECT, ROUTING_LOGIN_PAGE, req, resp);
-        }
+        HttpSession session = req.getSession();
+        session.setAttribute(ATTRIBUTE_USER, user.getLogin());
+        session.setAttribute(ATTRIBUTE_USER_ROLE, user.getRole());
+        session.setAttribute(ATTRIBUTE_USER_ID, user.getId());
+        return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
     }
 }

@@ -56,6 +56,12 @@ public final class ConstantName {
     public static final String ATTRIBUTE_WATCH_STATUS = "watchStatus";
     public static final String ATTRIBUTE_LIKED_STATUS = "likedStatus";
     public static final String ATTRIBUTE_ERRORS = "errors";
+    public static final String ATTRIBUTE_SERIAL_NAME_PROBLEM = "serialNameProblem";
+    public static final String ATTRIBUTE_SERIAL_DESCRIPTION_PROBLEM = "serialDescriptionProblem";
+    public static final String ATTRIBUTE_SERIAL_LOGO_PROBLEM = "serialLogoProblem";
+    public static final String ATTRIBUTE_SERIAL_FULL_LOGO_PROBLEM = "serialFullLogoProblem";
+
+
 
     public static final String HEADER_REFERER = "referer";
 

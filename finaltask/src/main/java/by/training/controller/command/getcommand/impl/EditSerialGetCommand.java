@@ -45,7 +45,7 @@ public class EditSerialGetCommand implements Command {
     @Override
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute(ATTRIBUTE_SERIAL_PROBLEM, req);
+        CommandUtil.transferMapAttribute(ATTRIBUTE_SERIAL_PROBLEM, req);
         try {
             List<Country> countryList = ServiceFactory.getInstance().getCountryService().findAll();
             List<Studio> studios = ServiceFactory.getInstance().getStudioService().findAll();

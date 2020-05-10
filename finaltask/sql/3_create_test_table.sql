@@ -26,6 +26,7 @@ create table user
     `id`       INTEGER           NOT NULL AUTO_INCREMENT,
     `login`    VARCHAR(12)       NOT NULL UNIQUE,
     `password` CHAR(60)          NOT NULL,
+    `avatar`   VARCHAR(100),
     /*
      * 0 - администратор (Role.ADMINISTRATOR)
      * 1 - модератор (Role.MODERATOR)

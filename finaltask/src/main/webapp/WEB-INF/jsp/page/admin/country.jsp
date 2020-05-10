@@ -36,6 +36,11 @@
                         <input type="text" name="country" class="form-control is-invalid"
                                id="validationName" placeholder="<fmt:message key="enterCountryName" bundle="${ rb }"/>"
                                required>
+                        <c:if test="${not empty countryProblem}">
+                            <div class="invalid-feedback text-style">
+                                <fmt:message key="${countryProblem}" bundle="${ rb }"/>
+                            </div>
+                        </c:if>
                     </div>
                     <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                 </form>

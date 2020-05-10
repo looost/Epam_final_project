@@ -6,6 +6,7 @@
         <classes>
             <class name="by.training.dao.impl.StudioDaoImplTest"/>
             <class name="by.training.dao.impl.CountryDaoImplTest"/>
+            <class name="by.training.dao.impl.GenreDaoImplTest"/>
         </classes>
 
     </test>

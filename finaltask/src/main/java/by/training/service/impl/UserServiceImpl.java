@@ -6,8 +6,12 @@ import by.training.dao.factory.DaoFactory;
 import by.training.model.User;
 import by.training.service.UserService;
 import by.training.service.exception.ServiceException;
-import by.training.service.validation.impl.UserValidation;
+import by.training.service.factory.ServiceFactory;
 import by.training.service.validation.Validation;
+import by.training.service.validation.impl.UserValidationImpl;
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.Map;
 
 /**
  * Implementation of {@link UserService} interface. Provides access to {@link by.training.dao.UserDao}
@@ -21,7 +25,7 @@ public class UserServiceImpl implements UserService {
     /**
      * Validator for this Service.
      */
-    private static final Validation<User> VALIDATOR = new UserValidation();
+    private static final Validation<User> VALIDATOR = new UserValidationImpl();
 
     /**
      * Find user by login.
@@ -52,7 +56,10 @@ public class UserServiceImpl implements UserService {
     public boolean save(final User user) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (VALIDATOR.isValid(transaction, user)) {
+            Map<String, String> errors = VALIDATOR.isValid(user);
+            if (errors.isEmpty()) {
+                user.setPassword(ServiceFactory.getInstance()
+                        .getSecurityService().hashpw(user.getPassword(), BCrypt.gensalt()));
                 if (user.getId() == 0) {
                     result = DaoFactory.getInstance().getUserDao(transaction).create(user);
                 } else {
@@ -61,7 +68,7 @@ public class UserServiceImpl implements UserService {
                 transaction.commit();
                 return result;
             } else {
-                throw new ServiceException("Not valid data", ServiceException.BAD_REQUEST);
+                throw new ServiceException("Not valid data", ServiceException.BAD_REQUEST, errors);
             }
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);

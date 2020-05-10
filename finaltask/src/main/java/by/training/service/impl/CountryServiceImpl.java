@@ -7,9 +7,10 @@ import by.training.model.Country;
 import by.training.service.CountryService;
 import by.training.service.exception.ServiceException;
 import by.training.service.validation.Validation;
-import by.training.service.validation.impl.CountryValidation;
+import by.training.service.validation.impl.CountryValidationImpl;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link CountryService} interface. Provides access to {@link by.training.dao.CountryDao}
@@ -23,7 +24,7 @@ public class CountryServiceImpl implements CountryService {
     /**
      * Validator for this Service.
      */
-    private static final Validation<Country> VALIDATOR = new CountryValidation();
+    private static final Validation<Country> VALIDATOR = new CountryValidationImpl();
 
     /**
      * Find country by name.
@@ -125,7 +126,8 @@ public class CountryServiceImpl implements CountryService {
     public boolean save(final Country country) throws ServiceException {
         try (Transaction transaction = new Transaction()) {
             boolean result;
-            if (VALIDATOR.isValid(transaction, country)) {
+            Map<String, String> errors = VALIDATOR.isValid(country);
+            if (errors.isEmpty()) {
                 if (country.getId() == 0) {
                     result = DaoFactory.getInstance().getCountryDao(transaction).create(country);
                 } else {
@@ -134,8 +136,7 @@ public class CountryServiceImpl implements CountryService {
                 transaction.commit();
                 return result;
             } else {
-                transaction.rollback();
-                throw new ServiceException("Not valid country", ServiceException.BAD_REQUEST);
+                throw new ServiceException("Not valid country", ServiceException.BAD_REQUEST, errors);
             }
         } catch (DaoException e) {
             throw new ServiceException(e, ServiceException.DAO_LAYER_ERROR);
