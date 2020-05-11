@@ -221,11 +221,17 @@ public class CountryDaoImplTest {
 
     @Test(dataProvider = "negativeDeleteWithException", expectedExceptions = DaoException.class)
     public void testNegativeDeleteWithException(String id) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             assertFalse(dao.delete(id));
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -262,11 +268,17 @@ public class CountryDaoImplTest {
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
     public void testNegativeCreate(Country country) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             dao.create(country);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -301,11 +313,17 @@ public class CountryDaoImplTest {
 
     @Test(dataProvider = "negativeUpdate", expectedExceptions = DaoException.class)
     public void testNegativeUpdate(Country country) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             dao.update(country);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 

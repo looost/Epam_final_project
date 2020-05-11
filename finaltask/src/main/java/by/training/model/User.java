@@ -69,6 +69,23 @@ public class User extends AbstractEntity {
     }
 
     /**
+     * Instantiates a new User.
+     *
+     * @param id       the user id
+     * @param login    the user login
+     * @param password the user password
+     * @param avatar   the user avatar
+     * @param role     the user role
+     */
+    public User(int id, String login, String password, String avatar, int role) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.avatar = avatar;
+        this.role = role;
+    }
+
+    /**
      * Gets login.
      *
      * @return the user login

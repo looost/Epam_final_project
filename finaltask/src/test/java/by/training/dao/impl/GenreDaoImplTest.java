@@ -266,11 +266,17 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeDeleteWithException", expectedExceptions = DaoException.class)
     public void testNegativeDeleteWithException(String id) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             assertFalse(dao.delete(id));
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -307,11 +313,17 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
     public void testNegativeCreate(Genre genre) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             dao.create(genre);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -346,11 +358,17 @@ public class GenreDaoImplTest {
 
     @Test(dataProvider = "negativeUpdate", expectedExceptions = DaoException.class)
     public void testNegativeUpdate(Genre genre) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             dao.update(genre);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 

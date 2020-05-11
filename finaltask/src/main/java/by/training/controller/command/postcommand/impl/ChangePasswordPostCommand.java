@@ -9,7 +9,6 @@ import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +31,7 @@ public class ChangePasswordPostCommand implements Command {
     private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     /**
-     * Command for change {@link User} password. Password is encrypted with {@link BCrypt}.
+     * Command for change {@link User} password.
      *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse

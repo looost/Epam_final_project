@@ -220,11 +220,17 @@ public class StudioDaoImplTest {
 
     @Test(dataProvider = "negativeDeleteWithException", expectedExceptions = DaoException.class)
     public void testNegativeDeleteWithException(String id) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             assertFalse(dao.delete(id));
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -261,11 +267,17 @@ public class StudioDaoImplTest {
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
     public void testNegativeCreate(Studio expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             dao.create(expected);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -300,11 +312,17 @@ public class StudioDaoImplTest {
 
     @Test(dataProvider = "negativeUpdate", expectedExceptions = DaoException.class)
     public void testNegativeUpdate(Studio expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             dao.update(expected);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 

@@ -57,9 +57,9 @@ public class UserDaoImplTest {
     @DataProvider(name = "positiveDataForFindByLogin")
     public Object[] createPositiveDataForFindByLogin() {
         return new Object[][]{
-                {"admin", new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0)},
-                {"moder", new User(2, "moder", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", 1)},
-                {"user", new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 2)},
+                {"admin", new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 0)},
+                {"moder", new User(2, "moder", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", "noAvatar.png", 1)},
+                {"user", new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", "noAvatar.png", 2)},
         };
     }
 
@@ -74,9 +74,9 @@ public class UserDaoImplTest {
     @DataProvider(name = "negativeDataForFindByLogin")
     public Object[] createNegativeDataForFindByLogin() {
         return new Object[][]{
-                {"admin", new User(1, "Admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0)},
-                {"moder", new User(2, "moder", "$3a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", 1)},
-                {"user", new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 0)},
+                {"admin", new User(1, "Admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 0)},
+                {"moder", new User(2, "moder", "$3a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", "noAvatar.png", 1)},
+                {"user", new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", "noAvatar.png", 0)},
         };
     }
 
@@ -91,9 +91,9 @@ public class UserDaoImplTest {
     @DataProvider(name = "dataForFindById")
     public Object[][] createPositiveDataForFindById() {
         return new Object[][]{
-                {"1", new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0)},
-                {"2", new User(2, "moder", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", 1)},
-                {"3", new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 2)},
+                {"1", new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 0)},
+                {"2", new User(2, "moder", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", "noAvatar.png", 1)},
+                {"3", new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", "noAvatar.png", 2)},
                 {"0", null},
                 {"10", null},
                 {null, null},
@@ -152,20 +152,26 @@ public class UserDaoImplTest {
 
     @Test(dataProvider = "negativeDeleteWithException", expectedExceptions = DaoException.class)
     public void testNegativeDeleteWithException(String id) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             assertFalse(dao.delete(id));
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
     @DataProvider(name = "positiveCreate")
     public Object[] createPositiveDataForCreate() {
         return new Object[]{
-                new User(1, "admin2", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0),
-                new User(3, "Misha", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 1),
-                new User(Integer.MAX_VALUE, "newModer", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 2),
+                new User(1, "admin2", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 0),
+                new User(3, "Misha", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 1),
+                new User(Integer.MAX_VALUE, "newModer", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 2),
                 new User(12, "TEST", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0)
         };
     }
@@ -184,9 +190,11 @@ public class UserDaoImplTest {
     public Object[] createNegativeDataForCreate() {
         return new Object[]{
                 new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0),
-                new User(6, "moder", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0),
+                new User(6, "moder", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 0),
                 new User(2, "user", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 6),
-                new User(6, null, "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0),
+                new User(6, null, "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvatar.png", 0),
+                new User(1, "re", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq",
+                        "101char101char101char101char101char101char101char101char101char101char101char101char101char101char101", 0),
                 new User(7, "TEST", null, 0),
                 new User(4, null, null, 0)
         };
@@ -194,20 +202,27 @@ public class UserDaoImplTest {
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
     public void testNegativeCreate(User expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             dao.create(expected);
             connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
     @DataProvider(name = "positiveUpdate")
     public Object[] createPositiveDataForUpdate() {
         return new Object[]{
-                new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", 0),
+                new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq", "noAvfgdsgfatar.png", 0),
                 new User(2, "moder", "$2a$10$PbjWnDHPv9W2UfCArCuZUeCusxcGhH/GBu7AlRLmd/YyEKfRapC9y", 1),
-                new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", 2)
+                new User(3, "user", "$2a$10$LuRX/n8yB/R6EK7FOBVKqOoVkYDLhwkhIj9uUM.gSWoaIu61qcfEK", "noAvatar.png", 2)
         };
     }
 
@@ -244,16 +259,24 @@ public class UserDaoImplTest {
         return new Object[]{
                 new User(1, "admin", null, 0),
                 new User(1, "admin", "61char61char61char61char61char61char61char61char61char61char6", 0),
+                new User(1, "admin", "$2a$10$FYgd8Lqg0fV4BZGDqopbruwZTuhJrWDwU2lJrKWntV3535KlGOPLq",
+                        "101char101char101char101char101char101char101char101char101char101char101char101char101char101char101", 0),
         };
     }
 
     @Test(dataProvider = "negativeExceptionUpdate", expectedExceptions = DaoException.class)
     public void testNegativeExceptionUpdate(User expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             dao.update(expected);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 

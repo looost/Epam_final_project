@@ -87,6 +87,7 @@ public class SerialDaoImpl implements SerialDao {
     }
 
     private static final String FIND_ALL_SERIAL = SELECT_ALL_SERIAL_FIELD;
+
     @Override
     public List<Serial> findAll() throws DaoException {
         return JDBCUtil.select(transaction.getConnection(), FIND_ALL_SERIAL,
@@ -184,9 +185,8 @@ public class SerialDaoImpl implements SerialDao {
      * Build SQL query based on searchForm.
      *
      * @param searchForm the search form
-     * @param temp Select filed string
+     * @param temp       Select filed string
      * @return search query
-     *
      * @see SearchForm
      * @see SearchQuery
      */
@@ -261,8 +261,9 @@ public class SerialDaoImpl implements SerialDao {
         int serialId = JDBCUtil.executeAndReturnIndex(transaction.getConnection(), CREATE_SERIAL,
                 serial.getName(), serial.getDescription(), serial.getLogo(), serial.getFullLogo(), serial.getReleaseDate(),
                 serial.getCountry().getId(), serial.getStudio().getId());
-        return JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
+        JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
                 refactorToParamList(serialId, serial.getGenres()));
+        return serialId != 0;
     }
 
     private List<Object[]> refactorToParamList(final int serialId, final List<Genre> genres) {
@@ -287,12 +288,12 @@ public class SerialDaoImpl implements SerialDao {
      */
     @Override
     public boolean update(final Serial entity) throws DaoException {
+        JDBCUtil.execute(transaction.getConnection(), DELETE_SERIAL_GENRE, entity.getId());
+        JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
+                refactorToParamList(entity.getId(), entity.getGenres()));
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_SERIAL,
                 entity.getName(), entity.getDescription(), entity.getLogo(), entity.getFullLogo(),
-                entity.getReleaseDate(), entity.getCountry().getId(), entity.getStudio().getId(), entity.getId()) &
-                JDBCUtil.execute(transaction.getConnection(), DELETE_SERIAL_GENRE, entity.getId()) &
-                JDBCUtil.executeBatch(transaction.getConnection(), SERIAL_GENRE_VALUES,
-                        refactorToParamList(entity.getId(), entity.getGenres()));
+                entity.getReleaseDate(), entity.getCountry().getId(), entity.getStudio().getId(), entity.getId());
     }
 
     private static final String WATCH_SERIAL = "INSERT INTO viewed VALUES (?, ?)";

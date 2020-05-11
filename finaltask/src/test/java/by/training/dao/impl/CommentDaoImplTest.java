@@ -37,15 +37,15 @@ public class CommentDaoImplTest {
     private static final Comment COMMENT_WITH_ID_1 = new Comment(1, new User(1),
             new Serial(1),
             "Коммннтарий1",
-            LocalDateTime.of(2020, Month.APRIL, 22, 23, 50, 43));
+            LocalDateTime.of(2020, Month.MAY, 11, 15, 53, 11));
     private static final Comment COMMENT_WITH_ID_2 = new Comment(2, new User(3),
             new Serial(2),
             "Коммннтарий2",
-            LocalDateTime.of(2020, Month.APRIL, 22, 23, 50, 43));
+            LocalDateTime.of(2020, Month.MAY, 11, 15, 53, 11));
     private static final Comment COMMENT_WITH_ID_3 = new Comment(3, new User(2),
             new Serial(1),
             "Коммннтарий3",
-            LocalDateTime.of(2020, Month.APRIL, 22, 23, 50, 43));
+            LocalDateTime.of(2020, Month.MAY, 11, 15, 53, 11));
 
     @Mock
     private Transaction transaction;
@@ -175,11 +175,17 @@ public class CommentDaoImplTest {
 
     @Test(dataProvider = "negativeDeleteWithException", expectedExceptions = DaoException.class)
     public void testNegativeDeleteWithException(String id) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             assertFalse(dao.delete(id));
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -240,11 +246,17 @@ public class CommentDaoImplTest {
 
     @Test(dataProvider = "negativeCreate", expectedExceptions = DaoException.class)
     public void testNegativeCreate(Comment expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             dao.create(expected);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -269,11 +281,17 @@ public class CommentDaoImplTest {
 
     @Test(dataProvider = "negativeCreateWithNullPointerException", expectedExceptions = NullPointerException.class)
     public void testNegativeCreateWithNullPointerException(Comment expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             connection.setAutoCommit(false);
             when(transaction.getConnection()).thenReturn(connection);
             dao.create(expected);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
@@ -350,11 +368,17 @@ public class CommentDaoImplTest {
 
     @Test(dataProvider = "negativeUpdateWithException", expectedExceptions = DaoException.class)
     public void testNegativeUpdateWithException(Comment expected) throws DaoException, SQLException {
-        try (Connection connection = connectionPool.getConnection()) {
+        Connection connection = null;
+        try {
+            connection = connectionPool.getConnection();
             when(transaction.getConnection()).thenReturn(connection);
             connection.setAutoCommit(false);
             dao.update(expected);
-            connection.rollback();
+        } finally {
+            if (connection != null) {
+                connection.rollback();
+                connection.close();
+            }
         }
     }
 
