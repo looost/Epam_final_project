@@ -59,8 +59,71 @@
                     </div>
                     <button type="submit" class="btn btn-primary"><fmt:message key="add" bundle="${ rb }"/></button>
                 </form>
-            </div>
 
+                <form method="get" action="${pageContext.request.contextPath}/admin/user.html">
+                    <div class="form-row align-items-center">
+                        <div class="col-8">
+                            <input class="form-control mr-sm-2 text-style" type="search"
+                                   placeholder="<fmt:message key="enterLogin" bundle="${ rb }"/>"
+                                   name="login" value="${user.login}">
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-secondary btn-block text-style">
+                                <fmt:message key="search" bundle="${ rb }"/>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <c:if test="${not empty user}">
+                    <form method="post" action="${pageContext.request.contextPath}/change_role.html">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col"><fmt:message key="login" bundle="${ rb }"/></th>
+                                <th scope="col"><fmt:message key="role" bundle="${ rb }"/></th>
+                                <th scope="col"><fmt:message key="selectRole" bundle="${ rb }"/></th>
+                                <th scope="col"><fmt:message key="edit" bundle="${ rb }"/></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" readonly class="form-control-plaintext" id="staticLogin"
+                                           name="login" value="${user.login}">
+                                </td>
+                                <td>
+                                    <c:choose>
+                                        <c:when test="${user.role == 0}">
+                                            <fmt:message key="administrator" bundle="${ rb }"/>
+                                        </c:when>
+                                        <c:when test="${user.role == 1}">
+                                            <fmt:message key="moderator" bundle="${ rb }"/>
+                                        </c:when>
+                                        <c:when test="${user.role == 2}">
+                                            <fmt:message key="user" bundle="${ rb }"/>
+                                        </c:when>
+                                    </c:choose>
+                                </td>
+                                <td>
+                                    <select class="custom-select" id="userRole" name="role" required>
+                                        <option value="0"><fmt:message key="administrator" bundle="${ rb }"/></option>
+                                        <option value="1"><fmt:message key="moderator" bundle="${ rb }"/></option>
+                                        <option value="2"><fmt:message key="user" bundle="${ rb }"/></option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn btn-secondary btn-block text-style">
+                                        <fmt:message key="edit" bundle="${ rb }"/>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </c:if>
+
+            </div>
 
         </div>
     </div>

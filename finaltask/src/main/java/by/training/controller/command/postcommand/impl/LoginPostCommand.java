@@ -61,7 +61,7 @@ public class LoginPostCommand implements Command {
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         }
         HttpSession session = req.getSession();
-        session.setAttribute(ATTRIBUTE_USER, user.getLogin());
+        session.setAttribute(ATTRIBUTE_LOGIN, user.getLogin());
         session.setAttribute(ATTRIBUTE_USER_ROLE, user.getRole());
         session.setAttribute(ATTRIBUTE_USER_ID, user.getId());
         return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);

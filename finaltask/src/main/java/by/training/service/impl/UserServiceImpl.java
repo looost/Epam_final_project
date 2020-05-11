@@ -58,12 +58,20 @@ public class UserServiceImpl implements UserService {
             boolean result;
             Map<String, String> errors = VALIDATOR.isValid(user);
             if (errors.isEmpty()) {
-                user.setPassword(ServiceFactory.getInstance()
-                        .getSecurityService().hashpw(user.getPassword(), BCrypt.gensalt()));
                 if (user.getId() == 0) {
+                    user.setPassword(ServiceFactory.getInstance()
+                            .getSecurityService().hashpw(user.getPassword(), BCrypt.gensalt()));
                     result = DaoFactory.getInstance().getUserDao(transaction).create(user);
                 } else {
-                    result = DaoFactory.getInstance().getUserDao(transaction).update(user);
+                    if (user.getPassword() == null) {
+                        User newUser = DaoFactory.getInstance().getUserDao(transaction).findByLogin(user.getLogin());
+                        user.setPassword(newUser.getPassword());
+                        result = DaoFactory.getInstance().getUserDao(transaction).update(user);
+                    } else {
+                        user.setPassword(ServiceFactory.getInstance()
+                                .getSecurityService().hashpw(user.getPassword(), BCrypt.gensalt()));
+                        result = DaoFactory.getInstance().getUserDao(transaction).update(user);
+                    }
                 }
                 transaction.commit();
                 return result;

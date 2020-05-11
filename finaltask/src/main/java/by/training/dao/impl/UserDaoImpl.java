@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao {
                 entity.getAvatar(), entity.getRole());
     }
 
-    private static final String UPDATE_USER = "UPDATE user SET password = ?, avatar = ? WHERE login = ?";
+    private static final String UPDATE_USER = "UPDATE user SET password = ?, avatar = ?, role = ? WHERE login = ?";
 
     /**
      * Update user.
@@ -122,6 +122,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean update(final User entity) throws DaoException {
         return JDBCUtil.execute(transaction.getConnection(), UPDATE_USER, entity.getPassword(),
-                entity.getAvatar(), entity.getLogin());
+                entity.getAvatar(), entity.getRole(), entity.getLogin());
     }
 }

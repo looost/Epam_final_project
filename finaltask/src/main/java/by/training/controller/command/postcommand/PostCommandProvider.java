@@ -30,6 +30,7 @@ public final class PostCommandProvider {
         repository.put(CommandName.SAVE_COUNTRY, new SaveCountryPostCommand());
         repository.put(CommandName.SAVE_STUDIO, new SaveStudioPostCommand());
         repository.put(CommandName.CHANGE_PASSWORD, new ChangePasswordPostCommand());
+        repository.put(CommandName.CHANGE_ROLE, new ChangeUserRolePostCommand());
         repository.put(CommandName.SAVE_COMMENT, new SaveCommentPostCommand());
         repository.put(CommandName.DELETE_COUNTRY, new DeleteCountryPostCommand());
         repository.put(CommandName.DELETE_STUDIO, new DeleteStudioPostCommand());

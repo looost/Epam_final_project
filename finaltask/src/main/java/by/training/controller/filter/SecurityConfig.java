@@ -23,7 +23,7 @@ final class SecurityConfig {
 
     static {
         SECURITY_PAGE.add(CommandName.SAVE_COMMENT);
-        SECURITY_PAGE.add(CommandName.ADMIN_USER);
+        //SECURITY_PAGE.add(CommandName.ADMIN_USER);
         SECURITY_PAGE.add(CommandName.MY_SERIAL);
         SECURITY_PAGE.add(CommandName.LIKED);
         SECURITY_PAGE.add(CommandName.WATCH_SERIAL);

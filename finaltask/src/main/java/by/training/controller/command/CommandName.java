@@ -26,6 +26,7 @@ public enum CommandName {
     SAVE_GENRE,
     SAVE_STUDIO,
     CHANGE_PASSWORD,
+    CHANGE_ROLE,
     SAVE_COMMENT,
     DELETE_GENRE,
     DELETE_SERIAL,

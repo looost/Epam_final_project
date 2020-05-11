@@ -33,7 +33,7 @@
             <%--            <li class="nav-item">--%>
             <%--                <a class="nav-link" href="/final/index.html">Сериалы</a>--%>
             <%--            </li>--%>
-            <c:if test="${sessionScope.user != null}">
+            <c:if test="${sessionScope.login != null}">
                 <li class="nav-item">
                     <a class="nav-link text-style" href="${pageContext.request.contextPath}/profile.html">
                         <fmt:message key="profile" bundle="${ rb }"/>
@@ -59,7 +59,7 @@
             </button>
         </form>
     </div>
-    <c:if test="${sessionScope.user == null}">
+    <c:if test="${sessionScope.login == null}">
         <div>
             <a href="${pageContext.request.contextPath}/login.html" class="btn btn-dark btn-lg active text-style"
                role="button"
@@ -68,12 +68,12 @@
             </a>
         </div>
     </c:if>
-    <c:if test="${sessionScope.user != null}">
+    <c:if test="${sessionScope.login != null}">
         <div class="dropdown">
             <a class="btn btn-dark btn-lg active text-style" href="#" role="button" id="dropdownMenuLink"
                data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-                    ${sessionScope.user}
+                    ${sessionScope.login}
             </a>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">

@@ -59,7 +59,7 @@ public class SaveCommentPostCommand implements Command {
         String text = req.getParameter(PARAMETER_COMMENT);
         try {
             User user = ServiceFactory.getInstance().getUserService()
-                    .findByLogin(session.getAttribute(ATTRIBUTE_USER).toString());
+                    .findByLogin(session.getAttribute(ATTRIBUTE_LOGIN).toString());
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(serialId);
             if (serial != null) {
                 Comment comment = new Comment(Integer.parseInt(commentId), user, serial, text);

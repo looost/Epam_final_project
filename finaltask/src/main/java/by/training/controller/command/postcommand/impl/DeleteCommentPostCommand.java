@@ -49,7 +49,7 @@ public class DeleteCommentPostCommand implements Command {
         HttpSession session = req.getSession();
         try {
             User user = ServiceFactory.getInstance().getUserService()
-                    .findByLogin(session.getAttribute(ATTRIBUTE_USER).toString());
+                    .findByLogin(session.getAttribute(ATTRIBUTE_LOGIN).toString());
             Comment comment = ServiceFactory.getInstance().getCommentService().findById(id);
 
             if (user != null && comment != null && (comment.getUser().getId() == user.getId() || user.getRole() == RoleEnum.MODER.ordinal())) {

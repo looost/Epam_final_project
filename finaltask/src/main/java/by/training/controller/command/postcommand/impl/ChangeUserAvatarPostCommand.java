@@ -51,7 +51,7 @@ public class ChangeUserAvatarPostCommand implements Command {
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String login = (String) req.getSession().getAttribute(ATTRIBUTE_USER);
+            String login = (String) req.getSession().getAttribute(ATTRIBUTE_LOGIN);
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
@@ -65,6 +65,7 @@ public class ChangeUserAvatarPostCommand implements Command {
             File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\avatar\\" + fileName);
             FileUtils.copyFile(avatar, copyFile);
 
+            user.setPassword(null);
             user.setAvatar(fileName);
             ServiceFactory.getInstance().getUserService().save(user);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);

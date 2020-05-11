@@ -57,7 +57,7 @@
                                                                                             bundle="${ rb }"/></label>
                     <div class="col-sm-10">
                         <input type="text" readonly class="form-control-plaintext" id="staticLogin"
-                               value="${sessionScope.user}">
+                               value="${sessionScope.login}">
                     </div>
                 </div>
                 <div class="form-group row">

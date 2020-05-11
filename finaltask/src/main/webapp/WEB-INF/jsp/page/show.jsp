@@ -347,7 +347,7 @@
 
 
                             <c:choose>
-                                <c:when test="${sessionScope.user != null}">
+                                <c:when test="${sessionScope.login != null}">
                                     <div class="mt-3 text-style">
                                         <form class="was-validated"
                                               action="${pageContext.request.contextPath}/save_comment.html?id=${show.id}"
@@ -371,7 +371,7 @@
                                         </form>
                                     </div>
                                 </c:when>
-                                <c:when test="${sessionScope.user == null}">
+                                <c:when test="${sessionScope.login == null}">
                                     <%--                                    <div class="alert alert-danger mt-3" role="alert">--%>
                                     <%--                                        <fmt:message key="commentRegistrUser" bundle="${ rb }"/> <a--%>
                                     <%--                                            href="${pageContext.request.contextPath}/login.html"--%>

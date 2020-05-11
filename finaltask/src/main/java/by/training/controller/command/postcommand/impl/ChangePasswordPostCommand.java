@@ -44,7 +44,7 @@ public class ChangePasswordPostCommand implements Command {
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String login = (String) req.getSession().getAttribute(ATTRIBUTE_USER);
+            String login = (String) req.getSession().getAttribute(ATTRIBUTE_LOGIN);
             String password = req.getParameter(PARAMETER_PASSWORD);
             String newPassword = req.getParameter(PARAMETER_NEW_PASSWORD);
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);

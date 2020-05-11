@@ -46,6 +46,7 @@ public final class ConstantName {
     public static final String ATTRIBUTE_INVALID_PASSWORD = "invalidPassword";
     public static final String ATTRIBUTE_COUNTRY = PARAMETER_COUNTRY;
     public static final String ATTRIBUTE_STUDIO = PARAMETER_STUDIO;
+    public static final String ATTRIBUTE_LOGIN = "login";
     public static final String ATTRIBUTE_USER_ID = "userId";
     public static final String ATTRIBUTE_USER_ROLE = "role";
     public static final String ATTRIBUTE_USER_AVATAR = "avatar";

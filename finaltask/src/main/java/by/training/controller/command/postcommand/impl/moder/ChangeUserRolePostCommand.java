@@ -1,8 +1,7 @@
-package by.training.controller.command.getcommand.impl;
+package by.training.controller.command.postcommand.impl.moder;
 
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
-import by.training.controller.command.CommandUtil;
 import by.training.controller.command.RoutingType;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
@@ -19,35 +18,42 @@ import java.io.IOException;
 import static by.training.utils.ConstantName.*;
 
 /**
- * Command for the {@link User} profile.
+ * Command for change {@link User} role.
  *
  * @see Command
- * @see by.training.controller.command.getcommand.GetCommandProvider
+ * @see by.training.controller.command.postcommand.PostCommandProvider
  */
-public class ProfileGetCommand implements Command {
+public class ChangeUserRolePostCommand implements Command {
 
     /**
      * A Logger object is used to log messages for a application error.
      */
-    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
+    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
 
     /**
-     * Command for the {@link User} profile.
+     * Command for change {@link User} role.
+     *
      * @param req  the HttpServletRequest
      * @param resp the HttpServletResponse
      * @return the {@link CommandResponse}
-     * @throws ServletException if the request for the GET could not be handled
-     * @throws IOException if an input or output error is  detected when the servlet handles the GET request
+     * @throws ServletException if the request for the POST could not be handled
+     * @throws IOException      if an input or output error is  detected when the servlet handles the POST request
+     * @see RoutingUtils
+     * @see by.training.model.RoleEnum
      */
     @Override
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
-        CommandUtil.transferSingleAttribute(ATTRIBUTE_INVALID_PASSWORD, req);
         try {
-            String login = (String) req.getSession().getAttribute(ATTRIBUTE_LOGIN);
+            String login = req.getParameter(PARAMETER_LOGIN);
+            String role = req.getParameter(PARAMETER_ROLE);
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);
-            req.setAttribute(ATTRIBUTE_USER_AVATAR, user.getAvatar());
-            return new CommandResponse(RoutingType.FORWARD, ROUTING_PROFILE_JSP, req, resp);
+            if (user != null) {
+                user.setRole(Integer.parseInt(role));
+                user.setPassword(null);
+                ServiceFactory.getInstance().getUserService().save(user);
+            }
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_USER_PAGE, req, resp);
         } catch (ServiceException e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());

@@ -32,7 +32,7 @@ public class LogOutGetCommand implements Command {
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.removeAttribute(ATTRIBUTE_USER);
+        session.removeAttribute(ATTRIBUTE_LOGIN);
         session.removeAttribute(ATTRIBUTE_USER_ROLE);
         session.removeAttribute(ATTRIBUTE_USER_ID);
         return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);

@@ -37,15 +37,15 @@ public class CommentDaoImplTest {
     private static final Comment COMMENT_WITH_ID_1 = new Comment(1, new User(1),
             new Serial(1),
             "Коммннтарий1",
-            LocalDateTime.of(2020, Month.MAY, 11, 15, 53, 11));
+            LocalDateTime.of(2020, Month.MAY, 7, 20, 44, 13));
     private static final Comment COMMENT_WITH_ID_2 = new Comment(2, new User(3),
             new Serial(2),
             "Коммннтарий2",
-            LocalDateTime.of(2020, Month.MAY, 11, 15, 53, 11));
+            LocalDateTime.of(2020, Month.MAY, 7, 20, 44, 13));
     private static final Comment COMMENT_WITH_ID_3 = new Comment(3, new User(2),
             new Serial(1),
             "Коммннтарий3",
-            LocalDateTime.of(2020, Month.MAY, 11, 15, 53, 11));
+            LocalDateTime.of(2020, Month.MAY, 7, 20, 44, 13));
 
     @Mock
     private Transaction transaction;

@@ -41,7 +41,7 @@ public class SecurityFilter implements Filter {
         try {
             CommandName commandName = CommandName.valueOf(requestURI2.toUpperCase());
             if (SecurityConfig.isSecurityPage(commandName)) {
-                String userLogin = (String) req.getSession().getAttribute(ATTRIBUTE_USER);
+                String userLogin = (String) req.getSession().getAttribute(ATTRIBUTE_LOGIN);
                 User user = ServiceFactory.getInstance().getUserService().findByLogin(userLogin);
                 if (user == null) {
                     RoutingUtils.redirectToPage(ROUTING_LOGIN_PAGE, resp);
