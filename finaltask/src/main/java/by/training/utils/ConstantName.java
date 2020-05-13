@@ -61,6 +61,7 @@ public final class ConstantName {
     public static final String ATTRIBUTE_SERIAL_DESCRIPTION_PROBLEM = "serialDescriptionProblem";
     public static final String ATTRIBUTE_SERIAL_LOGO_PROBLEM = "serialLogoProblem";
     public static final String ATTRIBUTE_SERIAL_FULL_LOGO_PROBLEM = "serialFullLogoProblem";
+    public static final String ATTRIBUTE_USER_AVATAR_PROBLEM = "userAvatarProblem";
 
 
 
@@ -85,6 +86,7 @@ public final class ConstantName {
     public static final int MAX_COUNTRY_NAME_LENGTH = 32;
     public static final int MAX_STUDIO_NAME_LENGTH = 32;
     public static final int MAX_USER_LOGIN_LENGTH = 12;
+    public static final int MAX_USER_AVATAR_SIZE = 1024 * 1024;
     /*
     forward jsp pages
      */

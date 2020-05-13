@@ -11,6 +11,7 @@ import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.util.*;
 
@@ -59,6 +61,7 @@ public class SaveSerialPostCommand implements Command {
         try {
             String serialId = req.getParameter(PARAMETER_ID) != null ? req.getParameter(PARAMETER_ID) : String.valueOf(0);
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
+            fileUpload.setFileSizeMax(MAX_USER_AVATAR_SIZE);
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
             Serial serial = new Serial.Builder()
                     .withId(Integer.parseInt(serialId))
@@ -90,6 +93,9 @@ public class SaveSerialPostCommand implements Command {
                 logger.error(e);
                 return RoutingUtils.routingErrorPage(req, resp, e.getCode());
             }
+        } catch (FileUploadBase.FileSizeLimitExceededException e) {
+            logger.error("Max file size", e);
+            return new CommandResponse(RoutingType.REDIRECT, req.getHeader(HEADER_REFERER), req, resp);
         } catch (Exception e) {
             logger.error("File cannot write", e);
             return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -167,6 +173,20 @@ public class SaveSerialPostCommand implements Command {
                     item.write(logo);
                     File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" + fileName);
                     FileUtils.copyFile(logo, copyFile);
+
+                    if (!serial.getLogo().equals(DEFAULT_IMG_NAME)) {
+                        File oldLogo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
+                                + serial.getLogo());
+                        File copyOldLogo = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" +
+                                serial.getLogo());
+                        if (oldLogo.exists()) {
+                            Files.delete(oldLogo.toPath());
+                        }
+                        if (copyOldLogo.exists()) {
+                            Files.delete(copyOldLogo.toPath());
+                        }
+                    }
+
                     serial.setLogo(logo.getName());
                     break;
                 }
@@ -183,6 +203,20 @@ public class SaveSerialPostCommand implements Command {
                     item.write(fullLogo);
                     File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" + fileName);
                     FileUtils.copyFile(fullLogo, copyFile);
+
+                    if (!serial.getFullLogo().equals(DEFAULT_IMG_NAME)) {
+                        File oldFullLogo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
+                                + serial.getFullLogo());
+                        File copyOldFullLogo = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" +
+                                serial.getFullLogo());
+                        if (oldFullLogo.exists()) {
+                            Files.delete(oldFullLogo.toPath());
+                        }
+                        if (copyOldFullLogo.exists()) {
+                            Files.delete(copyOldFullLogo.toPath());
+                        }
+                    }
+
                     serial.setFullLogo(fullLogo.getName());
                     break;
                 }

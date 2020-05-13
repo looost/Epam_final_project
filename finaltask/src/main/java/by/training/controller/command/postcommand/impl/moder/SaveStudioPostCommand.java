@@ -3,8 +3,6 @@ package by.training.controller.command.postcommand.impl.moder;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
-import by.training.controller.validation.Validation;
-import by.training.controller.validation.impl.StudioValidationImpl;
 import by.training.model.Studio;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
@@ -31,11 +29,6 @@ public class SaveStudioPostCommand implements Command {
      * A Logger object is used to log messages for a application error.
      */
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
-
-    /**
-     * Data validator for {@link Studio}.
-     */
-    private static final Validation<Studio> VALIDATOR = new StudioValidationImpl();
 
     /**
      * Command to save {@link by.training.model.Studio}. Handles both change and creation requests.

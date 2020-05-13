@@ -56,6 +56,8 @@ public class EditStudioGetCommand implements Command {
         } catch (ServiceException e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
+        } catch (NumberFormatException e) {
+            return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

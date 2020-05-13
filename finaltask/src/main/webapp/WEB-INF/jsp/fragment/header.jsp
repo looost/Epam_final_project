@@ -45,11 +45,13 @@
                     </a>
                 </li>
             </c:if>
-            <li class="nav-item">
-                <a class="nav-link text-style" href="${pageContext.request.contextPath}/admin/serial.html">
-                    Админка
-                </a>
-            </li>
+            <c:if test="${sessionScope.role == 1 || sessionScope.role == 0}">
+                <li class="nav-item">
+                    <a class="nav-link text-style" href="${pageContext.request.contextPath}/admin/serial.html">
+                        <fmt:message key="adminPanel" bundle="${ rb }"/>
+                    </a>
+                </li>
+            </c:if>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="${pageContext.request.contextPath}/search.html">
             <input class="form-control mr-sm-2 text-style" type="search"

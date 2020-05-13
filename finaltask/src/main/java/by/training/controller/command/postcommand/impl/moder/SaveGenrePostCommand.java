@@ -3,8 +3,6 @@ package by.training.controller.command.postcommand.impl.moder;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
-import by.training.controller.validation.Validation;
-import by.training.controller.validation.impl.GenreValidationImpl;
 import by.training.model.Genre;
 import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
@@ -33,11 +31,6 @@ public class SaveGenrePostCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     /**
-     * Data validator for {@link Genre}.
-     */
-    private static final Validation<Genre> VALIDATOR = new GenreValidationImpl();
-
-    /**
      * Command to save {@link by.training.model.Genre}. Handles both change and creation requests.
      *
      * @param req  the HttpServletRequest
@@ -55,7 +48,6 @@ public class SaveGenrePostCommand implements Command {
         Genre genre = new Genre(Integer.parseInt(id), genreName);
         try {
             ServiceFactory.getInstance().getGenreService().save(genre);
-            req.getSession().setAttribute("ok", "ok");
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_GENRE_PAGE, req, resp);
         } catch (ServiceException e) {
             if (e.getCode() == ServiceException.BAD_REQUEST && e.getErrors() != null) {

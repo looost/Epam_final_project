@@ -3,8 +3,6 @@ package by.training.controller.command.postcommand.impl;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
-import by.training.controller.validation.Validation;
-import by.training.controller.validation.impl.CommentValidationImpl;
 import by.training.model.Comment;
 import by.training.model.Serial;
 import by.training.model.User;
@@ -34,11 +32,6 @@ public class SaveCommentPostCommand implements Command {
      * A Logger object is used to log messages for a application error.
      */
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
-
-    /**
-     * Data validator for {@link Comment}.
-     */
-    private static final Validation<Comment> VALIDATOR = new CommentValidationImpl();
 
     /**
      * Command to save {@link Comment}. Handles both change and creation requests.

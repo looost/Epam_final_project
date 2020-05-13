@@ -10,9 +10,9 @@ import java.util.*;
  */
 final class SecurityConfig {
     /**
-     * A map that contains {@link RoleEnum} and {@link List} {@link CommandName} to which they are denied access.
+     * A map that contains {@link RoleEnum} and {@link Set} {@link CommandName} to which they are denied access.
      */
-    private static final Map<RoleEnum, List<CommandName>> MAP_CONFIG = new EnumMap<>(RoleEnum.class);
+    private static final Map<RoleEnum, Set<CommandName>> MAP_CONFIG = new EnumMap<>(RoleEnum.class);
     /**
      * A set which contains {@link CommandName} that need authentication.
      */
@@ -22,10 +22,28 @@ final class SecurityConfig {
     }
 
     static {
-        SECURITY_PAGE.add(CommandName.SAVE_COMMENT);
-        //SECURITY_PAGE.add(CommandName.ADMIN_USER);
         SECURITY_PAGE.add(CommandName.MY_SERIAL);
         SECURITY_PAGE.add(CommandName.LIKED);
+        SECURITY_PAGE.add(CommandName.PROFILE);
+        SECURITY_PAGE.add(CommandName.ADMIN_USER);
+        SECURITY_PAGE.add(CommandName.ADMIN_GENRE);
+        SECURITY_PAGE.add(CommandName.ADMIN_COUNTRY);
+        SECURITY_PAGE.add(CommandName.ADMIN_SERIAL);
+        SECURITY_PAGE.add(CommandName.ADMIN_STUDIO);
+        SECURITY_PAGE.add(CommandName.SAVE_GENRE);
+        SECURITY_PAGE.add(CommandName.SAVE_COMMENT);
+        SECURITY_PAGE.add(CommandName.SAVE_COUNTRY);
+        SECURITY_PAGE.add(CommandName.SAVE_SERIAL);
+        SECURITY_PAGE.add(CommandName.SAVE_STUDIO);
+        SECURITY_PAGE.add(CommandName.ADD_USER);
+        SECURITY_PAGE.add(CommandName.CHANGE_PASSWORD);
+        SECURITY_PAGE.add(CommandName.CHANGE_AVATAR);
+        SECURITY_PAGE.add(CommandName.CHANGE_ROLE);
+        SECURITY_PAGE.add(CommandName.DELETE_GENRE);
+        SECURITY_PAGE.add(CommandName.DELETE_COMMENT);
+        SECURITY_PAGE.add(CommandName.DELETE_COUNTRY);
+        SECURITY_PAGE.add(CommandName.DELETE_SERIAL);
+        SECURITY_PAGE.add(CommandName.DELETE_STUDIO);
         SECURITY_PAGE.add(CommandName.WATCH_SERIAL);
         SECURITY_PAGE.add(CommandName.STOP_WATCH_SERIAL);
         SECURITY_PAGE.add(CommandName.LIKE);
@@ -43,16 +61,30 @@ final class SecurityConfig {
     }
 
     static {
-        List<CommandName> urlAdminPattern = new ArrayList<>();
+        Set<CommandName> urlAdminPattern = new HashSet<>();
         urlAdminPattern.add(CommandName.SAVE_COMMENT);
         MAP_CONFIG.put(RoleEnum.ADMIN, urlAdminPattern);
 
-        List<CommandName> urlModerPattern = new ArrayList<>();
+        Set<CommandName> urlModerPattern = new HashSet<>();
         urlModerPattern.add(CommandName.ADMIN_USER);
+        urlModerPattern.add(CommandName.CHANGE_ROLE);
         MAP_CONFIG.put(RoleEnum.MODER, urlModerPattern);
 
-        List<CommandName> urlUserPattern = new ArrayList<>();
+        Set<CommandName> urlUserPattern = new HashSet<>();
         urlUserPattern.add(CommandName.ADMIN_USER);
+        urlUserPattern.add(CommandName.ADMIN_STUDIO);
+        urlUserPattern.add(CommandName.ADMIN_SERIAL);
+        urlUserPattern.add(CommandName.ADMIN_COUNTRY);
+        urlUserPattern.add(CommandName.ADMIN_GENRE);
+        urlUserPattern.add(CommandName.DELETE_STUDIO);
+        urlUserPattern.add(CommandName.DELETE_SERIAL);
+        urlUserPattern.add(CommandName.DELETE_COUNTRY);
+        urlUserPattern.add(CommandName.DELETE_GENRE);
+        urlUserPattern.add(CommandName.SAVE_STUDIO);
+        urlUserPattern.add(CommandName.SAVE_SERIAL);
+        urlUserPattern.add(CommandName.SAVE_COUNTRY);
+        urlUserPattern.add(CommandName.SAVE_GENRE);
+
         MAP_CONFIG.put(RoleEnum.USER, urlUserPattern);
     }
 
@@ -64,7 +96,7 @@ final class SecurityConfig {
      * @return true if {@link RoleEnum} have available for {@link CommandName} and false otherwise
      */
     static boolean hasPermission(final CommandName command, final RoleEnum role) {
-        List<CommandName> urlPatterns = MAP_CONFIG.get(role);
+        Set<CommandName> urlPatterns = MAP_CONFIG.get(role);
         return urlPatterns != null && !urlPatterns.contains(command);
     }
 }

@@ -63,6 +63,8 @@ public class IndexGetCommand implements Command {
         } catch (ServiceException e) {
             logger.debug(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
+        } catch (NumberFormatException e) {
+            return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

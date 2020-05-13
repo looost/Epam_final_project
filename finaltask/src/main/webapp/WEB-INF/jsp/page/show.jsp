@@ -32,7 +32,7 @@
                                      alt="Card image cap">
                                 <div class="card-body">
                                     <p class="card-text text-style text-justify">${show.description}</p>
-                                    <c:if test="${sessionScope.user != null}">
+                                    <c:if test="${sessionScope.login != null}">
                                         <div class="container">
                                             <div class="row">
                                                 <c:choose>
@@ -180,171 +180,182 @@
                     </div>
                 </div>
 
+
                 <div class="container">
                     <div class="row">
                         <div class="col-10">
 
-                            <div class="mt-3">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target=".bd-example-modal-xl">
-                                    Изменить
-                                </button>
+                            <c:if test="${sessionScope.role == 0 || sessionScope.role == 1}">
+                                <div class="mt-3">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target=".bd-example-modal-xl">
+                                        <fmt:message key="edit" bundle="${ rb }"/>
+                                    </button>
 
 
-                                <!-- Modal -->
-                                <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-                                     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                                    <!-- Modal -->
+                                    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+                                         aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
 
-                                    <div class="modal-dialog modal-dialog-scrollable modal-xl">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
+                                        <div class="modal-dialog modal-dialog-scrollable modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
 
-                                                <form method="post" enctype="multipart/form-data"
-                                                      action="${pageContext.request.contextPath}/save_serial.html?id=${show.id}">
-                                                    <div class="form-group mt-3">
-                                                        <label for="exampleFormControlInput1">Название сериала:</label>
-                                                        <input type="text" name="name" class="form-control"
-                                                               id="exampleFormControlInput1"
-                                                               placeholder="Название сериала" value="${show.name}">
-                                                    </div>
-
-                                                    <%--                                            <div class="form-group">--%>
-                                                    <%--                                                <label for="description">Описание сериала</label>--%>
-                                                    <%--                                                <textarea class="form-control" name="description" id="description"--%>
-                                                    <%--                                                          rows="3" placeholder="Описание сериала">${show.description}</textarea>--%>
-                                                    <%--                                            </div>--%>
-
-                                                    <div class="mb-3">
-                                                        <label for="validationTextarea">Textarea</label>
-                                                        <textarea class="form-control is-valid" id="validationTextarea"
-                                                                  placeholder="Описание сериала"
-                                                                  rows="5" name="description"
-                                                                  required>${show.description}</textarea>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a message in the textarea.
+                                                    <form method="post" enctype="multipart/form-data"
+                                                          action="${pageContext.request.contextPath}/save_serial.html?id=${show.id}">
+                                                        <div class="form-group mt-3">
+                                                            <label for="exampleFormControlInput1"> <fmt:message
+                                                                    key="enterSerialName" bundle="${ rb }"/>:</label>
+                                                            <input type="text" name="name" class="form-control"
+                                                                   id="exampleFormControlInput1"
+                                                                   placeholder=" <fmt:message key="enterSerialName" bundle="${ rb }"/>"
+                                                                   value="${show.name}">
                                                         </div>
-                                                    </div>
 
-                                                    <div class="form-group">
-                                                        <label for="logo">Выберите фото превью</label>
-                                                        <input type="file" class="form-control-file" id="logo"
-                                                               name="logo">
-                                                    </div>
+                                                            <%--                                            <div class="form-group">--%>
+                                                            <%--                                                <label for="description">Описание сериала</label>--%>
+                                                            <%--                                                <textarea class="form-control" name="description" id="description"--%>
+                                                            <%--                                                          rows="3" placeholder="Описание сериала">${show.description}</textarea>--%>
+                                                            <%--                                            </div>--%>
 
-                                                    <div class="form-group">
-                                                        <label for="full_logo">Выберите полное фото</label>
-                                                        <input type="file" class="form-control-file" id="full_logo"
-                                                               name="full_logo">
-                                                    </div>
+                                                        <div class="mb-3">
+                                                            <label for="validationTextarea"> <fmt:message
+                                                                    key="enterSerialDescription"
+                                                                    bundle="${ rb }"/></label>
+                                                            <textarea class="form-control is-valid" id="validationTextarea"
+                                                                      placeholder=" <fmt:message key="enterSerialDescription" bundle="${ rb }"/>"
+                                                                      rows="5" name="description"
+                                                                      required>${show.description}</textarea>
+                                                        </div>
 
-                                                    <div class="form-group">
-                                                        <label for="date">Введите дату выхода сериала:</label>
-                                                        <input type="date" class="form-control" name="release_date"
-                                                               id="date"
-                                                               value="${show.releaseDate}">
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <label for="logo"> <fmt:message key="loadSerialLogo"
+                                                                                            bundle="${ rb }"/></label>
+                                                            <input type="file" class="form-control-file" id="logo"
+                                                                   name="logo">
+                                                        </div>
 
-                                                    <div class="mb-2">
-                                                        <label>Выберите жанры:</label>
-                                                        <jsp:useBean id="genres" scope="request" type="java.util.List"/>
-                                                        <c:forEach var="g" items="${genres}">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                       id="inlineCheckbox2" value="${g.id}"
-                                                                       name="genre"  ${show.genres.contains(g) ? 'checked' : ''}>
-                                                                <label class="form-check-label"
-                                                                       for="inlineCheckbox2">${g.name}</label>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <label for="full_logo"> <fmt:message
+                                                                    key="loadSerialFullLogo" bundle="${ rb }"/></label>
+                                                            <input type="file" class="form-control-file" id="full_logo"
+                                                                   name="full_logo">
+                                                        </div>
 
-                                                    <div class="mb-2">
-                                                        <label>Выберите страну:</label>
-                                                        <br>
-                                                        <select class="custom-select" name="country">
-                                                            <jsp:useBean id="country" scope="request"
-                                                                         type="java.util.List"/>
-                                                            <c:forEach var="c" items="${country}">
-                                                                <option value="${c.id}" ${show.country.equals(c) ? 'selected' : ''}>${c.name}</option>
+                                                        <div class="form-group">
+                                                            <label for="date"> <fmt:message key="enterSerialReleaseDate"
+                                                                                            bundle="${ rb }"/>:</label>
+                                                            <input type="date" class="form-control" name="release_date"
+                                                                   id="date"
+                                                                   value="${show.releaseDate}">
+                                                        </div>
+
+                                                        <div class="mb-2">
+                                                            <label> <fmt:message key="chooseGenre"
+                                                                                 bundle="${ rb }"/>:</label>
+                                                            <jsp:useBean id="genres" scope="request" type="java.util.List"/>
+                                                            <c:forEach var="g" items="${genres}">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           id="inlineCheckbox2" value="${g.id}"
+                                                                           name="genre"  ${show.genres.contains(g) ? 'checked' : ''}>
+                                                                    <label class="form-check-label"
+                                                                           for="inlineCheckbox2">${g.name}</label>
+                                                                </div>
                                                             </c:forEach>
-                                                        </select>
-                                                    </div>
+                                                        </div>
 
-                                                    <div class="mb-2">
-                                                        <label>Выберите студию:</label>
-                                                        <br>
-                                                        <select class="custom-select" name="studio">
-                                                            <jsp:useBean id="studio" scope="request"
-                                                                         type="java.util.List"/>
-                                                            <c:forEach var="s" items="${studio}">
-                                                                <option value="${s.id}" ${show.studio.equals(s) ? 'selected' : ''}>${s.name}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                    </div>
+                                                        <div class="mb-2">
+                                                            <label> <fmt:message key="chooseCountry"
+                                                                                 bundle="${ rb }"/>:</label>
+                                                            <br>
+                                                            <select class="custom-select" name="country">
+                                                                <jsp:useBean id="country" scope="request"
+                                                                             type="java.util.List"/>
+                                                                <c:forEach var="c" items="${country}">
+                                                                    <option value="${c.id}" ${show.country.equals(c) ? 'selected' : ''}>${c.name}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
 
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">
-                                                            Close
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">Save changes
-                                                        </button>
-                                                    </div>
+                                                        <div class="mb-2">
+                                                            <label> <fmt:message key="chooseStudio"
+                                                                                 bundle="${ rb }"/>:</label>
+                                                            <br>
+                                                            <select class="custom-select" name="studio">
+                                                                <jsp:useBean id="studio" scope="request"
+                                                                             type="java.util.List"/>
+                                                                <c:forEach var="s" items="${studio}">
+                                                                    <option value="${s.id}" ${show.studio.equals(s) ? 'selected' : ''}>${s.name}</option>
+                                                                </c:forEach>
+                                                            </select>
+                                                        </div>
 
-                                                </form>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">
+                                                                <fmt:message key="cancel" bundle="${ rb }"/>
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary"><fmt:message
+                                                                    key="confrim" bundle="${ rb }"/>
+                                                            </button>
+                                                        </div>
 
-                                            </div>
+                                                    </form>
 
-                                        </div>
-                                    </div>
-                                </div>
+                                                </div>
 
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#delete">
-                                    Удалить
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="delete" tabindex="-1"
-                                     role="dialog" aria-labelledby="exampleModalLongTitle"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Modal
-                                                    title</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post"
-                                                      action="${pageContext.request.contextPath}/delete_serial.html?id=${show.id}">
-                                                    <p>Вы уверены, что хотите удалить сериал - ${show.name}? </p>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Отмена
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">
-                                                            Удалить
-                                                        </button>
-                                                    </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#delete">
+                                        <fmt:message key="delete" bundle="${ rb }"/>
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="delete" tabindex="-1"
+                                         role="dialog" aria-labelledby="exampleModalLongTitle"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title"><fmt:message key="delete"
+                                                                                         bundle="${ rb }"/></h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="post"
+                                                          action="${pageContext.request.contextPath}/delete_serial.html?id=${show.id}">
+                                                        <p>Вы уверены, что хотите удалить сериал - ${show.name}? </p>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal"><fmt:message key="cancel"
+                                                                                                      bundle="${ rb }"/>
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary">
+                                                                <fmt:message key="delete" bundle="${ rb }"/>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
 
                             <c:choose>
                                 <c:when test="${sessionScope.login != null}">
@@ -395,143 +406,6 @@
                         </div>
                     </div>
                 </div>
-
-                <%--                <div class="container">--%>
-                <%--                    <c:forEach items="${show.comments}" var="comment">--%>
-                <%--                        <div class="row">--%>
-                <%--                            <div class="col-12">--%>
-                <%--                                <div class="card text-center mt-3">--%>
-                <%--                                    <div class="card-header text-left">--%>
-                <%--                                            ${comment.user.login}--%>
-                <%--                                    </div>--%>
-                <%--                                    <div class="card-body pl-0">--%>
-                <%--                                        <div class="container">--%>
-                <%--                                            <div class="row">--%>
-                <%--                                                <div class="col-1">--%>
-                <%--                                                    <c:choose>--%>
-                <%--                                                        <c:when test="${sessionScope.user.equals(comment.user.login)}">--%>
-                <%--                                                            <i class="fas fa-comment fa-2x"></i>--%>
-                <%--                                                        </c:when>--%>
-                <%--                                                        <c:when test="${!sessionScope.user.equals(comment.user.login)}">--%>
-                <%--                                                            <i class="far fa-comment fa-2x"></i>--%>
-                <%--                                                        </c:when>--%>
-                <%--                                                    </c:choose>--%>
-                <%--                                                </div>--%>
-                <%--                                                <div class="col-10">--%>
-                <%--                                                    <p class="card-text text-left">--%>
-                <%--                                                            ${comment.comment}--%>
-                <%--                                                    </p>--%>
-                <%--                                                </div>--%>
-                <%--                                                <div class="col-1">--%>
-                <%--                                                    <c:if test="${sessionScope.user.equals(comment.user.login)}">--%>
-
-                <%--                                                        <a href="" data-toggle="modal"--%>
-                <%--                                                           data-target="#change${comment.id}"> <i--%>
-                <%--                                                                class="far fa-edit"></i></a>--%>
-
-                <%--                                                        <!-- Modal -->--%>
-                <%--                                                        <div class="modal fade" id="change${comment.id}" tabindex="-1"--%>
-                <%--                                                             role="dialog" aria-labelledby="exampleModalLongTitle"--%>
-                <%--                                                             aria-hidden="true">--%>
-                <%--                                                            <div class="modal-dialog" role="document">--%>
-                <%--                                                                <div class="modal-content">--%>
-                <%--                                                                    <div class="modal-header">--%>
-                <%--                                                                        <h5 class="modal-title"><fmt:message key="edit"--%>
-                <%--                                                                                                             bundle="${ rb }"/></h5>--%>
-                <%--                                                                        <button type="button" class="close"--%>
-                <%--                                                                                data-dismiss="modal"--%>
-                <%--                                                                                aria-label="Close">--%>
-                <%--                                                                            <span aria-hidden="true">&times;</span>--%>
-                <%--                                                                        </button>--%>
-                <%--                                                                    </div>--%>
-                <%--                                                                    <div class="modal-body">--%>
-                <%--                                                                        <form method="post"--%>
-                <%--                                                                              action="${pageContext.request.contextPath}/save_comment.html?commentId=${comment.id}&id=${show.id}">--%>
-                <%--                                                                            <div class="form-group mt-3">--%>
-
-                <%--                                                                                <textarea class="form-control"--%>
-                <%--                                                                                          rows="5" name="comment"--%>
-                <%--                                                                                          required>${comment.comment}</textarea>--%>
-                <%--                                                                            </div>--%>
-                <%--                                                                            <div class="modal-footer">--%>
-                <%--                                                                                <button type="button"--%>
-                <%--                                                                                        class="btn btn-secondary"--%>
-                <%--                                                                                        data-dismiss="modal">--%>
-                <%--                                                                                    <fmt:message key="cancel"--%>
-                <%--                                                                                                 bundle="${ rb }"/>--%>
-                <%--                                                                                </button>--%>
-                <%--                                                                                <button type="submit"--%>
-                <%--                                                                                        class="btn btn-primary">--%>
-                <%--                                                                                    <fmt:message key="confrim"--%>
-                <%--                                                                                                 bundle="${ rb }"/></button>--%>
-                <%--                                                                            </div>--%>
-                <%--                                                                        </form>--%>
-                <%--                                                                    </div>--%>
-                <%--                                                                </div>--%>
-                <%--                                                            </div>--%>
-                <%--                                                        </div>--%>
-                <%--                                                    </c:if>--%>
-                <%--                                                    <c:if test="${sessionScope.user.equals(comment.user.login) || sessionScope.role == 1}">--%>
-                <%--                                                        <a href="" data-toggle="modal"--%>
-                <%--                                                           data-target="#delete${comment.id}"> <i--%>
-                <%--                                                                class="fas fa-trash-alt"></i></a>--%>
-
-                <%--                                                        <!-- Modal -->--%>
-                <%--                                                        <div class="modal fade" id="delete${comment.id}" tabindex="-1"--%>
-                <%--                                                             role="dialog" aria-labelledby="exampleModalLongTitle"--%>
-                <%--                                                             aria-hidden="true">--%>
-                <%--                                                            <div class="modal-dialog" role="document">--%>
-                <%--                                                                <div class="modal-content">--%>
-                <%--                                                                    <div class="modal-header">--%>
-                <%--                                                                        <h5 class="modal-title"><fmt:message--%>
-                <%--                                                                                key="delete" bundle="${ rb }"/></h5>--%>
-                <%--                                                                        <button type="button" class="close"--%>
-                <%--                                                                                data-dismiss="modal"--%>
-                <%--                                                                                aria-label="Close">--%>
-                <%--                                                                            <span aria-hidden="true">&times;</span>--%>
-                <%--                                                                        </button>--%>
-                <%--                                                                    </div>--%>
-                <%--                                                                    <div class="modal-body">--%>
-                <%--                                                                        <form method="post"--%>
-                <%--                                                                              action="${pageContext.request.contextPath}/delete_comment.html?id=${comment.id}">--%>
-                <%--                                                                            <p>Вы уверены, что хотите удалить--%>
-                <%--                                                                                комментарий? </p>--%>
-                <%--                                                                            <div class="modal-footer">--%>
-                <%--                                                                                <button type="button"--%>
-                <%--                                                                                        class="btn btn-secondary"--%>
-                <%--                                                                                        data-dismiss="modal">--%>
-                <%--                                                                                    <fmt:message key="cancel"--%>
-                <%--                                                                                                 bundle="${ rb }"/>--%>
-                <%--                                                                                </button>--%>
-                <%--                                                                                <button type="submit"--%>
-                <%--                                                                                        class="btn btn-primary">--%>
-                <%--                                                                                    <fmt:message key="delete"--%>
-                <%--                                                                                                 bundle="${ rb }"/>--%>
-                <%--                                                                                </button>--%>
-                <%--                                                                            </div>--%>
-                <%--                                                                        </form>--%>
-                <%--                                                                    </div>--%>
-                <%--                                                                </div>--%>
-                <%--                                                            </div>--%>
-                <%--                                                        </div>--%>
-                <%--                                                    </c:if>--%>
-                <%--                                                </div>--%>
-                <%--                                            </div>--%>
-                <%--                                        </div>--%>
-                <%--                                    </div>--%>
-                <%--                                    <div class="card-footer text-muted">--%>
-                <%--                                        <i class="far fa-clock"></i>--%>
-                <%--                                        <fmt:parseDate value="${comment.publicationDate}"--%>
-                <%--                                                       pattern="yyyy-MM-dd'T'HH:mm"--%>
-                <%--                                                       var="time"--%>
-                <%--                                                       type="date"/>--%>
-                <%--                                        <fmt:formatDate pattern="dd-MMM-yyyy HH:mm" value="${time}"/>--%>
-                <%--                                    </div>--%>
-                <%--                                </div>--%>
-                <%--                            </div>--%>
-                <%--                        </div>--%>
-                <%--                    </c:forEach>--%>
-                <%--                </div>--%>
 
 
                 <div class="container">
@@ -595,7 +469,7 @@
                                             </div>
                                         </c:if>
 
-                                        <c:if test="${sessionScope.user.equals(comment.user.login) || sessionScope.role == 1}">
+                                        <c:if test="${sessionScope.login.equals(comment.user.login) || sessionScope.role == 1}">
                                             <a href="" data-toggle="modal"
                                                data-target="#delete${comment.id}"> <i
                                                     class="fas fa-trash-alt"></i></a>

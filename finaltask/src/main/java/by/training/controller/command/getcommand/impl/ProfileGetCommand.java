@@ -43,6 +43,7 @@ public class ProfileGetCommand implements Command {
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferSingleAttribute(ATTRIBUTE_INVALID_PASSWORD, req);
+        CommandUtil.transferSingleAttribute(ATTRIBUTE_USER_AVATAR_PROBLEM, req);
         try {
             String login = (String) req.getSession().getAttribute(ATTRIBUTE_LOGIN);
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);

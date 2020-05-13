@@ -39,8 +39,12 @@
                     <form class="was-validated mt-2" method="post" enctype="multipart/form-data"
                           action="${pageContext.request.contextPath}/change_avatar.html">
                         <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="validatedAvatar" name="avatar">
                             <label class="custom-file-label" for="validatedAvatar">Загрузите новый аватар</label>
+                            <input type="file" class="custom-file-input" id="validatedAvatar" name="avatar" required>
+                            <c:if test="${userAvatarProblem != null}">
+                                <div class="invalid-feedback"><fmt:message key="${userAvatarProblem}"
+                                                                           bundle="${ rb }"/></div>
+                            </c:if>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <fmt:message key="edit" bundle="${ rb }"/>

@@ -45,7 +45,6 @@ public class EditGenreGetCommand implements Command {
                                    final HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferMapAttribute(ATTRIBUTE_GENRE_PROBLEM, req);
         try {
-            CommandUtil.transferSingleAttribute("ok", req);
             int page = req.getParameter(PARAMETER_PAGE) != null ? Integer.parseInt(req.getParameter(PARAMETER_PAGE)) : DEFAULT_PAGE_NUMBER;
             int countAllGenre = ServiceFactory.getInstance().getGenreService().countAllGenres();
             List<Genre> genres = ServiceFactory.getInstance().getGenreService().findGenrePageByPage(page, COUNT_GENRE_IN_ADMIN_PAGE);
@@ -56,6 +55,8 @@ public class EditGenreGetCommand implements Command {
         } catch (ServiceException e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
+        } catch (NumberFormatException e) {
+            return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

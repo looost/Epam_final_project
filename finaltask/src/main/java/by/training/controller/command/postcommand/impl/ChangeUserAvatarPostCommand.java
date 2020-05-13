@@ -8,6 +8,7 @@ import by.training.service.exception.ServiceException;
 import by.training.service.factory.ServiceFactory;
 import by.training.utils.RoutingUtils;
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadBase;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,8 +56,10 @@ public class ChangeUserAvatarPostCommand implements Command {
             String login = (String) req.getSession().getAttribute(ATTRIBUTE_LOGIN);
             User user = ServiceFactory.getInstance().getUserService().findByLogin(login);
             ServletFileUpload fileUpload = new ServletFileUpload(new DiskFileItemFactory());
+            fileUpload.setFileSizeMax(MAX_USER_AVATAR_SIZE);
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
             FileItem item = multiFiles.get(0);
+
             String fileName = UUID.randomUUID().toString() + item.getName();
             String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_AVATAR_DIR)
                     + fileName;
@@ -65,6 +69,19 @@ public class ChangeUserAvatarPostCommand implements Command {
             File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\avatar\\" + fileName);
             FileUtils.copyFile(avatar, copyFile);
 
+            if (!user.getAvatar().equals(DEFAULT_AVATAR_NAME)) {
+                avatar = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_AVATAR_DIR)
+                        + user.getAvatar());
+                File copyAvatar = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\avatar\\" +
+                        user.getAvatar());
+                if (avatar.exists()) {
+                    Files.delete(avatar.toPath());
+                }
+                if (copyAvatar.exists()) {
+                    Files.delete(copyAvatar.toPath());
+                }
+            }
+
             user.setPassword(null);
             user.setAvatar(fileName);
             ServiceFactory.getInstance().getUserService().save(user);
@@ -72,6 +89,9 @@ public class ChangeUserAvatarPostCommand implements Command {
         } catch (ServiceException e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
+        } catch (FileUploadBase.FileSizeLimitExceededException e) {
+            req.getSession().setAttribute(ATTRIBUTE_USER_AVATAR_PROBLEM, "incorrectImageSize");
+            return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
         } catch (Exception e) {
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

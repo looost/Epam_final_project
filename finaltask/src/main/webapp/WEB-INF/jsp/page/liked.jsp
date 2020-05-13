@@ -38,9 +38,11 @@
                         <c:if test="${empty shows}">
                             <div class="container">
                                 <div class="alert alert-info m-2 text-center" role="alert">
-                                    <h4 class="alert-heading">УПС!</h4>
+                                    <h4 class="alert-heading text-style"><fmt:message key="oppss"
+                                                                                      bundle="${ rb }"/></h4>
                                     <hr>
-                                    <p class="mb-0">У вас пока нету понравившехся сериалов!</p>
+                                    <p class="mb-0 text-style"><fmt:message key="dontHaveLikedSerial"
+                                                                            bundle="${ rb }"/></p>
                                 </div>
                             </div>
                         </c:if>

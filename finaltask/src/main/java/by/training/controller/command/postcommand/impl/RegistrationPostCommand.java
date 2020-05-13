@@ -3,8 +3,6 @@ package by.training.controller.command.postcommand.impl;
 import by.training.controller.command.Command;
 import by.training.controller.command.CommandResponse;
 import by.training.controller.command.RoutingType;
-import by.training.controller.validation.Validation;
-import by.training.controller.validation.impl.RegistrationValidationImpl;
 import by.training.model.RoleEnum;
 import by.training.model.User;
 import by.training.service.exception.ServiceException;
@@ -32,11 +30,6 @@ public class RegistrationPostCommand implements Command {
      * A Logger object is used to log messages for a application error.
      */
     private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
-
-    /**
-     * Data validator for {@link User}.
-     */
-    private static final Validation<User> VALIDATOR = new RegistrationValidationImpl();
 
     /**
      * The command to register a {@link User} in the application. If there are validation

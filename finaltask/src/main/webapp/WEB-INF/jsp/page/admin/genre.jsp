@@ -6,25 +6,6 @@
 <fmt:setLocale value="${cookie.language.value}" scope="session"/>
 <fmt:setBundle basename="property.text" var="rb"/>
 
-<div class="position-absolute w-100 d-flex flex-column p-4">
-
-    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-        <div class="toast" style="position: fixed; bottom: 5%; right: 2%; z-index: 1000;" data-autohide="false">
-            <div class="toast-header">
-                <strong class="mr-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                Данные успешно изменены!
-            </div>
-        </div>
-    </div>
-
-</div>
-
 <div class="container-fluid text-style">
 
     <div class="row">
