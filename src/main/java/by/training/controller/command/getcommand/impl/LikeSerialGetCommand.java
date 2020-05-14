@@ -21,7 +21,7 @@ public class LikeSerialGetCommand implements Command {
     /**
      * A Logger object is used to log messages for a application error.
      */
-    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     @Override
     public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

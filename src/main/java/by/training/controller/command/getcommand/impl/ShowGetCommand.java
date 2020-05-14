@@ -33,7 +33,7 @@ public class ShowGetCommand implements Command {
     /**
      * A Logger object is used to log messages for a application error.
      */
-    private static final Logger logger = LogManager.getLogger("debug");
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     /**
      * Command for the serial page.

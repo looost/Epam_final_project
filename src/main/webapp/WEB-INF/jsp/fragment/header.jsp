@@ -29,10 +29,6 @@
             <li class="nav-item">
                 <a class="nav-link text-style" href="${pageContext.request.contextPath}/rating.html">
                     <fmt:message key="rating" bundle="${ rb }"/></a>
-            </li>
-            <%--            <li class="nav-item">--%>
-            <%--                <a class="nav-link" href="/final/index.html">Сериалы</a>--%>
-            <%--            </li>--%>
             <c:if test="${sessionScope.login != null}">
                 <li class="nav-item">
                     <a class="nav-link text-style" href="${pageContext.request.contextPath}/profile.html">
@@ -88,44 +84,7 @@
                 </a>
             </div>
         </div>
-        <%--        <div>--%>
-        <%--            <a href="/final/profile.html" class="btn btn-dark btn-lg active mr-3" role="button"--%>
-        <%--               aria-pressed="true">${sessionScope.user}</a>--%>
-        <%--        </div>--%>
-        <%--        <div>--%>
-        <%--            <a href="/final/logout.html" class="btn btn-dark btn-lg active" role="button" aria-pressed="true">Выход</a>--%>
-        <%--        </div>--%>
     </c:if>
-    <%--    <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="dropdownMenuLink">--%>
-    <%--        <a class="dropdown-item" href="/final/profile.html">Профиль</a>--%>
-    <%--        <div class="dropdown-divider"></div>--%>
-    <%--        <a class="dropdown-item" href="/final/logout.html">Выход</a>--%>
-    <%--    </div>--%>
-
-    <%--    <div>--%>
-    <%--        <form method="post" action="${pageContext.request.contextPath}/language.html">--%>
-    <%--            <label>--%>
-    <%--                <select name="language">--%>
-    <%--                    <option value="ru_RU">Русский</option>--%>
-    <%--                    <option value="en_EU">English</option>--%>
-    <%--                    <option value="by_BY">Беларускі</option>--%>
-    <%--                </select>--%>
-    <%--            </label>--%>
-    <%--            <input type="submit" value="<fmt:message key="send" bundle="${ rb }" />">--%>
-    <%--        </form>--%>
-    <%--    </div>--%>
-
-    <%--    <div class="dropdown mr-2 ml-2">--%>
-    <%--        <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--%>
-    <%--            ${cookie.language.value}--%>
-    <%--        </a>--%>
-    <%--        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">--%>
-    <%--            <a class="dropdown-item" href="${pageContext.request.contextPath}/language.html?language=ru_RU">Русский</a>--%>
-    <%--            <a class="dropdown-item" href="${pageContext.request.contextPath}/language.html?language=en_EU">English</a>--%>
-    <%--            <a class="dropdown-item" href="${pageContext.request.contextPath}/language.html?language=by_BY">Беларускі</a>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-
     <ul class="navbar-nav flex-row d-none d-md-flex ml-2">
         <li class="nav-item dropdown">
             <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown"

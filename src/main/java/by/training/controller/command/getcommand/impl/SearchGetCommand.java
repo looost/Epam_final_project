@@ -33,7 +33,7 @@ public class SearchGetCommand implements Command {
     /**
      * A Logger object is used to log messages for a application error.
      */
-    private static final Logger logger = LogManager.getLogger(DEBUG_LOGGER);
+    private static final Logger logger = LogManager.getLogger(ERROR_LOGGER);
 
     /**
      * Command for the search page of the application.

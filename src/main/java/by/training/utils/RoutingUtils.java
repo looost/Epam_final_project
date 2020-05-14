@@ -14,7 +14,10 @@ import static by.training.utils.ConstantName.ROUTING_ERROR_JSP;
 /**
  * The class is intended for routing.
  */
-public class RoutingUtils {
+public final class RoutingUtils {
+
+    private RoutingUtils() {
+    }
 
     /**
      * Forward to page.
@@ -34,11 +37,10 @@ public class RoutingUtils {
      * Redirect to page.
      *
      * @param jspPage the jsp page
-     * @param resp    the resp
-     * @throws ServletException the servlet exception
+     * @param resp    the resp\
      * @throws IOException      the io exception
      */
-    public static void redirectToPage(String jspPage, HttpServletResponse resp) throws ServletException, IOException {
+    public static void redirectToPage(String jspPage, HttpServletResponse resp) throws IOException {
         resp.sendRedirect(jspPage);
     }
 
