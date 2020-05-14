@@ -5,5 +5,5 @@
 out/
 
 # Maven
-target/
-logs/
+finaltask/target/*
+finaltask/logs/*
