@@ -209,30 +209,39 @@
                                                 <div class="modal-body">
 
                                                     <form method="post" enctype="multipart/form-data"
+                                                          class="was-validated mt-2"
                                                           action="${pageContext.request.contextPath}/save_serial.html?id=${show.id}">
                                                         <div class="form-group mt-3">
                                                             <label for="exampleFormControlInput1"> <fmt:message
                                                                     key="enterSerialName" bundle="${ rb }"/>:</label>
-                                                            <input type="text" name="name" class="form-control"
+                                                            <input type="text" name="name"
+                                                                   class="form-control is-invalid"
                                                                    id="exampleFormControlInput1"
                                                                    placeholder=" <fmt:message key="enterSerialName" bundle="${ rb }"/>"
-                                                                   value="${show.name}">
+                                                                   value="${show.name}" required>
+                                                            <c:if test="${not empty serialNameProblem}">
+                                                                <div class="invalid-feedback text-style">
+                                                                    <fmt:message key="${serialNameProblem}"
+                                                                                 bundle="${ rb }"/>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
-
-                                                            <%--                                            <div class="form-group">--%>
-                                                            <%--                                                <label for="description">Описание сериала</label>--%>
-                                                            <%--                                                <textarea class="form-control" name="description" id="description"--%>
-                                                            <%--                                                          rows="3" placeholder="Описание сериала">${show.description}</textarea>--%>
-                                                            <%--                                            </div>--%>
 
                                                         <div class="mb-3">
                                                             <label for="validationTextarea"> <fmt:message
                                                                     key="enterSerialDescription"
                                                                     bundle="${ rb }"/></label>
-                                                            <textarea class="form-control is-valid" id="validationTextarea"
+                                                            <textarea class="form-control is-invalid"
+                                                                      id="validationTextarea"
                                                                       placeholder=" <fmt:message key="enterSerialDescription" bundle="${ rb }"/>"
                                                                       rows="5" name="description"
                                                                       required>${show.description}</textarea>
+                                                            <c:if test="${not empty serialDescriptionProblem}">
+                                                                <div class="invalid-feedback text-style">
+                                                                    <fmt:message key="${serialDescriptionProblem}"
+                                                                                 bundle="${ rb }"/>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
 
                                                         <div class="form-group">
@@ -240,6 +249,12 @@
                                                                                             bundle="${ rb }"/></label>
                                                             <input type="file" class="form-control-file" id="logo"
                                                                    name="logo">
+                                                            <c:if test="${not empty serialLogoProblem}">
+                                                                <div class="invalid-feedback text-style">
+                                                                    <fmt:message key="${serialLogoProblem}"
+                                                                                 bundle="${ rb }"/>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
 
                                                         <div class="form-group">
@@ -247,14 +262,39 @@
                                                                     key="loadSerialFullLogo" bundle="${ rb }"/></label>
                                                             <input type="file" class="form-control-file" id="full_logo"
                                                                    name="full_logo">
+                                                            <c:if test="${not empty serialFullLogoProblem}">
+                                                                <div class="invalid-feedback text-style">
+                                                                    <fmt:message key="${serialFullLogoProblem}"
+                                                                                 bundle="${ rb }"/>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
 
+                                                            <%--                                                        <div class="form-group">--%>
+                                                            <%--                                                            <label for="date"> <fmt:message key="enterSerialReleaseDate"--%>
+                                                            <%--                                                                                            bundle="${ rb }"/>:</label>--%>
+                                                            <%--                                                            <input type="date" class="form-control" name="release_date"--%>
+                                                            <%--                                                                   id="date" required--%>
+                                                            <%--                                                                   value="${show.releaseDate}">--%>
+                                                            <%--                                                            <c:if test="${not empty serialPublicationDateProblem}">--%>
+                                                            <%--                                                                <div class="invalid-feedback text-style">--%>
+                                                            <%--                                                                    <fmt:message key="${serialPublicationDateProblem}" bundle="${ rb }"/>--%>
+                                                            <%--                                                                </div>--%>
+                                                            <%--                                                            </c:if>--%>
+                                                            <%--                                                        </div>--%>
+
                                                         <div class="form-group">
-                                                            <label for="date"> <fmt:message key="enterSerialReleaseDate"
-                                                                                            bundle="${ rb }"/>:</label>
-                                                            <input type="date" class="form-control" name="release_date"
-                                                                   id="date"
-                                                                   value="${show.releaseDate}">
+                                                            <label for="date"><fmt:message key="enterSerialReleaseDate"
+                                                                                           bundle="${ rb }"/>:</label>
+                                                            <input type="date" class="form-control is-invalid"
+                                                                   name="release_date" id="date"
+                                                                   value="${show.releaseDate}" required>
+                                                            <c:if test="${not empty serialPublicationDateProblem}">
+                                                                <div class="invalid-feedback text-style">
+                                                                    <fmt:message key="${serialPublicationDateProblem}"
+                                                                                 bundle="${ rb }"/>
+                                                                </div>
+                                                            </c:if>
                                                         </div>
 
                                                         <div class="mb-2">

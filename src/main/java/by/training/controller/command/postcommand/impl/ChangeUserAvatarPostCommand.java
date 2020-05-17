@@ -66,13 +66,13 @@ public class ChangeUserAvatarPostCommand implements Command {
             File avatar = new File(filePath);
             item.write(avatar);
 
-            File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\avatar\\" + fileName);
+            File copyFile = new File(PATH_TO_AVATAR_FOR_TEST + fileName);
             FileUtils.copyFile(avatar, copyFile);
 
             if (!user.getAvatar().equals(DEFAULT_AVATAR_NAME)) {
                 avatar = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_AVATAR_DIR)
                         + user.getAvatar());
-                File copyAvatar = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\avatar\\" +
+                File copyAvatar = new File(PATH_TO_AVATAR_FOR_TEST +
                         user.getAvatar());
                 if (avatar.exists()) {
                     Files.delete(avatar.toPath());

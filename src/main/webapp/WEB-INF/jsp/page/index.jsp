@@ -51,10 +51,10 @@
                 <div class="container">
                     <div class="row">
 
-                        <div class="row row-cols-1 row-cols-md-3">
+                        <%--                        <div class="row row-cols-1 row-cols-md-3">--%>
                             <jsp:useBean id="shows" scope="request" type="java.util.List"/>
                             <c:forEach items="${shows}" var="s">
-                                <div class="col mb-4">
+                                <div class="col-4 mb-4">
                                     <div class="card h-100">
                                         <a href="${pageContext.request.contextPath}/show.html?id=${s.id}">
                                             <img class="card-img-top" height="168" width="269"
@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                             </c:forEach>
-                        </div>
+                        <%--                        </div>--%>
 
                     </div>
                 </div>

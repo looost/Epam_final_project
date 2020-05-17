@@ -37,7 +37,7 @@ public class SecurityFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         String requestURI2 = req.getServletPath()
-                .substring(1, req.getServletPath().lastIndexOf(".")).replaceAll("/", "_");
+                .substring(1, req.getServletPath().lastIndexOf('.')).replaceAll("/", "_");
         try {
             CommandName commandName = CommandName.valueOf(requestURI2.toUpperCase());
             if (SecurityConfig.isSecurityPage(commandName)) {

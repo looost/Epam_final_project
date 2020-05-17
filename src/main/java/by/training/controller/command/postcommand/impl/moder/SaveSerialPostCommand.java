@@ -124,7 +124,9 @@ public class SaveSerialPostCommand implements Command {
                     serial.setReleaseDate(Date.valueOf(item.getString()));
                     break;
                 } catch (IllegalArgumentException e) {
-                    throw new ServiceException(e, HttpServletResponse.SC_BAD_REQUEST);
+                    Map<String, String> errors = new HashMap<>();
+                    errors.put(ATTRIBUTE_SERIAL_PUBLICATION_DATE_PROBLEM, "incorrectData");
+                    throw new ServiceException("Incorrect data", HttpServletResponse.SC_BAD_REQUEST, errors);
                 }
             case PARAMETER_GENRE:
                 Genre genre = new Genre();
@@ -171,13 +173,13 @@ public class SaveSerialPostCommand implements Command {
                             + fileName;
                     File logo = new File(filePath);
                     item.write(logo);
-                    File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" + fileName);
+                    File copyFile = new File(PATH_TO_IMG_FOR_TEST + fileName);
                     FileUtils.copyFile(logo, copyFile);
 
-                    if (!serial.getLogo().equals(DEFAULT_IMG_NAME)) {
+                    if (serial.getLogo() != null && !serial.getLogo().equals(DEFAULT_IMG_NAME)) {
                         File oldLogo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
                                 + serial.getLogo());
-                        File copyOldLogo = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" +
+                        File copyOldLogo = new File(PATH_TO_IMG_FOR_TEST +
                                 serial.getLogo());
                         if (oldLogo.exists()) {
                             Files.delete(oldLogo.toPath());
@@ -201,13 +203,13 @@ public class SaveSerialPostCommand implements Command {
                             + fileName;
                     File fullLogo = new File(filePath);
                     item.write(fullLogo);
-                    File copyFile = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" + fileName);
+                    File copyFile = new File(PATH_TO_IMG_FOR_TEST + fileName);
                     FileUtils.copyFile(fullLogo, copyFile);
 
-                    if (!serial.getFullLogo().equals(DEFAULT_IMG_NAME)) {
+                    if (serial.getFullLogo() != null && !serial.getFullLogo().equals(DEFAULT_IMG_NAME)) {
                         File oldFullLogo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
                                 + serial.getFullLogo());
-                        File copyOldFullLogo = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\" +
+                        File copyOldFullLogo = new File(PATH_TO_IMG_FOR_TEST +
                                 serial.getFullLogo());
                         if (oldFullLogo.exists()) {
                             Files.delete(oldFullLogo.toPath());

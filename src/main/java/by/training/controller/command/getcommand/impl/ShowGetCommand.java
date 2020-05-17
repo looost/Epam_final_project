@@ -47,6 +47,7 @@ public class ShowGetCommand implements Command {
     public CommandResponse execute(final HttpServletRequest req,
                                    final HttpServletResponse resp) throws ServletException, IOException {
         CommandUtil.transferMapAttribute(ATTRIBUTE_COMMENT_PROBLEM, req);
+        CommandUtil.transferMapAttribute(ATTRIBUTE_SERIAL_PROBLEM, req);
         String id = req.getParameter(PARAMETER_ID);
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);

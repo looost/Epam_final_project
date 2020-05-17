@@ -17,9 +17,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap.min.css"/>"/>
+    <!-- Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 
-    <!-- Google fonts - Popppins for copy-->
+    <!-- Google fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
 
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/orionicons.css"/>"/>
@@ -27,22 +28,28 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/css/custom.css"/>"/>
 
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
-            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <%--    <script src="https://code.jquery.com/jquery-3.1.1.min.js"--%>
+    <%--            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>--%>
+    <script type="text/javascript" src="<c:url value="/js/jquery/jquery-3.1.1.min.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/js/jquery/jquery-ui.min.js"/>"></script>
+    <%--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"--%>
+    <%--            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>--%>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="<c:url value="/js/jquery/popper.min.js"/>"></script>
+    <%--    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"--%>
+    <%--            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"--%>
+    <%--            crossorigin="anonymous"></script>--%>
+
+    <script type="text/javascript" src="<c:url value="/js/jquery/bootstrap.min.js"/>"></script>
+    <%--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"--%>
+    <%--            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"--%>
+    <%--            crossorigin="anonymous"></script>--%>
 
     <script type="text/javascript" src="<c:url value="/js/dist/pagination.js"/>"></script>
 
 
     <%--    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">--%>
+    <link rel="shortcut icon" href="<c:url value="/img/favicon.png"/>" type="image/png">
     <title>Shows</title>
 </head>
 
@@ -51,11 +58,9 @@
 
 <header>
     <c:import url="/WEB-INF/jsp/fragment/header.jsp"/>
-    <%--    <jsp:include page="/WEB-INF/jsp/fragment/header.jsp"/>--%>
 </header>
 <main>
     <c:import url="${currentPage}"/>
-    <%--    <jsp:include page="${currentPage}"/>--%>
 </main>
 </div>
 </body>

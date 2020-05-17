@@ -61,6 +61,7 @@ public final class ConstantName {
     public static final String ATTRIBUTE_SERIAL_DESCRIPTION_PROBLEM = "serialDescriptionProblem";
     public static final String ATTRIBUTE_SERIAL_LOGO_PROBLEM = "serialLogoProblem";
     public static final String ATTRIBUTE_SERIAL_FULL_LOGO_PROBLEM = "serialFullLogoProblem";
+    public static final String ATTRIBUTE_SERIAL_PUBLICATION_DATE_PROBLEM = "serialPublicationDateProblem";
     public static final String ATTRIBUTE_USER_AVATAR_PROBLEM = "userAvatarProblem";
 
 
@@ -136,6 +137,8 @@ public final class ConstantName {
     public static final String PATH_TO_UPLOAD_AVATAR_DIR = "uploadAvatarPath";
     public static final String DEFAULT_IMG_NAME = "noFoto.png";
     public static final String DEFAULT_AVATAR_NAME = "noAvatar.png";
+    public static final String PATH_TO_IMG_FOR_TEST = "D:\\Epam_final_project\\src\\main\\webapp\\img\\";
+    public static final String PATH_TO_AVATAR_FOR_TEST = "D:\\Epam_final_project\\src\\main\\webapp\\img\\avatar\\";
 
     public static final String ENCODING_UTF_8 = "UTF-8";
 

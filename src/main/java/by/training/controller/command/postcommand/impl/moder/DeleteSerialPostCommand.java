@@ -60,9 +60,9 @@ public class DeleteSerialPostCommand implements Command {
                 Files.delete(fullLogo.toPath());
             }
 
-            File logoCopy = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\"
+            File logoCopy = new File(PATH_TO_IMG_FOR_TEST
                     + serial.getLogo());
-            File fullCopy = new File("D:\\Training\\finaltask\\src\\main\\webapp\\img\\"
+            File fullCopy = new File(PATH_TO_IMG_FOR_TEST
                     + serial.getFullLogo());
             if (logoCopy.exists() && !logoCopy.getName().equals(DEFAULT_IMG_NAME)) {
                 Files.delete(logoCopy.toPath());

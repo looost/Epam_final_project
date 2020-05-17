@@ -37,7 +37,7 @@ public class SerialDaoImpl implements SerialDao {
      *
      * @see ResultSet
      */
-    private static final ResultSetHandler<Serial> SERIAL_RESULT_SET_HANDLER = new ResultSetHandler<Serial>() {
+    private static final ResultSetHandler<Serial> SERIAL_RESULT_SET_HANDLER = new ResultSetHandler<>() {
         @Override
         public Serial handle(final ResultSet rs) throws DaoException {
             Serial serial = new Serial();
@@ -179,7 +179,7 @@ public class SerialDaoImpl implements SerialDao {
                 ResultSetHandlerFactory.getListResultSetHandler(SERIAL_RESULT_SET_HANDLER), query.getParams().toArray());
     }
 
-    private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
+    private static final String FIND_SERIAL_BY_SEARCH_FORM_2 = "SELECT DISTINCT s.id, s.* FROM serial s LEFT JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
 
     /**
      * Build SQL query based on searchForm.
@@ -201,7 +201,7 @@ public class SerialDaoImpl implements SerialDao {
         return new SearchQuery(sql, param);
     }
 
-    private static final String COUNT_ALL_SERIAL_BY_SEARCH_FORM = "SELECT COUNT(DISTINCT s.id) FROM serial s JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
+    private static final String COUNT_ALL_SERIAL_BY_SEARCH_FORM = "SELECT COUNT(DISTINCT s.id) FROM serial s LEFT JOIN serial_genre sg ON s.id = sg.serial_id WHERE (name like ? or description like ?)";
 
     /**
      * Count all serial by search form.

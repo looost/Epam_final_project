@@ -85,6 +85,11 @@
                         <div class="form-group">
                             <label for="date"><fmt:message key="enterSerialReleaseDate" bundle="${ rb }"/>:</label>
                             <input type="date" class="form-control" name="release_date" id="date" required>
+                            <c:if test="${not empty serialPublicationDateProblem}">
+                                <div class="invalid-feedback text-style">
+                                    <fmt:message key="${serialPublicationDateProblem}" bundle="${ rb }"/>
+                                </div>
+                            </c:if>
                         </div>
 
                         <div class="mb-2">
