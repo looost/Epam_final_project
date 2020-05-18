@@ -61,7 +61,7 @@ public class ChangeUserAvatarPostCommand implements Command {
             FileItem item = multiFiles.get(0);
 
             String fileName = UUID.randomUUID().toString() + item.getName();
-            String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_AVATAR_DIR)
+            String filePath = req.getServletContext().getRealPath("") + "img" + File.separator + "avatar" + File.separator
                     + fileName;
             File avatar = new File(filePath);
             item.write(avatar);
@@ -70,7 +70,7 @@ public class ChangeUserAvatarPostCommand implements Command {
             FileUtils.copyFile(avatar, copyFile);
 
             if (!user.getAvatar().equals(DEFAULT_AVATAR_NAME)) {
-                avatar = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_AVATAR_DIR)
+                avatar = new File(req.getServletContext().getRealPath("") + "img" + File.separator + "avatar" + File.separator
                         + user.getAvatar());
                 File copyAvatar = new File(PATH_TO_AVATAR_FOR_TEST +
                         user.getAvatar());

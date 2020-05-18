@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static by.training.utils.ConstantName.ENCODING_UTF_8;
@@ -46,6 +47,11 @@ public class EncodingFilter implements Filter {
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse,
                          final FilterChain filterChain) throws IOException, ServletException {
         servletRequest.setCharacterEncoding(ENCODING_UTF_8);
+        servletResponse.setCharacterEncoding(ENCODING_UTF_8);
+        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+        httpResponse.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+        httpResponse.setHeader("Pragma", "no-cache"); //HTTP 1.0
+        httpResponse.setDateHeader("Expires", 0); //prevents caching at the proxy server
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

@@ -49,9 +49,9 @@ public class DeleteSerialPostCommand implements Command {
         try {
             Serial serial = ServiceFactory.getInstance().getSerialService().findById(id);
             ServiceFactory.getInstance().getSerialService().delete(id);
-            File logo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
+            File logo = new File(req.getServletContext().getRealPath("") + "img" + File.separator
                     + serial.getLogo());
-            File fullLogo = new File(req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
+            File fullLogo = new File(req.getServletContext().getRealPath("") + "img" + File.separator
                     + serial.getFullLogo());
             if (logo.exists() && !logo.getName().equals(DEFAULT_IMG_NAME)) {
                 Files.delete(logo.toPath());
@@ -60,16 +60,16 @@ public class DeleteSerialPostCommand implements Command {
                 Files.delete(fullLogo.toPath());
             }
 
-            File logoCopy = new File(PATH_TO_IMG_FOR_TEST
-                    + serial.getLogo());
-            File fullCopy = new File(PATH_TO_IMG_FOR_TEST
-                    + serial.getFullLogo());
-            if (logoCopy.exists() && !logoCopy.getName().equals(DEFAULT_IMG_NAME)) {
-                Files.delete(logoCopy.toPath());
-            }
-            if (fullCopy.exists() && !fullCopy.getName().equals(DEFAULT_IMG_NAME)) {
-                Files.delete(fullCopy.toPath());
-            }
+//            File logoCopy = new File(PATH_TO_IMG_FOR_TEST
+//                    + serial.getLogo());
+//            File fullCopy = new File(PATH_TO_IMG_FOR_TEST
+//                    + serial.getFullLogo());
+//            if (logoCopy.exists() && !logoCopy.getName().equals(DEFAULT_IMG_NAME)) {
+//                Files.delete(logoCopy.toPath());
+//            }
+//            if (fullCopy.exists() && !fullCopy.getName().equals(DEFAULT_IMG_NAME)) {
+//                Files.delete(fullCopy.toPath());
+//            }
 
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_INDEX_PAGE, req, resp);
         } catch (ServiceException e) {

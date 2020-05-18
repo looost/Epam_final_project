@@ -24,8 +24,9 @@ public class Transaction implements AutoCloseable {
 
     /**
      * Initialize connection from connection pool.
+     * @throws DaoException if you could not get the connection
      */
-    public Transaction() {
+    public Transaction() throws DaoException {
         this.connection = ConnectionPool.getInstance().getConnection();
     }
 

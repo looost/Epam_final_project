@@ -1,5 +1,7 @@
 package by.training.dao;
 
+import by.training.dao.exception.DaoException;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -35,8 +37,9 @@ public class ConnectionPool {
      * Method for getting connection.
      *
      * @return the connection from connection pool
+     * @throws DaoException if you could not get the connection
      */
-    public Connection getConnection() {
+    public Connection getConnection() throws DaoException {
         Context ctx;
         Connection c = null;
         try {
@@ -44,7 +47,7 @@ public class ConnectionPool {
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/serial");
             c = ds.getConnection();
         } catch (NamingException | SQLException e) {
-            e.printStackTrace();
+            throw new DaoException(e);
         }
         return c;
     }

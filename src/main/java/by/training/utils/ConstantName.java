@@ -133,8 +133,6 @@ public final class ConstantName {
     /*
     path
      */
-    public static final String PATH_TO_UPLOAD_FILE_DIR = "uploadFilesPath";
-    public static final String PATH_TO_UPLOAD_AVATAR_DIR = "uploadAvatarPath";
     public static final String DEFAULT_IMG_NAME = "noFoto.png";
     public static final String DEFAULT_AVATAR_NAME = "noAvatar.png";
     public static final String PATH_TO_IMG_FOR_TEST = "D:\\Epam_final_project\\src\\main\\webapp\\img\\";
