@@ -88,6 +88,7 @@ public final class ConstantName {
     public static final int MAX_STUDIO_NAME_LENGTH = 32;
     public static final int MAX_USER_LOGIN_LENGTH = 12;
     public static final int MAX_USER_AVATAR_SIZE = 1024 * 1024;
+    public static final int MAX_USER_AVATAR_NAME_LENGTH = 100;
     /*
     forward jsp pages
      */

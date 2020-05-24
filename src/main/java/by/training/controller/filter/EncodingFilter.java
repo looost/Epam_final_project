@@ -23,11 +23,9 @@ public class EncodingFilter implements Filter {
      *
      * @param filterConfig a <code>FilterConfig</code> object containing the
      *                     filter's configuration and initialization parameters
-     * @throws ServletException if an exception has occurred that interferes with
-     *                          the filter's normal operation
      */
     @Override
-    public void init(final FilterConfig filterConfig) throws ServletException {
+    public void init(final FilterConfig filterConfig) {
         logger.info("Initializing encoding filter");
     }
 
@@ -48,10 +46,6 @@ public class EncodingFilter implements Filter {
                          final FilterChain filterChain) throws IOException, ServletException {
         servletRequest.setCharacterEncoding(ENCODING_UTF_8);
         servletResponse.setCharacterEncoding(ENCODING_UTF_8);
-        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-        httpResponse.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
-        httpResponse.setHeader("Pragma", "no-cache"); //HTTP 1.0
-        httpResponse.setDateHeader("Expires", 0); //prevents caching at the proxy server
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

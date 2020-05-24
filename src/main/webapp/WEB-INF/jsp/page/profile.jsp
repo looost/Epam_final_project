@@ -40,7 +40,8 @@
                           action="${pageContext.request.contextPath}/change_avatar.html">
                         <div class="custom-file mb-3">
                             <label class="custom-file-label" for="validatedAvatar">Загрузите новый аватар</label>
-                            <input type="file" class="custom-file-input" id="validatedAvatar" name="avatar" required>
+                            <input type="file" class="custom-file-input" id="validatedAvatar" name="avatar"
+                                   accept="image/*" required>
                             <c:if test="${userAvatarProblem != null}">
                                 <div class="invalid-feedback"><fmt:message key="${userAvatarProblem}"
                                                                            bundle="${ rb }"/></div>

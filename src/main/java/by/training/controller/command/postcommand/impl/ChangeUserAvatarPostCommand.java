@@ -60,25 +60,22 @@ public class ChangeUserAvatarPostCommand implements Command {
             List<FileItem> multiFiles = fileUpload.parseRequest(req);
             FileItem item = multiFiles.get(0);
 
+            if (item.getName().equals("")) {
+                req.getSession().setAttribute(ATTRIBUTE_USER_AVATAR_PROBLEM, "fillOutField");
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
+            }
+
             String fileName = UUID.randomUUID().toString() + item.getName();
             String filePath = req.getServletContext().getRealPath("") + "img" + File.separator + "avatar" + File.separator
                     + fileName;
             File avatar = new File(filePath);
             item.write(avatar);
 
-            File copyFile = new File(PATH_TO_AVATAR_FOR_TEST + fileName);
-            FileUtils.copyFile(avatar, copyFile);
-
             if (!user.getAvatar().equals(DEFAULT_AVATAR_NAME)) {
                 avatar = new File(req.getServletContext().getRealPath("") + "img" + File.separator + "avatar" + File.separator
                         + user.getAvatar());
-                File copyAvatar = new File(PATH_TO_AVATAR_FOR_TEST +
-                        user.getAvatar());
                 if (avatar.exists()) {
                     Files.delete(avatar.toPath());
-                }
-                if (copyAvatar.exists()) {
-                    Files.delete(copyAvatar.toPath());
                 }
             }
 
@@ -87,6 +84,10 @@ public class ChangeUserAvatarPostCommand implements Command {
             ServiceFactory.getInstance().getUserService().save(user);
             return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
         } catch (ServiceException e) {
+            if (e.getCode() == HttpServletResponse.SC_BAD_REQUEST) {
+                req.getSession().setAttribute(ATTRIBUTE_USER_AVATAR_PROBLEM, e.getErrors().get("userAvatarProblem"));
+                return new CommandResponse(RoutingType.REDIRECT, ROUTING_PROFILE_PAGE, req, resp);
+            }
             logger.error(e);
             return RoutingUtils.routingErrorPage(req, resp, e.getCode());
         } catch (FileUploadBase.FileSizeLimitExceededException e) {

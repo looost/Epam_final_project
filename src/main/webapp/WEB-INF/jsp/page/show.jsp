@@ -248,7 +248,7 @@
                                                             <label for="logo"> <fmt:message key="loadSerialLogo"
                                                                                             bundle="${ rb }"/></label>
                                                             <input type="file" class="form-control-file" id="logo"
-                                                                   name="logo">
+                                                                   name="logo" accept="image/*">
                                                             <c:if test="${not empty serialLogoProblem}">
                                                                 <div class="invalid-feedback text-style">
                                                                     <fmt:message key="${serialLogoProblem}"
@@ -261,7 +261,7 @@
                                                             <label for="full_logo"> <fmt:message
                                                                     key="loadSerialFullLogo" bundle="${ rb }"/></label>
                                                             <input type="file" class="form-control-file" id="full_logo"
-                                                                   name="full_logo">
+                                                                   name="full_logo" accept="image/*">
                                                             <c:if test="${not empty serialFullLogoProblem}">
                                                                 <div class="invalid-feedback text-style">
                                                                     <fmt:message key="${serialFullLogoProblem}"
@@ -463,7 +463,7 @@
                                         </p>
                                         <div class="clearfix"></div>
                                         <p class="text-style">${comment.comment}</p>
-                                        <c:if test="${sessionScope.user.equals(comment.user.login)}">
+                                        <c:if test="${sessionScope.login.equals(comment.user.login)}">
                                             <a href="" data-toggle="modal"
                                                data-target="#change${comment.id}"> <i
                                                     class="far fa-edit"></i></a>

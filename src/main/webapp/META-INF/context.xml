@@ -10,6 +10,6 @@
             driverClassName="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/serials_db?serverTimezone=Europe/Minsk"
             validationQuery="select 1"
-            maxActive="0"
+            maxActive="10"
             maxIdle="4"/>
 </Context>

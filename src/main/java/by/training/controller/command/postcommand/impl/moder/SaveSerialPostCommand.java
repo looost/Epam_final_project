@@ -169,26 +169,16 @@ public class SaveSerialPostCommand implements Command {
                 } else if (item.getName().equals("") && serial.getLogo() != null) {
                     break;
                 } else {
-//                    String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
-//                            + fileName;
                     String filePath = req.getServletContext().getRealPath("") + "img" + File.separator
                             + fileName;
                     File logo = new File(filePath);
                     item.write(logo);
-//                    File copyFile = new File(PATH_TO_IMG_FOR_TEST + fileName);
-//                    FileUtils.copyFile(logo, copyFile);
-
                     if (serial.getLogo() != null && !serial.getLogo().equals(DEFAULT_IMG_NAME)) {
                         File oldLogo = new File(req.getServletContext().getRealPath("") + "img" + File.separator
                                 + serial.getLogo());
-//                        File copyOldLogo = new File(PATH_TO_IMG_FOR_TEST +
-//                                serial.getLogo());
                         if (oldLogo.exists()) {
                             Files.delete(oldLogo.toPath());
                         }
-//                        if (copyOldLogo.exists()) {
-//                            Files.delete(copyOldLogo.toPath());
-//                        }
                     }
 
                     serial.setLogo(logo.getName());
@@ -201,27 +191,16 @@ public class SaveSerialPostCommand implements Command {
                 } else if (item.getName().equals("") && serial.getFullLogo() != null) {
                     break;
                 } else {
-//                    String filePath = req.getServletContext().getInitParameter(PATH_TO_UPLOAD_FILE_DIR)
-//                            + fileName;
                     String filePath = req.getServletContext().getRealPath("") + "img" + File.separator + fileName;
                     File fullLogo = new File(filePath);
                     item.write(fullLogo);
-//                    File copyFile = new File(PATH_TO_IMG_FOR_TEST + fileName);
-//                    FileUtils.copyFile(fullLogo, copyFile);
-
                     if (serial.getFullLogo() != null && !serial.getFullLogo().equals(DEFAULT_IMG_NAME)) {
                         File oldFullLogo = new File(req.getServletContext().getRealPath("")
                                 + "img" + File.separator + serial.getFullLogo());
-//                        File copyOldFullLogo = new File(PATH_TO_IMG_FOR_TEST +
-//                                serial.getFullLogo());
                         if (oldFullLogo.exists()) {
                             Files.delete(oldFullLogo.toPath());
                         }
-//                        if (copyOldFullLogo.exists()) {
-//                            Files.delete(copyOldFullLogo.toPath());
-//                        }
                     }
-
                     serial.setFullLogo(fullLogo.getName());
                     break;
                 }

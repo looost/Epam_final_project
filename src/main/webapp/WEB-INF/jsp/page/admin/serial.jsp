@@ -61,7 +61,8 @@
                         </div>
 
                         <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="validatedLogo" name="logo">
+                            <input type="file" class="custom-file-input" id="validatedLogo" name="logo"
+                                   accept="image/*">
                             <label class="custom-file-label" for="validatedLogo"><fmt:message key="loadSerialLogo"
                                                                                               bundle="${ rb }"/></label>
                             <c:if test="${not empty serialLogoProblem}">
@@ -72,7 +73,8 @@
                         </div>
 
                         <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="validatedFullLogo" name="full_logo">
+                            <input type="file" class="custom-file-input" id="validatedFullLogo" name="full_logo"
+                                   accept="image/*">
                             <label class="custom-file-label" for="validatedFullLogo"><fmt:message
                                     key="loadSerialFullLogo" bundle="${ rb }"/></label>
                             <c:if test="${not empty serialFullLogoProblem}">

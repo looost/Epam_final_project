@@ -22,17 +22,6 @@ public class ConnectionPool {
         return instance;
     }
 
-//    public Connection getConnection()  {
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            return DriverManager
-//                    .getConnection("jdbc:mysql://localhost:3306/serials_db?serverTimezone=UTC", "application", "admin");
-//        } catch (SQLException | ClassNotFoundException e) {
-//            //throw new DaoException("Cannot connection", e);
-//            return null;
-//        }
-//    }
-
     /**
      * Method for getting connection.
      *
@@ -41,7 +30,7 @@ public class ConnectionPool {
      */
     public Connection getConnection() throws DaoException {
         Context ctx;
-        Connection c = null;
+        Connection c;
         try {
             ctx = new InitialContext();
             DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/serial");

@@ -37,7 +37,6 @@ public class IndexServlet extends HttpServlet {
         super.init();
         logger.info("Initializing servlet");
     }
-
     /**
      * The method of processing a search query in the form
      * that is presented in {@link by.training.controller.command.CommandName}.
@@ -49,7 +48,6 @@ public class IndexServlet extends HttpServlet {
     private static String getRequestURI(final HttpServletRequest req) {
         return req.getServletPath()
                 .substring(1, req.getServletPath().lastIndexOf('.')).replaceAll("/", "_");
-
     }
 
     /**

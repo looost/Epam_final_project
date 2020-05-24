@@ -8,8 +8,7 @@ import by.training.service.validation.Validation;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.training.utils.ConstantName.ATTRIBUTE_INVALID_LOGIN;
-import static by.training.utils.ConstantName.MAX_USER_LOGIN_LENGTH;
+import static by.training.utils.ConstantName.*;
 
 /**
  * Implementation of {@link Validation} interface.
@@ -28,6 +27,9 @@ public class UserValidationImpl implements Validation<User> {
         if (entity.getLogin().length() > MAX_USER_LOGIN_LENGTH) {
             errors.put(ATTRIBUTE_INVALID_LOGIN, "invalidLoginLength");
             return errors;
+        }
+        if (entity.getAvatar().length() > MAX_USER_AVATAR_NAME_LENGTH) {
+            errors.put(ATTRIBUTE_USER_AVATAR_PROBLEM, "incorrectImageNameLength");
         }
         return errors;
     }
