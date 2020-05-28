@@ -55,7 +55,8 @@ create table serial
     CONSTRAINT fk_serial_studio FOREIGN KEY (`studio_id`)
         REFERENCES studio (`id`)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE,
+    INDEX `index_count_like` (`count_like`)
 );
 
 create table comment
@@ -73,7 +74,8 @@ create table comment
     CONSTRAINT fk_comment_serial FOREIGN KEY (`serial_id`)
         REFERENCES serial (`id`)
         ON DELETE CASCADE
-        ON UPDATE CASCADE
+        ON UPDATE CASCADE,
+    INDEX `index_publication_date` (`publication_date`)
 );
 
 create table viewed
